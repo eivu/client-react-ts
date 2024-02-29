@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import DropdownUser from './DropdownUser';
-import LogoIcon from '../../images/logo/logo-icon.svg';
 import TabsCategory from '../TabsCategory';
 
 const Header = (props: {
@@ -55,7 +54,8 @@ const Header = (props: {
           {/* <!-- Hamburger Toggle BTN --> */}
 
           <Link className="block flex-shrink-0 lg:hidden" to="/">
-            <img src={LogoIcon} alt="Logo" />
+            EIVU
+            {/* <img src={LogoIcon} alt="Logo" /> */}
           </Link>
         </div>
 
