@@ -13,7 +13,7 @@ const Tabs: React.FC = () => {
       <div className="flex flex-col gap-9">
         <TabOne />
         <TabTwo />
-        <TabThree />
+        <TabsCategory />
       </div>
     </DefaultLayout>
   );
