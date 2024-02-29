@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 
 import ECommerce from './pages/Dashboard/ECommerce';
+import Files from './pages/Files';
 import Analytics from './pages/Dashboard/Analytics';
 import Marketing from './pages/Dashboard/Marketing';
 import CRM from './pages/Dashboard/CRM';
@@ -83,7 +84,7 @@ function App() {
           element={
             <>
               <PageTitle title="eCommerce Dashboard | TailAdmin - Tailwind CSS Admin Dashboard Template" />
-              <ECommerce />
+              <Files />
             </>
           }
         />
