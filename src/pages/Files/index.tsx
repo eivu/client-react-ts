@@ -1,7 +1,7 @@
 import React from 'react';
-import DefaultLayout from '../layout/DefaultLayout';
+import DefaultLayout from '../../layout/DefaultLayout';
 import { useMemo } from 'react';
-import { queueItems } from '../data/queueItems';
+import { queueItems } from '../../data/queueItems';
 import {
   useTable,
   useSortBy,
@@ -18,7 +18,7 @@ const headerRow = [
   },
   {
     Header: 'Size',
-    accessor: 'size',
+    accessor: 'fileSize',
   },
   {
     Header: 'Rating',
