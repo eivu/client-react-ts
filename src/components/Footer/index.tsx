@@ -1,15 +1,13 @@
-// src/components/Footer.tsx
-
 import React from 'react';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-gray-800 text-white text-center p-4">
+    // <footer className="fixed inset-x-0 bottom-0 bg-gray-200 text-center py-4 text-gray-700">
+    // <footer className="bg-gray-200 text-center py-4 text-gray-700">
+    // <footer className="bg-gray-800 text-center p-4">
+    <footer className="sticky inset-x-0 bottom-0 text-center py-4">
       <div className="container mx-auto" style={{color: 'black'}}>
         <h3>MP3 controls go here</h3>
-        <p className="text-sm">
-          &copy; {new Date().getFullYear()} Your Company. All rights reserved.
-        </p>
         <p className="text-xs mt-2">
           Follow us on
           <a href="https://twitter.com" className="text-blue-500 hover:underline ml-1">
