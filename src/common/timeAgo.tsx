@@ -14,19 +14,23 @@ export function timeAgo(dateString: string): string {
   const now = new Date();
   const elapsedSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
 
+  const pluralize = (quantity: number, unit: string): string => {
+    return `${quantity} ${unit}${quantity > 1 ? 's' : ''} ago`;
+  };
+
   if (elapsedSeconds < secondsPerMinute) {
-    return elapsedSeconds <= 5 ? 'just now' : `${elapsedSeconds} seconds ago`;
+    return elapsedSeconds <= 5 ? 'just now' : pluralize(elapsedSeconds, 'second');
   } else if (elapsedSeconds < secondsPerHour) {
-    return `${Math.floor(elapsedSeconds / secondsPerMinute)} minutes ago`;
+    return pluralize(Math.floor(elapsedSeconds / secondsPerMinute), 'minute');
   } else if (elapsedSeconds < secondsPerDay) {
-    return `${Math.floor(elapsedSeconds / secondsPerHour)} hours ago`;
+    return pluralize(Math.floor(elapsedSeconds / secondsPerHour), 'hour');
   } else if (elapsedSeconds < secondsPerWeek) {
-    return `${Math.floor(elapsedSeconds / secondsPerDay)} days ago`;
+    return pluralize(Math.floor(elapsedSeconds / secondsPerDay), 'day');
   } else if (elapsedSeconds < secondsPerMonth) {
-    return `${Math.floor(elapsedSeconds / secondsPerWeek)} weeks ago`;
+    return pluralize(Math.floor(elapsedSeconds / secondsPerWeek), 'week');
   } else if (elapsedSeconds < secondsPerYear) {
-    return `${Math.floor(elapsedSeconds / secondsPerMonth)} months ago`;
+    return pluralize(Math.floor(elapsedSeconds / secondsPerMonth), 'month');
   } else {
-    return `${Math.floor(elapsedSeconds / secondsPerYear)} years ago`;
+    return pluralize(Math.floor(elapsedSeconds / secondsPerYear), 'year');
   }
 }
