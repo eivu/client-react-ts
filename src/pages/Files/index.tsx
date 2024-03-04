@@ -1,6 +1,7 @@
 import React from 'react';
 import DefaultLayout from '../../layout/DefaultLayout';
 import prettyBytes from 'pretty-bytes';
+import { timeAgo } from '../../common/timeAgo';
 import { useMemo } from 'react';
 import { queueItems } from '../../data/queueItems';
 import {
@@ -36,13 +37,16 @@ const headerRow = [
     Header: 'Last Viewed',
     accessor: 'lastViewedAt',
     Cell: ({ value }) => {
-      // return <span>{timeAgo.format(Date.now() - 60 * 1000)}</span>
+      return <span>{timeAgo(value)}</span>
       // return <span>{timeAgo.format(new Date(value))}</span>;
     }
   },
   {
     Header: 'Uploaded',
     accessor: 'uploadedAt',
+    Cell: ({ value }) => {
+      return <span>{timeAgo(value)}</span>
+    }
   },
 ];
 
