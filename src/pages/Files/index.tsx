@@ -1,6 +1,7 @@
 import React from 'react';
 import DefaultLayout from '../../layout/DefaultLayout';
 import TimeAgo from 'javascript-time-ago';
+import prettyBytes from 'pretty-bytes';
 import { useMemo } from 'react';
 import { queueItems } from '../../data/queueItems';
 import {
@@ -20,6 +21,9 @@ const headerRow = [
   {
     Header: 'Size',
     accessor: 'fileSize',
+    Cell: ({ value }) => {
+      return <span>{prettyBytes(value)}</span>;
+    }
   },
   {
     Header: 'Rating',
@@ -32,6 +36,10 @@ const headerRow = [
   {
     Header: 'Last Viewed',
     accessor: 'lastViewedAt',
+    // Cell: ({ value }) => {
+    //   const timeAgo = new TimeAgo('en-US');
+    //   return <span>{timeAgo.format(new Date(value))}</span>;
+    // }
   },
   {
     Header: 'Uploaded',
