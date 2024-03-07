@@ -1,5 +1,7 @@
 import React from 'react';
 import DefaultLayout from '../../layout/DefaultLayout';
+import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
+
 import prettyBytes from 'pretty-bytes';
 import { timeAgo } from '../../common/timeAgo';
 import { useMemo } from 'react';
@@ -147,9 +149,9 @@ const Files: React.FC = () => {
                           header.getContext()
                         )}
                         {{
-                          asc: '🔼',
-                          desc: ' 🔽',
-                          false: 'X'
+                          asc: <FaSortUp className='inline' />,
+                          desc: <FaSortDown className='inline' />,
+                          false: <FaSort  className='inline' />
                         }[header.column.getIsSorted() as string] ?? null}
                       </div>
                     )}
