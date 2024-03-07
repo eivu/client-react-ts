@@ -7,6 +7,9 @@ import { timeAgo } from '../../common/timeAgo';
 import { useMemo } from 'react';
 import { queueItems } from '../../data/queueItems';
 import { PlayButton } from '../../components/PlayButton';
+import { PauseButton } from '../../components/PauseButton';
+
+import { QueueItem } from '../../types/queueItem';
 import {
   ColumnDef,
   flexRender,
@@ -15,12 +18,13 @@ import {
   SortingState,
   useReactTable,
 } from '@tanstack/react-table'
-import { QueueItem } from '../../types/queueItem';
+
 
 
 
 
 const Files: React.FC = () => {
+  const nowPlayingMd5 = -1;
   const [sorting, setSorting] = React.useState<SortingState>([])
   const columns = React.useMemo<ColumnDef<QueueItem>[]>(
     () => [
@@ -39,15 +43,8 @@ const Files: React.FC = () => {
         enableSorting: false,
         disableSortBy: true,
         cell: info => (
-          console.log(info.row.original)
-          // console.log(JSON.stringify(info))
+           false ? <PauseButton /> : <PlayButton />
         )
-      },
-      {
-        header: 'md5',
-        // disableSortBy: true,
-        // disableSortBy: true,
-        accessorKey: 'md5',
       },
       {
         header: 'Name',
@@ -57,9 +54,6 @@ const Files: React.FC = () => {
         header: 'Size',
         accessorKey: 'fileSize',
         cell: info => <span>{prettyBytes(info.getValue())}</span>
-        // Cell: ({ value }) => {
-        //   return <span>{prettyBytes(value)}</span>;
-        // }
       },
       {
         header: 'Rating',
