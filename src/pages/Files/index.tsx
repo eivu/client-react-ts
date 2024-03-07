@@ -147,8 +147,9 @@ const Files: React.FC = () => {
                           header.getContext()
                         )}
                         {{
-                          asc: ' 🔼',
+                          asc: '🔼',
                           desc: ' 🔽',
+                          false: 'X'
                         }[header.column.getIsSorted() as string] ?? null}
                       </div>
                     )}
