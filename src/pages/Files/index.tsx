@@ -34,6 +34,16 @@ const Files: React.FC = () => {
       //   ),
       // },
       {
+        header: () => null,
+        id: 'controls',
+        enableSorting: false,
+        disableSortBy: true,
+        cell: info => (
+          console.log(info.row.original)
+          // console.log(JSON.stringify(info))
+        )
+      },
+      {
         header: 'md5',
         // disableSortBy: true,
         // disableSortBy: true,
@@ -46,6 +56,7 @@ const Files: React.FC = () => {
       {
         header: 'Size',
         accessorKey: 'fileSize',
+        cell: info => <span>{prettyBytes(info.getValue())}</span>
         // Cell: ({ value }) => {
         //   return <span>{prettyBytes(value)}</span>;
         // }
@@ -61,17 +72,12 @@ const Files: React.FC = () => {
       {
         header: 'Last Viewed',
         accessorKey: 'lastViewedAt',
-        // Cell: ({ value }) => {
-        //   return <span>{timeAgo(value)}</span>
-        //     return <span>{timeAgo.format(new Date(value))}</span>;
-        // }
+        cell: info => <span>{timeAgo(info.getValue())}</span>
       },
       {
         header: 'Uploaded',
         accessorKey: 'uploadedAt',
-        // Cell: ({ value }) => {
-        //   return <span>{timeAgo(value)}</span>
-        // }
+        cell: info => <span>{timeAgo(info.getValue())}</span>
       },
     ],
     []
