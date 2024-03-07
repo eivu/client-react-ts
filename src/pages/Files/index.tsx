@@ -21,22 +21,10 @@ import {
 
 
 
-
-
 const Files: React.FC = () => {
-  const nowPlayingMd5 = -1;
   const [sorting, setSorting] = React.useState<SortingState>([])
   const columns = React.useMemo<ColumnDef<QueueItem>[]>(
     () => [
-      // {
-      //   header: () => null,  No header
-      //   id: 'row',
-      //     disableSortBy: true,
-      //     enableSorting: false,
-      //   Cell: ({ row } : {row:any }) => (
-      //     <PlayButton />
-      //   ),
-      // },
       {
         header: () => null,
         id: 'controls',
@@ -77,15 +65,8 @@ const Files: React.FC = () => {
     []
   )
 
-
-
-
-
-
-  const data = useMemo(() => queueItems, []);
-
   const table = useReactTable({
-    data,
+    data: queueItems,
     columns,
     state: {
       sorting,
@@ -128,7 +109,7 @@ const Files: React.FC = () => {
           </div> */}
         </div>
 
-      <table>
+      <table className="datatable-table w-full table-auto border-collapse overflow-hidden break-words px-4 md:table-fixed md:overflow-auto md:px-8">
         <thead>
           {table.getHeaderGroups().map(headerGroup => (
             <tr key={headerGroup.id}>
