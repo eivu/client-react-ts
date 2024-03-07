@@ -4,6 +4,7 @@ import prettyBytes from 'pretty-bytes';
 import { timeAgo } from '../../common/timeAgo';
 import { useMemo } from 'react';
 import { queueItems } from '../../data/queueItems';
+import { PlayButton } from '../../components/PlayButton';
 import {
   useTable,
   useSortBy,
@@ -14,6 +15,20 @@ import {
 
 
 const headerRow = [
+  {
+    Header: () => null, // No header
+    id: 'row',
+    disableSortBy: true,
+    Cell: ({ row } : {row:any }) => (
+      <PlayButton />
+    ),
+  },
+  // {
+  //   Header: 'md5',
+  //   // disableSortBy: true,
+  //   disableSortBy: true,
+  //   accessor: 'md5',
+  // },
   {
     Header: 'Name',
     accessor: 'name',

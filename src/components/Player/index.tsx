@@ -22,7 +22,7 @@ import {
 
 import { textTracks } from './tracks';
 
-export function Player() {
+export function Player():FC {
   let player = useRef<MediaPlayerInstance>(null),
     [src, setSrc] = useState('');
 
