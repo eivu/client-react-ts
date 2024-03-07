@@ -6,103 +6,99 @@ import { useMemo } from 'react';
 import { queueItems } from '../../data/queueItems';
 import { PlayButton } from '../../components/PlayButton';
 import {
-  useTable,
-  useSortBy,
-  useGlobalFilter,
-  useFilters,
-  usePagination,
-} from 'react-table';
+  ColumnDef,
+  flexRender,
+  getCoreRowModel,
+  getSortedRowModel,
+  SortingState,
+  useReactTable,
+} from '@tanstack/react-table'
+import { QueueItem } from '../../types/queueItem';
 
 
-const headerRow = [
-  {
-    Header: () => null, // No header
-    id: 'row',
-    disableSortBy: true,
-    Cell: ({ row } : {row:any }) => (
-      <PlayButton />
-    ),
-  },
-  // {
-  //   Header: 'md5',
-  //   // disableSortBy: true,
-  //   disableSortBy: true,
-  //   accessor: 'md5',
-  // },
-  {
-    Header: 'Name',
-    accessor: 'name',
-  },
-  {
-    Header: 'Size',
-    accessor: 'fileSize',
-    Cell: ({ value }) => {
-      return <span>{prettyBytes(value)}</span>;
-    }
-  },
-  {
-    Header: 'Rating',
-    accessor: 'rating',
-  },
-  {
-    Header: '# Plays',
-    accessor: 'numPlays',
-  },
-  {
-    Header: 'Last Viewed',
-    accessor: 'lastViewedAt',
-    Cell: ({ value }) => {
-      return <span>{timeAgo(value)}</span>
-      // return <span>{timeAgo.format(new Date(value))}</span>;
-    }
-  },
-  {
-    Header: 'Uploaded',
-    accessor: 'uploadedAt',
-    Cell: ({ value }) => {
-      return <span>{timeAgo(value)}</span>
-    }
-  },
-];
+
 
 const Files: React.FC = () => {
-  const columns = useMemo(() => headerRow, []);
+  const [sorting, setSorting] = React.useState<SortingState>([])
+  const columns = React.useMemo<ColumnDef<QueueItem>[]>(
+    () => [
+      // {
+      //   header: () => null,  No header
+      //   id: 'row',
+      //     disableSortBy: true,
+      //     enableSorting: false,
+      //   Cell: ({ row } : {row:any }) => (
+      //     <PlayButton />
+      //   ),
+      // },
+      {
+        header: 'md5',
+        // disableSortBy: true,
+        // disableSortBy: true,
+        accessorKey: 'md5',
+      },
+      {
+        header: 'Name',
+        accessorKey: 'name',
+      },
+      {
+        header: 'Size',
+        accessorKey: 'fileSize',
+        // Cell: ({ value }) => {
+        //   return <span>{prettyBytes(value)}</span>;
+        // }
+      },
+      {
+        header: 'Rating',
+        accessorKey: 'rating',
+      },
+      {
+        header: '# Plays',
+        accessorKey: 'numPlays',
+      },
+      {
+        header: 'Last Viewed',
+        accessorKey: 'lastViewedAt',
+        // Cell: ({ value }) => {
+        //   return <span>{timeAgo(value)}</span>
+        //     return <span>{timeAgo.format(new Date(value))}</span>;
+        // }
+      },
+      {
+        header: 'Uploaded',
+        accessorKey: 'uploadedAt',
+        // Cell: ({ value }) => {
+        //   return <span>{timeAgo(value)}</span>
+        // }
+      },
+    ],
+    []
+  )
+
+
+
+
+
+
   const data = useMemo(() => queueItems, []);
 
-  const tableInstance = useTable(
-    {
-      columns,
-      data,
+  const table = useReactTable({
+    data,
+    columns,
+    state: {
+      sorting,
     },
-    useFilters,
-    useGlobalFilter,
-    useSortBy,
-    usePagination
-  );
-
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    page,
-    prepareRow,
-    state,
-    setGlobalFilter,
-    nextPage,
-    previousPage,
-    canNextPage,
-    canPreviousPage,
-    pageOptions,
-    setPageSize,
-    gotoPage,
-  } = tableInstance;
-
-  const { globalFilter, pageIndex, pageSize } = state;
+    onSortingChange: setSorting,
+    getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    debugTable: true,
+  })
 
   return (
     <DefaultLayout>
       <section className="data-table-common data-table-two rounded-sm border border-stroke bg-white py-4 shadow-default dark:border-strokedark  dark:bg-boxdark">
         <div className="flex justify-between border-b border-stroke px-8 pb-4 dark:border-strokedark">
+          {/* Search Field
           <div className="w-100">
             <input
               type="text"
@@ -111,8 +107,9 @@ const Files: React.FC = () => {
               className="w-full rounded-md border border-stroke px-5 py-2.5 outline-none focus:border-primary dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
               placeholder="Search..."
             />
-          </div>
+          </div> */}
 
+          {/* Num Entries
           <div className="flex items-center font-medium">
             <select
               value={pageSize}
@@ -126,78 +123,65 @@ const Files: React.FC = () => {
               ))}
             </select>
             <p className="pl-2 text-black dark:text-white">Entries Per Page</p>
-          </div>
+          </div> */}
         </div>
 
-        <table
-          {...getTableProps()}
-          className="datatable-table w-full table-auto border-collapse overflow-hidden break-words px-4 md:table-fixed md:overflow-auto md:px-8"
-        >
-          <thead>
-            {headerGroups.map((headerGroup, key) => (
-              <tr {...headerGroup.getHeaderGroupProps()} key={key}>
-                {headerGroup.headers.map((column, key) => (
-                  <th
-                    {...column.getHeaderProps(column.getSortByToggleProps())}
-                    key={key}
-                  >
-                    <div className="flex items-center">
-                      <span> {column.render('Header')}</span>
-
-                      <div className="ml-2 inline-flex flex-col space-y-[2px]">
-                        <span className="inline-block">
-                          <svg
-                            className="fill-current"
-                            width="10"
-                            height="5"
-                            viewBox="0 0 10 5"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path d="M5 0L0 5H10L5 0Z" fill="" />
-                          </svg>
-                        </span>
-                        <span className="inline-block">
-                          <svg
-                            className="fill-current"
-                            width="10"
-                            height="5"
-                            viewBox="0 0 10 5"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M5 5L10 0L-4.37114e-07 8.74228e-07L5 5Z"
-                              fill=""
-                            />
-                          </svg>
-                        </span>
+      <table>
+        <thead>
+          {table.getHeaderGroups().map(headerGroup => (
+            <tr key={headerGroup.id}>
+              {headerGroup.headers.map(header => {
+                return (
+                  <th key={header.id} colSpan={header.colSpan}>
+                    {header.isPlaceholder ? null : (
+                      <div
+                        {...{
+                          className: header.column.getCanSort()
+                            ? 'cursor-pointer select-none'
+                            : '',
+                          onClick: header.column.getToggleSortingHandler(),
+                        }}
+                      >
+                        {flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                        {{
+                          asc: ' 🔼',
+                          desc: ' 🔽',
+                        }[header.column.getIsSorted() as string] ?? null}
                       </div>
-                    </div>
+                    )}
                   </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody {...getTableBodyProps()}>
-            {page.map((row, key) => {
-              prepareRow(row);
+                )
+              })}
+            </tr>
+          ))}
+        </thead>
+        <tbody>
+          {table
+            .getRowModel()
+            .rows.slice(0, 100)
+            .map(row => {
               return (
-                <tr {...row.getRowProps()} key={key}>
-                  {row.cells.map((cell, key) => {
+                <tr key={row.id}>
+                  {row.getVisibleCells().map(cell => {
                     return (
-                      <td {...cell.getCellProps()} key={key}>
-                        {cell.render('Cell')}
+                      <td key={cell.id}>
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
                       </td>
-                    );
+                    )
                   })}
                 </tr>
-              );
+              )
             })}
-          </tbody>
-        </table>
+        </tbody>
+      </table>
 
-        <div className="flex justify-between border-t border-stroke px-8 pt-5 dark:border-strokedark">
+        {/* <div className="flex justify-between border-t border-stroke px-8 pt-5 dark:border-strokedark">
           <p className="font-medium">
             Showing {pageIndex + 1} 0f {pageOptions.length} pages
           </p>
@@ -256,7 +240,7 @@ const Files: React.FC = () => {
               </svg>
             </button>
           </div>
-        </div>
+        </div> */}
       </section>
     </DefaultLayout>
   );

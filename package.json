@@ -14,6 +14,7 @@
     "url": "https://tailadmin.com"
   },
   "dependencies": {
+    "@tanstack/react-table": "^8.13.2",
     "@vidstack/react": "^1.10.9",
     "apexcharts": "^3.37.0",
     "dropzone": "^6.0.0-beta.2",
@@ -31,14 +32,12 @@
     "react-flatpickr": "^3.10.13",
     "react-icons": "^5.0.1",
     "react-router-dom": "^6.8.1",
-    "react-table": "^7.8.0",
     "sort-by": "^0.0.2",
     "swiper": "^9.4.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
-    "@types/react-table": "^7.7.15",
     "@vitejs/plugin-react": "^3.1.0",
     "autoprefixer": "^10.4.13",
     "file-loader": "^6.2.0",
