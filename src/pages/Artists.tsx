@@ -1,7 +1,7 @@
 import React from 'react';
 import DefaultLayout from '../layout/DefaultLayout';
 
-const Files: React.FC = () => {
+const Artists: React.FC = () => {
   return (
     <DefaultLayout>
       Artists go here
