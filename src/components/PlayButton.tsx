@@ -10,11 +10,15 @@ function assignSrc(remote:MediaRemoteControl):void {
   const player = remote.getPlayer();
   console.log(remote);
   console.log(player);
+
 }
 
-export const PlayButton: FC = () => {
+export const PlayButton:FC = ({item}) => {
   const [hover, setHover] = useState(false);
   const remote = useMediaRemote(); // https://www.vidstack.io/docs/player/api/classes/media-remote-control?styling=default-theme
+  let p = useRef<MediaPlayerInstance>(null)
+  console.log(item)
+
 
   return (
     <div

@@ -31,7 +31,7 @@ const Files: React.FC = () => {
         enableSorting: false,
         disableSortBy: true,
         cell: info => (
-           false ? <PauseButton /> : <PlayButton />
+           false ? <PauseButton item={info.row.original} /> : <PlayButton item={info.row.original} />
         )
       },
       {
