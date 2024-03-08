@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
+import { Provider } from 'react-redux';
 import Loader from './common/Loader';
 import { AppRoutes } from './AppRoutes';
+import { store } from './store/store'
 
 
 
@@ -11,7 +13,11 @@ function App() {
     setTimeout(() => setLoading(false), 1000);
   }, []);
 
-  return loading ? <Loader /> : <AppRoutes />;
+  return(
+    <Provider store={store}>
+      {loading ? <Loader /> : <AppRoutes />}
+    </Provider>
+  );
 }
 
 export default App;
