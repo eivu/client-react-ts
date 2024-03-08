@@ -1,6 +1,6 @@
 import './player.css';
 
-import { useEffect, useRef, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 
 import {
   isHLSProvider,
@@ -22,9 +22,9 @@ import {
 
 import { textTracks } from './tracks';
 
-export function Player():FC {
+export function Player() {
   let player = useRef<MediaPlayerInstance>(null),
-    [src, setSrc] = useState('');
+  [src, setSrc] = useState('');
 
   useEffect(() => {
     // Initialize src.
