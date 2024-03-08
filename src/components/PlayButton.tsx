@@ -1,7 +1,10 @@
 import { PiPlayCircleLight, PiPlayCircleFill } from "react-icons/pi";
 import { useEffect, useRef, useState, useStore } from 'react';
-import { useMediaPlayer, useMediaStore, MediaPlayer, MediaPlayerInstance } from '@vidstack/react';
-import { useMediaRemote, type MediaRemoteControl } from '@vidstack/react';
+import {
+  useMediaPlayer, useMediaStore, MediaPlayer, useMediaRemote, MediaPlayerInstance,
+  useMediaState,
+  type MediaRemoteControl
+} from '@vidstack/react';
 
 
 
@@ -15,9 +18,12 @@ function assignSrc(remote:MediaRemoteControl):void {
 
 export const PlayButton:FC = ({item}) => {
   const [hover, setHover] = useState(false);
+  const isPlaying = useMediaState('playing');
   const remote = useMediaRemote(); // https://www.vidstack.io/docs/player/api/classes/media-remote-control?styling=default-theme
+
   let p = useRef<MediaPlayerInstance>(null)
   console.log(item)
+  console.log(isPlaying)
 
 
   return (
