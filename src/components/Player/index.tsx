@@ -1,6 +1,6 @@
 import './player.css';
 
-import { FC, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import {
   isHLSProvider,
@@ -21,14 +21,22 @@ import {
 } from '@vidstack/react/player/layouts/default';
 
 import { textTracks } from './tracks';
+import { useSelector, useDispatch } from 'react-redux';
+import { setPlayer, addNum } from '../../store/mediaSlice';
 
-export function Player() {
-  let player = useRef<MediaPlayerInstance>(null),
-  [src, setSrc] = useState('');
+
+
+export function Player():ReactElement {
+  let player = useRef<MediaPlayerInstance>(null);
+  const dispatch = useDispatch();
+  const [src, setSrc] = useState('');
+
 
   useEffect(() => {
     // Initialize src.
     changeSource('audio');
+    dispatch(addNum(123));
+    // dispatch(setPlayer(player));
 
     // Subscribe to state updates.
     return player.current!.subscribe(({ paused, viewType }) => {

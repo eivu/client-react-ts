@@ -37,7 +37,7 @@ export const mediaSlice = createSlice({
 });
 
 export const {
-  setPlayer
+  setPlayer, addNum
 } = mediaSlice.actions;
 
 export default mediaSlice.reducer;
