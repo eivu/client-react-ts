@@ -5,6 +5,7 @@ import {
   useMediaState,
   type MediaRemoteControl
 } from '@vidstack/react';
+import { useSelector} from 'react-redux'
 
 
 
@@ -18,12 +19,18 @@ function assignSrc(remote:MediaRemoteControl):void {
 
 export const PlayButton:FC = ({item}) => {
   const [hover, setHover] = useState(false);
-  const isPlaying = useMediaState('playing');
-  const remote = useMediaRemote(); // https://www.vidstack.io/docs/player/api/classes/media-remote-control?styling=default-theme
+  // const isPlaying = useMediaState('playing');
+  // const remote = useMediaRemote(); // https://www.vidstack.io/docs/player/api/classes/media-remote-control?styling=default-theme
 
-  let p = useRef<MediaPlayerInstance>(null)
-  console.log(item)
-  console.log(isPlaying)
+//   const user = useSelector(
+//     (state: RootState) => state.user.user
+//   );
+
+
+
+  // let p = useRef<MediaPlayerInstance>(null)
+  // console.log(item)
+  // console.log(isPlaying)
 
 
   return (

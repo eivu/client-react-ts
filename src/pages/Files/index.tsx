@@ -4,7 +4,6 @@ import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
 
 import prettyBytes from 'pretty-bytes';
 import { timeAgo } from '../../common/timeAgo';
-import { useMemo } from 'react';
 import { queueItems } from '../../data/queueItems';
 import { PlayButton } from '../../components/PlayButton';
 import { PauseButton } from '../../components/PauseButton';
@@ -21,7 +20,14 @@ import {
 
 
 
+
+import { useSelector, useDispatch } from 'react-redux'
+import type { RootState } from '../../store/store';
+
 const Files: React.FC = () => {
+  const numbers = useSelector(
+    (state:RootState) => state.media.numbers
+  )
   const [sorting, setSorting] = React.useState<SortingState>([])
   const columns = React.useMemo<ColumnDef<QueueItem>[]>(
     () => [
@@ -108,6 +114,10 @@ const Files: React.FC = () => {
             <p className="pl-2 text-black dark:text-white">Entries Per Page</p>
           </div> */}
         </div>
+
+        <h1>hello
+          {numbers}
+        </h1>
 
       <table className="datatable-table w-full table-auto border-collapse overflow-hidden break-words px-4 md:table-fixed md:overflow-auto md:px-8">
         <thead>

@@ -4,8 +4,6 @@ import Loader from './common/Loader';
 import { AppRoutes } from './AppRoutes';
 import { store } from './store/store'
 
-
-
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
 
