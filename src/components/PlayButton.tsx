@@ -13,12 +13,12 @@ export const PlayButton:FC = ({item}) => {
   const { player, dispatch } = useAppContext();
   const [hover, setHover] = useState(false);
   // https://www.vidstack.io/docs/player/components/core/player?styling=css#mediaplayer.state
-  const url = 'https://eivu.s3.amazonaws.com/welcome.mp3';
 
-  useEffect(() => {
-    // console.log('player', player);
-    // console.log('source', src);
-  }, []);
+  // useEffect(() => {
+  //   // console.log('player', player);
+  //   // console.log('source', src);
+  //   console.log('item', item);
+  // }, []);
 
 
 
@@ -34,12 +34,13 @@ function assignSrc(remote:number):void {
   console.log("assigning");
   console.log('player', player);
   console.log('source', player!.current!.src);
-  console.log('playing', playing)
+  // console.log('playing', playing)
+
   
   // player?.setSrc(`https://stream.mux.com/${remote}/low.mp4`);
-  player!.current.src = 'https://eivu.s3.amazonaws.com/welcome.mp3';
-  // player!.current.play();
-  dispatch({type: 'addNumber', number: remote + 990000000})
+  dispatch({type: 'setQueueItem', queueItem: item});
+  player!.current.play();
+  // dispatch({type: 'addNumber', number: remote + 990000000})
   // const player = remote.getPlayer();
   // console.log(remote);
   // console.log(player);
@@ -50,7 +51,7 @@ function assignSrc(remote:number):void {
     <div
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      onClick={() => assignSrc(Math.random())}
+      onClick={() => assignSrc()}
     >
       {hover ? <PiPlayCircleFill size={32} className='cursor-pointer'/> : <PiPlayCircleLight size={32} className='cursor-pointer'/>}  
     </div>
