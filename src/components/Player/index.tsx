@@ -22,14 +22,14 @@ import {
 import { textTracks } from './tracks';
 
 export function Player():ReactElement {
-  const { dispatch, queue } = useAppContext();
+  const { dispatch, queueItem } = useAppContext();
   let player = useRef<MediaPlayerInstance>(null),
     [src, setSrc] = useState('');
 
   useEffect(() => {
-    console.log('queue', queue);
+    console.log('queue', queueItem);
     // Initialize src.
-    setSrc(queue[0].url);
+    // setSrc(queue[0].url);
     dispatch({type: 'setPlayer', player: player});
     // Subscribe to state updates.
     return player.current!.subscribe(({ paused, viewType }) => {
@@ -78,8 +78,8 @@ export function Player():ReactElement {
     <>
       <MediaPlayer
         className="player"
-        title="Sprite Fight"
-        src={src}
+        title={queueItem.name}
+        src={queueItem.url}
         crossOrigin
         playsInline
         onProviderChange={onProviderChange}

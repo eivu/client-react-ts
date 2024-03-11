@@ -11,7 +11,7 @@ type State = {
 
 
 const initialState: State = {
-  queueItem: undefined,
+  queueItem: defaultQueue[0],
   queue: defaultQueue,
   player: undefined,
   numbers: [9196]
