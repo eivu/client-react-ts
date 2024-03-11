@@ -1,14 +1,13 @@
 import React from 'react';
 import DefaultLayout from '../../layout/DefaultLayout';
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
-
+import  { useAppContext } from '../../store/AppProvider';
 import prettyBytes from 'pretty-bytes';
 import { timeAgo } from '../../common/timeAgo';
 import { useMemo } from 'react';
 import { queueItems } from '../../data/queueItems';
 import { PlayButton } from '../../components/PlayButton';
 import { PauseButton } from '../../components/PauseButton';
-
 import { QueueItem } from '../../types/queueItem';
 import {
   ColumnDef,
@@ -22,6 +21,7 @@ import {
 
 
 const Files: React.FC = () => {
+  const { numbers } = useAppContext();
   const [sorting, setSorting] = React.useState<SortingState>([])
   const columns = React.useMemo<ColumnDef<QueueItem>[]>(
     () => [
@@ -108,7 +108,9 @@ const Files: React.FC = () => {
             <p className="pl-2 text-black dark:text-white">Entries Per Page</p>
           </div> */}
         </div>
-
+      <h1>hello
+        <span>{numbers}</span>
+      </h1>
       <table className="datatable-table w-full table-auto border-collapse overflow-hidden break-words px-4 md:table-fixed md:overflow-auto md:px-8">
         <thead>
           {table.getHeaderGroups().map(headerGroup => (
