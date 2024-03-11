@@ -1,7 +1,7 @@
 import './player.css';
 
-import { FC, useEffect, useRef, useState } from 'react';
-
+import { ReactElement, useEffect, useRef, useState } from 'react';
+import { useAppContext } from '../../store/AppContext';
 import {
   isHLSProvider,
   MediaPlayer,
@@ -22,14 +22,15 @@ import {
 
 import { textTracks } from './tracks';
 
-export function Player() {
+export function Player():ReactElement {
+  const { dispatch } = useAppContext();
   let player = useRef<MediaPlayerInstance>(null),
   [src, setSrc] = useState('');
 
   useEffect(() => {
     // Initialize src.
     changeSource('audio');
-
+    dispatch({type: 'setPlayer', player: player});
     // Subscribe to state updates.
     return player.current!.subscribe(({ paused, viewType }) => {
       // console.log('is paused?', '->', paused);
