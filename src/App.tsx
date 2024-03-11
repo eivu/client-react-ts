@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Loader from './common/Loader';
 import { AppRoutes } from './AppRoutes';
-import { AppProvider } from './store/AppProvider';
+import { AppProvider } from './store/AppContext';
 
 
 
