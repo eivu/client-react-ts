@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Loader from './common/Loader';
 import { AppRoutes } from './AppRoutes';
+import { AppProvider } from './store/AppProvider';
 
 
 
@@ -11,7 +12,7 @@ function App() {
     setTimeout(() => setLoading(false), 1000);
   }, []);
 
-  return loading ? <Loader /> : <AppRoutes />;
+  return <AppProvider>{loading ? <Loader /> : <AppRoutes />}</AppProvider>;
 }
 
 export default App;
