@@ -1,7 +1,6 @@
 import { createContext, useContext, useReducer, ReactNode } from 'react';
 import { type MediaPlayerInstance, } from '@vidstack/react';
-import { QueueItem } from '../types/queueItem';
-
+import { defaultQueue } from '../components/Player/defaultQueue';
 
 type State = {
   player: MediaPlayerInstance | undefined,
@@ -13,7 +12,7 @@ type State = {
 
 const initialState: State = {
   queueItem: undefined,
-  queue: [],
+  queue: defaultQueue,
   player: undefined,
   numbers: [9196]
 }

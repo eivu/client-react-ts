@@ -1,5 +1,4 @@
 import './player.css';
-
 import { ReactElement, useEffect, useRef, useState } from 'react';
 import { useAppContext } from '../../store/AppContext';
 import {
@@ -23,13 +22,14 @@ import {
 import { textTracks } from './tracks';
 
 export function Player():ReactElement {
-  const { dispatch } = useAppContext();
+  const { dispatch, queue } = useAppContext();
   let player = useRef<MediaPlayerInstance>(null),
-  [src, setSrc] = useState('');
+    [src, setSrc] = useState('');
 
   useEffect(() => {
+    console.log('queue', queue);
     // Initialize src.
-    changeSource('audio');
+    setSrc(queue[0].url);
     dispatch({type: 'setPlayer', player: player});
     // Subscribe to state updates.
     return player.current!.subscribe(({ paused, viewType }) => {
@@ -80,8 +80,8 @@ export function Player():ReactElement {
         className="player"
         title="Sprite Fight"
         src={src}
-        crossorigin
-        playsinline
+        crossOrigin
+        playsInline
         onProviderChange={onProviderChange}
         onCanPlay={onCanPlay}
         ref={player}

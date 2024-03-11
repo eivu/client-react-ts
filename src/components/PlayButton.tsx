@@ -1,5 +1,5 @@
 import { PiPlayCircleLight, PiPlayCircleFill } from "react-icons/pi";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAppContext } from '../store/AppContext';
 import {
   useMediaPlayer, useMediaStore, MediaPlayer, useMediaRemote, MediaPlayerInstance,
@@ -12,7 +12,15 @@ import {
 export const PlayButton:FC = ({item}) => {
   const { player, dispatch } = useAppContext();
   const [hover, setHover] = useState(false);
-  const { src } = useMediaStore(MediaPlayerInstance, player);
+  // https://www.vidstack.io/docs/player/components/core/player?styling=css#mediaplayer.state
+  const url = 'https://eivu.s3.amazonaws.com/welcome.mp3';
+
+  useEffect(() => {
+    // console.log('player', player);
+    // console.log('source', src);
+  }, []);
+
+
 
   // const isPlaying = useMediaState('playing');
   // const remote = useMediaRemote(); // https://www.vidstack.io/docs/player/api/classes/media-remote-control?styling=default-theme
@@ -26,11 +34,11 @@ function assignSrc(remote:number):void {
   console.log("assigning");
   console.log('player', player);
   console.log('source', player!.current!.src);
+  console.log('playing', playing)
   
   // player?.setSrc(`https://stream.mux.com/${remote}/low.mp4`);
   player!.current.src = 'https://eivu.s3.amazonaws.com/welcome.mp3';
-  // src = 'https://eivu.s3.amazonaws.com/welcome.mp3';
-  player!.current.play();
+  // player!.current.play();
   dispatch({type: 'addNumber', number: remote + 990000000})
   // const player = remote.getPlayer();
   // console.log(remote);
