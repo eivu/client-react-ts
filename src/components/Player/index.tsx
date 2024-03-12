@@ -29,7 +29,7 @@ export function Player():ReactElement {
   useEffect(() => {
     // Initialize src.
     dispatch({type: 'setPlayer', player: player});
-    console.log('queueUrls', queueUrls());
+    console.log('queueObjects', queueObjects());
     // Subscribe to state updates.
     return player.current!.subscribe(({ paused, viewType }) => {
       // console.log('is paused?', '->', paused);
@@ -51,16 +51,16 @@ export function Player():ReactElement {
   function onCanPlay(detail: MediaCanPlayDetail, nativeEvent: MediaCanPlayEvent) {
     // ...
   }
-  
-  function queueUrls(): String[] {
-    return queue.map((item:QueueItem) => item.url);
+
+  function queueObjects(): PlayerSrc[] {
+    return queue.map((item:QueueItem) => ({src: item.url, type: item.contentType }));
   }
 
   return (
     <MediaPlayer
       className="player"
       title={queueItem.name}
-      src={queueItem.url}
+      src={queueObjects}
       autoPlay
       crossOrigin
       playsInline

@@ -31,20 +31,8 @@ export const PlayButton:FC = ({item}) => {
 
 // function assignSrc(remote:MediaRemoteControl):void {
 function assignSrc():void {
-  console.log("assigning");
-  console.log('player', player);
-  console.log('source', player!.current!.src);
-  // console.log('playing', playing)
-
-  
-  // player?.setSrc(`https://stream.mux.com/${remote}/low.mp4`);
-  dispatch({type: 'setQueueItem', queueItem: item});
-  player!.current.play();
-  // dispatch({type: 'addNumber', number: remote + 990000000})
-  // const player = remote.getPlayer();
-  // console.log(remote);
-  // console.log(player);
-
+  dispatch({type: 'setQueue', queue: [item]});
+  // player!.current.play();
 }
 
   return (
