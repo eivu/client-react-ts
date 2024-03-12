@@ -30,7 +30,7 @@ export const PlayButton:FC = ({item}) => {
   // console.log(isPlaying)
 
 // function assignSrc(remote:MediaRemoteControl):void {
-function assignSrc(remote:number):void {
+function assignSrc():void {
   console.log("assigning");
   console.log('player', player);
   console.log('source', player!.current!.src);

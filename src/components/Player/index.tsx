@@ -20,17 +20,16 @@ import {
 } from '@vidstack/react/player/layouts/default';
 
 import { textTracks } from './tracks';
+import { QueueItem } from '../../types/queueItem';
 
 export function Player():ReactElement {
-  const { dispatch, queueItem } = useAppContext();
-  let player = useRef<MediaPlayerInstance>(null),
-    [src, setSrc] = useState('');
+  const { dispatch, queueItem, queue } = useAppContext();
+  let player = useRef<MediaPlayerInstance>(null);
 
   useEffect(() => {
-    console.log('queue', queueItem);
     // Initialize src.
-    // setSrc(queue[0].url);
     dispatch({type: 'setPlayer', player: player});
+    console.log('queueUrls', queueUrls());
     // Subscribe to state updates.
     return player.current!.subscribe(({ paused, viewType }) => {
       // console.log('is paused?', '->', paused);
@@ -52,66 +51,40 @@ export function Player():ReactElement {
   function onCanPlay(detail: MediaCanPlayDetail, nativeEvent: MediaCanPlayEvent) {
     // ...
   }
-
-  function changeSource(type: string) {
-    const muxPlaybackId = 'VZtzUzGRv02OhRnZCxcNg49OilvolTqdnFLEqBsTwaxU';
-    switch (type) {
-      case 'audio':
-        setSrc('http://eivu.s3.wasabisys.com/audio/A5/48/75/16/C5/73/22/0C/CB/FD/D8/35/E8/9B/2F/A6/02_Hyper-Ballad.mp3');
-        break;
-      case 'video':
-        setSrc(`https://stream.mux.com/${muxPlaybackId}/low.mp4`);
-        break;
-      case 'hls':
-        setSrc(`https://stream.mux.com/${muxPlaybackId}.m3u8`);
-        break;
-      case 'youtube':
-        setSrc('youtube/_cMxraX_5RE');
-        break;
-      case 'vimeo':
-        setSrc('vimeo/640499893');
-        break;
-    }
+  
+  function queueUrls(): String[] {
+    return queue.map((item:QueueItem) => item.url);
   }
 
   return (
-    <>
-      <MediaPlayer
-        className="player"
-        title={queueItem.name}
-        src={queueItem.url}
-        crossOrigin
-        playsInline
-        onProviderChange={onProviderChange}
-        onCanPlay={onCanPlay}
-        ref={player}
-      >
-        <MediaProvider>
-          <Poster
-            className="vds-poster"
-            src="https://image.mux.com/VZtzUzGRv02OhRnZCxcNg49OilvolTqdnFLEqBsTwaxU/thumbnail.webp?time=268&width=1200"
-            alt="Girl walks into campfire with gnomes surrounding her friend ready for their next meal!"
-          />
-          {textTracks.map((track) => (
-            <Track {...track} key={track.src} />
-          ))}
-        </MediaProvider>
-
-        {/* Layouts */}
-        <DefaultAudioLayout icons={defaultLayoutIcons} />
-        <DefaultVideoLayout
-          icons={defaultLayoutIcons}
-          thumbnails="https://image.mux.com/VZtzUzGRv02OhRnZCxcNg49OilvolTqdnFLEqBsTwaxU/storyboard.vtt"
+    <MediaPlayer
+      className="player"
+      title={queueItem.name}
+      src={queueItem.url}
+      autoPlay
+      crossOrigin
+      playsInline
+      onProviderChange={onProviderChange}
+      onCanPlay={onCanPlay}
+      ref={player}
+    >
+      <MediaProvider>
+        <Poster
+          className="vds-poster"
+          src="https://image.mux.com/VZtzUzGRv02OhRnZCxcNg49OilvolTqdnFLEqBsTwaxU/thumbnail.webp?time=268&width=1200"
+          alt="Girl walks into campfire with gnomes surrounding her friend ready for their next meal!"
         />
-      </MediaPlayer>
+        {textTracks.map((track) => (
+          <Track {...track} key={track.src} />
+        ))}
+      </MediaProvider>
 
-      <div className="src-buttons">
-        <button onClick={() => changeSource('audio')}>Audio</button>
-        <button onClick={() => changeSource('video')}>Video</button>
-        <button onClick={() => changeSource('hls')}>HLS</button>
-        <button onClick={() => changeSource('youtube')}>YouTube</button>
-        <button onClick={() => changeSource('vimeo')}>Vimeo</button>
-      </div>
-    </>
+      {/* Layouts */}
+      <DefaultAudioLayout icons={defaultLayoutIcons} />
+      <DefaultVideoLayout
+        icons={defaultLayoutIcons}
+        thumbnails="https://image.mux.com/VZtzUzGRv02OhRnZCxcNg49OilvolTqdnFLEqBsTwaxU/storyboard.vtt"
+      />
+    </MediaPlayer>
   );
 }
