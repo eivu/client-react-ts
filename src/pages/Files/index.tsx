@@ -7,7 +7,7 @@ import { timeAgo } from '../../common/timeAgo';
 import { useMemo } from 'react';
 import { queueItems } from '../../data/queueItems';
 // import { PlayButton } from '../../components/PlayButton';
-import { MediaButton } from '../../components/MediaButton';
+import { AVButton } from '../../components/AVButton';
 import { PauseButton } from '../../components/PauseButton';
 import { QueueItem } from '../../types/queueItem';
 import {
@@ -30,7 +30,7 @@ const Files: React.FC = () => {
         id: 'controls',
         enableSorting: false,
         disableSortBy: true,
-        cell: info => (<MediaButton item={info.row.original} />)
+        cell: info => (<AVButton item={info.row.original} />)
       },
       {
         header: 'Name',
