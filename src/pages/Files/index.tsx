@@ -21,7 +21,6 @@ import {
 
 
 const Files: React.FC = () => {
-  const { numbers } = useAppContext();
   const [sorting, setSorting] = React.useState<SortingState>([])
   const columns = React.useMemo<ColumnDef<QueueItem>[]>(
     () => [

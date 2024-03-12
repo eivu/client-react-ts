@@ -5,20 +5,17 @@ import { defaultQueue } from '../components/Player/defaultQueue';
 type State = {
   player: MediaPlayerInstance | undefined,
   queueItem: QueueItem | undefined,
-  queue: QueueItem[],
-  numbers: number[]
+  queue: QueueItem[]
 };
 
 
 const initialState: State = {
   queueItem: defaultQueue[0],
   queue: defaultQueue,
-  player: undefined,
-  numbers: [9196]
+  player: undefined
 }
 
 type Action =
-  | { type: 'addNumber', number: number }
   | { type: 'setPlayer', player: MediaPlayerInstance }
   | { type: 'setQueueItem', queueItem: QueueItem }
   | { type: 'setQueue', queue: QueueItem[] }
@@ -30,8 +27,6 @@ type Action =
 
 function reducer(state: State, action: Action): State {
   switch (action.type) {
-    case 'addNumber': 
-      return { ...state, numbers: [...state.numbers, action.number]}
     case 'setPlayer':
       return { ...state, player: action.player };
     case 'setQueueItem':
@@ -68,11 +63,11 @@ type Props = {
 
 export function AppProvider({children }: Props) {
   // const [state, dispatch] = useReducer(reducer, initialState)
-  const [{ player, queueItem, queue, numbers }, dispatch] =
+  const [{ player, queueItem, queue }, dispatch] =
     useReducer(reducer, initialState);
   
   return (
-    <AppContext.Provider value={{player, queueItem, queue, numbers, dispatch}}>
+    <AppContext.Provider value={{player, queueItem, queue, dispatch}}>
       {children}
     </AppContext.Provider>
   )
