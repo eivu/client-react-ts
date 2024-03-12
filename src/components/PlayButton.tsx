@@ -10,7 +10,7 @@ import {
 
 
 export const PlayButton:FC = ({item}) => {
-  const { player, dispatch } = useAppContext();
+  const { player, queue, dispatch } = useAppContext();
   const [hover, setHover] = useState(false);
   // https://www.vidstack.io/docs/player/components/core/player?styling=css#mediaplayer.state
 
@@ -21,19 +21,28 @@ export const PlayButton:FC = ({item}) => {
   // }, []);
 
 
+  const { playing } = useMediaStore(player);
 
-  // const isPlaying = useMediaState('playing');
+
+
+  // const isPlaying = useMediaState('playing', player);
   // const remote = useMediaRemote(); // https://www.vidstack.io/docs/player/api/classes/media-remote-control?styling=default-theme
 
   // let p = useRef<MediaPlayerInstance>(null)
   // console.log(item)
   // console.log(isPlaying)
 
-// function assignSrc(remote:MediaRemoteControl):void {
-function assignSrc():void {
-  dispatch({type: 'setQueue', queue: [item]});
-  // player!.current.play();
-}
+  // function assignSrc(remote:MediaRemoteControl):void {
+  function assignSrc():void {
+    dispatch({type: 'setQueue', queue: [item]});
+    // console.log('nowPlayingMd5', nowPlayingMd5());
+    console.log("paused", paused);
+    // player!.current.play();
+  }
+
+  function nowPlayingMd5() {
+    return queue.length > 0 ? queue[0].md5 : undefined;
+  }
 
   return (
     <div

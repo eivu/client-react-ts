@@ -16,7 +16,7 @@ const initialState: State = {
 }
 
 type Action =
-  | { type: 'setPlayer', player: MediaPlayerInstance }
+  | { type: 'setPlayer', player: any }
   | { type: 'setQueueItem', queueItem: QueueItem }
   | { type: 'setQueue', queue: QueueItem[] }
   | { type: 'clearQueue' }
