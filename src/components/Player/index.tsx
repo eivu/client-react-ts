@@ -27,9 +27,8 @@ export function Player():ReactElement {
   let player = useRef<MediaPlayerInstance>(null);
 
   useEffect(() => {
-    // Initialize src.
+    // assign ref to player context.
     dispatch({type: 'setPlayer', player: player});
-    console.log('queueObjects', queueObjects());
     // Subscribe to state updates.
     return player.current!.subscribe(({ paused, viewType }) => {
       // console.log('is paused?', '->', paused);

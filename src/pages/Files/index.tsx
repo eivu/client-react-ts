@@ -8,7 +8,7 @@ import { timeAgo } from '../../common/timeAgo';
 import { useMemo } from 'react';
 import { queueItems } from '../../data/queueItems';
 // import { PlayButton } from '../../components/PlayButton';
-import { AVButton } from '../../components/AVButton';
+import AVButton from '../../components/AVButton';
 import { PauseButton } from '../../components/PauseButton';
 import { QueueItem } from '../../types/queueItem';
 import {

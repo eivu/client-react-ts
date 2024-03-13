@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { RiPauseCircleLine, RiPauseCircleFill } from "react-icons/ri";
 import { useAppContext } from '../store/AppContext';
 
-export const AudioPauseButton: FC = () => {
+const AudioPauseButton: FC = () => {
   const [hover, setHover] = useState(false);
   const { player } = useAppContext();
 
@@ -16,3 +16,5 @@ export const AudioPauseButton: FC = () => {
     </div>
   );
 }
+
+export default AudioPauseButton;
