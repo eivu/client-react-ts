@@ -2,7 +2,7 @@ import AudioPlayButton from "./AudioPlayButton";
 import AudioPauseButton from "./AudioPauseButton";
 import { useAppContext } from '../store/AppContext';
 import { useMediaState } from '@vidstack/react';
-import Modal from './Modal';
+import VideoPlayModal from './VideoPlayModal';
 
 const AVButton:FC = ({item}) => {
   const { player, queue } = useAppContext();
@@ -17,7 +17,7 @@ const AVButton:FC = ({item}) => {
       { item.contentType.includes('audio')
           ? (isPlaying && nowPlayingMd5() === item.md5 ? <AudioPauseButton item={item} /> : <AudioPlayButton item={item} />)
           : (item.contentType.includes('video')
-              ? <Modal item={item} />
+              ? <VideoPlayModal item={item} />
               : <span>Unknown</span>
           )
       }

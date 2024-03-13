@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { PiPlayCircleLight, PiPlayCircleFill } from "react-icons/pi";
 import { QueueItem } from '../types/queueItem';
 
-const Modal: React.FC = ({item}) => {
+const VideoPlayModal: React.FC = ({item}) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [hover, setHover] = useState(false);
 
@@ -64,6 +64,9 @@ const Modal: React.FC = ({item}) => {
         >
           <h1>Content here</h1>
           <div onClick={() => setModalOpen(false)} className='cursor-pointer'>X</div>
+          <video controls>
+            <source src={item.url} type={item.contentType} />
+          </video>
           {/* <h3 className="pb-2 text-xl font-bold text-black dark:text-white sm:text-2xl">
             Your Message Sent Successfully
           </h3>
@@ -94,4 +97,4 @@ const Modal: React.FC = ({item}) => {
   );
 };
 
-export default Modal;
+export default VideoPlayModal;
