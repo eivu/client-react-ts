@@ -1,14 +1,15 @@
 import React from 'react';
+import  Modal from '../../components/Modal';
 import DefaultLayout from '../../layout/DefaultLayout';
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
-
+import  { useAppContext } from '../../store/AppContext';
 import prettyBytes from 'pretty-bytes';
 import { timeAgo } from '../../common/timeAgo';
 import { useMemo } from 'react';
 import { queueItems } from '../../data/queueItems';
-import { PlayButton } from '../../components/PlayButton';
+// import { PlayButton } from '../../components/PlayButton';
+import { AVButton } from '../../components/AVButton';
 import { PauseButton } from '../../components/PauseButton';
-
 import { QueueItem } from '../../types/queueItem';
 import {
   ColumnDef,
@@ -30,9 +31,7 @@ const Files: React.FC = () => {
         id: 'controls',
         enableSorting: false,
         disableSortBy: true,
-        cell: info => (
-           false ? <PauseButton item={info.row.original} /> : <PlayButton item={info.row.original} />
-        )
+        cell: info => (<AVButton item={info.row.original} />)
       },
       {
         header: 'Name',
@@ -108,62 +107,61 @@ const Files: React.FC = () => {
             <p className="pl-2 text-black dark:text-white">Entries Per Page</p>
           </div> */}
         </div>
-
-      <table className="datatable-table w-full table-auto border-collapse overflow-hidden break-words px-4 md:table-fixed md:overflow-auto md:px-8">
-        <thead>
-          {table.getHeaderGroups().map(headerGroup => (
-            <tr key={headerGroup.id}>
-              {headerGroup.headers.map(header => {
+        <table className="datatable-table w-full table-auto border-collapse overflow-hidden break-words px-4 md:table-fixed md:overflow-auto md:px-8">
+          <thead>
+            {table.getHeaderGroups().map(headerGroup => (
+              <tr key={headerGroup.id}>
+                {headerGroup.headers.map(header => {
+                  return (
+                    <th key={header.id} colSpan={header.colSpan}>
+                      {header.isPlaceholder ? null : (
+                        <div
+                          {...{
+                            className: header.column.getCanSort()
+                              ? 'cursor-pointer select-none'
+                              : '',
+                            onClick: header.column.getToggleSortingHandler(),
+                          }}
+                        >
+                          {flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
+                          {{
+                            asc: <FaSortUp className='inline' />,
+                            desc: <FaSortDown className='inline' />,
+                            false: <FaSort  className='inline' />
+                          }[header.column.getIsSorted() as string] ?? null}
+                        </div>
+                      )}
+                    </th>
+                  )
+                })}
+              </tr>
+            ))}
+          </thead>
+          <tbody>
+            {table
+              .getRowModel()
+              .rows.slice(0, 100)
+              .map(row => {
                 return (
-                  <th key={header.id} colSpan={header.colSpan}>
-                    {header.isPlaceholder ? null : (
-                      <div
-                        {...{
-                          className: header.column.getCanSort()
-                            ? 'cursor-pointer select-none'
-                            : '',
-                          onClick: header.column.getToggleSortingHandler(),
-                        }}
-                      >
-                        {flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
-                        {{
-                          asc: <FaSortUp className='inline' />,
-                          desc: <FaSortDown className='inline' />,
-                          false: <FaSort  className='inline' />
-                        }[header.column.getIsSorted() as string] ?? null}
-                      </div>
-                    )}
-                  </th>
+                  <tr key={row.id}>
+                    {row.getVisibleCells().map(cell => {
+                      return (
+                        <td key={cell.id}>
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext()
+                          )}
+                        </td>
+                      )
+                    })}
+                  </tr>
                 )
               })}
-            </tr>
-          ))}
-        </thead>
-        <tbody>
-          {table
-            .getRowModel()
-            .rows.slice(0, 100)
-            .map(row => {
-              return (
-                <tr key={row.id}>
-                  {row.getVisibleCells().map(cell => {
-                    return (
-                      <td key={cell.id}>
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        )}
-                      </td>
-                    )
-                  })}
-                </tr>
-              )
-            })}
-        </tbody>
-      </table>
+          </tbody>
+        </table>
 
         {/* <div className="flex justify-between border-t border-stroke px-8 pt-5 dark:border-strokedark">
           <p className="font-medium">

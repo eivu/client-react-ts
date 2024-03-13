@@ -23,8 +23,6 @@ Title
 
 <!--- * Fixes: AA-999 -->
 
-- -->
-
 ## 🔍 Types of Changes
 
 <!--- What types of changes does your code introduce? Put an `x` in all the boxes that apply: -->
