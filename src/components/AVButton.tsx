@@ -1,7 +1,7 @@
 import { PlayButton } from "./PlayButton";
 import { PauseButton } from "./PauseButton";
 import { useAppContext } from '../store/AppContext';
-import { useMediaStore, useMediaState } from '@vidstack/react';
+import { useMediaState } from '@vidstack/react';
 
 export const AVButton:FC = ({item}) => {
   const { player, queue } = useAppContext();

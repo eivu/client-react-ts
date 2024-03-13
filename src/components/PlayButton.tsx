@@ -1,9 +1,6 @@
 import { PiPlayCircleLight, PiPlayCircleFill } from "react-icons/pi";
-import { useState, useEffect } from 'react';
-import { useAppContext } from '../store/AppContext';
-import { useMediaStore } from '@vidstack/react';
-
-
+import { useState } from 'react';
+import { currentQueueItemMd5, useAppContext } from '../store/AppContext';
 
 export const PlayButton:FC = ({item}) => {
   const { player, queue, dispatch } = useAppContext();
@@ -16,22 +13,18 @@ export const PlayButton:FC = ({item}) => {
   //   console.log('item', item);
   // }, []);
 
-
-  const { playing } = useMediaStore(player);
-
-  function assignSrc():void {
-    dispatch({type: 'setQueue', queue: [item]});
-  }
-
-  function nowPlayingMd5() {
-    return queue.length > 0 ? queue[0].md5 : undefined;
+  function handleClick():void {
+    if (currentQueueItemMd5(queue) == item.md5)
+      player!.current.play();
+    else
+      dispatch({type: 'setQueue', queue: [item]});
   }
 
   return (
     <div
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      onClick={() => assignSrc()}
+      onClick={() => handleClick()}
     >
       {hover ? <PiPlayCircleFill size={32} className='cursor-pointer'/> : <PiPlayCircleLight size={32} className='cursor-pointer'/>}  
     </div>

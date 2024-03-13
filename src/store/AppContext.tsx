@@ -73,4 +73,5 @@ export function AppProvider({children }: Props) {
   )
 };
 
+export const currentQueueItemMd5 = (queue: QueueItem[]): QueueItem | undefined => queue.length > 0 ? queue[0].md5 : undefined;
 export const useAppContext = () => useContext(AppContext);
