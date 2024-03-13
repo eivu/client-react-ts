@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { PiPlayCircleLight, PiPlayCircleFill } from "react-icons/pi";
+import { QueueItem } from '../types/queueItem';
 
-const Modal: React.FC = () => {
+const Modal: React.FC = ({item}) => {
   const [modalOpen, setModalOpen] = useState(false);
+  const [hover, setHover] = useState(false);
 
   const trigger = useRef<any>(null);
   const modal = useRef<any>(null);
@@ -34,13 +37,20 @@ const Modal: React.FC = () => {
 
   return (
     <div>
-      <button
+      <div
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
         ref={trigger}
         onClick={() => setModalOpen(!modalOpen)}
+      >
+        {hover ? <PiPlayCircleFill size={32} className='cursor-pointer'/> : <PiPlayCircleLight size={32} className='cursor-pointer'/>}  
+      </div>
+      {/* <button
+        
         className="rounded-md bg-primary px-9 py-3 font-medium text-white hover:bg-opacity-90"
       >
         Modal 1
-      </button>
+      </button> */}
       <div
         className={`fixed left-0 top-0 z-999999 flex h-full min-h-screen w-full items-center justify-center bg-black/90 px-4 py-5 ${
           modalOpen ? 'block' : 'hidden'
@@ -52,7 +62,9 @@ const Modal: React.FC = () => {
           onBlur={() => setModalOpen(false)}
           className="md:px-17.5 w-full max-w-142.5 rounded-lg bg-white px-8 py-12 text-center dark:bg-boxdark md:py-15"
         >
-          <h3 className="pb-2 text-xl font-bold text-black dark:text-white sm:text-2xl">
+          <h1>Content here</h1>
+          <div onClick={() => setModalOpen(false)} className='cursor-pointer'>X</div>
+          {/* <h3 className="pb-2 text-xl font-bold text-black dark:text-white sm:text-2xl">
             Your Message Sent Successfully
           </h3>
           <span className="mx-auto mb-6 inline-block h-1 w-22.5 rounded bg-primary"></span>
@@ -67,7 +79,7 @@ const Modal: React.FC = () => {
                 onClick={() => setModalOpen(false)}
                 className="block w-full rounded border border-stroke bg-gray p-3 text-center font-medium text-black transition hover:border-meta-1 hover:bg-meta-1 hover:text-white dark:border-strokedark dark:bg-meta-4 dark:text-white dark:hover:border-meta-1 dark:hover:bg-meta-1"
               >
-                Cancel
+                Close
               </button>
             </div>
             <div className="2xsm:w-1/2 w-full px-3">
@@ -75,7 +87,7 @@ const Modal: React.FC = () => {
                 View Details
               </button>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
