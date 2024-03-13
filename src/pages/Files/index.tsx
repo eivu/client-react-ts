@@ -1,5 +1,4 @@
 import React from 'react';
-import  Modal from '../../components/Modal';
 import DefaultLayout from '../../layout/DefaultLayout';
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
 import  { useAppContext } from '../../store/AppContext';
@@ -7,9 +6,7 @@ import prettyBytes from 'pretty-bytes';
 import { timeAgo } from '../../common/timeAgo';
 import { useMemo } from 'react';
 import { queueItems } from '../../data/queueItems';
-// import { PlayButton } from '../../components/PlayButton';
 import AVButton from '../../components/AVButton';
-import { PauseButton } from '../../components/PauseButton';
 import { QueueItem } from '../../types/queueItem';
 import {
   ColumnDef,
