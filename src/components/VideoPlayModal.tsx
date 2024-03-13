@@ -2,6 +2,36 @@ import React, { useState, useEffect, useRef } from 'react';
 import { PiPlayCircleLight, PiPlayCircleFill } from "react-icons/pi";
 import { QueueItem } from '../types/queueItem';
 
+
+//----------
+
+import './Player/player.css';
+
+
+import {
+  isHLSProvider,
+  MediaPlayer,
+  MediaProvider,
+  Poster,
+  Track,
+  type MediaCanPlayDetail,
+  type MediaCanPlayEvent,
+  type MediaPlayerInstance,
+  type MediaProviderAdapter,
+  type MediaProviderChangeEvent,
+} from '@vidstack/react';
+import {
+  DefaultAudioLayout,
+  defaultLayoutIcons,
+  DefaultVideoLayout,
+} from '@vidstack/react/player/layouts/default';
+
+import { textTracks } from './Player/tracks';
+
+
+
+
+
 const VideoPlayModal: React.FC = ({item}) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [hover, setHover] = useState(false);
@@ -67,6 +97,35 @@ const VideoPlayModal: React.FC = ({item}) => {
           <video controls>
             <source src={item.url} type={item.contentType} />
           </video>
+      <MediaPlayer
+        className="player"
+        title="Sprite Fight"
+        src={item.url}
+        crossOrigin
+        playsInline
+        // onProviderChange={onProviderChange}
+        // onCanPlay={onCanPlay}
+        // ref={player}
+      >
+        <MediaProvider>
+          <Poster
+            className="vds-poster"
+            src="https://image.mux.com/VZtzUzGRv02OhRnZCxcNg49OilvolTqdnFLEqBsTwaxU/thumbnail.webp?time=268&width=1200"
+            alt="Girl walks into campfire with gnomes surrounding her friend ready for their next meal!"
+          />
+          {textTracks.map((track) => (
+            <Track {...track} key={track.src} />
+          ))}
+        </MediaProvider>
+
+        {/* Layouts */}
+        <DefaultAudioLayout icons={defaultLayoutIcons} />
+        <DefaultVideoLayout
+          icons={defaultLayoutIcons}
+          thumbnails="https://image.mux.com/VZtzUzGRv02OhRnZCxcNg49OilvolTqdnFLEqBsTwaxU/storyboard.vtt"
+        />
+      </MediaPlayer>
+
           {/* <h3 className="pb-2 text-xl font-bold text-black dark:text-white sm:text-2xl">
             Your Message Sent Successfully
           </h3>
