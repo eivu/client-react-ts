@@ -1,5 +1,5 @@
-import { PlayButton } from "./PlayButton";
-import { PauseButton } from "./PauseButton";
+import { AudioPlayButton } from "./AudioPlayButton";
+import { AudioPauseButton } from "./AudioPauseButton";
 import { useAppContext } from '../store/AppContext';
 import { useMediaState } from '@vidstack/react';
 
@@ -13,7 +13,13 @@ export const AVButton:FC = ({item}) => {
 
   return (
     <div>
-      {isPlaying && nowPlayingMd5() === item.md5 ? <PauseButton item={item} /> : <PlayButton item={item} />}
+      { item.contentType.includes('audio')
+          ? (isPlaying && nowPlayingMd5() === item.md5 ? <AudioPauseButton item={item} /> : <AudioPlayButton item={item} />)
+          : (item.contentType.includes('video')
+              ? <span>Video</span>
+              : <span>Unknown</span>
+          )
+      }
     </div>
   );
 }

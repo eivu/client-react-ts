@@ -1,4 +1,5 @@
 import React from 'react';
+import  Modal from '../../components/Modal';
 import DefaultLayout from '../../layout/DefaultLayout';
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
 import  { useAppContext } from '../../store/AppContext';

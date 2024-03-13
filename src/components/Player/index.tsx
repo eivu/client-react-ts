@@ -1,12 +1,12 @@
 import './player.css';
-import { ReactElement, useEffect, useRef, useState } from 'react';
+import { ReactElement, useEffect, useRef } from 'react';
 import { useAppContext } from '../../store/AppContext';
 import {
   isHLSProvider,
   MediaPlayer,
   MediaProvider,
   Poster,
-  Track,
+  // Track,
   type MediaCanPlayDetail,
   type MediaCanPlayEvent,
   type MediaPlayerInstance,
@@ -19,7 +19,7 @@ import {
   DefaultVideoLayout,
 } from '@vidstack/react/player/layouts/default';
 
-import { textTracks } from './tracks';
+// import { textTracks } from './tracks';
 import { QueueItem } from '../../types/queueItem';
 
 export function Player():ReactElement {
@@ -74,9 +74,9 @@ export function Player():ReactElement {
           src="https://image.mux.com/VZtzUzGRv02OhRnZCxcNg49OilvolTqdnFLEqBsTwaxU/thumbnail.webp?time=268&width=1200"
           alt="Girl walks into campfire with gnomes surrounding her friend ready for their next meal!"
         />
-        {textTracks.map((track) => (
+        {/* {textTracks.map((track) => (
           <Track {...track} key={track.src} />
-        ))}
+        ))} */}
       </MediaProvider>
 
       {/* Layouts */}
