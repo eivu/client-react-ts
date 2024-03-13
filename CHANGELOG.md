@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/eivu/client-react-ts/compare/v1.0.0...v1.1.0) (2024-03-13)
+
+
+### Features
+
+* Using context so compoents can access player ([a63a6f9](https://github.com/eivu/client-react-ts/commit/a63a6f955da89a2c68990810b46e5e0073d3e6d3))
+
 # 1.0.0 (2024-03-13)
 
 
