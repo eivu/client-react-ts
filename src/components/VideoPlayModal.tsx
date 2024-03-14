@@ -11,7 +11,6 @@ import './Player/player.css';
 
 
 import {
-  isHLSProvider,
   MediaPlayer,
   MediaProvider,
   Poster,
@@ -20,7 +19,6 @@ import {
   type MediaCanPlayEvent,
   type MediaPlayerInstance,
   type MediaProviderAdapter,
-  type MediaProviderChangeEvent,
 } from '@vidstack/react';
 import {
   DefaultAudioLayout,
@@ -37,6 +35,7 @@ import { textTracks } from './Player/tracks';
 const VideoPlayModal: React.FC = ({item}) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [hover, setHover] = useState(false);
+  const player = useRef<MediaPlayerInstance>(null);
 
   const trigger = useRef<any>(null);
   const modal = useRef<any>(null);
@@ -61,11 +60,26 @@ const VideoPlayModal: React.FC = ({item}) => {
   useEffect(() => {
     const keyHandler = ({ keyCode }: KeyboardEvent) => {
       if (!modalOpen || keyCode !== 27) return;
-      setModalOpen(false);
+      closeModal();
     };
     document.addEventListener('keydown', keyHandler);
     return () => document.removeEventListener('keydown', keyHandler);
   });
+
+  function openModal() {
+    setModalOpen(!modalOpen);
+    player!.current!.play();
+  }
+
+  function closeModal() {
+    setModalOpen(false);
+    player!.current!.pause();
+  }
+
+
+  // function onCanPlay({ detail }: MediaCanPlayEvent) {
+  //   console.log('Can play', detail);
+  // }
 
   return (
     <div>
@@ -73,16 +87,10 @@ const VideoPlayModal: React.FC = ({item}) => {
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
         ref={trigger}
-        onClick={() => setModalOpen(!modalOpen)}
+        onClick={() => openModal()}
       >
         {hover ? <PiPlayCircleFill size={32} className='cursor-pointer'/> : <PiPlayCircleLight size={32} className='cursor-pointer'/>}  
       </div>
-      {/* <button
-        
-        className="rounded-md bg-primary px-9 py-3 font-medium text-white hover:bg-opacity-90"
-      >
-        Modal 1
-      </button> */}
       <div
         className={`fixed left-0 top-0 z-999999 flex h-full min-h-screen w-full items-center justify-center bg-black/90 px-4 py-5 ${
           modalOpen ? 'block' : 'hidden'
@@ -95,34 +103,34 @@ const VideoPlayModal: React.FC = ({item}) => {
           className="md:px-17.5 w-full max-w-142.5 rounded-lg bg-white px-8 py-12 text-center dark:bg-boxdark md:py-15"
         >
           <h1>Content here</h1>
-          <div onClick={() => setModalOpen(false)} className='cursor-pointer'>X</div>
+          <div onClick={() => closeModal()} className='cursor-pointer'>X</div>
           <MediaPlayer
             className="player"
             title="Sprite Fight"
             src={item.url}
             // src={'https://stream.mux.com/VZtzUzGRv02OhRnZCxcNg49OilvolTqdnFLEqBsTwaxU/low.mp4'}
-            crossorigin
-            playsinline
+            crossOrigin
+            playsInline
             // onProviderChange={onProviderChange}
-            // onCanPlay={onCanPlay}
-            // ref={player}
+            // onCanPlay={() => player!.current?.play()}
+            ref={player}
           >
             <MediaProvider>
               <Poster
                 className="vds-poster"
                 src="https://image.mux.com/VZtzUzGRv02OhRnZCxcNg49OilvolTqdnFLEqBsTwaxU/thumbnail.webp?time=268&width=1200"
-                alt="Girl walks into campfire with gnomes surrounding her friend ready for their next meal!"
+                alt={item.name}
               />
-              {textTracks.map((track) => (
+              {/* {textTracks.map((track) => (
                 <Track {...track} key={track.src} />
-              ))}
+              ))} */}
             </MediaProvider>
 
             {/* Layouts */}
             <DefaultAudioLayout icons={defaultLayoutIcons} />
             <DefaultVideoLayout
               icons={defaultLayoutIcons}
-              thumbnails="https://image.mux.com/VZtzUzGRv02OhRnZCxcNg49OilvolTqdnFLEqBsTwaxU/storyboard.vtt"
+              // thumbnails="https://image.mux.com/VZtzUzGRv02OhRnZCxcNg49OilvolTqdnFLEqBsTwaxU/storyboard.vtt"
             />
           </MediaPlayer>
 
