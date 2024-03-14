@@ -12,7 +12,7 @@ const AudioPauseButton: FC = () => {
       onMouseLeave={() => setHover(false)}
       onClick={() => player!.current.pause()}
     >
-      {hover ? <RiPauseCircleFill size={32} className='cursor-pointer'/> : <RiPauseCircleLine size={32} className='cursor-pointer'/>}  
+      {hover ? <RiPauseCircleLine size={32} className='cursor-pointer'/> : <RiPauseCircleFill size={32} className='cursor-pointer'/>}  
     </div>
   );
 }
