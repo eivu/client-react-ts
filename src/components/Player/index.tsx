@@ -5,10 +5,7 @@ import {
   isHLSProvider,
   MediaPlayer,
   MediaProvider,
-  Poster,
   // Track,
-  type MediaCanPlayDetail,
-  type MediaCanPlayEvent,
   type MediaPlayerInstance,
   type MediaProviderAdapter,
   type MediaProviderChangeEvent,
@@ -16,7 +13,6 @@ import {
 import {
   DefaultAudioLayout,
   defaultLayoutIcons,
-  DefaultVideoLayout,
 } from '@vidstack/react/player/layouts/default';
 
 // import { textTracks } from './tracks';
@@ -36,20 +32,6 @@ export function Player():ReactElement {
     });
   }, []);
 
-  function onProviderChange(
-    provider: MediaProviderAdapter | null,
-    nativeEvent: MediaProviderChangeEvent,
-  ) {
-    // We can configure provider's here.
-    if (isHLSProvider(provider)) {
-      provider.config = {};
-    }
-  }
-
-  // We can listen for the `can-play` event to be notified when the player is ready.
-  function onCanPlay(detail: MediaCanPlayDetail, nativeEvent: MediaCanPlayEvent) {
-    // ...
-  }
 
   function queueObjects(): PlayerSrc[] {
     return queue.map((item:QueueItem) => ({src: item.url, type: item.contentType }));
@@ -63,16 +45,9 @@ export function Player():ReactElement {
       autoPlay
       crossOrigin
       playsInline
-      onProviderChange={onProviderChange}
-      onCanPlay={onCanPlay}
       ref={player}
     >
       <MediaProvider>
-        <Poster
-          className="vds-poster"
-          src="https://image.mux.com/VZtzUzGRv02OhRnZCxcNg49OilvolTqdnFLEqBsTwaxU/thumbnail.webp?time=268&width=1200"
-          alt="Girl walks into campfire with gnomes surrounding her friend ready for their next meal!"
-        />
         {/* {textTracks.map((track) => (
           <Track {...track} key={track.src} />
         ))} */}
@@ -80,10 +55,6 @@ export function Player():ReactElement {
 
       {/* Layouts */}
       <DefaultAudioLayout icons={defaultLayoutIcons} />
-      <DefaultVideoLayout
-        icons={defaultLayoutIcons}
-        thumbnails="https://image.mux.com/VZtzUzGRv02OhRnZCxcNg49OilvolTqdnFLEqBsTwaxU/storyboard.vtt"
-      />
     </MediaPlayer>
   );
 }

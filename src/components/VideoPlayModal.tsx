@@ -11,10 +11,11 @@ import './Player/player.css';
 
 
 import {
+  isHLSProvider,
   MediaPlayer,
   MediaProvider,
   Poster,
-  Track,
+  // Track,
   type MediaCanPlayDetail,
   type MediaCanPlayEvent,
   type MediaPlayerInstance,
@@ -68,7 +69,7 @@ const VideoPlayModal: React.FC = ({item}) => {
 
   function openModal() {
     setModalOpen(!modalOpen);
-    player!.current!.play();
+    // player!.current!.play();
   }
 
   function closeModal() {
@@ -76,10 +77,20 @@ const VideoPlayModal: React.FC = ({item}) => {
     player!.current!.pause();
   }
 
+  // We can listen for the `can-play` event to be notified when the player is ready.
+  function onCanPlay(detail: MediaCanPlayDetail, nativeEvent: MediaCanPlayEvent) {
+    // ...
+  }
 
-  // function onCanPlay({ detail }: MediaCanPlayEvent) {
-  //   console.log('Can play', detail);
-  // }
+  function onProviderChange(
+    provider: MediaProviderAdapter | null,
+    nativeEvent: MediaProviderChangeEvent,
+  ) {
+    // We can configure provider's here.
+    if (isHLSProvider(provider)) {
+      provider.config = {};
+    }
+  }
 
   return (
     <div>
@@ -106,13 +117,12 @@ const VideoPlayModal: React.FC = ({item}) => {
           <div onClick={() => closeModal()} className='cursor-pointer'>X</div>
           <MediaPlayer
             className="player"
-            title="Sprite Fight"
+            title={item.name}
             src={item.url}
-            // src={'https://stream.mux.com/VZtzUzGRv02OhRnZCxcNg49OilvolTqdnFLEqBsTwaxU/low.mp4'}
             crossOrigin
             playsInline
-            // onProviderChange={onProviderChange}
-            // onCanPlay={() => player!.current?.play()}
+            onCanPlay={onCanPlay}
+            onProviderChange={onProviderChange}
             ref={player}
           >
             <MediaProvider>
