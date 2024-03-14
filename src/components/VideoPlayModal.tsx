@@ -1,10 +1,12 @@
+
+
+
 import React, { useState, useEffect, useRef } from 'react';
 import { PiPlayCircleLight, PiPlayCircleFill } from "react-icons/pi";
 import { QueueItem } from '../types/queueItem';
 
 
 //----------
-
 import './Player/player.css';
 
 
@@ -89,42 +91,40 @@ const VideoPlayModal: React.FC = ({item}) => {
         <div
           ref={modal}
           onFocus={() => setModalOpen(true)}
-          onBlur={() => setModalOpen(false)}
+          // onBlur={() => setModalOpen(false)}
           className="md:px-17.5 w-full max-w-142.5 rounded-lg bg-white px-8 py-12 text-center dark:bg-boxdark md:py-15"
         >
           <h1>Content here</h1>
           <div onClick={() => setModalOpen(false)} className='cursor-pointer'>X</div>
-          <video controls>
-            <source src={item.url} type={item.contentType} />
-          </video>
-      <MediaPlayer
-        className="player"
-        title="Sprite Fight"
-        src={item.url}
-        crossOrigin
-        playsInline
-        // onProviderChange={onProviderChange}
-        // onCanPlay={onCanPlay}
-        // ref={player}
-      >
-        <MediaProvider>
-          <Poster
-            className="vds-poster"
-            src="https://image.mux.com/VZtzUzGRv02OhRnZCxcNg49OilvolTqdnFLEqBsTwaxU/thumbnail.webp?time=268&width=1200"
-            alt="Girl walks into campfire with gnomes surrounding her friend ready for their next meal!"
-          />
-          {textTracks.map((track) => (
-            <Track {...track} key={track.src} />
-          ))}
-        </MediaProvider>
+          <MediaPlayer
+            className="player"
+            title="Sprite Fight"
+            src={item.url}
+            // src={'https://stream.mux.com/VZtzUzGRv02OhRnZCxcNg49OilvolTqdnFLEqBsTwaxU/low.mp4'}
+            crossorigin
+            playsinline
+            // onProviderChange={onProviderChange}
+            // onCanPlay={onCanPlay}
+            // ref={player}
+          >
+            <MediaProvider>
+              <Poster
+                className="vds-poster"
+                src="https://image.mux.com/VZtzUzGRv02OhRnZCxcNg49OilvolTqdnFLEqBsTwaxU/thumbnail.webp?time=268&width=1200"
+                alt="Girl walks into campfire with gnomes surrounding her friend ready for their next meal!"
+              />
+              {textTracks.map((track) => (
+                <Track {...track} key={track.src} />
+              ))}
+            </MediaProvider>
 
-        {/* Layouts */}
-        <DefaultAudioLayout icons={defaultLayoutIcons} />
-        <DefaultVideoLayout
-          icons={defaultLayoutIcons}
-          thumbnails="https://image.mux.com/VZtzUzGRv02OhRnZCxcNg49OilvolTqdnFLEqBsTwaxU/storyboard.vtt"
-        />
-      </MediaPlayer>
+            {/* Layouts */}
+            <DefaultAudioLayout icons={defaultLayoutIcons} />
+            <DefaultVideoLayout
+              icons={defaultLayoutIcons}
+              thumbnails="https://image.mux.com/VZtzUzGRv02OhRnZCxcNg49OilvolTqdnFLEqBsTwaxU/storyboard.vtt"
+            />
+          </MediaPlayer>
 
           {/* <h3 className="pb-2 text-xl font-bold text-black dark:text-white sm:text-2xl">
             Your Message Sent Successfully
