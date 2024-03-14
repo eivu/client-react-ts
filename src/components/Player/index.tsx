@@ -10,6 +10,7 @@ import {
   type MediaProviderAdapter,
   type MediaProviderChangeEvent,
 } from '@vidstack/react';
+import { AudioLayout } from './layouts/audio-layout';
 import {
   DefaultAudioLayout,
   defaultLayoutIcons,
@@ -54,7 +55,8 @@ export function Player():ReactElement {
       </MediaProvider>
 
       {/* Layouts */}
-      <DefaultAudioLayout icons={defaultLayoutIcons} />
+      {/* <DefaultAudioLayout icons={defaultLayoutIcons} /> */}
+      <AudioLayout />
     </MediaPlayer>
   );
 }
