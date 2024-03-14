@@ -37,9 +37,8 @@ const VideoPlayModal: React.FC = ({item}) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [hover, setHover] = useState(false);
   const player = useRef<MediaPlayerInstance>(null);
-
   const trigger = useRef<any>(null);
-  const modal = useRef<any>(null);
+  const modal = useRef<HTMLDivElement>(null);
 
   // close on click outside
   useEffect(() => {
@@ -51,7 +50,7 @@ const VideoPlayModal: React.FC = ({item}) => {
         trigger.current.contains(target)
       )
         return;
-      setModalOpen(false);
+      closeModal();
     };
     document.addEventListener('click', clickHandler);
     return () => document.removeEventListener('click', clickHandler);
@@ -110,7 +109,7 @@ const VideoPlayModal: React.FC = ({item}) => {
         <div
           ref={modal}
           onFocus={() => setModalOpen(true)}
-          // onBlur={() => setModalOpen(false)}
+          // onBlur={() => closeModal()}
           className="md:px-17.5 w-full max-w-142.5 rounded-lg bg-white px-8 py-12 text-center dark:bg-boxdark md:py-15"
         >
           <h1>Content here</h1>
@@ -156,7 +155,7 @@ const VideoPlayModal: React.FC = ({item}) => {
           <div className="-mx-3 flex flex-wrap gap-y-4">
             <div className="2xsm:w-1/2 w-full px-3">
               <button
-                onClick={() => setModalOpen(false)}
+                onClick={() => closeModal()}
                 className="block w-full rounded border border-stroke bg-gray p-3 text-center font-medium text-black transition hover:border-meta-1 hover:bg-meta-1 hover:text-white dark:border-strokedark dark:bg-meta-4 dark:text-white dark:hover:border-meta-1 dark:hover:bg-meta-1"
               >
                 Close
