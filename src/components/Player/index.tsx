@@ -15,6 +15,7 @@ import {
   DefaultAudioLayout,
   defaultLayoutIcons,
 } from '@vidstack/react/player/layouts/default';
+import * as Buttons from './layouts/shared/buttons';
 
 // import { textTracks } from './tracks';
 import { QueueItem } from '../../types/queueItem';
@@ -55,8 +56,21 @@ export function Player():ReactElement {
       </MediaProvider>
 
       {/* Layouts */}
-      {/* <DefaultAudioLayout icons={defaultLayoutIcons} /> */}
-      <AudioLayout />
+      <DefaultAudioLayout
+      icons={defaultLayoutIcons}
+      
+      slots={{
+    // beforePlayButton: null,
+    // Accepts a `ReactNode`, setting the slot to `null` will remove it.
+    // playButton: Buttons.Play({ tooltipPlacement: 'top' }),
+    // afterPlayButton: null,
+    airPlayButton: Buttons.AirPlay({ tooltipPlacement: 'top' }),
+    // 72 other slots positions...
+  }}
+
+      
+      />
+      {/* <AudioLayout /> */}
     </MediaPlayer>
   );
 }

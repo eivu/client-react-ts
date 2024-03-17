@@ -1,6 +1,6 @@
 
 
-
+import { TfiClose } from "react-icons/tfi";
 import React, { useState, useEffect, useRef } from 'react';
 import { PiPlayCircleLight, PiPlayCircleFill } from "react-icons/pi";
 import { QueueItem } from '../types/queueItem';
@@ -110,63 +110,41 @@ const VideoPlayModal: React.FC = ({item}) => {
           ref={modal}
           onFocus={() => setModalOpen(true)}
           // onBlur={() => closeModal()}
-          className="md:px-17.5 w-full max-w-142.5 rounded-lg bg-white px-8 py-12 text-center dark:bg-boxdark md:py-15"
+          className="w-full max-w-142.5 rounded-lg bg-white text-center dark:bg-boxdark"
         >
-          <h1>Content here</h1>
-          <div onClick={() => closeModal()} className='cursor-pointer'>X</div>
-          <MediaPlayer
-            className="player"
-            title={item.name}
-            src={item.url}
-            crossOrigin
-            playsInline
-            onCanPlay={onCanPlay}
-            onProviderChange={onProviderChange}
-            ref={player}
-          >
-            <MediaProvider>
-              <Poster
-                className="vds-poster"
-                src="https://image.mux.com/VZtzUzGRv02OhRnZCxcNg49OilvolTqdnFLEqBsTwaxU/thumbnail.webp?time=268&width=1200"
-                alt={item.name}
+          <div onClick={() => closeModal()} className='p-2 cursor-pointer float-right'>
+            <TfiClose />
+          </div>
+          <div className='md:px-17.5 px-8 py-12 md:py-15 clear-both'>
+            <MediaPlayer
+              className="player"
+              title={item.name}
+              src={item.url}
+              crossOrigin
+              playsInline
+              onCanPlay={onCanPlay}
+              onProviderChange={onProviderChange}
+              ref={player}
+            >
+              <MediaProvider>
+                <Poster
+                  className="vds-poster"
+                  src="https://image.mux.com/VZtzUzGRv02OhRnZCxcNg49OilvolTqdnFLEqBsTwaxU/thumbnail.webp?time=268&width=1200"
+                  alt={item.name}
+                />
+                {/* {textTracks.map((track) => (
+                  <Track {...track} key={track.src} />
+                ))} */}
+              </MediaProvider>
+
+              {/* Layouts */}
+              <DefaultAudioLayout icons={defaultLayoutIcons} />
+              <DefaultVideoLayout
+                icons={defaultLayoutIcons}
+                // thumbnails="https://image.mux.com/VZtzUzGRv02OhRnZCxcNg49OilvolTqdnFLEqBsTwaxU/storyboard.vtt"
               />
-              {/* {textTracks.map((track) => (
-                <Track {...track} key={track.src} />
-              ))} */}
-            </MediaProvider>
-
-            {/* Layouts */}
-            <DefaultAudioLayout icons={defaultLayoutIcons} />
-            <DefaultVideoLayout
-              icons={defaultLayoutIcons}
-              // thumbnails="https://image.mux.com/VZtzUzGRv02OhRnZCxcNg49OilvolTqdnFLEqBsTwaxU/storyboard.vtt"
-            />
-          </MediaPlayer>
-
-          {/* <h3 className="pb-2 text-xl font-bold text-black dark:text-white sm:text-2xl">
-            Your Message Sent Successfully
-          </h3>
-          <span className="mx-auto mb-6 inline-block h-1 w-22.5 rounded bg-primary"></span>
-          <p className="mb-10">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since
-          </p>
-          <div className="-mx-3 flex flex-wrap gap-y-4">
-            <div className="2xsm:w-1/2 w-full px-3">
-              <button
-                onClick={() => closeModal()}
-                className="block w-full rounded border border-stroke bg-gray p-3 text-center font-medium text-black transition hover:border-meta-1 hover:bg-meta-1 hover:text-white dark:border-strokedark dark:bg-meta-4 dark:text-white dark:hover:border-meta-1 dark:hover:bg-meta-1"
-              >
-                Close
-              </button>
-            </div>
-            <div className="2xsm:w-1/2 w-full px-3">
-              <button className="block w-full rounded border border-primary bg-primary p-3 text-center font-medium text-white transition hover:bg-opacity-90">
-                View Details
-              </button>
-            </div>
-          </div> */}
+            </MediaPlayer>
+          </div>
         </div>
       </div>
     </div>
