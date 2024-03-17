@@ -1,4 +1,5 @@
 import {
+  AirPlayButton,
   CaptionButton,
   FullscreenButton,
   isTrackCaptionKind,
@@ -11,6 +12,7 @@ import {
   type TooltipPlacement,
 } from '@vidstack/react';
 import {
+  AirPlayIcon,
   ClosedCaptionsIcon,
   ClosedCaptionsOnIcon,
   FullscreenExitIcon,
@@ -119,6 +121,28 @@ export function Fullscreen({ tooltipPlacement }: MediaButtonProps) {
 export interface SeekButtonProps extends MediaButtonProps {
   seconds: number;
 }
+
+export function AirPlay({ tooltipPlacement }: MediaButtonProps) {
+  return (
+    // <Tooltip.Root>
+    //   <Tooltip.Trigger asChild>
+    //   <AirPlayButton className="vds-button">
+    //     <h1>Button</h1>
+    //     {/* <AirPlayIcon className="vds-icon" /> */}
+    //   </AirPlayButton>
+    //   </Tooltip.Trigger>
+    //   <Tooltip.Content className="vds-tooltip-content" placement={tooltipPlacement}>
+    //     Airplay
+    //   </Tooltip.Content>
+    // </Tooltip.Root>
+    // <AirPlayButton className="vds-button">
+        // <h1>Button</h1>
+        // <AirPlayIcon className="vds-icon" /> 
+        // </AirPlayButton>
+        <button>AirPlay</button>
+  );
+}
+
 
 export function Seek({ seconds, tooltipPlacement }: SeekButtonProps) {
   const isBackward = seconds < 0;
