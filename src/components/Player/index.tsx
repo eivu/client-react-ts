@@ -11,10 +11,21 @@ import {
   type MediaProviderChangeEvent,
 } from '@vidstack/react';
 import { AudioLayout } from './layouts/audio-layout';
+
 import {
   DefaultAudioLayout,
   defaultLayoutIcons,
 } from '@vidstack/react/player/layouts/default';
+
+import { PlyrLayout, plyrLayoutIcons } from '@vidstack/react/player/layouts/plyr';
+
+
+import { DefaultAirPlayButton, DefaultGoogleCastButton } from '@vidstack/react/player/layouts/default';
+// import {
+//   DefaultAirPlayButton,
+//   defaultLayoutIcons,
+// } from '@vidstack/react/player/layouts/default';
+
 import * as Buttons from './layouts/shared/buttons';
 
 // import { textTracks } from './tracks';
