@@ -138,7 +138,6 @@ const VideoPlayModal: React.FC = ({item}) => {
               </MediaProvider>
 
               {/* Layouts */}
-              <DefaultAudioLayout icons={defaultLayoutIcons} />
               <DefaultVideoLayout
                 icons={defaultLayoutIcons}
                 // thumbnails="https://image.mux.com/VZtzUzGRv02OhRnZCxcNg49OilvolTqdnFLEqBsTwaxU/storyboard.vtt"
