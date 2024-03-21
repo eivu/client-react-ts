@@ -6,12 +6,7 @@ import { PiPlayCircleLight, PiPlayCircleFill } from "react-icons/pi";
 import { QueueItem } from '../types/queueItem';
 
 
-//----------
-import './Player/player.css';
-
-
 import {
-  isHLSProvider,
   MediaPlayer,
   MediaProvider,
   Poster,
@@ -19,15 +14,13 @@ import {
   type MediaCanPlayDetail,
   type MediaCanPlayEvent,
   type MediaPlayerInstance,
-  type MediaProviderAdapter,
 } from '@vidstack/react';
 import {
-  DefaultAudioLayout,
   defaultLayoutIcons,
   DefaultVideoLayout,
 } from '@vidstack/react/player/layouts/default';
 
-import { textTracks } from './Player/tracks';
+// import { textTracks } from './Player/tracks';
 
 
 
@@ -81,16 +74,6 @@ const VideoPlayModal: React.FC = ({item}) => {
     // ...
   }
 
-  function onProviderChange(
-    provider: MediaProviderAdapter | null,
-    nativeEvent: MediaProviderChangeEvent,
-  ) {
-    // We can configure provider's here.
-    if (isHLSProvider(provider)) {
-      provider.config = {};
-    }
-  }
-
   return (
     <div>
       <div
@@ -123,7 +106,6 @@ const VideoPlayModal: React.FC = ({item}) => {
               crossOrigin
               playsInline
               onCanPlay={onCanPlay}
-              onProviderChange={onProviderChange}
               ref={player}
             >
               <MediaProvider>
@@ -138,6 +120,8 @@ const VideoPlayModal: React.FC = ({item}) => {
               </MediaProvider>
 
               {/* Layouts */}
+              {/* <VideoLayout /> */}
+
               <DefaultVideoLayout
                 icons={defaultLayoutIcons}
                 // thumbnails="https://image.mux.com/VZtzUzGRv02OhRnZCxcNg49OilvolTqdnFLEqBsTwaxU/storyboard.vtt"
