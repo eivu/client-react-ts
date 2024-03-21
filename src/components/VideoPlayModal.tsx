@@ -4,6 +4,7 @@ import { TfiClose } from "react-icons/tfi";
 import React, { useState, useEffect, useRef } from 'react';
 import { PiPlayCircleLight, PiPlayCircleFill } from "react-icons/pi";
 import { QueueItem } from '../types/queueItem';
+import { VideoLayout } from './Player/layouts/video-layout';
 
 
 import {
@@ -19,6 +20,7 @@ import {
   defaultLayoutIcons,
   DefaultVideoLayout,
 } from '@vidstack/react/player/layouts/default';
+import { V } from "@vidstack/react/dist/types/vidstack-framework.js";
 
 // import { textTracks } from './Player/tracks';
 
@@ -121,11 +123,11 @@ const VideoPlayModal: React.FC = ({item}) => {
 
               {/* Layouts */}
               {/* <VideoLayout /> */}
-
-              <DefaultVideoLayout
+              <VideoLayout icons={defaultLayoutIcons}  />
+              {/* <DefaultVideoLayout
                 icons={defaultLayoutIcons}
                 // thumbnails="https://image.mux.com/VZtzUzGRv02OhRnZCxcNg49OilvolTqdnFLEqBsTwaxU/storyboard.vtt"
-              />
+              /> */}
             </MediaPlayer>
           </div>
         </div>
