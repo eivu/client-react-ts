@@ -22,9 +22,9 @@ export function VideoLayout({ thumbnails }: VideoLayoutProps) {
           <Sliders.Time thumbnails={thumbnails} />
         </Controls.Group>
         <Controls.Group className={`${styles.controlsGroup} vds-controls-group`}>
-          <Buttons.Seek seconds={-30} tooltipPlacement="top start" />
+          <Buttons.Seek30 seconds={-30} tooltipPlacement="top start" />
           <Buttons.Play tooltipPlacement="top" />
-          <Buttons.Seek seconds={30} tooltipPlacement="top" />
+          <Buttons.Seek30 seconds={30} tooltipPlacement="top" />
           <Buttons.Mute tooltipPlacement="top" />
           <Sliders.Volume />
           <TimeGroup />
