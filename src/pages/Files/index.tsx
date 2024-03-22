@@ -6,6 +6,7 @@ import prettyBytes from 'pretty-bytes';
 import { timeAgo } from '../../common/timeAgo';
 import { useMemo } from 'react';
 import { queueItems } from '../../data/queueItems';
+import AddToQueueButton from '../../components/AddToQueueButton';
 import AVButton from '../../components/AVButton';
 import { QueueItem } from '../../types/queueItem';
 import {
@@ -25,10 +26,17 @@ const Files: React.FC = () => {
     () => [
       {
         header: () => null,
-        id: 'controls',
+        id: 'play',
         enableSorting: false,
         disableSortBy: true,
         cell: info => (<AVButton item={info.row.original} />)
+      },
+      {
+        header: () => null,
+        id: 'addToQueue',
+        enableSorting: false,
+        disableSortBy: true,
+        cell: info => (<AddToQueueButton item={info.row.original} />)
       },
       {
         header: 'Name',
