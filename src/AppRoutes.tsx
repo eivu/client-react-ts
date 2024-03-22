@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import Files from './pages/Files';
 import Artists from './pages/Artists';
+import Queue from './pages/Queue';
 import PageTitle from './components/PageTitle';
 
 export const AppRoutes:React.FC = () => {
@@ -29,6 +30,15 @@ export const AppRoutes:React.FC = () => {
             <>
               <PageTitle title="EIVU::Files" />
               <Files />
+            </>
+          }
+        />
+        <Route
+          path="/queue"
+          element={
+            <>
+              <PageTitle title="EIVU::Queue" />
+              <Queue />
             </>
           }
         />
