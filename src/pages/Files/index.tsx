@@ -36,7 +36,7 @@ const Files: React.FC = () => {
         id: 'addToQueue',
         enableSorting: false,
         disableSortBy: true,
-        cell: info => (<AddToQueueButton item={info.row.original} />)
+        cell: info => (info.row.original.contentType.startsWith('audio') ? <AddToQueueButton item={info.row.original} /> : null)
       },
       {
         header: 'Name',
