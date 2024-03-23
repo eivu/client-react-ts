@@ -31,6 +31,12 @@ export function Player():ReactElement {
   }, []);
 
 
+  // We can listen for the `can-play` event to be notified when the player is ready.
+  function onCanPlay(detail: MediaCanPlayDetail, nativeEvent: MediaCanPlayEvent) {
+    player &&  player!.current.play();
+
+  }
+
   function queueObjects(): PlayerSrc[] {
     return queue.map((item:QueueItem) => ({src: item.url, type: item.contentType }));
   }
@@ -40,7 +46,8 @@ export function Player():ReactElement {
       className="player"
       title={queueItem.name}
       src={queueObjects}
-      autoPlay
+      onCanPlay={onCanPlay}
+      // onEnded={() => alert('Media ended')}
       crossOrigin
       playsInline
       ref={player}

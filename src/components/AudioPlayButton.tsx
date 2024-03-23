@@ -16,8 +16,11 @@ const AudioPlayButton:FC = ({item}) => {
   function handleClick():void {
     if (currentQueueItemMd5(queue) == item.md5)
       player!.current.play();
-    else
+    else {
       dispatch({type: 'setQueue', queue: [item]});
+            player!.current.play();
+
+    }
   }
 
   return (
