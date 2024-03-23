@@ -30,25 +30,32 @@ export function Player():ReactElement {
     });
   }, []);
 
+  function nextQueueItem():QueueItem | undefined {
+    return queue[queueIndex + 1];
+  }
 
   function currentQueueItem():QueueItem {
     return queue[queueIndex];
   }
 
-  // We can listen for the `can-play` event to be notified when the player is ready.
-  function onCanPlay(detail: MediaCanPlayDetail, nativeEvent: MediaCanPlayEvent) {
-    player &&  player!.current.play();
+  function currentPlayerSrc():PlayerSrc {
+    return {src: currentQueueItem().url, type: currentQueueItem().contentType }; 
   }
 
   function queueObjects(): PlayerSrc[] {
     return queue.map((item:QueueItem) => ({src: item.url, type: item.contentType }));
   }
 
+  // We can listen for the `can-play` event to be notified when the player is ready.
+  function onCanPlay(detail: MediaCanPlayDetail, nativeEvent: MediaCanPlayEvent) {
+    player && player!.current.play();
+  }
+
   return (
     <MediaPlayer
       className="player"
       title={currentQueueItem().name}
-      src={queueObjects}
+      src={currentPlayerSrc}
       onCanPlay={onCanPlay}
       // onEnded={() => alert('Media ended')}
       crossOrigin

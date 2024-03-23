@@ -72,11 +72,11 @@ type Props = {
 
 export function AppProvider({children }: Props) {
   // const [state, dispatch] = useReducer(reducer, initialState)
-  const [{ queueIndex, player, queueItem, queue }, dispatch] =
+  const [{ queueIndex, player, queue }, dispatch] =
     useReducer(reducer, initialState);
   
   return (
-    <AppContext.Provider value={{queueIndex, player, queueItem, queue, dispatch}}>
+    <AppContext.Provider value={{queueIndex, player, queue, dispatch}}>
       {children}
     </AppContext.Provider>
   )
