@@ -5,11 +5,11 @@ import { useMediaState } from '@vidstack/react';
 import VideoPlayModal from './VideoPlayModal';
 
 const AVButton:FC = ({item}) => {
-  const { player, queue } = useAppContext();
+  const { player, queue, queueIndex } = useAppContext();
   const isPlaying = useMediaState('playing', player);
 
   function nowPlayingMd5() {
-    return queue.length > 0 ? queue[0].md5 : undefined;
+    return queue.length > 0 ? queue[queueIndex].md5 : undefined;
   }
 
   return (
