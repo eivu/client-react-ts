@@ -14,10 +14,10 @@ import {
 } from '@vidstack/react/player/layouts/default';
 
 // import { textTracks } from './tracks';
-import { QueueItem } from '../../types/queueItem';
+import { type QueueItem } from '../../types/queueItem';
 
 export function Player():ReactElement {
-  const { dispatch, queueItem, queue } = useAppContext();
+  const { dispatch, queueIndex, queue } = useAppContext();
   let player = useRef<MediaPlayerInstance>(null);
 
   useEffect(() => {
@@ -31,10 +31,13 @@ export function Player():ReactElement {
   }, []);
 
 
+  function currentQueueItem():QueueItem {
+    return queue[queueIndex];
+  }
+
   // We can listen for the `can-play` event to be notified when the player is ready.
   function onCanPlay(detail: MediaCanPlayDetail, nativeEvent: MediaCanPlayEvent) {
     player &&  player!.current.play();
-
   }
 
   function queueObjects(): PlayerSrc[] {
@@ -44,7 +47,7 @@ export function Player():ReactElement {
   return (
     <MediaPlayer
       className="player"
-      title={queueItem.name}
+      title={currentQueueItem().name}
       src={queueObjects}
       onCanPlay={onCanPlay}
       // onEnded={() => alert('Media ended')}

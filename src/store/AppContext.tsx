@@ -1,16 +1,19 @@
 import { createContext, useContext, useReducer, ReactNode } from 'react';
 import { type MediaPlayerInstance, } from '@vidstack/react';
 import { defaultQueue } from '../components/Player/defaultQueue';
+import { QueueItem } from '../types/queueItem';
 
 type State = {
   player: MediaPlayerInstance | undefined,
   queueItem: QueueItem | undefined,
+  queueIndex: number,
   queue: QueueItem[]
 };
 
 
 const initialState: State = {
   queueItem: defaultQueue[0],
+  queueIndex: 0,
   queue: defaultQueue,
   player: undefined
 }
@@ -19,6 +22,8 @@ type Action =
   | { type: 'setPlayer', player: any }
   | { type: 'setQueueItem', queueItem: QueueItem }
   | { type: 'setQueue', queue: QueueItem[] }
+  | { type: 'incrementQueueIndex' }
+  | { type: 'decrementQueueIndex' }
   | { type: 'clearQueue' }
   | { type: 'clearQueueItem' }
   | { type: 'addQueueItem', queueItem: QueueItem }
@@ -33,6 +38,10 @@ function reducer(state: State, action: Action): State {
       return { ...state, queueItem: action.queueItem };
     case 'setQueue':
       return { ...state, queue: action.queue };
+    case 'incrementQueueIndex':
+      return { ...state, queueIndex: state.queueIndex + 1 };
+    case 'decrementQueueIndex':
+      return { ...state, queueIndex: state.queueIndex - 1 };
     case 'clearQueue':
       return { ...state, queue: [] };
     case 'clearQueueItem':
@@ -63,15 +72,16 @@ type Props = {
 
 export function AppProvider({children }: Props) {
   // const [state, dispatch] = useReducer(reducer, initialState)
-  const [{ player, queueItem, queue }, dispatch] =
+  const [{ queueIndex, player, queueItem, queue }, dispatch] =
     useReducer(reducer, initialState);
   
   return (
-    <AppContext.Provider value={{player, queueItem, queue, dispatch}}>
+    <AppContext.Provider value={{queueIndex, player, queueItem, queue, dispatch}}>
       {children}
     </AppContext.Provider>
   )
 };
 
+// export const currentQueueItem = (queue: QueueItem[]): QueueItem | undefined => queue.length > 0 ? queue[0] : undefined;
 export const currentQueueItemMd5 = (queue: QueueItem[]): QueueItem | undefined => queue.length > 0 ? queue[0].md5 : undefined;
 export const useAppContext = () => useContext(AppContext);
