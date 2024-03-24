@@ -15,6 +15,7 @@ import {
 
 // import { textTracks } from './tracks';
 import { type QueueItem } from '../../types/queueItem';
+import { AudioLayout } from './layouts/audio-layout';
 
 export function Player():ReactElement {
   const { dispatch, queueIndex, queue } = useAppContext();
@@ -71,7 +72,7 @@ export function Player():ReactElement {
       </MediaProvider>
 
       {/* Layouts */}
-      <DefaultAudioLayout icons={defaultLayoutIcons} />
+      <AudioLayout icons={defaultLayoutIcons} />
     </MediaPlayer>
   );
 }
