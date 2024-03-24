@@ -31,7 +31,7 @@ export function VideoLayout({ thumbnails }: VideoLayoutProps) {
           <ChapterTitle className="vds-chapter-title" />
           <div className="vds-controls-spacer" />
           <Buttons.Caption tooltipPlacement="top" />
-          <Menus.Settings placement="top end" tooltipPlacement="top" />
+          {/* <Menus.Settings placement="top end" tooltipPlacement="top" /> */}
           {/* <Buttons.PIP tooltipPlacement="top" /> */}
           <Buttons.Fullscreen tooltipPlacement="top end" />
         </Controls.Group>
