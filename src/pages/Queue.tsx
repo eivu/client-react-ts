@@ -1,6 +1,7 @@
 import React from 'react';
 import DefaultLayout from '../layout/DefaultLayout';
 import { useAppContext } from '../store/AppContext';
+import convertSecondsToTimeHhMmSs from '../common/convertSecondsToTimeHhMmSs';
 
 const Queue: React.FC = () => {
   const { queue } = useAppContext();
@@ -18,11 +19,11 @@ const Queue: React.FC = () => {
                 <div className="col-span-1">
                   <p className="font-medium">{index + 1}</p>
                 </div>
-                <div className="col-span-10">
+                <div className="col-span-9">
                   <p className="font-medium">{item.name}</p>
                 </div>
                 <div className="col-span-1 text-right">
-                  <p className="font-medium">{item.duration}</p>
+                  <p className="font-medium">{convertSecondsToTimeHhMmSs(item.duration)}</p>
                 </div>
               </div>
             ))}
