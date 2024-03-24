@@ -16,6 +16,8 @@ import {
   FullscreenExitIcon,
   FullscreenIcon,
   MuteIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
   PauseIcon,
   PictureInPictureExitIcon,
   PictureInPictureIcon,
@@ -37,7 +39,7 @@ export function Play({ tooltipPlacement }: MediaButtonProps) {
   return (
     <Tooltip.Root>
       <Tooltip.Trigger asChild>
-        <PlayButton className="vds-button">{isPaused ? <PlayIcon /> : <PauseIcon />}</PlayButton>
+        <PlayButton className="vds-button">{isPaused ? <PlayIcon /> : <PauseIcon className='text-white' />}</PlayButton>
       </Tooltip.Trigger>
       <Tooltip.Content className="vds-tooltip-content" placement={tooltipPlacement}>
         {isPaused ? 'Play' : 'Pause'}
@@ -81,6 +83,33 @@ export function Caption({ tooltipPlacement }: MediaButtonProps) {
       </Tooltip.Trigger>
       <Tooltip.Content className="vds-tooltip-content" placement={tooltipPlacement}>
         {isOn ? 'Closed-Captions Off' : 'Closed-Captions On'}
+      </Tooltip.Content>
+    </Tooltip.Root>
+  );
+}
+
+
+export function Prev({ tooltipPlacement }: MediaButtonProps) {
+  return (
+    <Tooltip.Root>
+      <Tooltip.Trigger asChild>
+        <ChevronLeftIcon size={32} />
+      </Tooltip.Trigger>
+      <Tooltip.Content className="vds-tooltip-content" placement={tooltipPlacement}>
+        Previous Track
+      </Tooltip.Content>
+    </Tooltip.Root>
+  );
+}
+
+export function Next({ tooltipPlacement }: MediaButtonProps) {
+  return (
+    <Tooltip.Root>
+      <Tooltip.Trigger asChild>
+        <ChevronRightIcon size={32} />
+      </Tooltip.Trigger>
+      <Tooltip.Content className="vds-tooltip-content" placement={tooltipPlacement}>
+        Next Track
       </Tooltip.Content>
     </Tooltip.Root>
   );
