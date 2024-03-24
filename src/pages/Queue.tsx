@@ -18,6 +18,7 @@ const Queue: React.FC = () => {
           <div className="p-4 sm:p-6 xl:p-9">
             {queue.map((item, index) => (
               <div key={index}
+                onClick={() => index != queueIndex && alert('Not implemented')}
                 className={
                   (
                     index == queueIndex
