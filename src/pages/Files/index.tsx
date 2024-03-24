@@ -84,7 +84,7 @@ const Files: React.FC = () => {
   return (
     <DefaultLayout>
       <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <h2 className="text-title-md2 font-semibold text-black dark:text-white">Files</h2>
+        <h2 className="text-title-md2 font-semibold text-black dark:text-white">Eivu::Files</h2>
       </div>
 
       <section className="data-table-common data-table-two rounded-sm border border-stroke bg-white py-4 shadow-default dark:border-strokedark  dark:bg-boxdark">

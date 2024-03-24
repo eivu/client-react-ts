@@ -55,7 +55,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
           aria-expanded={sidebarOpen}
           className="block lg:hidden"
         >
-          <div>whereami</div>
+          {/* <div>whereami</div> */}
           <svg
             className="fill-current"
             width="20"

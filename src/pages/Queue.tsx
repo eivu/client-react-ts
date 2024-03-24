@@ -10,7 +10,7 @@ const Queue: React.FC = () => {
   return (
     <DefaultLayout>
       <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <h2 className="text-title-md2 font-semibold text-black dark:text-white">Queue</h2>
+        <h2 className="text-title-md2 font-semibold text-black dark:text-white">Eivu::Queue</h2>
       </div>
 
       <div className="flex flex-col gap-7.5">
