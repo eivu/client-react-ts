@@ -359,13 +359,31 @@ input[type="search"]::-webkit-search-cancel-button {
   display: none !important;
 }
 
-.queueRow:hover {
+.queueRow.otherItem {
+  cursor: pointer;
+}
+
+.queueRow.otherItem:hover {
   background-color: gainsboro
+}
+
+.queueRow.currentIten.playing {
+  @apply bg-gray;
+}
+
+.queueRow.currentIten.paused {
+  background-color: lightcyan;
+}
+
+
+/* .queueRow.activeSelection {
+  @apply bg-gray;
+  background-color: lightcyan
 }
 
 .queueRow.inactiveSelection {
   background-color: lightcyan
-}
+} */
 
 footer {
   @apply bg-whiten;

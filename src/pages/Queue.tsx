@@ -21,10 +21,10 @@ const Queue: React.FC = () => {
                 className={
                   (
                     index == queueIndex
-                      ? (isPlaying ? 'bg-gray activeSelection' : 'inactiveSelection')
-                      : ''
+                      ? (isPlaying ? 'currentIten playing' : 'currentIten paused')
+                      : 'otherItem'
                   )
-                  + ' queueRow cursor-pointer grid grid-cols-12 border-b border-stroke py-3.5 pl-5 pr-6 dark:border-strokedark'}>
+                  + ' queueRow grid grid-cols-12 border-b border-stroke py-3.5 pl-5 pr-6 dark:border-strokedark'}>
                 <div className="col-span-1">
                   <p className="font-medium">{index + 1}</p>
                 </div>
