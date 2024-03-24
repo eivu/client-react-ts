@@ -17,6 +17,7 @@ const AudioPlayButton:FC = ({item}) => {
     if (currentQueueItemMd5(queue) == item.md5)
       player!.current.play();
     else {
+      dispatch({type: 'setQueueIndex', queueIndex: 0})
       dispatch({type: 'setQueue', queue: [item]});
             player!.current.play();
 
