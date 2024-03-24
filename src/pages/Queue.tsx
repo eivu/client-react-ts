@@ -5,7 +5,7 @@ import { useMediaState } from '@vidstack/react';
 import convertSecondsToTimeHhMmSs from '../common/convertSecondsToTimeHhMmSs';
 
 const Queue: React.FC = () => {
-  const { queue, queueIndex, player } = useAppContext();
+  const { queue, queueIndex, player, dispatch } = useAppContext();
   const isPlaying = useMediaState('playing', player);
   return (
     <DefaultLayout>
@@ -18,7 +18,7 @@ const Queue: React.FC = () => {
           <div className="p-4 sm:p-6 xl:p-9">
             {queue.map((item, index) => (
               <div key={index}
-                onClick={() => index != queueIndex && alert('Not implemented')}
+                onClick={() => index != queueIndex && dispatch({ type: 'setQueueIndex', queueIndex: index })}
                 className={
                   (
                     index == queueIndex

@@ -5,14 +5,12 @@ import { QueueItem } from '../types/queueItem';
 
 type State = {
   player: MediaPlayerInstance | undefined,
-  queueItem: QueueItem | undefined,
   queueIndex: number,
   queue: QueueItem[]
 };
 
 
 const initialState: State = {
-  queueItem: defaultQueue[0],
   queueIndex: 0,
   queue: defaultQueue,
   player: undefined
@@ -20,8 +18,8 @@ const initialState: State = {
 
 type Action =
   | { type: 'setPlayer', player: any }
-  | { type: 'setQueueItem', queueItem: QueueItem }
   | { type: 'setQueue', queue: QueueItem[] }
+  | { type: 'setQueueIndex', queueIndex: number }
   | { type: 'incrementQueueIndex' }
   | { type: 'decrementQueueIndex' }
   | { type: 'clearQueue' }
@@ -34,8 +32,8 @@ function reducer(state: State, action: Action): State {
   switch (action.type) {
     case 'setPlayer':
       return { ...state, player: action.player };
-    case 'setQueueItem':
-      return { ...state, queueItem: action.queueItem };
+    case 'setQueueIndex':
+      return { ...state, queueIndex: action.queueIndex };
     case 'setQueue':
       return { ...state, queue: action.queue };
     case 'incrementQueueIndex':
