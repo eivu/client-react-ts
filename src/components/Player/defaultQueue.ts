@@ -10,7 +10,7 @@ export const defaultQueue: QueueItem[] = [
     "nsfw": false,
     "delicate": false,
     "duration": 0,
-    "name": ".",//"A Mime Clapping",
+    "name": "{Whispers of Silence}",//"A Mime Clapping",
     "md5": "D258C1A40E785406564616AFD8045351",
     "url": "https://eivu.s3.us-east-1.wasabisys.com/silence.mp3",
     "contentType": "audio/mpeg"

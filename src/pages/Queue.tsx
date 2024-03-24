@@ -1,10 +1,12 @@
 import React from 'react';
 import DefaultLayout from '../layout/DefaultLayout';
 import { useAppContext } from '../store/AppContext';
+import { useMediaState } from '@vidstack/react';
 import convertSecondsToTimeHhMmSs from '../common/convertSecondsToTimeHhMmSs';
 
 const Queue: React.FC = () => {
-  const { queue, queueIndex } = useAppContext();
+  const { queue, queueIndex, player } = useAppContext();
+  const isPlaying = useMediaState('playing', player);
   return (
     <DefaultLayout>
       <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -15,7 +17,14 @@ const Queue: React.FC = () => {
         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
           <div className="p-4 sm:p-6 xl:p-9">
             {queue.map((item, index) => (
-              <div key={index} className={(index == queueIndex ? 'bg-gray currentSelection' : '')+ ' queueRow cursor-pointer grid grid-cols-12 border-b border-stroke py-3.5 pl-5 pr-6 dark:border-strokedark'}>
+              <div key={index}
+                className={
+                  (
+                    index == queueIndex
+                      ? (isPlaying ? 'bg-gray activeSelection' : 'inactiveSelection')
+                      : ''
+                  )
+                  + ' queueRow cursor-pointer grid grid-cols-12 border-b border-stroke py-3.5 pl-5 pr-6 dark:border-strokedark'}>
                 <div className="col-span-1">
                   <p className="font-medium">{index + 1}</p>
                 </div>
