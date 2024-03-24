@@ -4,7 +4,7 @@ import { useAppContext } from '../store/AppContext';
 import convertSecondsToTimeHhMmSs from '../common/convertSecondsToTimeHhMmSs';
 
 const Queue: React.FC = () => {
-  const { queue } = useAppContext();
+  const { queue, queueIndex } = useAppContext();
   return (
     <DefaultLayout>
       <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -15,7 +15,7 @@ const Queue: React.FC = () => {
         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
           <div className="p-4 sm:p-6 xl:p-9">
             {queue.map((item, index) => (
-              <div key={index} className="grid grid-cols-12 border-b border-stroke py-3.5 pl-5 pr-6 dark:border-strokedark">
+              <div key={index} className={(index == queueIndex ? 'bg-gray' : '')+ ' grid grid-cols-12 border-b border-stroke py-3.5 pl-5 pr-6 dark:border-strokedark'}>
                 <div className="col-span-1">
                   <p className="font-medium">{index + 1}</p>
                 </div>
