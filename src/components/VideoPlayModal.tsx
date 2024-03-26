@@ -3,9 +3,9 @@
 import { TfiClose } from "react-icons/tfi";
 import React, { useState, useEffect, useRef } from 'react';
 import { PiPlayCircleLight, PiPlayCircleFill } from "react-icons/pi";
-import { QueueItem } from '../types/queueItem';
 import { VideoLayout } from './Player/layouts/video-layout';
-
+import { useAppContext } from "../store/AppContext";
+import { defaultLayoutIcons } from '@vidstack/react/player/layouts/default';
 
 import {
   MediaPlayer,
@@ -16,19 +16,10 @@ import {
   type MediaCanPlayEvent,
   type MediaPlayerInstance,
 } from '@vidstack/react';
-import {
-  defaultLayoutIcons,
-  DefaultVideoLayout,
-} from '@vidstack/react/player/layouts/default';
-import { V } from "@vidstack/react/dist/types/vidstack-framework.js";
-
-// import { textTracks } from './Player/tracks';
-
-
-
 
 
 const VideoPlayModal: React.FC = ({item}) => {
+  const { player:audioPlayer } = useAppContext();
   const [modalOpen, setModalOpen] = useState(false);
   const [hover, setHover] = useState(false);
   const player = useRef<MediaPlayerInstance>(null);
@@ -63,7 +54,7 @@ const VideoPlayModal: React.FC = ({item}) => {
 
   function openModal() {
     setModalOpen(!modalOpen);
-    // player!.current!.play();
+    audioPlayer!.current.pause()
   }
 
   function closeModal() {
