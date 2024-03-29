@@ -30,6 +30,8 @@ import {
   VolumeLowIcon,
 } from '@vidstack/react/icons';
 
+import { useAppContext } from '../../../../store/AppContext';
+
 export interface MediaButtonProps {
   tooltipPlacement: TooltipPlacement;
 }
@@ -88,12 +90,20 @@ export function Caption({ tooltipPlacement }: MediaButtonProps) {
   );
 }
 
-
 export function Prev({ tooltipPlacement }: MediaButtonProps) {
+  const { dispatch, player } = useAppContext();
+
+  const handleOnClick = () => {
+    if (player!.current.currentTime <= 3)
+      dispatch({type: 'decrementQueueIndex'})
+    else
+      player!.current.currentTime = 0;
+  }
+
   return (
     <Tooltip.Root>
       <Tooltip.Trigger asChild>
-        <ChevronLeftIcon size={32} />
+        <ChevronLeftIcon className="cursor-pointer" size={32} onClick={handleOnClick}/>
       </Tooltip.Trigger>
       <Tooltip.Content className="vds-tooltip-content" placement={tooltipPlacement}>
         Previous Track
@@ -106,7 +116,7 @@ export function Next({ tooltipPlacement }: MediaButtonProps) {
   return (
     <Tooltip.Root>
       <Tooltip.Trigger asChild>
-        <ChevronRightIcon size={32} />
+        <ChevronRightIcon className="cursor-pointer" size={32} />
       </Tooltip.Trigger>
       <Tooltip.Content className="vds-tooltip-content" placement={tooltipPlacement}>
         Next Track
