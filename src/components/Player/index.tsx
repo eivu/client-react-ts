@@ -8,6 +8,8 @@ import {
   type MediaPlayerInstance,
 } from '@vidstack/react';
 
+import * as Buttons from './layouts/shared/buttons';
+
 import {
   DefaultAudioLayout,
   defaultLayoutIcons,
@@ -72,7 +74,14 @@ export function Player():ReactElement {
       </MediaProvider>
 
       {/* Layouts */}
-      <AudioLayout icons={defaultLayoutIcons} />
+      <DefaultAudioLayout icons={defaultLayoutIcons} 
+        slots={{ 
+          beforeSeekBackwardButton: <Buttons.Prev tooltipPlacement="top" />,
+          afterSeekForwardButton: <Buttons.Next tooltipPlacement="top" />
+        }}
+      />
+    
+
     </MediaPlayer>
   );
 }
