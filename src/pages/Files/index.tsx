@@ -1,5 +1,4 @@
 import React from 'react';
-import  Modal from '../../components/Modal';
 import DefaultLayout from '../../layout/DefaultLayout';
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
 import  { useAppContext } from '../../store/AppContext';
@@ -7,9 +6,8 @@ import prettyBytes from 'pretty-bytes';
 import { timeAgo } from '../../common/timeAgo';
 import { useMemo } from 'react';
 import { queueItems } from '../../data/queueItems';
-// import { PlayButton } from '../../components/PlayButton';
-import { AVButton } from '../../components/AVButton';
-import { PauseButton } from '../../components/PauseButton';
+import AddToQueueButton from '../../components/AddToQueueButton';
+import AVButton from '../../components/AVButton';
 import { QueueItem } from '../../types/queueItem';
 import {
   ColumnDef,
@@ -28,10 +26,17 @@ const Files: React.FC = () => {
     () => [
       {
         header: () => null,
-        id: 'controls',
+        id: 'play',
         enableSorting: false,
         disableSortBy: true,
         cell: info => (<AVButton item={info.row.original} />)
+      },
+      {
+        header: () => null,
+        id: 'addToQueue',
+        enableSorting: false,
+        disableSortBy: true,
+        cell: info => (info.row.original.contentType.startsWith('audio') ? <AddToQueueButton item={info.row.original} /> : null)
       },
       {
         header: 'Name',
@@ -78,6 +83,10 @@ const Files: React.FC = () => {
 
   return (
     <DefaultLayout>
+      <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <h2 className="text-title-md2 font-semibold text-black dark:text-white">Eivu::Files</h2>
+      </div>
+
       <section className="data-table-common data-table-two rounded-sm border border-stroke bg-white py-4 shadow-default dark:border-strokedark  dark:bg-boxdark">
         <div className="flex justify-between border-b border-stroke px-8 pb-4 dark:border-strokedark">
           {/* Search Field

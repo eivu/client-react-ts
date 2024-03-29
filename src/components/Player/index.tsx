@@ -2,89 +2,81 @@ import './player.css';
 import { ReactElement, useEffect, useRef } from 'react';
 import { useAppContext } from '../../store/AppContext';
 import {
-  isHLSProvider,
   MediaPlayer,
   MediaProvider,
-  Poster,
   // Track,
-  type MediaCanPlayDetail,
-  type MediaCanPlayEvent,
   type MediaPlayerInstance,
-  type MediaProviderAdapter,
-  type MediaProviderChangeEvent,
 } from '@vidstack/react';
+
+import * as Buttons from './layouts/shared/buttons';
+
 import {
   DefaultAudioLayout,
   defaultLayoutIcons,
-  DefaultVideoLayout,
 } from '@vidstack/react/player/layouts/default';
 
 // import { textTracks } from './tracks';
-import { QueueItem } from '../../types/queueItem';
+import { type QueueItem } from '../../types/queueItem';
+import { AudioLayout } from './layouts/audio-layout';
 
 export function Player():ReactElement {
-  const { dispatch, queueItem, queue } = useAppContext();
+  const { dispatch, queueIndex, queue } = useAppContext();
   let player = useRef<MediaPlayerInstance>(null);
 
   useEffect(() => {
-    // Initialize src.
+    // assign ref to player context.
     dispatch({type: 'setPlayer', player: player});
-    console.log('queueObjects', queueObjects());
-    // Subscribe to state updates.
-    return player.current!.subscribe(({ paused, viewType }) => {
-      // console.log('is paused?', '->', paused);
-      // console.log('is audio view?', '->', viewType === 'audio');
-    });
   }, []);
 
-  function onProviderChange(
-    provider: MediaProviderAdapter | null,
-    nativeEvent: MediaProviderChangeEvent,
-  ) {
-    // We can configure provider's here.
-    if (isHLSProvider(provider)) {
-      provider.config = {};
-    }
+  function nextQueueItem():QueueItem | undefined {
+    return queue[queueIndex + 1];
+  }
+
+  function currentQueueItem():QueueItem {
+    return queue[queueIndex];
+  }
+
+  function currentPlayerSrc():PlayerSrc {
+    return {src: currentQueueItem().url, type: currentQueueItem().contentType }; 
   }
 
   // We can listen for the `can-play` event to be notified when the player is ready.
   function onCanPlay(detail: MediaCanPlayDetail, nativeEvent: MediaCanPlayEvent) {
-    // ...
+    player && player!.current.play();
   }
 
-  function queueObjects(): PlayerSrc[] {
-    return queue.map((item:QueueItem) => ({src: item.url, type: item.contentType }));
+  function onEnded():void {
+    // play next item in queue if it exists.
+    nextQueueItem() && dispatch({type: 'incrementQueueIndex'})
   }
 
   return (
     <MediaPlayer
       className="player"
-      title={queueItem.name}
-      src={queueObjects}
-      autoPlay
+      title={currentQueueItem().name}
+      src={currentPlayerSrc}
+      onCanPlay={onCanPlay}
+      // onEnded={() => alert('Media ended')}
+      onEnded={onEnded}
       crossOrigin
       playsInline
-      onProviderChange={onProviderChange}
-      onCanPlay={onCanPlay}
       ref={player}
     >
       <MediaProvider>
-        <Poster
-          className="vds-poster"
-          src="https://image.mux.com/VZtzUzGRv02OhRnZCxcNg49OilvolTqdnFLEqBsTwaxU/thumbnail.webp?time=268&width=1200"
-          alt="Girl walks into campfire with gnomes surrounding her friend ready for their next meal!"
-        />
         {/* {textTracks.map((track) => (
           <Track {...track} key={track.src} />
         ))} */}
       </MediaProvider>
 
       {/* Layouts */}
-      <DefaultAudioLayout icons={defaultLayoutIcons} />
-      <DefaultVideoLayout
-        icons={defaultLayoutIcons}
-        thumbnails="https://image.mux.com/VZtzUzGRv02OhRnZCxcNg49OilvolTqdnFLEqBsTwaxU/storyboard.vtt"
+      <DefaultAudioLayout icons={defaultLayoutIcons} 
+        slots={{ 
+          beforeSeekBackwardButton: <Buttons.Prev tooltipPlacement="top" />,
+          afterSeekForwardButton: <Buttons.Next tooltipPlacement="top" />
+        }}
       />
+    
+
     </MediaPlayer>
   );
 }

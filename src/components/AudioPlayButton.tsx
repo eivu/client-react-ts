@@ -2,7 +2,7 @@ import { PiPlayCircleLight, PiPlayCircleFill } from "react-icons/pi";
 import { useState } from 'react';
 import { currentQueueItemMd5, useAppContext } from '../store/AppContext';
 
-export const AudioPlayButton:FC = ({item}) => {
+const AudioPlayButton:FC = ({item}) => {
   const { player, queue, dispatch } = useAppContext();
   const [hover, setHover] = useState(false);
   // https://www.vidstack.io/docs/player/components/core/player?styling=css#mediaplayer.state
@@ -16,8 +16,12 @@ export const AudioPlayButton:FC = ({item}) => {
   function handleClick():void {
     if (currentQueueItemMd5(queue) == item.md5)
       player!.current.play();
-    else
+    else {
+      dispatch({type: 'setQueueIndex', queueIndex: 0})
       dispatch({type: 'setQueue', queue: [item]});
+            player!.current.play();
+
+    }
   }
 
   return (
@@ -30,3 +34,5 @@ export const AudioPlayButton:FC = ({item}) => {
     </div>
   );
 }
+
+export default AudioPlayButton;
