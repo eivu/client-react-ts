@@ -113,10 +113,18 @@ export function Prev({ tooltipPlacement }: MediaButtonProps) {
 }
 
 export function Next({ tooltipPlacement }: MediaButtonProps) {
+  const { dispatch, player, queue, queueIndex } = useAppContext();
+  const handleOnClick = () => {
+    if (queueIndex == queue.length - 1)
+      player!.current.currentTime = 999999999;
+    else
+      dispatch({type: 'incrementQueueIndex'})
+  }
+
   return (
     <Tooltip.Root>
       <Tooltip.Trigger asChild>
-        <ChevronRightIcon className="cursor-pointer" size={32} />
+        <ChevronRightIcon className="cursor-pointer" size={32} onClick={handleOnClick}/>
       </Tooltip.Trigger>
       <Tooltip.Content className="vds-tooltip-content" placement={tooltipPlacement}>
         Next Track
