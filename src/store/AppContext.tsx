@@ -39,7 +39,7 @@ function reducer(state: State, action: Action): State {
     case 'incrementQueueIndex':
       return { ...state, queueIndex: state.queueIndex + 1 };
     case 'decrementQueueIndex':
-      return { ...state, queueIndex: state.queueIndex - 1 };
+      return { ...state, queueIndex: Math.max(0, (state.queueIndex - 1))  };
     case 'clearQueue':
       return { ...state, queue: [] };
     case 'clearQueueItem':
