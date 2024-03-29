@@ -26,11 +26,6 @@ export function Player():ReactElement {
   useEffect(() => {
     // assign ref to player context.
     dispatch({type: 'setPlayer', player: player});
-    // Subscribe to state updates.
-    return player.current!.subscribe(({ paused, viewType }) => {
-      // console.log('is paused?', '->', paused);
-      // console.log('is audio view?', '->', viewType === 'audio');
-    });
   }, []);
 
   function nextQueueItem():QueueItem | undefined {
