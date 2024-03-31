@@ -12,6 +12,7 @@ import AddToQueueButton from '../../components/AddToQueueButton';
 import AVButton from '../../components/AVButton';
 import { QueueItem } from '../../types/queueItem';
 import { MiniLoader } from '../../common/Loader';
+import convertKeysToCamelCase from '../../common/convertKeysToCamelCase';
 
 import {
   ColumnDef,
@@ -35,8 +36,10 @@ const Files: React.FC = () => {
         id: 'play',
         enableSorting: false,
         disableSortBy: true,
-        // cell: info => (<AVButton item={info.row.original} />)
-        cell: info => <span>x</span>
+        // cell: info => <span>x</span>
+        cell: info => (<AVButton item={info.row.original} />)
+        // cell: info => (info.row.original ? <AVButton item={info.row.original} /> : <span></span>)
+        // cell: info => (console.log(info.row.original) && <span>x</span>)
       },
       {
         header: () => null,
@@ -53,7 +56,7 @@ const Files: React.FC = () => {
         header: 'Size',
         accessorKey: 'fileSize',
         cell: info => <span>size</span>
-        // cell: info => <span>{prettyBytes(info?.getValue())}</span>
+        // cell: info => <span>{info ? prettyBytes(info?.getValue()) : undefined}</span>
       },
       {
         header: 'Rating',
@@ -89,22 +92,16 @@ const Files: React.FC = () => {
     debugTable: true,
   })
 
-
-
   useEffect(() => {
-    console.log(import.meta.env);
-    console.log('queueItems--------', queueItems);
     axios.get(filesUrl(), headers())
       .then((response) => {
-        setQueueItems(response.data);
+        setQueueItems(convertKeysToCamelCase(response.data));
         setLoading(false);
       })
       .catch((error) => {
         console.error(error);
       });
-
   },[])
-
 
 
   return (
