@@ -14,12 +14,15 @@ const AVButton:FC = ({item}) => {
 
   return (
     <div>
-      { item.contentType.includes('audio')
-          ? (isPlaying && nowPlayingMd5() === item.md5 ? <AudioPauseButton item={item} /> : <AudioPlayButton item={item} />)
-          : (item.contentType.includes('video')
-              ? <VideoPlayModal item={item} />
-              : <span>Unknown</span>
-          )
+      { item.contentType
+          ?
+            item.contentType?.includes('audio')
+              ? (isPlaying && nowPlayingMd5() === item.md5 ? <AudioPauseButton item={item} /> : <AudioPlayButton item={item} />)
+              : (item.contentType.includes('video')
+                  ? <VideoPlayModal item={item} />
+                  : <span>Unknown</span>
+              )
+          : <span>?</span>
       }
     </div>
   );
