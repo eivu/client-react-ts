@@ -2,7 +2,9 @@ import React from 'react';
 import DefaultLayout from '../../layout/DefaultLayout';
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
 import  { useAppContext } from '../../store/AppContext';
+import axios from 'axios';
 import prettyBytes from 'pretty-bytes';
+import { filesUrl, headers } from '../../connection';
 import { timeAgo } from '../../common/timeAgo';
 import { useMemo, useState, useEffect, FC } from 'react';
 // import { queueItems } from '../../data/queueItems';
@@ -33,14 +35,15 @@ const Files: React.FC = () => {
         id: 'play',
         enableSorting: false,
         disableSortBy: true,
-        cell: info => (<AVButton item={info.row.original} />)
+        // cell: info => (<AVButton item={info.row.original} />)
+        cell: info => <span>x</span>
       },
       {
         header: () => null,
         id: 'addToQueue',
         enableSorting: false,
         disableSortBy: true,
-        cell: info => (info.row.original.contentType.startsWith('audio') ? <AddToQueueButton item={info.row.original} /> : null)
+        cell: info => (info.row.original?.contentType?.startsWith('audio') ? <AddToQueueButton item={info.row.original} /> : null)
       },
       {
         header: 'Name',
@@ -49,7 +52,8 @@ const Files: React.FC = () => {
       {
         header: 'Size',
         accessorKey: 'fileSize',
-        cell: info => <span>{prettyBytes(info.getValue())}</span>
+        cell: info => <span>size</span>
+        // cell: info => <span>{prettyBytes(info?.getValue())}</span>
       },
       {
         header: 'Rating',
@@ -62,12 +66,12 @@ const Files: React.FC = () => {
       {
         header: 'Last Viewed',
         accessorKey: 'lastViewedAt',
-        cell: info => <span>{timeAgo(info.getValue())}</span>
+        cell: info => <span>{timeAgo(info?.getValue())}</span>
       },
       {
         header: 'Uploaded',
         accessorKey: 'uploadedAt',
-        cell: info => <span>{timeAgo(info.getValue())}</span>
+        cell: info => <span>{timeAgo(info?.getValue())}</span>
       },
     ],
     []
@@ -85,8 +89,20 @@ const Files: React.FC = () => {
     debugTable: true,
   })
 
+
+
   useEffect(() => {
-    console.log(import.meta.env)
+    console.log(import.meta.env);
+    console.log('queueItems--------', queueItems);
+    axios.get(filesUrl(), headers())
+      .then((response) => {
+        setQueueItems(response.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
   },[])
 
 
