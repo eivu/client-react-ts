@@ -20,7 +20,7 @@ const AVButton:FC = ({item}) => {
               ? (isPlaying && nowPlayingMd5() === item.md5 ? <AudioPauseButton item={item} /> : <AudioPlayButton item={item} />)
               : (item.contentType.includes('video')
                   ? <VideoPlayModal item={item} />
-                  : <span>Unknown</span>
+                  : <span>View</span>
               )
           : <span>?</span>
       }
