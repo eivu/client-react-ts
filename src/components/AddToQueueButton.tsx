@@ -10,7 +10,7 @@ const AddToQueueButton:FC = ({item}) => {
   }
 
   return (
-    <div>
+    <div className='float-left'>
       <CgPlayListAdd  size={32} className='cursor-pointer' onClick={() => handleClick()}/>
     </div>
   );

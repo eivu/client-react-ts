@@ -13,7 +13,7 @@ const AVButton:FC = ({item}) => {
   }
 
   return (
-    <div>
+    <div className='float-left'>
       { item.contentType
           ?
             item.contentType?.includes('audio')

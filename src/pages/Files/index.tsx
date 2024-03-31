@@ -38,16 +38,12 @@ const Files: React.FC = () => {
         enableSorting: false,
         disableSortBy: true,
         // cell: info => <span>x</span>
-        cell: info => (<AVButton item={info.row.original} />)
-        // cell: info => (info.row.original ? <AVButton item={info.row.original} /> : <span></span>)
-        // cell: info => (console.log(info.row.original) && <span>x</span>)
-      },
-      {
-        header: () => null,
-        id: 'addToQueue',
-        enableSorting: false,
-        disableSortBy: true,
-        cell: info => (info.row.original?.contentType?.startsWith('audio') ? <AddToQueueButton item={info.row.original} /> : null)
+        cell: info => (
+          <span>
+            <AVButton item={info.row.original} />
+            {info.row.original?.contentType?.startsWith('audio') ? <AddToQueueButton item={info.row.original} /> : null}
+          </span>
+        )
       },
       {
         header: 'Name',
