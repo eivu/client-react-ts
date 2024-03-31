@@ -28,6 +28,7 @@ import {
 const Files: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [sorting, setSorting] = useState<SortingState>([])
+  const [responseError, setResponseError] = useState<String | undefined>(undefined);
   const [queueItems, setQueueItems] = useState<QueueItem[]>([]);
   const columns = useMemo<ColumnDef<QueueItem>[]>(
     () => [
@@ -50,7 +51,7 @@ const Files: React.FC = () => {
       },
       {
         header: 'Name',
-        accessorKey: 'name',
+        accessorKey: 'label',
       },
       {
         header: 'Size',
@@ -80,6 +81,20 @@ const Files: React.FC = () => {
     []
   )
 
+  useEffect(() => {
+    axios.get(filesUrl(), headers())
+      .then((response) => {
+        setQueueItems(convertKeysToCamelCase(response.data));
+        setLoading(false);
+      })
+      .catch((error) => {
+        setLoading(false);
+        setResponseError(error.message);
+        console.error(error);
+      });
+  },[])
+
+
   const table = useReactTable({
     data: queueItems,
     columns,
@@ -91,18 +106,6 @@ const Files: React.FC = () => {
     getSortedRowModel: getSortedRowModel(),
     debugTable: true,
   })
-
-  useEffect(() => {
-    axios.get(filesUrl(), headers())
-      .then((response) => {
-        setQueueItems(convertKeysToCamelCase(response.data));
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  },[])
-
 
   return (
     <DefaultLayout>
@@ -173,6 +176,16 @@ const Files: React.FC = () => {
             ))}
           </thead>
           <tbody>
+            {
+              responseError &&
+              <tr>
+                <td colSpan={columns.length}>
+                  <div className="flex items-center justify-center">
+                    {responseError}
+                  </div>
+                </td>
+              </tr>
+            }
             {
               loading &&
               <tr>
