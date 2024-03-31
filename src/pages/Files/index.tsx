@@ -55,9 +55,8 @@ const Files: React.FC = () => {
       },
       {
         header: 'Size',
-        accessorKey: 'fileSize',
-        cell: info => <span>size</span>
-        // cell: info => <span>{info ? prettyBytes(info?.getValue()) : undefined}</span>
+        accessorKey: 'filesize',
+        cell: info => <span>{info?.getValue() && prettyBytes(info?.getValue())}</span>
       },
       {
         header: 'Rating',
@@ -74,7 +73,7 @@ const Files: React.FC = () => {
       },
       {
         header: 'Uploaded',
-        accessorKey: 'uploadedAt',
+        accessorKey: 'createdAt',
         cell: info => <span>{timeAgo(info?.getValue())}</span>
       },
     ],
