@@ -4,11 +4,13 @@ import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
 import  { useAppContext } from '../../store/AppContext';
 import prettyBytes from 'pretty-bytes';
 import { timeAgo } from '../../common/timeAgo';
-import { useMemo } from 'react';
-import { queueItems } from '../../data/queueItems';
+import { useMemo, useState, useEffect, FC } from 'react';
+// import { queueItems } from '../../data/queueItems';
 import AddToQueueButton from '../../components/AddToQueueButton';
 import AVButton from '../../components/AVButton';
 import { QueueItem } from '../../types/queueItem';
+import { MiniLoader } from '../../common/Loader';
+
 import {
   ColumnDef,
   flexRender,
@@ -21,8 +23,10 @@ import {
 
 
 const Files: React.FC = () => {
-  const [sorting, setSorting] = React.useState<SortingState>([])
-  const columns = React.useMemo<ColumnDef<QueueItem>[]>(
+  const [loading, setLoading] = useState<boolean>(true);
+  const [sorting, setSorting] = useState<SortingState>([])
+  const [queueItems, setQueueItems] = useState<QueueItem[]>([]);
+  const columns = useMemo<ColumnDef<QueueItem>[]>(
     () => [
       {
         header: () => null,
@@ -80,6 +84,12 @@ const Files: React.FC = () => {
     getSortedRowModel: getSortedRowModel(),
     debugTable: true,
   })
+
+  useEffect(() => {
+    console.log(import.meta.env)
+  },[])
+
+
 
   return (
     <DefaultLayout>
@@ -150,6 +160,14 @@ const Files: React.FC = () => {
             ))}
           </thead>
           <tbody>
+            {
+              loading &&
+              <tr>
+                <td colSpan={columns.length}>
+                  <MiniLoader />
+                </td>
+              </tr>
+            }
             {table
               .getRowModel()
               .rows.slice(0, 100)
