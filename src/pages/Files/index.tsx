@@ -37,7 +37,6 @@ const Files: React.FC = () => {
         id: 'play',
         enableSorting: false,
         disableSortBy: true,
-        // cell: info => <span>x</span>
         cell: info => (
           <span>
             <AVButton item={info.row.original} />
@@ -77,7 +76,8 @@ const Files: React.FC = () => {
   )
 
   useEffect(() => {
-    axios.get(filesUrl(), headers())
+    console.log(sorting)
+    axios.get(filesUrl(), headers(sorting))
       .then((response) => {
         setQueueItems(convertKeysToCamelCase(response.data));
         setLoading(false);
@@ -85,16 +85,23 @@ const Files: React.FC = () => {
       .catch((error) => {
         setLoading(false);
         setResponseError(error.message);
-        console.error(error);
       });
-  },[])
-
+  },[sorting])
 
   const table = useReactTable({
     data: queueItems,
     columns,
     state: {
       sorting,
+    },
+    // manualSorting: true,
+    initialState: {
+      sorting: [
+        {
+          id: 'label',
+          desc: false,
+        },
+      ],
     },
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),

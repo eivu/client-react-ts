@@ -4,10 +4,11 @@ export const filesUrl = () => {
   return url;
 }
 
-export const headers = () => {
+export const headers = (params:object) => {
   return {
+    params,
     headers: {
       'Authorization': 'Bearer ' + import.meta.env.VITE_EIVU_USER_TOKEN
-    }
+    },
   }
 }
