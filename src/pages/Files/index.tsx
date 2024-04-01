@@ -26,8 +26,9 @@ import {
 
 
 const Files: React.FC = () => {
+  const url = import.meta.env.VITE_EIVU_SERVER_HOST + '/api/v1/files';
   const [loading, setLoading] = useState<boolean>(true);
-  const [sorting, setSorting] = useState<SortingState>([])
+  const [sorting, setSorting] = useState<SortingState>([{id: "label", desc: false}])
   const [responseError, setResponseError] = useState<String | undefined>(undefined);
   const [queueItems, setQueueItems] = useState<QueueItem[]>([]);
   const columns = useMemo<ColumnDef<QueueItem>[]>(
@@ -75,9 +76,20 @@ const Files: React.FC = () => {
     []
   )
 
+  const constructParams = (sorting: SortingState) => {
+    return {
+      sortBy: sorting[0]['id'],
+      sortDesc: sorting[0]['desc'],
+    }
+  }
+
   useEffect(() => {
     console.log(sorting)
-    axios.get(filesUrl(), headers(sorting))
+    axios.get(url, {
+      params: constructParams(sorting),
+      headers: {
+        'Authorization': 'Bearer ' + import.meta.env.VITE_EIVU_USER_TOKEN
+      }})
       .then((response) => {
         setQueueItems(convertKeysToCamelCase(response.data));
         setLoading(false);
@@ -95,14 +107,14 @@ const Files: React.FC = () => {
       sorting,
     },
     // manualSorting: true,
-    initialState: {
-      sorting: [
-        {
-          id: 'label',
-          desc: false,
-        },
-      ],
-    },
+    // initialState: {
+    //   sorting: [
+    //     {
+    //       id: 'label',
+    //       desc: false,
+    //     },
+    //   ],
+    // },
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
