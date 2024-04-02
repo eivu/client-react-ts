@@ -397,3 +397,7 @@ footer .player {
   /* background-color: rgb(28, 36, 52) */
   background-color: black;
 }
+
+table thead tr th:nth-child(1) svg {
+  display: none;
+}
