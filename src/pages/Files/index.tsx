@@ -4,7 +4,6 @@ import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
 import  { useAppContext } from '../../store/AppContext';
 import axios from 'axios';
 import prettyBytes from 'pretty-bytes';
-import { filesUrl, headers } from '../../connection';
 import { timeAgo } from '../../common/timeAgo';
 import { useMemo, useState, useEffect, FC } from 'react';
 // import { queueItems } from '../../data/queueItems';
@@ -26,7 +25,7 @@ import {
 
 
 const Files: React.FC = () => {
-  const url = import.meta.env.VITE_EIVU_SERVER_HOST + '/api/v1/files';
+  const url = import.meta.env.VITE_EIVU_SERVER_HOST + '/api/frontend/v1/cloud_files';
   const [loading, setLoading] = useState<boolean>(true);
   const [sorting, setSorting] = useState<SortingState>([{id: "label", desc: false}])
   const [responseError, setResponseError] = useState<String | undefined>(undefined);
@@ -78,8 +77,10 @@ const Files: React.FC = () => {
 
   const constructParams = (sorting: SortingState) => {
     return {
-      sortBy: sorting[0]['id'],
-      sortDesc: sorting[0]['desc'],
+      category: null,
+      delicate: false,
+      sortBy: sorting[0]?.id,
+      sortDesc: sorting[0]?.desc,
     }
   }
 
@@ -106,15 +107,7 @@ const Files: React.FC = () => {
     state: {
       sorting,
     },
-    // manualSorting: true,
-    // initialState: {
-    //   sorting: [
-    //     {
-    //       id: 'label',
-    //       desc: false,
-    //     },
-    //   ],
-    // },
+    manualSorting: true,
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
