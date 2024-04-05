@@ -36,7 +36,9 @@ const Files: React.FC = () => {
         header: () => null,
         id: 'play',
         enableSorting: false,
-        disableSortBy: true,
+        // size: 550,
+  // minSize: 20,
+  // maxSize: 500,
         cell: info => (
           <span>
             <AVButton item={info.row.original} />
@@ -149,13 +151,13 @@ const Files: React.FC = () => {
             <p className="pl-2 text-black dark:text-white">Entries Per Page</p>
           </div> */}
         </div>
-        <table className="datatable-table w-full table-auto border-collapse overflow-hidden break-words px-4 md:table-fixed md:overflow-auto md:px-8">
+        <table id="files-table" className="datatable-table w-full table-auto border-collapse overflow-hidden break-words px-4 md:table-fixed md:overflow-auto md:px-8">
           <thead>
             {table.getHeaderGroups().map(headerGroup => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map(header => {
                   return (
-                    <th key={header.id} colSpan={header.colSpan}>
+                    <th key={header.id} id={`${header.id}Header`}> 
                       {header.isPlaceholder ? null : (
                         <div
                           {...{
@@ -209,7 +211,7 @@ const Files: React.FC = () => {
                   <tr key={row.id}>
                     {row.getVisibleCells().map(cell => {
                       return (
-                        <td key={cell.id}>
+                        <td key={cell.id} className={`${cell.column.id}Col`}>
                           {flexRender(
                             cell.column.columnDef.cell,
                             cell.getContext()

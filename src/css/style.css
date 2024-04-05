@@ -398,6 +398,6 @@ footer .player {
   background-color: black;
 }
 
-table thead tr th:nth-child(1) svg {
+table#files-table thead tr th#playHeader svg {
   display: none;
 }
