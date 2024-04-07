@@ -36,9 +36,6 @@ const Files: React.FC = () => {
         header: () => null,
         id: 'play',
         enableSorting: false,
-        // size: 550,
-  // minSize: 20,
-  // maxSize: 500,
         cell: info => (
           <span>
             <AVButton item={info.row.original} />
@@ -83,6 +80,7 @@ const Files: React.FC = () => {
       delicate: false,
       sortBy: sorting[0]?.id,
       sortDesc: sorting[0]?.desc,
+      keyFormat: 'camel_lower'
     }
   }
 
@@ -94,7 +92,7 @@ const Files: React.FC = () => {
         'Authorization': 'Bearer ' + import.meta.env.VITE_EIVU_USER_TOKEN
       }})
       .then((response) => {
-        setQueueItems(convertKeysToCamelCase(response.data));
+        setQueueItems(response.data.cloudFiles);
         setLoading(false);
       })
       .catch((error) => {
@@ -151,8 +149,8 @@ const Files: React.FC = () => {
             <p className="pl-2 text-black dark:text-white">Entries Per Page</p>
           </div> */}
         </div>
-        <table id="files-table" className="datatable-table w-full table-auto border-collapse overflow-hidden break-words px-4 md:table-fixed md:overflow-auto md:px-8">
-          <thead>
+        <table id="files-table" className="datatable-table border-collapse overflow-hidden break-words px-4 md:overflow-auto md:px-8">
+          <thead >
             {table.getHeaderGroups().map(headerGroup => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map(header => {

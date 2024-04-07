@@ -19,6 +19,7 @@ const Queue: React.FC = () => {
             {queue.map((item, index) => (
               <div key={index}
                 onClick={() => index != queueIndex && dispatch({ type: 'setQueueIndex', queueIndex: index })}
+                // investigate classNames library for dynamic assignment of css classes
                 className={
                   (
                     index == queueIndex
