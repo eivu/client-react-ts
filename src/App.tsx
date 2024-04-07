@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Loader from './common/Loader';
+import Loader from './components/Loader';
 import { AppRoutes } from './AppRoutes';
 import { AppProvider } from './store/AppContext';
 

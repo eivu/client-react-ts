@@ -6,12 +6,10 @@ import axios from 'axios';
 import prettyBytes from 'pretty-bytes';
 import { timeAgo } from '../../common/timeAgo';
 import { useMemo, useState, useEffect, FC } from 'react';
-// import { queueItems } from '../../data/queueItems';
 import AddToQueueButton from '../../components/AddToQueueButton';
 import AVButton from '../../components/AVButton';
 import { QueueItem } from '../../types/queueItem';
-import { MiniLoader } from '../../common/Loader';
-import convertKeysToCamelCase from '../../common/convertKeysToCamelCase';
+import { MiniLoader } from '../../components/Loader';
 
 import {
   ColumnDef,
@@ -29,6 +27,8 @@ const Files: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [sorting, setSorting] = useState<SortingState>([{id: "label", desc: false}])
   const [responseError, setResponseError] = useState<String | undefined>(undefined);
+  const [pageNum, setPageNum] = useState<number>(1);
+  const [meta, setMeta] = useState<any>({});
   const [queueItems, setQueueItems] = useState<QueueItem[]>([]);
   const columns = useMemo<ColumnDef<QueueItem>[]>(
     () => [
@@ -79,6 +79,7 @@ const Files: React.FC = () => {
       category: null,
       delicate: false,
       sortBy: sorting[0]?.id,
+      page: pageNum,
       sortDesc: sorting[0]?.desc,
       keyFormat: 'camel_lower'
     }
@@ -93,6 +94,7 @@ const Files: React.FC = () => {
       }})
       .then((response) => {
         setQueueItems(response.data.cloudFiles);
+        setMeta(response.data.meta);
         setLoading(false);
       })
       .catch((error) => {
@@ -112,6 +114,9 @@ const Files: React.FC = () => {
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     debugTable: true,
+    manualPagination: true, //turn off client-side pagination
+  // rowCount: dataQuery.data?.rowCount, //pass in the total row count so the table knows how many pages there are (pageCount calculated internally if not provided)
+    pageCount: meta.totalPages,
   })
 
   return (
