@@ -101,7 +101,7 @@ const Files: React.FC = () => {
         setLoading(false);
         setResponseError(error.message);
       });
-  },[sorting])
+  },[sorting, pageNum])
 
   const table = useReactTable({
     data: queueItems,
@@ -116,8 +116,14 @@ const Files: React.FC = () => {
     debugTable: true,
     manualPagination: true, //turn off client-side pagination
   // rowCount: dataQuery.data?.rowCount, //pass in the total row count so the table knows how many pages there are (pageCount calculated internally if not provided)
-    pageCount: meta.totalPages,
+    // pageCount: meta.totalPages,
   })
+
+  function handlePageChange(pageNum: number) {
+    setLoading(true);
+    setPageNum(pageNum);
+    console.log('pageNum', pageNum);
+  }
 
   return (
     <DefaultLayout>
@@ -206,7 +212,7 @@ const Files: React.FC = () => {
                 </td>
               </tr>
             }
-            {table
+            { !loading && table
               .getRowModel()
               .rows.slice(0, 100)
               .map(row => {
@@ -228,15 +234,20 @@ const Files: React.FC = () => {
           </tbody>
         </table>
 
-        {/* <div className="flex justify-between border-t border-stroke px-8 pt-5 dark:border-strokedark">
-          <p className="font-medium">
-            Showing {pageIndex + 1} 0f {pageOptions.length} pages
-          </p>
+      {
+        !loading &&
+        <div className="flex justify-between border-t border-stroke px-8 pt-5 dark:border-strokedark">
           <div className="flex">
             <button
               className="flex cursor-pointer items-center justify-center rounded-md p-1 px-2 hover:bg-primary hover:text-white"
-              onClick={() => previousPage()}
-              disabled={!canPreviousPage}
+              onClick={
+                () => alert('oi')
+                // () => previousPage()
+              }
+              disabled={
+                false
+                // !canPreviousPage
+              }
             >
               <svg
                 className="fill-current"
@@ -253,24 +264,29 @@ const Files: React.FC = () => {
               </svg>
             </button>
 
-            {pageOptions.map((_page, index) => (
+            {getPaginationItems(pageNum, meta.totalPages, 12).map((pageValue, index) => (
               <button
                 key={index}
                 onClick={() => {
-                  gotoPage(index);
+                  handlePageChange(pageValue);
                 }}
                 className={`${
-                  pageIndex === index && 'bg-primary text-white'
+                  pageNum === pageValue && 'bg-primary text-white'
                 } mx-1 flex cursor-pointer items-center justify-center rounded-md p-1 px-3 hover:bg-primary hover:text-white`}
               >
-                {index + 1}
+                {pageValue || ''}
               </button>
             ))}
 
             <button
               className="flex cursor-pointer items-center justify-center rounded-md p-1 px-2 hover:bg-primary hover:text-white"
-              onClick={() => nextPage()}
-              disabled={!canNextPage}
+              onClick={
+                () => alert('oi')
+                // () => nextPage()
+              }
+              disabled={ /*!canNextPage*/
+                true
+              }
             >
               <svg
                 className="fill-current"
@@ -287,7 +303,8 @@ const Files: React.FC = () => {
               </svg>
             </button>
           </div>
-        </div> */}
+        </div>
+}
       </section>
     </DefaultLayout>
   );
