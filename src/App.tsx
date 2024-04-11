@@ -3,18 +3,15 @@ import { useCookies } from 'react-cookie';
 import Loader from './components/Loader';
 import { AppRoutes } from './AppRoutes';
 import { AppProvider } from './store/AppContext';
-import {v4 as uuidv4} from 'uuid';
-
-
-
+import uuid from 'react-uuid';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
-  const [cookies, setCookie] = useCookies(['eivu']);
-uuidv4()
+  const [cookies, setCookie]  = useCookies(['deviceUuid']);
 
   useEffect(() => {
-    setCookie('Name', 'eivu', { path: '/' });
+    // set cookie for deviceUuid if not already set
+    cookies.deviceUuid || setCookie('deviceUuid', uuid(), { path: '/' });
     setTimeout(() => setLoading(false), 1000);
   }, []);
 
