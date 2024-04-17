@@ -11,6 +11,8 @@ import AddToQueueButton from '../../components/AddToQueueButton';
 import AVButton from '../../components/AVButton';
 import { QueueItem } from '../../types/queueItem';
 import { MiniLoader } from '../../components/Loader';
+import { useCookies } from 'react-cookie';
+
 
 import {
   ColumnDef,
@@ -31,6 +33,7 @@ const Files: React.FC = () => {
   const [pageNum, setPageNum] = useState<number>(1);
   const [meta, setMeta] = useState<any>({});
   const [queueItems, setQueueItems] = useState<QueueItem[]>([]);
+  const [cookies, setCookie]  = useCookies(['deviceUuid']);
   const columns = useMemo<ColumnDef<QueueItem>[]>(
     () => [
       {
@@ -90,7 +93,8 @@ const Files: React.FC = () => {
     axios.get(url, {
       params: constructParams(sorting),
       headers: {
-        'Authorization': 'Bearer ' + import.meta.env.VITE_EIVU_USER_TOKEN
+        'Authorization': 'Bearer ' + import.meta.env.VITE_EIVU_USER_TOKEN,
+        'Device-Uuid': cookies.deviceUuid
       }})
       .then((response) => {
         setQueueItems(response.data.cloudFiles);

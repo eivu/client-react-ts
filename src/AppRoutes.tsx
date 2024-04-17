@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import Files from './pages/Files';
 import Artists from './pages/Artists';
+import Auth from './pages/Auth';
 import Queue from './pages/Queue';
 import PageTitle from './components/PageTitle';
 
@@ -84,6 +85,15 @@ export const AppRoutes:React.FC = () => {
             <>
               <PageTitle title="EIVU::Trash" />
               <Files />
+            </>
+          }
+        />
+        <Route
+          path="/auth"
+          element={
+            <>
+              <PageTitle title="EIVU::Auth" />
+              <Auth />
             </>
           }
         />
