@@ -12,7 +12,7 @@ export const defaultQueue: QueueItem[] = [
     "duration": 0,
     "name": "{Whispers of Silence}",//"A Mime Clapping",
     "md5": "D258C1A40E785406564616AFD8045351",
-    "url": "https://eivu.s3.us-east-1.wasabisys.com/silence.mp3",
+    "url": './silence.mp3',
     "contentType": "audio/mpeg"
   },
   // {
