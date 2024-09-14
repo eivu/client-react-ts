@@ -15,9 +15,9 @@ function App() {
 
   return (
     <AppProvider>
-      <Router>
+      {/* <Router> */}
         {loading ? <Loader /> : <AppRoutes />}
-      </Router>
+      {/* </Router> */}
       {/* Footer must be a sibling to AppRoutes so it won't refresh on 'url' change */}
       <Footer />
     </AppProvider>

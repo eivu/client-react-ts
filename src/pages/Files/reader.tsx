@@ -23,7 +23,7 @@ import {
 
 
 
-const FilesIndex: React.FC = () => {
+const FilesReader: React.FC = () => {
   const url = import.meta.env.VITE_EIVU_SERVER_HOST + '/api/frontend/v1/cloud_files';
   const [loading, setLoading] = useState<boolean>(true);
   const [sorting, setSorting] = useState<SortingState>([{id: "label", desc: false}])
@@ -310,4 +310,4 @@ const FilesIndex: React.FC = () => {
   );
 };
 
-export default FilesIndex;
+export default FilesReader;
