@@ -1,16 +1,20 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Files from './pages/Files';
-import Artists from './pages/Artists';
+import FilesIndex from './pages/Files';
+import ArtistsIndex from './pages/Artists';
 import Queue from './pages/Queue';
 import PageTitle from './components/PageTitle';
+import ReleasesIndex from './pages/Releases';
+import FoldersIndex from './pages/Folders';
+import MetadataIndex from './pages/Metadata';
+import TrashIndex from './pages/Trash';
 
 const router = createBrowserRouter([
   {
     element: 
       <>
         <PageTitle title="EIVU" />
-        <Files />
+        <FilesIndex />
       </>,
     path: "/",
   },
@@ -18,7 +22,7 @@ const router = createBrowserRouter([
     element: 
       <>
         <PageTitle title="EIVU::Files" />
-        <Files />
+        <FilesIndex />
       </>,
     path: "/files"
   },
@@ -34,7 +38,7 @@ const router = createBrowserRouter([
     element: 
       <>
         <PageTitle title="EIVU::Artists" />
-        <Artists />
+        <ArtistsIndex />
       </>,
     path: "/artists"
   },
@@ -42,7 +46,7 @@ const router = createBrowserRouter([
     element: 
       <>
         <PageTitle title="EIVU::Releases" />
-        <Files />
+        <ReleasesIndex />
       </>,
     path: "/releases"
   },
@@ -50,7 +54,7 @@ const router = createBrowserRouter([
     element: 
       <>
         <PageTitle title="EIVU::Folders" />
-        <Files />
+        <FoldersIndex />
       </>,
     path: "/folders"
   },
@@ -58,7 +62,7 @@ const router = createBrowserRouter([
     element: 
       <>
         <PageTitle title="EIVU::Metadata" />
-        <Files />
+        <MetadataIndex />
       </>,
     path: "/metadata"
   },
@@ -66,7 +70,7 @@ const router = createBrowserRouter([
     element: 
       <>
         <PageTitle title="EIVU::Trash" />
-        <Files />
+        <TrashIndex />
       </>,
     path: "/trash"
   }
