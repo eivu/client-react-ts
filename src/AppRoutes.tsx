@@ -1,6 +1,7 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import FilesIndex from './pages/Files';
+import File from './pages/Files/show';
 import ArtistsIndex from './pages/Artists';
 import Queue from './pages/Queue';
 import PageTitle from './components/PageTitle';
@@ -25,6 +26,21 @@ const router = createBrowserRouter([
         <FilesIndex />
       </>,
     path: "/files"
+  },
+  {
+    // it renders this element
+    element: <File />,
+
+    // when the URL matches this segment
+    path: "files/:fileId",
+
+    // // with this data loaded before rendering
+    // loader: async ({ request, params }) => {
+    //   return fetch(
+    //     `/fake/api/teams/${params.teamId}.json`,
+    //     { signal: request.signal }
+    //   );
+    // },
   },
   {
     element: 
