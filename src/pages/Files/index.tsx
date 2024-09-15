@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import DefaultLayout from '../../layout/DefaultLayout';
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
 import  { useAppContext } from '../../store/AppContext';
@@ -47,6 +48,9 @@ const FilesIndex: React.FC = () => {
       {
         header: 'Name',
         accessorKey: 'label',
+        cell: info => (
+          <Link to={info.row.original.md5}>{info?.getValue()}</Link>
+        )
       },
       {
         header: 'Size',
