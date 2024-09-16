@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import DefaultLayout from '../../layout/DefaultLayout';
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
 import  { useAppContext } from '../../store/AppContext';
+import api from '../../configs/api';
 import getPaginationItems from '../../common/getPaginationItems';
-import axios from 'axios';
 import prettyBytes from 'pretty-bytes';
 import { timeAgo } from '../../common/timeAgo';
 import { useMemo, useState, useEffect, FC } from 'react';
@@ -25,7 +25,6 @@ import {
 
 
 const FilesIndex: React.FC = () => {
-  const url = import.meta.env.VITE_EIVU_SERVER_HOST + '/api/frontend/v1/cloud_files';
   const [loading, setLoading] = useState<boolean>(true);
   const [sorting, setSorting] = useState<SortingState>([{id: "label", desc: false}])
   const [responseError, setResponseError] = useState<String | undefined>(undefined);
@@ -91,11 +90,8 @@ const FilesIndex: React.FC = () => {
   }
 
   useEffect(() => {
-    axios.get(url, {
-      params: constructParams(sorting),
-      headers: {
-        'Authorization': 'Bearer ' + import.meta.env.VITE_EIVU_USER_TOKEN
-      }})
+    api.get('/cloud_files', {
+      params: constructParams(sorting)})
       .then((response) => {
         setQueueItems(response.data.cloudFiles);
         setMeta(response.data.meta);
