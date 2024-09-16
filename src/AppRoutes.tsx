@@ -2,6 +2,7 @@ import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import FilesIndex from './pages/Files';
 import File from './pages/Files/show';
+import api from './configs/api';
 import ArtistsIndex from './pages/Artists';
 import Queue from './pages/Queue';
 import PageTitle from './components/PageTitle';
@@ -33,14 +34,31 @@ const router = createBrowserRouter([
 
     // when the URL matches this segment
     path: "files/:fileId",
-
-    // // with this data loaded before rendering
     // loader: async ({ request, params }) => {
     //   return fetch(
     //     `/fake/api/teams/${params.teamId}.json`,
     //     { signal: request.signal }
     //   );
     // },
+    loader: async () => {
+      return fetch('https://hacker-news.firebaseio.com/v0/topstories.json')
+    }
+
+    // const url = import.meta.env.VITE_EIVU_SERVER_HOST + '/api/frontend/v1/cloud_files';
+    // axios.get(url, {
+    //   params: constructParams(sorting),
+    //   headers: {
+    //     'Authorization': 'Bearer ' + import.meta.env.VITE_EIVU_USER_TOKEN
+    //   }})
+    //   .then((response) => {
+    //     setQueueItems(response.data.cloudFiles);
+    //     setMeta(response.data.meta);
+    //     setLoading(false);
+    //   })
+    //   .catch((error) => {
+    //     setLoading(false);
+    //     setResponseError(error.message);
+    //   });
   },
   {
     element: 

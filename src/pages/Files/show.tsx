@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link, useLoaderData } from 'react-router-dom';
 import DefaultLayout from '../../layout/DefaultLayout';
 import  { useAppContext } from '../../store/AppContext';
 import getPaginationItems from '../../common/getPaginationItems';
@@ -15,6 +16,9 @@ import { MiniLoader } from '../../components/Loader';
 
 
 const File: React.FC = () => {
+  const cloudFile  = useLoaderData();
+  console.log(cloudFile);
+  // console.log(cloudFile);
   // from files index
   const [loading, setLoading] = useState<boolean>(true);
   const [responseError, setResponseError] = useState<String | undefined>(undefined);
