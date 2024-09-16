@@ -40,8 +40,9 @@ const router = createBrowserRouter([
     //     { signal: request.signal }
     //   );
     // },
-    loader: async () => {
-      return fetch('https://hacker-news.firebaseio.com/v0/topstories.json')
+    loader: async ({ params }) => {
+      console.log(params)
+      return api.get(`/cloud_files/${params.fileId}`);
     }
 
     // const url = import.meta.env.VITE_EIVU_SERVER_HOST + '/api/frontend/v1/cloud_files';
