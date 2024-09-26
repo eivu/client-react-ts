@@ -10,6 +10,7 @@ import ReleasesIndex from './pages/Releases';
 import FoldersIndex from './pages/Folders';
 import MetadataIndex from './pages/Metadata';
 import TrashIndex from './pages/Trash';
+import CloudFile from './types/cloudFile';
 
 const router = createBrowserRouter([
   {
@@ -42,7 +43,10 @@ const router = createBrowserRouter([
     // },
     loader: async ({ params }) => {
       console.log(params)
-      return api.get(`/cloud_files/${params.fileId}`);
+      return await api.get<CloudFile>(`/cloud_files/${params.fileId}`).then(
+        (response) => {
+          response.data;
+        });
     }
 
     // const url = import.meta.env.VITE_EIVU_SERVER_HOST + '/api/frontend/v1/cloud_files';

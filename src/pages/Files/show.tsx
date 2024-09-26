@@ -16,8 +16,8 @@ import { MiniLoader } from '../../components/Loader';
 
 
 const File: React.FC = () => {
-  const cloudFile  = useLoaderData();
-  console.log(cloudFile);
+  const file  = useLoaderData();
+  console.log(file);
   // console.log(cloudFile);
   // from files index
   const [loading, setLoading] = useState<boolean>(true);
