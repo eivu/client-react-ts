@@ -1,4 +1,4 @@
-# Eivu React - Tailwind CSS React Admin Dashboard Template
+# Eivu React - Frontend Client for EIVU system
 
 ## Eivu React - Installation
 
@@ -19,39 +19,18 @@ Default build output directory: /dist
 
 This command will generate a dist as build folder in the root of your template that you can upload to your server.
 
-## Update Logs
+## UI/UX
 
-### Version 1.2.0 - [Jan 31, 2024]
+This client used TailAdmin, a free and open-source admin dashboard template built on **React and Tailwind CSS**, providing developers with everything they need to create a comprehensive, data-driven back-end, dashboard, or admin panel solution for upcoming web projects.
 
-#### New Features
+[🚀 View Demo](https://react-demo.tailadmin.com/)
 
-- **Feature 01:** New Dashboard variant Stocks with a DataStats slider, One Chart graph, My Stocks, Trending Stocks and Latest Transaction Cards.
-- **Feature 02:** Pro Form Elements Range Slider & File Drop Zone.
-- **Feature 03:** Pro Form Layout Contact Form 2 & Survey Form.
-- **Feature 04:** Pro Tables.
-- **Feature 05:** Invoice Two.
-- **Feature 06:** Faq's.
-- **Feature 07:** Teams One & Two.
-- **Feature 08:** Terms & Conditions.
-- **Feature 09:** Avatars One & Two.
-- **Feature 10:** List One, Two & Three.
-- **Feature 11:** Notifications Four.
-- **Feature 12:** Spinners One & Two.
-- **Feature 13:** Coming Soon.
-- **Feature 14:** 2 Step Verification.
-- **Feature 15:** Under Maintenance.
+[✨ Visit Website](https://tailadmin.com/)
 
-#### Enhancements
+[⬇️ Download Now](https://tailadmin.com/download)
 
-- **Enhancement 01:** Integrate flatpickr in [Date Picker/Form Elements]
-- **Enhancement 02:** Change color after select an option [Select Element/Form Elements].
-- **Enhancement 03:** Make it functional [Multiselect Dropdown/Form Elements].
-- **Enhancement 04:** Make best value editable [Pricing Table One/Pricing Table].
+[📄 Documentation/Installation](https://tailadmin.com/docs)
 
-### Version 1.0.6 - Initial Release - [Jul 6, 2023]
+[⚡ PRO Version](https://tailadmin.com/pricing)
 
-- Add Typescript in Eivu React.
-
-### Version 1.0.0 - Initial Release - [Feb 16, 2023]
-
-- Initial release of Eivu React.
+[🖌️ TailAdmin Figma](https://www.figma.com/community/file/1214477970819985778)

@@ -17,9 +17,7 @@ import { MiniLoader } from '../../components/Loader';
 
 const File: React.FC = () => {
   const file:CloudFile  = useLoaderData();
-  console.log(file);
-  // console.log(cloudFile);
-  // from files index
+
   // const [loading, setLoading] = useState<boolean>(true);
   // const [responseError, setResponseError] = useState<String | undefined>(undefined);
   // const [queueItems, setQueueItems] = useState<QueueItem[]>([]);
@@ -37,6 +35,22 @@ const File: React.FC = () => {
       <div className="flex flex-col gap-7.5">
         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
           <div className="p-4 sm:p-6 xl:p-9">
+            <table className="w-full text-left border-collapse">
+              <tbody className="align-baseline">
+                <tr>
+                  <td className="py-2 pr-2 font-mono font-medium text-xs leading-6 text-sky-500 whitespace-nowrap dark:text-sky-400">grid-cols-1</td>
+                  <td className="py-2 pl-2 font-mono text-xs leading-6 text-indigo-600 whitespace-pre dark:text-indigo-300">
+                    a grid with one column
+                  </td>
+                </tr>
+                <tr>
+                  <td className="py-2 pr-2 font-mono font-medium text-xs leading-6 text-sky-500 whitespace-nowrap dark:text-sky-400 border-t border-slate-100 dark:border-slate-400/10">grid-cols-2</td>
+                  <td className="py-2 pl-2 font-mono text-xs leading-6 text-indigo-600 whitespace-pre dark:text-indigo-300 border-t border-slate-100 dark:border-slate-400/10">
+                    a grid with one column
+                  </td>
+                </tr>
+              </tbody>
+            </table>
             <dl>
               <dt>Name</dt>
               <dd>{file.name}</dd>
