@@ -12,6 +12,20 @@ import MetadataIndex from './pages/Metadata';
 import TrashIndex from './pages/Trash';
 import CloudFile from './types/cloudFile';
 
+
+
+async function getCloudFile(fileId: string | undefined) {
+  try {
+    const response = await api.get(`/cloud_files/${fileId}`)
+    console.log(response);
+    return response.data?.cloudFile;
+  } catch(error) {
+    console.log(error);
+    throw error;
+  };
+}
+
+
 const router = createBrowserRouter([
   {
     element: 
@@ -30,33 +44,11 @@ const router = createBrowserRouter([
     path: "/files"
   },
   {
-    // it renders this element
     element: <File />,
-
-    // when the URL matches this segment
     path: "/files/:fileId",
-    loader: async ({ params }) => {
-      return api.get(`/cloud_files/${params.fileId}`);
+    loader: ({ params }) => {
+      return getCloudFile(params.fileId);
     },
-    // loader: async ({ params }) => {
-    //   console.log(params)
-    //   return await api.get<CloudFile>(`/cloud_files/${params.fileId}`).then(
-    //     (response) => {
-    //       response.data;
-    //     });
-    // }
-    // loader: async ({ request, params }) => {
-    //   return fetch(
-    //     `/fake/api/teams/${params.teamId}.json`,
-    //     { signal: request.signal }
-    //   );
-    // },
-    //    loader: async ({ params }) => {
-    //    return api.get<CloudFile>(`/cloud_files/${params.fileId}`).then(
-    //         (response) => {
-    //           response.data;
-    //         });
-    // },
   },
   {
     element: 
