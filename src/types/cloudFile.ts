@@ -1,6 +1,6 @@
 import { Metadatum } from "./metadatum"
 
-export interface CloudFile {
+export default interface CloudFile {
   name: string | null
   asset: string | null
   md5: string | null
