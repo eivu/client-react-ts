@@ -11,6 +11,9 @@ const api = axios.create({
     "Content-Type": "application/json",
     'Authorization': 'Bearer ' + import.meta.env.VITE_EIVU_USER_TOKEN
   },
+  params: {
+    keyFormat: 'camel_lower'
+  }
 });
 
 export default api;
