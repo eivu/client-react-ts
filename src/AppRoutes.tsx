@@ -11,6 +11,18 @@ import FoldersIndex from './pages/Folders';
 import MetadataIndex from './pages/Metadata';
 import TrashIndex from './pages/Trash';
 import CloudFile from './types/cloudFile';
+import axios from 'axios';
+
+// export const filesLoader = async () => {
+//     try {
+//         const response = await axios.get('/manager/personnel/');
+//         return response.data;
+//     } catch (error) {
+//         console.error(error);
+//         return error;
+//     }
+// }
+
 
 const router = createBrowserRouter([
   {
@@ -34,20 +46,30 @@ const router = createBrowserRouter([
     element: <File />,
 
     // when the URL matches this segment
-    path: "files/:fileId",
+    path: "/files/:fileId",
+    loader: async ({ params }) => {
+      return fetch(`https://hacker-news.firebaseio.com/v0/topstories.json`);
+    },
+    // loader: async ({ params }) => {
+    //   console.log(params)
+    //   return await api.get<CloudFile>(`/cloud_files/${params.fileId}`).then(
+    //     (response) => {
+    //       response.data;
+    //     });
+    // }
     // loader: async ({ request, params }) => {
     //   return fetch(
     //     `/fake/api/teams/${params.teamId}.json`,
     //     { signal: request.signal }
     //   );
     // },
-    loader: async ({ params }) => {
-      console.log(params)
-      return await api.get<CloudFile>(`/cloud_files/${params.fileId}`).then(
-        (response) => {
-          response.data;
-        });
-    }
+    //    loader: async ({ params }) => {
+    //    return api.get<CloudFile>(`/cloud_files/${params.fileId}`).then(
+    //         (response) => {
+    //           response.data;
+    //         });
+    // },
+
 
     // const url = import.meta.env.VITE_EIVU_SERVER_HOST + '/api/frontend/v1/cloud_files';
     // axios.get(url, {
