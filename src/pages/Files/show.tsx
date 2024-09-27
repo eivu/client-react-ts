@@ -16,17 +16,17 @@ import { MiniLoader } from '../../components/Loader';
 
 
 const File: React.FC = () => {
-  const file  = useLoaderData();
+  const file:CloudFile  = useLoaderData();
   console.log(file);
   // console.log(cloudFile);
   // from files index
-  const [loading, setLoading] = useState<boolean>(true);
-  const [responseError, setResponseError] = useState<String | undefined>(undefined);
-  const [queueItems, setQueueItems] = useState<QueueItem[]>([]);
+  // const [loading, setLoading] = useState<boolean>(true);
+  // const [responseError, setResponseError] = useState<String | undefined>(undefined);
+  // const [queueItems, setQueueItems] = useState<QueueItem[]>([]);
 
-  // From queue page
-  const { queue, queueIndex, player, dispatch } = useAppContext();
-  const isPlaying = useMediaState('playing', player);
+  // // From queue page
+  // const { queue, queueIndex, player, dispatch } = useAppContext();
+  // const isPlaying = useMediaState('playing', player);
 
   return (
     <DefaultLayout>
@@ -37,7 +37,12 @@ const File: React.FC = () => {
       <div className="flex flex-col gap-7.5">
         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
           <div className="p-4 sm:p-6 xl:p-9">
-            file details here
+            <dl>
+              <dt>Name</dt>
+              <dd>{file.name}</dd>
+              <dt>Asset</dt>
+              <dd>{file.asset}</dd>
+            </dl>
           </div>
         </div>
       </div>

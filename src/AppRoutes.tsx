@@ -14,11 +14,11 @@ import CloudFile from './types/cloudFile';
 
 
 
-async function getCloudFile(fileId: string | undefined) {
+async function getCloudFile(fileId: string | undefined):CloudFile {
   try {
     const response = await api.get(`/cloud_files/${fileId}`)
-    console.log(response);
-    return response.data?.cloudFile;
+    const file:CloudFile = response.data?.cloudFile;
+    return file;
   } catch(error) {
     console.log(error);
     throw error;
