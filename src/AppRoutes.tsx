@@ -11,18 +11,6 @@ import FoldersIndex from './pages/Folders';
 import MetadataIndex from './pages/Metadata';
 import TrashIndex from './pages/Trash';
 import CloudFile from './types/cloudFile';
-import axios from 'axios';
-
-// export const filesLoader = async () => {
-//     try {
-//         const response = await axios.get('/manager/personnel/');
-//         return response.data;
-//     } catch (error) {
-//         console.error(error);
-//         return error;
-//     }
-// }
-
 
 const router = createBrowserRouter([
   {
@@ -48,7 +36,7 @@ const router = createBrowserRouter([
     // when the URL matches this segment
     path: "/files/:fileId",
     loader: async ({ params }) => {
-      return fetch(`https://hacker-news.firebaseio.com/v0/topstories.json`);
+      return api.get(`/cloud_files/${params.fileId}`);
     },
     // loader: async ({ params }) => {
     //   console.log(params)
@@ -69,23 +57,6 @@ const router = createBrowserRouter([
     //           response.data;
     //         });
     // },
-
-
-    // const url = import.meta.env.VITE_EIVU_SERVER_HOST + '/api/frontend/v1/cloud_files';
-    // axios.get(url, {
-    //   params: constructParams(sorting),
-    //   headers: {
-    //     'Authorization': 'Bearer ' + import.meta.env.VITE_EIVU_USER_TOKEN
-    //   }})
-    //   .then((response) => {
-    //     setQueueItems(response.data.cloudFiles);
-    //     setMeta(response.data.meta);
-    //     setLoading(false);
-    //   })
-    //   .catch((error) => {
-    //     setLoading(false);
-    //     setResponseError(error.message);
-    //   });
   },
   {
     element: 
