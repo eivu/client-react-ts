@@ -48,7 +48,7 @@ const FilesIndex: React.FC = () => {
         header: 'Name',
         accessorKey: 'label',
         cell: info => (
-          <Link to={info.row.original.md5}>{info?.getValue()}</Link>
+          <Link to={`/files/${info.row.original.md5}`}>{info?.getValue()}</Link>
         )
       },
       {
