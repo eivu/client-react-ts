@@ -32,13 +32,29 @@ const File: React.FC = () => {
         <h2 className="text-title-md2 font-semibold text-black dark:text-white">Eivu::File Details</h2>
       </div>
 
+
+
       <div className="flex flex-col gap-7.5">
         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
           <div className="p-4 sm:p-6 xl:p-9">
+
+
+
+            <div className="grid grid-flow-col gap-3">
+              <div className="col-span-1 py-2 pr-2 font-mono font-medium text-xs leading-6 whitespace-nowrap">
+                1st col
+              </div>
+              <div className="col-span-4 py-2 pr-2 font-mono font-medium text-xs leading-6 whitespace-nowrap">
+                2nd col
+              </div>
+            </div>
+
             <table className="w-full text-left border-collapse">
               <tbody className="align-baseline">
                 <tr>
-                  <td className="py-2 pr-2 font-mono font-medium text-xs leading-6 text-sky-500 whitespace-nowrap dark:text-sky-400">grid-cols-1</td>
+                  <td className="py-2 pr-2 font-mono font-medium text-xs leading-6 whitespace-nowrap dark:text-sky-400">
+                    grid-cols-1
+                  </td>
                   <td className="py-2 pl-2 font-mono text-xs leading-6 text-indigo-600 whitespace-pre dark:text-indigo-300">
                     a grid with one column
                   </td>
