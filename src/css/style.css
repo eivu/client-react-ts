@@ -402,6 +402,13 @@ table#files-table thead tr th#playHeader svg {
   display: none;
 }
 
+.break-words {
+  word-wrap: break-word;
+  word-break: break-all;
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
 /* table#files-table tbody tr td#labelCol{
   @apply col-span-9;
 } */
