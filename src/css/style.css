@@ -412,3 +412,11 @@ table#files-table thead tr th#playHeader svg {
 /* table#files-table tbody tr td#labelCol{
   @apply col-span-9;
 } */
+
+table tbody tr td a:hover {
+  text-decoration: underline;
+}
+
+table#file-details-table tbody tr td {
+  /* @apply text-xs; */
+}

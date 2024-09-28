@@ -56,6 +56,18 @@ const File: React.FC = () => {
                     {file.name}
                   </td>
                 </tr>
+                {
+                  file.artists.length > 0 &&
+                    <tr>
+                      <td className={keyClassNames}>
+                        Artist(s)
+                      </td>
+                      <td className={valueClassNames}>
+                        {file.artists.map(artist => <Link to={`/artists/${artist.id}`}>{artist.name}</Link>)}
+                      </td>
+                    </tr>
+                }
+
                 <tr>
                   <td className={keyClassNames}>
                     Acoustid Fingerprint
