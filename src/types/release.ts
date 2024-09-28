@@ -1,24 +1,20 @@
 export interface Release {
-
-}
-
-
-
-// id
-// name
-// ext_id
-// data_source_id
-// cloud_files_count
-// release_type_id
-// bundle_pos
-// peepy
-// nsfw
-// created_at
-// updated_at
-// primary_artist_id
-// artwork_id
-// year
-// rating
-// description
-// info_url
-// shared
+  id: number;
+  name: string;
+  ext_id: string | null;
+  data_source_id: number | null;
+  cloud_files_count: number;
+  release_type_id: number | null;
+  bundle_pos: number | null;
+  peepy: boolean;
+  nsfw: boolean;
+  created_at: string;
+  updated_at: string;
+  primary_artist_id: number | null;
+  artwork_id: number | null;
+  year: number | null;
+  rating: number | null;
+  description: string | null;
+  info_url: string | null;
+  shared: boolean;
+};
