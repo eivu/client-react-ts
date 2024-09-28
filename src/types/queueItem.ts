@@ -9,6 +9,6 @@ export interface QueueItem {
   url: string,
   md5: string,
   contentType: string,
-  delicate: boolean,
+  secured: boolean,
   nsfw: boolean
 };

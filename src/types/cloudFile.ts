@@ -1,4 +1,6 @@
 import { Metadatum } from "./metadatum"
+import { Artist } from "./artist"
+import { Release } from "./release"
 
 export default interface CloudFile {
   name: string | null
@@ -9,7 +11,7 @@ export default interface CloudFile {
   description: string | null
   rating: string | null
   nsfw: boolean | null
-  peepy: string | null
+  secured: boolean | null
   created_at: string | null
   updated_at: string | null
   info_url: string | null
@@ -31,6 +33,8 @@ export default interface CloudFile {
   folder_uuid: string | null
   artwork_md5: string | null
   metadata: Metadatum[]
+  artists: Artist[]
+  releases: Release[]
   delicate: boolean | null
   url: string | null
 };
