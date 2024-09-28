@@ -17,8 +17,11 @@ import { MiniLoader } from '../../components/Loader';
 
 const File: React.FC = () => {
   const file:CloudFile  = useLoaderData();
-  const keyClassNames = "py-2 pr-2 font-mono font-medium text-xs leading-6 whitespace-nowrap dark:text-sky-400 border-t border-slate-100 dark:border-slate-400/10"
-  const valueClassNames = "break-words py-2 pl-2 font-mono text-xs leading-6 whitespace-pre border-t border-slate-100 dark:border-slate-400/10 text-wrap"
+  const topRowKeyClassNames   = "py-2 pr-2 font-mono font-medium text-xs leading-6 whitespace-nowrap border-slate-100 dark:border-slate-400/10"
+  const keyClassNames   = topRowKeyClassNames.concat(" border-t")
+  const topRowvalueClassNames = "break-words py-2 pl-2 font-mono text-xs leading-6 whitespace-pre border-slate-100 dark:border-slate-400/10 text-wrap"
+  const valueClassNames = topRowvalueClassNames.concat(" border-t")
+  
   // const [loading, setLoading] = useState<boolean>(true);
   // const [responseError, setResponseError] = useState<String | undefined>(undefined);
   // const [queueItems, setQueueItems] = useState<QueueItem[]>([]);
@@ -43,14 +46,14 @@ const File: React.FC = () => {
 
 
 
-            <table className="w-full text-left border-collapse">
+            <table id="file-details-table" className="w-full text-left border-collapse">
               <tbody className="align-baseline">
                 <tr>
-                  <td className="py-2 pr-2 font-mono font-medium text-xs leading-6 whitespace-nowrap">
-                    grid-cols-1
+                  <td className={topRowKeyClassNames}>
+                    Name
                   </td>
-                  <td className="py-2 pl-2 font-mono text-xs leading-6 whitespace-pre">
-                    a grid with one column
+                  <td className={topRowvalueClassNames}>
+                    {file.name}
                   </td>
                 </tr>
                 <tr>
