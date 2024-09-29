@@ -413,6 +413,7 @@ table#files-table thead tr th#playHeader svg {
   @apply col-span-9;
 } */
 
+#queue-wrapper a:hover,
 table tbody tr td a:hover {
   text-decoration: underline;
 }
