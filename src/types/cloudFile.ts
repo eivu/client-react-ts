@@ -4,6 +4,7 @@ import { Release } from "./release"
 
 export default interface CloudFile {
   name: string | null
+  label: string
   asset: string | null
   md5: string | null
   contentType: string | null
@@ -15,7 +16,7 @@ export default interface CloudFile {
   createdAt: string | null
   updatedAt: string | null
   infoUrl: string | null
-  duration: string | null
+  duration: number | null
   extId: string | null
   dataSourceId: string | null
   release_id: string | null
@@ -36,5 +37,5 @@ export default interface CloudFile {
   artists: Artist[]
   releases: Release[]
   delicate: boolean | null
-  url: string | null
+  url: string
 };
