@@ -1,10 +1,17 @@
 import React from 'react';
-import DefaultLayout from '../../layout/DefaultLayout';
+import DefaultLayout, { AlphabetMenu, ContentHeader, ContentContainer} from '../../layout/DefaultLayout';
 
 const ReleasesIndex: React.FC = () => {
   return (
     <DefaultLayout>
-      Releases go here
+      <ContentHeader>
+        <span>::Releases</span>
+      </ContentHeader>
+      <ContentContainer>
+        <AlphabetMenu collection="releases" />
+
+        Releases go here
+      </ContentContainer>
     </DefaultLayout>
   );
 };

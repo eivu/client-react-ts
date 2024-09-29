@@ -1,10 +1,17 @@
 import React from 'react';
-import DefaultLayout from '../layout/DefaultLayout';
+import DefaultLayout, {AlphabetMenu, ContentContainer, ContentHeader} from '../layout/DefaultLayout';
 
 const Artists: React.FC = () => {
   return (
     <DefaultLayout>
-      Artists go here
+      <ContentHeader>
+        <span>::Artists</span>
+      </ContentHeader>
+      <ContentContainer>
+        <AlphabetMenu collection="artists" />
+
+        Artists go here
+      </ContentContainer>
     </DefaultLayout>
   );
 };
