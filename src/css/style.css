@@ -417,6 +417,9 @@ table tbody tr td a:hover {
   text-decoration: underline;
 }
 
+section#content-container {
+  font-size: 0.8rem;
+}
 table#file-details-table tbody tr td {
   /* @apply text-xs; */
 }

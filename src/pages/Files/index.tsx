@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import DefaultLayout from '../../layout/DefaultLayout';
+import DefaultLayout, { ContentContainer, ContentHeader} from '../../layout/DefaultLayout';
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
 import  { useAppContext } from '../../store/AppContext';
 import api from '../../configs/api';
@@ -127,28 +127,29 @@ const FilesIndex: React.FC = () => {
 
   return (
     <DefaultLayout>
-      <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <h2 className="text-title-md2 font-semibold text-black dark:text-white">Eivu::Files</h2>
-      </div>
+      <ContentHeader>
+        Eivu::Files
+      </ContentHeader>
 
-      <section className="data-table-common data-table-two rounded-sm border border-stroke bg-white py-4 shadow-default dark:border-strokedark  dark:bg-boxdark">
+
+      <section id="content-container" className="data-table-common data-table-two rounded-sm border border-stroke bg-white py-4 shadow-default dark:border-strokedark  dark:bg-boxdark">
         <div className="flex justify-between border-b border-stroke px-8 pb-4 dark:border-strokedark">
-          {/* Search Field
+          {/* Search Field */}
           <div className="w-100">
             <input
               type="text"
-              value={globalFilter}
-              onChange={(e) => setGlobalFilter(e.target.value)}
+              // value={globalFilter}
+              // onChange={(e) => setGlobalFilter(e.target.value)}
               className="w-full rounded-md border border-stroke px-5 py-2.5 outline-none focus:border-primary dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
               placeholder="Search..."
             />
-          </div> */}
+          </div>
 
-          {/* Num Entries
+          {/* Num Entries */}
           <div className="flex items-center font-medium">
             <select
-              value={pageSize}
-              onChange={(e) => setPageSize(Number(e.target.value))}
+              // value={pageSize}
+              // onChange={(e) => setPageSize(Number(e.target.value))}
               className="bg-transparent pl-2"
             >
               {[5, 10, 20, 50].map((page) => (
@@ -158,7 +159,7 @@ const FilesIndex: React.FC = () => {
               ))}
             </select>
             <p className="pl-2 text-black dark:text-white">Entries Per Page</p>
-          </div> */}
+          </div>
         </div>
         <table id="files-table" className="datatable-table border-collapse overflow-hidden break-words px-4 md:overflow-auto md:px-8">
           <thead >

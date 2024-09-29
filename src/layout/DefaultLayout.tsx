@@ -49,13 +49,13 @@ export const ContentHeader:React.FC<{ children: ReactNode }> = ({ children }) =>
 
 export const ContentContainer:React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
-    <div className="flex flex-col gap-7.5">
+    <section id="content-container" className="flex flex-col gap-7.5">
       <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <div className="p-4 sm:p-6 xl:p-9">
           {children}
         </div>
       </div>
-    </div>
+    </section>
   )
 };    
 
