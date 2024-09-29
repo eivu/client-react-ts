@@ -421,6 +421,11 @@ table tbody tr td a:hover {
 section#content-container {
   font-size: 0.8rem;
 }
+
 table#file-details-table tbody tr td {
   /* @apply text-xs; */
+}
+
+#content-header a.breadcrumb:hover  {
+  @apply text-indigo-600;
 }

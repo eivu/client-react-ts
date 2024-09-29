@@ -10,7 +10,7 @@ const Queue: React.FC = () => {
   const isPlaying = useMediaState('playing', player);
   return (
     <DefaultLayout>
-      <ContentHeader>Eivu::Queue</ContentHeader>
+      <ContentHeader>::Queue</ContentHeader>
       <ContentContainer>
         <div id="queue-wrapper">
           {queue.map((item, index) => (

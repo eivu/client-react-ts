@@ -10,7 +10,9 @@ import { useMediaState } from '@vidstack/react';
 import { useMemo, useState, useEffect, FC } from 'react';
 import AddToQueueButton from '../../components/AddToQueueButton';
 import AVButton from '../../components/AVButton';
-import { CloudFile } from '../../types/cloudFile';
+import CloudFile from '../../types/cloudFile';
+import { Artist } from '../../types/artist';
+import { Release } from '../../types/release';
 import { MiniLoader } from '../../components/Loader';
 import convertSecondsToTimeHhMmSs from '../../common/convertSecondsToTimeHhMmSs';
 
@@ -33,7 +35,7 @@ const File: React.FC = () => {
 
   return (
     <DefaultLayout>
-      <ContentHeader>Eivu::File Details</ContentHeader>
+      <ContentHeader>::File Details</ContentHeader>
       <ContentContainer>
         <table id="file-details-table" className="w-full text-left border-collapse">
           <tbody className="align-baseline">
@@ -42,7 +44,7 @@ const File: React.FC = () => {
                 Name
               </td>
               <td className={topRowvalueClassNames}>
-                {file.name}
+                {file.label}
               </td>
             </tr>
             {
@@ -79,7 +81,7 @@ const File: React.FC = () => {
                 </tr>
             }
             {
-              file.duration > 0 &&
+              file.duration && file.duration > 0 &&
                 <tr>
                   <td className={keyClassNames}>
                     Duration
@@ -95,6 +97,22 @@ const File: React.FC = () => {
               </td>
               <td className={valueClassNames}>
                 {file.contentType}
+              </td>
+            </tr>
+            <tr>
+              <td className={keyClassNames}>
+                NSFW
+              </td>
+              <td className={valueClassNames}>
+                {file.nsfw ? "Yes" : "No"}
+              </td>
+            </tr>
+            <tr>
+              <td className={keyClassNames}>
+                Secured
+              </td>
+              <td className={valueClassNames}>
+                {file.secured ? "Yes" : "No"}
               </td>
             </tr>
             {
@@ -141,8 +159,16 @@ const File: React.FC = () => {
                   </td>
                 </tr>
             }
+            <tr>
+              <td className={keyClassNames}>
+                Source
+              </td>
+              <td className={valueClassNames}>
+                <Link to={file.url}>Link</Link>
+              </td>
+            </tr>
             {
-              file.date_aquiredAt &&
+              file.dateAquiredAt &&
                 <tr>
                   <td className={keyClassNames}>
                     Num Plays

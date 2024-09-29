@@ -26,7 +26,7 @@ export default interface CloudFile {
   state: string | null
   lastViewedAt: string | null
   deletable: boolean | null
-  dateAquired: string | null
+  dateAquiredAt: string | null
   shared: boolean | null
   bucketUuid: string | null
   bucketName: string | null

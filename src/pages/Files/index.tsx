@@ -128,7 +128,7 @@ const FilesIndex: React.FC = () => {
   return (
     <DefaultLayout>
       <ContentHeader>
-        Eivu::Files
+        ::Files
       </ContentHeader>
 
 
