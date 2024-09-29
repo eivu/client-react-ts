@@ -35,7 +35,11 @@ const File: React.FC = () => {
 
   return (
     <DefaultLayout>
-      <ContentHeader>::File Details</ContentHeader>
+      <ContentHeader>::<Link to="/files" className="breadcrumb">Files</Link>::
+        {
+          file.secured ? file.md5 : file.label
+        }
+      </ContentHeader>
       <ContentContainer>
         <table id="file-details-table" className="w-full text-left border-collapse">
           <tbody className="align-baseline">
@@ -62,7 +66,7 @@ const File: React.FC = () => {
               file.releases.length > 0 &&
                 <tr>
                   <td className={keyClassNames}>
-                    Artist(s)
+                    Release(s)
                   </td>
                   <td className={valueClassNames}>
                     {file.releases.map(release => <Link to={`/releases/${release.id}`}>{release.name}</Link>)}
