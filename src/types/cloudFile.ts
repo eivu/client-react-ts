@@ -23,7 +23,7 @@ export default interface CloudFile {
   year: number | null
   releasePos: number | null
   numPlays: number | null
-  state: string | null
+  state: string
   lastViewedAt: string | null
   deletable: boolean | null
   dateAquiredAt: string | null

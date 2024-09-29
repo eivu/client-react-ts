@@ -85,7 +85,7 @@ const File: React.FC = () => {
                 </tr>
             }
             {
-              file.duration && file.duration > 0 &&
+              file.state == 'completed' && file.duration && file.duration > 0 &&
                 <tr>
                   <td className={keyClassNames}>
                     Duration
