@@ -12,6 +12,7 @@ import AddToQueueButton from '../../components/AddToQueueButton';
 import AVButton from '../../components/AVButton';
 import { CloudFile } from '../../types/cloudFile';
 import { MiniLoader } from '../../components/Loader';
+import convertSecondsToTimeHhMmSs from '../../common/convertSecondsToTimeHhMmSs';
 
 
 
@@ -78,13 +79,13 @@ const File: React.FC = () => {
                 </tr>
             }
             {
-              file.duration &&
+              file.duration > 0 &&
                 <tr>
                   <td className={keyClassNames}>
                     Duration
                   </td>
                   <td className={valueClassNames}>
-                    {file.duration}
+                    {convertSecondsToTimeHhMmSs(file.duration)}
                   </td>
                 </tr>
             }
