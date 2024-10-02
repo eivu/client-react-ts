@@ -9,6 +9,7 @@ export interface Release {
   cloud_files_count: number;
   release_type_id: number | null;
   bundle_pos: number | null;
+  multiBundle: boolean;
   peepy: boolean;
   nsfw: boolean;
   created_at: string;

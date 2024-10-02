@@ -1,18 +1,18 @@
 export interface Track {
     asset: string,
     md5: string,
-    content_type: string,
     filesize: number,
     rating: number | null,
     nsfw: boolean,
-    created_at: string,
+    createdAt: string,
     duration: number | null,
-    num_plays: number | null,
-    last_viewed_at: string | null,
-    date_aquired_at: string | null,
+    numPlays: number | null,
+    lastViewedAt: string | null,
+    dateAquiredAt: string | null,
     shared: boolean,
     url: string,
     label: string | null,
     position: number | null,
-    bundle_pos: number | null
+    bundlePos: number | null
+    contentType: string,
 }
