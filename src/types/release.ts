@@ -1,3 +1,6 @@
+import { Artist } from './artist';
+import { Track } from './track';
+
 export interface Release {
   id: number;
   name: string;
@@ -17,4 +20,7 @@ export interface Release {
   description: string | null;
   info_url: string | null;
   shared: boolean;
+  artists: Artist[];
+  tracks: Track[];
+  secured: boolean;
 };
