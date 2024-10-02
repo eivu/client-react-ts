@@ -6,17 +6,21 @@ import api from './configs/api';
 import ArtistsIndex from './pages/Artists';
 import Queue from './pages/Queue';
 import PageTitle from './components/PageTitle';
+import ReleasePage from './pages/Releases/show';
 import ReleasesIndex from './pages/Releases';
 import FoldersIndex from './pages/Folders';
 import MetadataIndex from './pages/Metadata';
 import TrashIndex from './pages/Trash';
-import CloudFile from './types/cloudFile';
+import type CloudFile from './types/cloudFile';
+import type { Release } from './types/release';
 
 
 
 async function getCloudFile(fileId: string | undefined):CloudFile {
   try {
-    const response = await api.get(`/cloud_files/${fileId}`)
+    const response = await api.get(`/cloud_files/${fileId}`);
+    console.log(response.data?.cloudFile);
+
     const file:CloudFile = response.data?.cloudFile;
     return file;
   } catch(error) {

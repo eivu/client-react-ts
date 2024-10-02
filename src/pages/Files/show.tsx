@@ -10,9 +10,9 @@ import { useMediaState } from '@vidstack/react';
 import { useMemo, useState, useEffect, FC } from 'react';
 import AddToQueueButton from '../../components/AddToQueueButton';
 import AVButton from '../../components/AVButton';
-import CloudFile from '../../types/cloudFile';
-import { Artist } from '../../types/artist';
-import { Release } from '../../types/release';
+import type CloudFile from '../../types/cloudFile';
+import type { Artist } from '../../types/artist';
+import type { Release } from '../../types/release';
 import { MiniLoader } from '../../components/Loader';
 import convertSecondsToTimeHhMmSs from '../../common/convertSecondsToTimeHhMmSs';
 

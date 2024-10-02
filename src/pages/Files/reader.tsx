@@ -9,7 +9,7 @@ import { timeAgo } from '../../common/timeAgo';
 import { useMemo, useState, useEffect, FC } from 'react';
 import AddToQueueButton from '../../components/AddToQueueButton';
 import AVButton from '../../components/AVButton';
-import { QueueItem } from '../../types/queueItem';
+import type { QueueItem } from '../../types/queueItem';
 import { MiniLoader } from '../../components/Loader';
 
 import {
