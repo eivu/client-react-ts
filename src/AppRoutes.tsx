@@ -29,6 +29,19 @@ async function getCloudFile(fileId: string | undefined):CloudFile {
   };
 }
 
+async function getRelease(releaseId: string | undefined):Release {
+  try {
+    const response = await api.get(`/releases/${releaseId}`);
+    console.log(response.data?.release);
+
+    const release:Release = response.data?.release;
+    return release;
+  } catch(error) {
+    console.log(error);
+    throw error;
+  };
+}
+
 
 const router = createBrowserRouter([
   {
@@ -77,6 +90,17 @@ const router = createBrowserRouter([
         <ReleasesIndex />
       </>,
     path: "/releases"
+  },
+  {
+    element: 
+      <>
+        <PageTitle title="EIVU::Releases" />
+        <ReleasePage />
+      </>,
+    path: "/releases/:releaseId",
+    loader: ({ params }) => {
+      return getRelease(params.releaseId);
+    },
   },
   {
     element: 
