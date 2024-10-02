@@ -12,7 +12,8 @@ const api = axios.create({
     'Authorization': 'Bearer ' + import.meta.env.VITE_EIVU_USER_TOKEN
   },
   params: {
-    keyFormat: 'camel_lower'
+    keyFormat: 'camel_lower',
+    delicate: false
   }
 });
 
