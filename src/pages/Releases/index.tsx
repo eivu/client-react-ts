@@ -1,13 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import DefaultLayout, { AlphabetMenu, ContentHeader, ContentContainer} from '../../layout/DefaultLayout';
+import DefaultLayout, { ContentHeader, ContentContainer} from '../../layout/DefaultLayout';
+import { AlphabetMenu } from '../../layout/AlphabetMenu';
 import { useMemo, useState, useEffect, FC } from 'react';
 import api from '../../configs/api';
 import { MiniLoader } from '../../components/Loader';
-import { PaginationMenu } from '../../components/PaginationMenu';
+import { PaginationMenu } from '../../layout/PaginationMenu';
 
 const ReleasesIndex: React.FC = () => {
-  const letter = '';
+  const [letter, setLetter] = useState<string>('');
   const [pageNum, setPageNum] = useState<number>(1);
   const [releases, setReleases] = useState<Release[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -19,6 +20,12 @@ const ReleasesIndex: React.FC = () => {
     setLoading(true);
     setPageNum(pageNum);
     console.log('pageNum', pageNum);
+  }
+
+  function handleLetterChange(letter: string) {
+    setLoading(true);
+    setLetter(letter);
+    setPageNum(1);
   }
 
   useEffect(() => {
@@ -34,7 +41,7 @@ const ReleasesIndex: React.FC = () => {
         setLoading(false);
         setResponseError(error.message);
       });
-  },[pageNum])
+  },[pageNum, letter])
 
   return (
     <DefaultLayout>
@@ -42,25 +49,29 @@ const ReleasesIndex: React.FC = () => {
         <span>::Releases</span>
       </ContentHeader>
       <ContentContainer>
-        <AlphabetMenu collection="releases" />
-
       {
         loading ? <MiniLoader /> : (
-          <div id="releases-list" className="pt-10">
-            {releases.map((release) => (
-              <div className="entry">
-                <Link to={`/releases/${release.id}`}>{release.name}</Link>
-              </div>
-            ))}
-          </div>
+          <>
+            <AlphabetMenu collection="releases" handleLetterChange={handleLetterChange} />
+            <div id="releases-list" className="pt-10">
+              {releases.map((release) => (
+                <div className="entry">
+                  <Link to={`/releases/${release.id}`}>{release.name}</Link>
+                </div>
+              ))}
+            </div>
+          </>
         )
       }
       </ContentContainer>
-      <PaginationMenu
-        pageNum={pageNum}
-        totalPages={meta.totalPages}
-        handlePageChange={handlePageChange}
-        size={12} />
+    {
+        !loading &&
+          <PaginationMenu
+            pageNum={pageNum}
+            totalPages={meta.totalPages}
+            handlePageChange={handlePageChange}
+            size={12} />
+      }
     </DefaultLayout>
   );
 };

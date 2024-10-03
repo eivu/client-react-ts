@@ -1,5 +1,6 @@
 import React from 'react';
-import DefaultLayout, {AlphabetMenu, ContentContainer, ContentHeader} from '../layout/DefaultLayout';
+import DefaultLayout, { ContentContainer, ContentHeader} from '../layout/DefaultLayout';
+import { AlphabetMenu } from '../layout/AlphabetMenu';
 
 const Artists: React.FC = () => {
   return (

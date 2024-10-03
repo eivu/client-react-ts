@@ -4,6 +4,7 @@ import { Track } from './track';
 export interface Release {
   id: number;
   name: string;
+  artworkUrl: string | null;
   ext_id: string | null;
   data_source_id: number | null;
   cloud_files_count: number;

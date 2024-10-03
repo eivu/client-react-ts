@@ -36,8 +36,15 @@ const ReleasePage: React.FC = () => {
 
   return (
     <DefaultLayout>
+      {
+        release.artworkUrl && (
+          <div className="flex justify-left">
+            <img src={release.artworkUrl} alt={release.name} className="w-64 h-64" />
+          </div>
+        )
+      }
       <ContentHeader>::
-        <Link to="/files" className="breadcrumb">Release</Link>::{release.secured ? `Release ${release.id}` : release.name}
+        <Link to="/releases" className="breadcrumb">Release</Link>::{release.secured ? `Release ${release.id}` : release.name}
       </ContentHeader>
       <ContentContainer>
         <table id="release-details-table" className="w-full text-left border-collapse">
@@ -77,16 +84,17 @@ const ReleasePage: React.FC = () => {
                 <td>
                   {/* <AVButton track={track} /> */}
                 </td>
-                { release.multiBundle &&
-                  <td className={valueClassNames}>
-                    {track.bundlePos}
-                  </td>
+                { 
+                  release.multiBundle &&
+                    <td className={valueClassNames}>
+                      {track.bundlePos}
+                    </td>
                 }
                 <td className={valueClassNames}>
                   {track.position}
                 </td>
                 <td className={valueClassNames}>
-                  {track.label}
+                  <Link to={`/files/${track.md5}`}>{track.label}</Link>
                 </td>
                 <td className={valueClassNames}>
                   {convertSecondsToTimeHhMmSs(track.duration)}
