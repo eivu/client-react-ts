@@ -31,7 +31,7 @@ export function AlphabetMenu({
       <tbody>
         <tr>
            <td className="px-2 py-1">
-            <Link to={`/${collection}?letter=`} className="text-sm text-black dark:text-white hover:text-primary dark:hover:text-primary-dark">
+            <Link to="#" onClick={()=>{handleLetterChange('')}} className="text-sm text-black dark:text-white hover:text-primary dark:hover:text-primary-dark">
               All
             </Link>
           </td>
