@@ -19,7 +19,6 @@ const ReleasesIndex: React.FC = () => {
   function handlePageChange(pageNum: number) {
     setLoading(true);
     setPageNum(pageNum);
-    console.log('pageNum', pageNum);
   }
 
   function handleLetterChange(letter: string) {
@@ -35,7 +34,6 @@ const ReleasesIndex: React.FC = () => {
         setReleases(response.data.releases);
         setMeta(response.data.meta);
         setLoading(false);
-        console.log(response.data);
       })
       .catch((error) => {
         setLoading(false);
@@ -52,7 +50,7 @@ const ReleasesIndex: React.FC = () => {
       {
         loading ? <MiniLoader /> : (
           <>
-            <AlphabetMenu collection="releases" handleLetterChange={handleLetterChange} />
+            <AlphabetMenu activeLetter={letter} collection="releases" handleLetterChange={handleLetterChange} />
             <div id="releases-list" className="pt-10">
               {releases.map((release) => (
                 <div className="entry">
