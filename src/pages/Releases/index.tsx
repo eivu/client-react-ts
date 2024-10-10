@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import DefaultLayout, { ContentHeader, ContentContainer} from '../../layout/DefaultLayout';
 import { AlphabetMenu } from '../../layout/AlphabetMenu';
 import { useMemo, useState, useEffect, FC } from 'react';
@@ -8,13 +8,13 @@ import { MiniLoader } from '../../components/Loader';
 import { PaginationMenu } from '../../layout/PaginationMenu';
 
 const ReleasesIndex: React.FC = () => {
-  const [letter, setLetter] = useState<string>('');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [letter, setLetter] = useState<string>(searchParams.get('letter') || '');
   const [pageNum, setPageNum] = useState<number>(1);
   const [releases, setReleases] = useState<Release[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [meta, setMeta] = useState<any>({});
   const [responseError, setResponseError] = useState<string>('');
-
 
   function handlePageChange(pageNum: number) {
     setLoading(true);
