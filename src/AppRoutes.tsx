@@ -7,12 +7,14 @@ import ArtistsIndex from './pages/Artists';
 import Queue from './pages/Queue';
 import PageTitle from './components/PageTitle';
 import ReleasePage from './pages/Releases/show';
+import ArtistPage from './pages/Artists/show';
 import ReleasesIndex from './pages/Releases';
 import FoldersIndex from './pages/Folders';
 import MetadataIndex from './pages/Metadata';
 import TrashIndex from './pages/Trash';
 import type CloudFile from './types/cloudFile';
 import type { Release } from './types/release';
+import type { Artist } from './types/artist';
 
 
 
@@ -27,6 +29,17 @@ async function getCloudFile(fileId: string | undefined):CloudFile {
     console.log(error);
     throw error;
   };
+}
+
+async function getArtist(artistId: string | undefined):Artist {
+  try {
+    const response = await api.get(`/artists/${artistId}`);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 }
 
 async function getRelease(releaseId: string | undefined):Release {
@@ -82,6 +95,13 @@ const router = createBrowserRouter([
         <ArtistsIndex />
       </>,
     path: "/artists"
+  },
+  {
+    element: <ArtistPage />,
+    path: "/artists/:artistId",
+    loader: ({ params }) => {
+      return getArtist(params.artistId);
+    },
   },
   {
     element: 
