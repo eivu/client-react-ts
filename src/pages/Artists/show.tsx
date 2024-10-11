@@ -53,10 +53,10 @@ const ArtistPage: React.FC = () => {
           )
         } */}
         {
-          releases.map((release:Release) => (
+          releases.map((release:Release, index:number) => (
             <div key={`release-div-${release.id}`}>
               <>
-                <div className="text-xl pt-10">
+                <div className={`text-xl ${index === 0 ? '' : 'pt-20'}`}>
                   {release.name}
                   {release.year && (` (${release.year})`)}
                 </div>
