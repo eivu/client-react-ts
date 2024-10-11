@@ -7,6 +7,10 @@ import { Link, useLoaderData } from 'react-router-dom';
 import DefaultLayout, { ContentHeader, ContentContainer } from '../../layout/DefaultLayout';
 import  { useAppContext } from '../../store/AppContext';
 // import axios from 'axios';
+import { useMediaState } from '@vidstack/react';
+import { useMemo, useState, useEffect, FC } from 'react';
+import AddToQueueButton from '../../components/AddToQueueButton';
+import AVButton from '../../components/AVButton';
 import type { Release } from '../../types/release';
 import { MiniLoader } from '../../components/Loader';
 
