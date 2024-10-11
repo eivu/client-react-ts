@@ -44,11 +44,33 @@ const ArtistPage: React.FC = () => {
         // )
       }
       <ContentHeader>::
-        {/* <Link to="/artists" className="breadcrumb">Artist</Link>::{artist.secured ? `Artist ${artist.id}` : artist.name} */}
+        <Link to="/artists" className="breadcrumb">Artist</Link>::{artist.secured ? `Artist ${artist.id}` : artist.name}
       </ContentHeader>
       <ContentContainer>
-        here
+        {/* { 
+          releases.map((release:Release) => (
+            <ReleaseTable release={release} />
+          )
+        } */}
+        {
+          releases.map((release:Release) => (
+            <div key={`release-div-${release.id}`}>
+              <>
+                <div className="text-xl pt-10">
+                  {release.name}
+                  {release.year && (` (${release.year})`)}
+                </div>
+              </>
+              <ReleaseTable release={release} />
+            </div>
+          ))  
+        }
       </ContentContainer>
+      <PaginationMenu
+            pageNum={pageNum}
+            totalPages={data.meta.totalPages}
+            handlePageChange={console.log("oi")}
+            size={12} />
     </DefaultLayout>
   );
 };

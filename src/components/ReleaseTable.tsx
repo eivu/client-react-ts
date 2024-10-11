@@ -23,7 +23,7 @@ export function ReleaseTable({ release }: ReleaseTableProps): React.JSX.Element 
   const topRowvalueClassNames = "break-words py-2 pl-2 font-mono leading-6 whitespace-pre border-slate-100 dark:border-slate-400/10 text-wrap";
   const valueClassNames = topRowvalueClassNames.concat(" border-t");
   return (
-    <table id="release-details-table" className="w-full text-left border-collapse">
+    <table id="release-details-table" className="w-full text-left border-collapse" key={`release-table-${release.id}`}>
       <tbody>
         <tr>
           <td></td>
@@ -53,7 +53,7 @@ export function ReleaseTable({ release }: ReleaseTableProps): React.JSX.Element 
           </td>
         </tr>
         {release.tracks.map((track) => (
-          <tr key={track.id}>
+          <tr key={`track-${track.md5}`}>
             <td>
               {/* <AddToQueueButton track={track} /> */}
             </td>
