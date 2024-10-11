@@ -7,25 +7,22 @@ import { Link, useLoaderData } from 'react-router-dom';
 import DefaultLayout, { ContentHeader, ContentContainer } from '../../layout/DefaultLayout';
 import  { useAppContext } from '../../store/AppContext';
 // import axios from 'axios';
-import prettyBytes from 'pretty-bytes';
-import { timeAgo } from '../../common/timeAgo';
 import { useMediaState } from '@vidstack/react';
 import { useMemo, useState, useEffect, FC } from 'react';
 import AddToQueueButton from '../../components/AddToQueueButton';
 import AVButton from '../../components/AVButton';
 import type { Artist } from '../../types/artist';
 import { MiniLoader } from '../../components/Loader';
-import convertSecondsToTimeHhMmSs from '../../common/convertSecondsToTimeHhMmSs';
-
+import { ReleaseTable } from '../../components/ReleaseTable';
+import { PaginationMenu } from '../../components/PaginationMenu';
 
 
 const ArtistPage: React.FC = () => {
-  const artist:Artist  = useLoaderData();
-  const topRowKeyClassNames   = "py-2 pr-2 font-mono font-medium leading-6 whitespace-nowrap border-slate-100 dark:border-slate-400/10"
-  const keyClassNames   = topRowKeyClassNames.concat(" border-t")
-  const topRowvalueClassNames = "break-words py-2 pl-2 font-mono leading-6 whitespace-pre border-slate-100 dark:border-slate-400/10 text-wrap"
-  const valueClassNames = topRowvalueClassNames.concat(" border-t")
-
+  const data  = useLoaderData()<unknown>;
+  const artist:Artist = data.artist<Artist>;
+  const releases:Release[] = data.releases<Release[]>;
+  const [pageNum, setPageNum] = useState<number>(1);
+console.log(releases)
   // const [loading, setLoading] = useState<boolean>(true);
   // const [responseError, setResponseError] = useState<String | undefined>(undefined);
   // const [queueItems, setQueueItems] = useState<QueueItem[]>([]);
@@ -47,20 +44,25 @@ const ArtistPage: React.FC = () => {
         <Link to="/artists" className="breadcrumb">Artist</Link>::{artist.secured ? `Artist ${artist.id}` : artist.name}
       </ContentHeader>
       <ContentContainer>
-        {/* { 
-          releases.map((release:Release) => (
-            <ReleaseTable release={release} />
-          )
-        } */}
         {
           releases.map((release:Release, index:number) => (
-            <div key={`release-div-${release.id}`}>
-              <>
-                <div className={`text-xl ${index === 0 ? '' : 'pt-20'}`}>
+            <div className="artist-releases-entry" key={`artist-releases-entry-${release.id}`}>
+              <div className={`text-xl ${index === 0 ? '' : 'pt-20'}`}>
+                {
+                  release.artworkUrl && (
+                    <div className="artwork-wrapper mb-1 mr-2">
+                      <img src={release.artworkUrl} alt={release.name} className="artwork w-250 h-250" />
+                    </div>
+                  )
+                }
+
+
+                <Link to={`/releases/${release.id}`} className='release-title'>
                   {release.name}
                   {release.year && (` (${release.year})`)}
-                </div>
-              </>
+                </Link>
+              </div>
+              <div className="clear-both"></div>
               <ReleaseTable release={release} />
             </div>
           ))  
