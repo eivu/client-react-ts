@@ -449,3 +449,12 @@ table#file-details-table tbody tr td {
 #content-header a.breadcrumb:hover  {
   @apply text-indigo-600;
 }
+
+.truncate {
+  width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  overflow-wrap: normal;
+  display: inline-block;
+}
