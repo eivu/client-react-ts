@@ -22,7 +22,12 @@ const ArtistPage: React.FC = () => {
   const artist:Artist = data.artist<Artist>;
   const releases:Release[] = data.releases<Release[]>;
   const [pageNum, setPageNum] = useState<number>(1);
-console.log(releases)
+  const [loading, setLoading] = useState<boolean>(true);
+
+  function handlePageChange(pageNum: number) {
+    setLoading(true);
+    setPageNum(pageNum);
+  }
   // const [loading, setLoading] = useState<boolean>(true);
   // const [responseError, setResponseError] = useState<String | undefined>(undefined);
   // const [queueItems, setQueueItems] = useState<QueueItem[]>([]);
@@ -68,11 +73,15 @@ console.log(releases)
           ))  
         }
       </ContentContainer>
-      <PaginationMenu
+      {
+        // !loading &&
+          data.meta.totalPages > 1 &&
+          <PaginationMenu
             pageNum={pageNum}
             totalPages={data.meta.totalPages}
-            handlePageChange={console.log("oi")}
+            handlePageChange={handlePageChange}
             size={12} />
+      }
     </DefaultLayout>
   );
 };
