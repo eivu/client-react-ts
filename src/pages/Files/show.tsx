@@ -15,6 +15,7 @@ import type { Artist } from '../../types/artist';
 import type { Release } from '../../types/release';
 import { MiniLoader } from '../../components/Loader';
 import convertSecondsToTimeHhMmSs from '../../common/convertSecondsToTimeHhMmSs';
+import { TogglableViewer } from '../../components/TogglableViewer';
 
 
 
@@ -217,23 +218,43 @@ const File: React.FC = () => {
           </tbody>
         </table>
 
-        <div className="text-xl pt-20">Metadata</div>
-        <table id="file-details-table" className="w-full text-left border-collapse">
-          <tbody className="align-baseline">
-            {
-              file.metadata.map((metadatum, index) => (
-                <tr>
-                  <td className={index === 0 ? topRowKeyClassNames : keyClassNames}>
-                    {metadatum.type}
-                  </td>
-                  <td className={`truncate ${index === 0 ? topRowvalueClassNames : valueClassNames})`}>
-                    {metadatum.value}
-                  </td>
-                </tr>
-              )) 
-            }
-          </tbody>
-        </table>
+        { file.metadata.length > 0 &&
+          <>
+            <div className="text-xl pt-20">Metadata</div>
+            <table id="file-details-table" className="w-full text-left border-collapse">
+              <tbody className="align-baseline">
+                {
+                  file.metadata.map((metadatum, index) => (
+                    <tr key={`medatum-row-${metadatum.id}`}>
+                      <td className={index === 0 ? topRowKeyClassNames : keyClassNames}>
+                        {metadatum.type}
+                      </td>
+                      <td className={index === 0 ? topRowvalueClassNames : valueClassNames}>
+                        {/* {
+                          () => {
+                            if (metadatum.explorable)
+                              return <Link to={`/metadata/${metadatum.id}`}>{metadatum.value} [+]</Link>
+                            // else if (metadatum.value.length > 100)
+                              // return <TogglableViewer text={metadatum.value} />
+                            else
+                              return metadatum.value
+                          }
+                        } */}
+                        {
+                          metadatum.explorable ?
+                            <Link to={`/metadata/${metadatum.id}`}>{metadatum.value} [+]</Link>
+                            : metadatum.value.length > 100 ?
+                              <TogglableViewer text={metadatum.value} />
+                              : metadatum.value
+                        }
+                      </td>
+                    </tr>
+                  )) 
+                }
+              </tbody>
+            </table>
+          </>
+        }
       </ContentContainer>
     </DefaultLayout>
   );

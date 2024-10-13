@@ -5,37 +5,37 @@ import { Release } from "./release"
 export default interface CloudFile {
   name: string | null
   label: string
-  asset: string | null
-  md5: string | null
-  contentType: string | null
+  asset: string
+  md5: string
+  contentType: string
   filesize: number | null
   description: string | null
   rating: string | null
   nsfw: boolean | null
-  secured: boolean | null
-  createdAt: string | null
-  updatedAt: string | null
+  secured: boolean
+  createdAt: string
+  updatedAt: string
   infoUrl: string | null
-  duration: number | null
+  duration: number
   extId: string | null
   dataSourceId: string | null
   release_id: string | null
   year: number | null
   releasePos: number | null
-  numPlays: number | null
+  numPlays: number
   state: string
   lastViewedAt: string | null
-  deletable: boolean | null
+  deletable: boolean
   dateAquiredAt: string | null
-  shared: boolean | null
+  shared: boolean
   bucketUuid: string | null
   bucketName: string | null
-  userUuid: string | null
+  userUuid: string 
   folderUuid: string | null
   artworkMd5: string | null
   metadata: Metadatum[]
   artists: Artist[]
   releases: Release[]
-  delicate: boolean | null
+  delicate: boolean
   url: string
 };
