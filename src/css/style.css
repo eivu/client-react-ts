@@ -443,7 +443,13 @@ section#content-container {
 }
 
 table#file-details-table tbody tr td {
-  /* @apply text-xs; */
+  vertical-align: top;
+}
+
+
+
+table#file-details-table tbody tr td:nth-child(1) {  
+  width: 20em;
 }
 
 #content-header a.breadcrumb:hover  {
