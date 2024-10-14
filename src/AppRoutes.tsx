@@ -100,7 +100,8 @@ const router = createBrowserRouter([
     element: <ArtistPage />,
     path: "/artists/:artistId",
     loader: ({ params }) => {
-      return getArtist(params.artistId);
+      // return getArtist(params.artistId);
+      return params.artistId;
     },
   },
   {

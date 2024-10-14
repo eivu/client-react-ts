@@ -5,6 +5,7 @@
 import React from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 import DefaultLayout, { ContentHeader, ContentContainer } from '../../layout/DefaultLayout';
+import api from '../../configs/api';
 import  { useAppContext } from '../../store/AppContext';
 // import axios from 'axios';
 import { useMediaState } from '@vidstack/react';
@@ -18,11 +19,32 @@ import { PaginationMenu } from '../../components/PaginationMenu';
 
 
 const ArtistPage: React.FC = () => {
-  const data  = useLoaderData()<unknown>;
-  const artist:Artist = data.artist<Artist>;
-  const releases:Release[] = data.releases<Release[]>;
+  // const data  = useLoaderData()<unknown>;
+  const artistId = useLoaderData()<number>;
+  // const artist:Artist = data.artist<Artist>;
+  // const releases:Release[] = data.releases<Release[]>;
   const [pageNum, setPageNum] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(true);
+  const [artist, setArtist] = useState<Artist>();
+  const [releases, setReleases] = useState<Release[]>([]);
+  const [responseError, setResponseError] = useState<string>('');
+  const [meta, setMeta] = useState<any>({});
+
+  useEffect(() => {
+    api.get(`/artists/${artistId}`, {
+      params:{ page: pageNum, category: null, delicate: false }})
+      .then((response) => {
+        setArtist(response.data.artist);
+        setReleases(response.data.releases);
+        setLoading(false);
+        setMeta(response.meta);
+      })
+      .catch((error) => {
+        setLoading(false);
+        setResponseError(error.message);
+        console.log(responseError)
+      })
+  }, [pageNum])
 
   function handlePageChange(pageNum: number) {
     setLoading(true);
@@ -46,39 +68,41 @@ const ArtistPage: React.FC = () => {
         // )
       }
       <ContentHeader>::
-        <Link to="/artists" className="breadcrumb">Artist</Link>::{artist.secured ? `Artist ${artist.id}` : artist.name}
+
+        <Link to="/artists" className="breadcrumb">Artist</Link>::{artist?.secured ? `Artist ${artist?.id}` : artist?.name}
       </ContentHeader>
       <ContentContainer>
         {
-          releases.map((release:Release, index:number) => (
-            <div className="artist-releases-entry" key={`artist-releases-entry-${release.id}`}>
-              <div className={`text-xl ${index === 0 ? '' : 'pt-20'}`}>
-                {
-                  release.artworkUrl && (
-                    <div className="artwork-wrapper mb-1 mr-2">
-                      <img src={release.artworkUrl} alt={release.name} className="artwork w-250 h-250" />
-                    </div>
-                  )
-                }
+          loading ? <MiniLoader /> : (
+            releases?.map((release:Release, index:number) => (
+              <div className="artist-releases-entry" key={`artist-releases-entry-${release.id}`}>
+                <div className={`text-xl ${index === 0 ? '' : 'pt-20'}`}>
+                  {
+                    release.artworkUrl && (
+                      <div className="artwork-wrapper mb-1 mr-2">
+                        <img src={release.artworkUrl} alt={release.name} className="artwork w-250 h-250" />
+                      </div>
+                    )
+                  }
 
 
-                <Link to={`/releases/${release.id}`} className='release-title'>
-                  {release.name}
-                  {release.year && (` (${release.year})`)}
-                </Link>
+                  <Link to={`/releases/${release.id}`} className='release-title'>
+                    {release.name}
+                    {release.year && (` (${release.year})`)}
+                  </Link>
+                </div>
+                <div className="clear-both"></div>
+                <ReleaseTable release={release} />
               </div>
-              <div className="clear-both"></div>
-              <ReleaseTable release={release} />
-            </div>
-          ))  
+            ))  
+          )
         }
       </ContentContainer>
       {
-        // !loading &&
-          data.meta.totalPages > 1 &&
+        !loading && meta?.totalPages > 1 &&
           <PaginationMenu
             pageNum={pageNum}
-            totalPages={data.meta.totalPages}
+            totalPages={meta.totalPages}
             handlePageChange={handlePageChange}
             size={12} />
       }
