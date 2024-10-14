@@ -38,7 +38,7 @@ const ReleasePage: React.FC = () => {
         )
       }
       <ContentHeader>::
-        <Link to="/releases" className="breadcrumb">Release</Link>::{release.secured ? `Release ${release.id}` : release.name}
+        <span><Link to="/releases" className="breadcrumb">Release</Link>::{release.secured ? `Release ${release.id}` : release.name}</span>
       </ContentHeader>
       <ContentContainer>
         <ReleaseTable release={release} />

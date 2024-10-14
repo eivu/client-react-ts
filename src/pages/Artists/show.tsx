@@ -37,7 +37,7 @@ const ArtistPage: React.FC = () => {
         setArtist(response.data.artist);
         setReleases(response.data.releases);
         setLoading(false);
-        setMeta(response.meta);
+        setMeta(response.data.meta);
       })
       .catch((error) => {
         setLoading(false);
@@ -67,10 +67,11 @@ const ArtistPage: React.FC = () => {
         //   </div>
         // )
       }
-      <ContentHeader>::
-
-        <Link to="/artists" className="breadcrumb">Artist</Link>::{artist?.secured ? `Artist ${artist?.id}` : artist?.name}
-      </ContentHeader>
+      { artist &&
+          <ContentHeader>::
+            <Link to="/artists" className="breadcrumb">Artist</Link>::{artist?.secured ? `Artist ${artist?.id}` : artist?.name}
+          </ContentHeader>
+      }
       <ContentContainer>
         {
           loading ? <MiniLoader /> : (
