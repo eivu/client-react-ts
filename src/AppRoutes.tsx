@@ -12,49 +12,6 @@ import ReleasesIndex from './pages/Releases';
 import FoldersIndex from './pages/Folders';
 import MetadataIndex from './pages/Metadata';
 import TrashIndex from './pages/Trash';
-import type CloudFile from './types/cloudFile';
-import type { Release } from './types/release';
-import type { Artist } from './types/artist';
-
-
-
-async function getCloudFile(fileId: string | undefined):CloudFile {
-  try {
-    const response = await api.get(`/cloud_files/${fileId}`);
-    console.log(response.data?.cloudFile);
-
-    const file:CloudFile = response.data?.cloudFile;
-    return file;
-  } catch(error) {
-    console.log(error);
-    throw error;
-  };
-}
-
-async function getArtist(artistId: string | undefined):Artist {
-  try {
-    const response = await api.get(`/artists/${artistId}`);
-    console.log(response.data);
-    return response.data;
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
-}
-
-async function getRelease(releaseId: string | undefined):Release {
-  try {
-    const response = await api.get(`/releases/${releaseId}`);
-    console.log(response.data?.release);
-
-    const release:Release = response.data?.release;
-    return release;
-  } catch(error) {
-    console.log(error);
-    throw error;
-  };
-}
-
 
 const router = createBrowserRouter([
   {
@@ -77,7 +34,7 @@ const router = createBrowserRouter([
     element: <File />,
     path: "/files/:fileId",
     loader: ({ params }) => {
-      return getCloudFile(params.fileId);
+      return params.fileId;
     },
   },
   {
@@ -100,7 +57,6 @@ const router = createBrowserRouter([
     element: <ArtistPage />,
     path: "/artists/:artistId",
     loader: ({ params }) => {
-      // return getArtist(params.artistId);
       return params.artistId;
     },
   },
@@ -120,7 +76,7 @@ const router = createBrowserRouter([
       </>,
     path: "/releases/:releaseId",
     loader: ({ params }) => {
-      return getRelease(params.releaseId);
+      return params.releaseId;
     },
   },
   {

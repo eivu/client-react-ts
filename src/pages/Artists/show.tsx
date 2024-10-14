@@ -19,10 +19,7 @@ import { PaginationMenu } from '../../components/PaginationMenu';
 
 
 const ArtistPage: React.FC = () => {
-  // const data  = useLoaderData()<unknown>;
   const artistId = useLoaderData()<number>;
-  // const artist:Artist = data.artist<Artist>;
-  // const releases:Release[] = data.releases<Release[]>;
   const [pageNum, setPageNum] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(true);
   const [artist, setArtist] = useState<Artist>();
@@ -32,18 +29,18 @@ const ArtistPage: React.FC = () => {
 
   useEffect(() => {
     api.get(`/artists/${artistId}`, {
-      params:{ page: pageNum, category: null, delicate: false }})
-      .then((response) => {
-        setArtist(response.data.artist);
-        setReleases(response.data.releases);
-        setLoading(false);
-        setMeta(response.data.meta);
-      })
-      .catch((error) => {
-        setLoading(false);
-        setResponseError(error.message);
-        console.log(responseError)
-      })
+      params: { page: pageNum, category: null, delicate: false }}
+    ).then((response) => {
+      setArtist(response.data.artist);
+      setReleases(response.data.releases);
+      setLoading(false);
+      setMeta(response.data.meta);
+    })
+    .catch((error) => {
+      setLoading(false);
+      setResponseError(error.message);
+      console.log(responseError)
+    })
   }, [pageNum])
 
   function handlePageChange(pageNum: number) {
