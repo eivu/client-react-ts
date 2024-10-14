@@ -1,47 +1,66 @@
-// http://localhost:5173/releases/71
-// http://localhost:5173/releases/427
-
-
 import React from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 import DefaultLayout, { ContentHeader, ContentContainer } from '../../layout/DefaultLayout';
 import  { useAppContext } from '../../store/AppContext';
-// import axios from 'axios';
 import { useMediaState } from '@vidstack/react';
 import { useMemo, useState, useEffect, FC } from 'react';
 import AddToQueueButton from '../../components/AddToQueueButton';
 import AVButton from '../../components/AVButton';
 import type { Release } from '../../types/release';
 import { MiniLoader } from '../../components/Loader';
-
+import api from '../../configs/api';
 import { ReleaseTable } from '../../components/ReleaseTable';
 
 
 const ReleasePage: React.FC = () => {
-  const release:Release  = useLoaderData()<Release>;
+  const releaseId = useLoaderData();
+  const [loading, setLoading] = useState<boolean>(true);
+  const [release, setRelease] = useState<Release>();
+  const [responseError, setResponseError] = useState<string>('');
 
-  // const [loading, setLoading] = useState<boolean>(true);
-  // const [responseError, setResponseError] = useState<String | undefined>(undefined);
-  // const [queueItems, setQueueItems] = useState<QueueItem[]>([]);
-
-  // // From queue page
-  // const { queue, queueIndex, player, dispatch } = useAppContext();
-  // const isPlaying = useMediaState('playing', player);
+  useEffect(() => {
+    api.get(`/releases/${releaseId}`, {
+      params: { category: null, delicate: false }}
+    ).then((response) => {
+      console.log(response.data)
+      setRelease(response.data.release);
+      setLoading(false);
+    }).catch((error) => {
+      setLoading(false);
+      setResponseError(error.message);
+      console.log(responseError)
+    })
+  },[])
 
   return (
     <DefaultLayout>
       {
-        release.artworkUrl && (
+        release?.artworkUrl && (
           <div className="flex justify-left">
-            <img src={release.artworkUrl} alt={release.name} className="w-64 h-64" />
+            <img src={release?.artworkUrl} alt={release?.name} className="w-64 h-64" />
           </div>
         )
       }
-      <ContentHeader>::
-        <span><Link to="/releases" className="breadcrumb">Release</Link>::{release.secured ? `Release ${release.id}` : release.name}</span>
-      </ContentHeader>
+      {
+        !loading && release && (
+          <ContentHeader>::
+            <span><Link to="/releases" className="breadcrumb">Release</Link>::{release?.secured ? `Release ${release?.id}` : release?.name}</span>
+            {
+              release?.artists.length > 0 &&
+                <div>
+                  {/* BY */}
+                  { release.artists.map((artist) => {
+                    return (
+                      <Link to={`/artists/${artist.id}`} className="pr-2">{artist.name}</Link>
+                    )})
+                   }
+                </div>
+            }
+          </ContentHeader>
+        )
+      }
       <ContentContainer>
-        <ReleaseTable release={release} />
+        { loading ? <MiniLoader /> : <ReleaseTable release={release} /> }
       </ContentContainer>
     </DefaultLayout>
   );
