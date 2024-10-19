@@ -3,17 +3,16 @@ import { Artist } from "./artist"
 import { Release } from "./release"
 
 export default interface CloudFile {
-  name: string | null
-  label: string
+  name: string
   asset: string
   md5: string
   contentType: string
-  filesize: number | null
+  filesize: number
   description: string | null
-  rating: string | null
-  nsfw: boolean | null
+  rating: number | null
+  nsfw: boolean
   secured: boolean
-  createdAt: string
+  uploadedAt: string
   updatedAt: string
   infoUrl: string | null
   duration: number

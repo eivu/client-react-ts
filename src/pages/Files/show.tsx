@@ -58,7 +58,7 @@ const File: React.FC = () => {
         file && 
         <ContentHeader>::<Link to="/files" className="breadcrumb">Files</Link>::
           {
-            file.secured ? file.md5 : file.label
+            file.secured ? file.md5 : file.name
           }
         </ContentHeader>
       }
@@ -71,7 +71,7 @@ const File: React.FC = () => {
                   Name
                 </td>
                 <td className={topRowvalueClassNames}>
-                  {file.label}
+                  {file.name}
                 </td>
               </tr>
               {

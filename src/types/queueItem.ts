@@ -1,5 +1,5 @@
 export interface QueueItem {
-  fileSize: number,
+  filesize: number,
   rating: number | null,
   numPlays: number | null,
   uploadedAt: string,

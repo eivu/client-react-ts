@@ -46,7 +46,7 @@ const FilesReader: React.FC = () => {
       },
       {
         header: 'Name',
-        accessorKey: 'label',
+        accessorKey: 'name',
       },
       {
         header: 'Size',

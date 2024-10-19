@@ -70,7 +70,7 @@ export function ReleaseTable({ release }: ReleaseTableProps): React.JSX.Element 
               {track.position}
             </td>
             <td className={valueClassNames}>
-              <Link to={`/files/${track.md5}`}>{track.label}</Link>
+              <Link to={`/files/${track.md5}`}>{track.name}</Link>
             </td>
             <td className={valueClassNames}>
               {track.duration && convertSecondsToTimeHhMmSs(track.duration)}

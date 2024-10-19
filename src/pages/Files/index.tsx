@@ -27,7 +27,7 @@ import {
 
 const FilesIndex: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
-  const [sorting, setSorting] = useState<SortingState>([{id: "label", desc: false}])
+  const [sorting, setSorting] = useState<SortingState>([{id: "name", desc: false}])
   const [responseError, setResponseError] = useState<String | undefined>(undefined);
   const [pageNum, setPageNum] = useState<number>(1);
   const [meta, setMeta] = useState<any>({});
@@ -47,7 +47,7 @@ const FilesIndex: React.FC = () => {
       },
       {
         header: 'Name',
-        accessorKey: 'label',
+        accessorKey: 'name',
         cell: info => (
           <Link to={`/files/${info.row.original.md5}`}>{info?.getValue()}</Link>
         )
@@ -97,6 +97,7 @@ const FilesIndex: React.FC = () => {
         setQueueItems(response.data.cloudFiles);
         setMeta(response.data.meta);
         setLoading(false);
+        console.log(response.data);
       })
       .catch((error) => {
         setLoading(false);
