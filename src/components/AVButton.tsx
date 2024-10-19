@@ -3,8 +3,13 @@ import AudioPauseButton from "./AudioPauseButton";
 import { useAppContext } from '../store/AppContext';
 import { useMediaState } from '@vidstack/react';
 import VideoPlayModal from './VideoPlayModal';
+import { QueueItem } from "../types/queueItem";
 
-const AVButton:FC = ({item}) => {
+export type AVButtonProps = {
+  item: QueueItem;
+}
+
+const AVButton:FC = ({item}:AVButtonProps) => {
   const { player, queue, queueIndex } = useAppContext();
   const isPlaying = useMediaState('playing', player);
 

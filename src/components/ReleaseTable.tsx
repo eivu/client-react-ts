@@ -10,7 +10,8 @@ import convertSecondsToTimeHhMmSs from '../common/convertSecondsToTimeHhMmSs';
 import { Track } from '../types/track';
 import { MiniLoader } from './Loader';
 import { AddToQueueButton } from './AddToQueueButton';
-import { AVButton } from './AVButton';
+import AVButton from './AVButton';
+import { objectToQueueItem } from '../common/objectToQueueItem';
 
 
 
@@ -24,41 +25,43 @@ export function ReleaseTable({ release }: ReleaseTableProps): React.JSX.Element 
   const valueClassNames = topRowvalueClassNames.concat(" border-t");
   return (
     <table id="release-details-table" className="w-full text-left border-collapse" key={`release-table-${release.id}`}>
-      <tbody>
+      <thead>
         <tr>
-          <td></td>
-          <td></td>
+          <th></th>
+          <th></th>
           { release.multiBundle &&
-            <td className={topRowKeyClassNames}>
+            <th className={topRowKeyClassNames}>
               Bundle
-            </td>
+            </th>
           }
-          <td className={topRowKeyClassNames}>
+          <th className={topRowKeyClassNames}>
             Position
-          </td>
-          <td className={topRowKeyClassNames}>
+          </th>
+          <th className={topRowKeyClassNames}>
             Name
-          </td>
-          <td className={topRowKeyClassNames}>
+          </th>
+          <th className={topRowKeyClassNames}>
             Duration
-          </td>
-          <td className={topRowKeyClassNames}>
+          </th>
+          <th className={topRowKeyClassNames}>
             Size
-          </td>
-          <td className={topRowKeyClassNames}>
+          </th>
+          <th className={topRowKeyClassNames}>
             Rating
-          </td>
-          <td className={topRowKeyClassNames}>
+          </th>
+          <th className={topRowKeyClassNames}>
             Plays
-          </td>
+          </th>
         </tr>
+      </thead>
+      <tbody>
         {release.tracks.map((track) => (
           <tr key={`track-${track.md5}`}>
             <td>
               {/* <AddToQueueButton track={track} /> */}
             </td>
             <td>
-              {/* <AVButton track={track} /> */}
+              <AVButton item={ objectToQueueItem(track) } />
             </td>
             { 
               release.multiBundle &&
