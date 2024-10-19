@@ -9,7 +9,7 @@ import prettyBytes from 'pretty-bytes';
 import convertSecondsToTimeHhMmSs from '../common/convertSecondsToTimeHhMmSs';
 import { Track } from '../types/track';
 import { MiniLoader } from './Loader';
-import { AddToQueueButton } from './AddToQueueButton';
+import AddToQueueButton from './AddToQueueButton';
 import AVButton from './AVButton';
 import { objectToQueueItem } from '../common/objectToQueueItem';
 
@@ -24,7 +24,7 @@ export function ReleaseTable({ release }: ReleaseTableProps): React.JSX.Element 
   const topRowvalueClassNames = "break-words py-2 pl-2 font-mono leading-6 whitespace-pre border-slate-100 dark:border-slate-400/10 text-wrap";
   const valueClassNames = topRowvalueClassNames.concat(" border-t");
   return (
-    <table id="release-details-table" className="w-full text-left border-collapse" key={`release-table-${release.id}`}>
+    <table id="release-details-table" className="release-table w-full text-left border-collapse" key={`release-table-${release.id}`}>
       <thead>
         <tr>
           <th></th>
@@ -57,11 +57,11 @@ export function ReleaseTable({ release }: ReleaseTableProps): React.JSX.Element 
       <tbody>
         {release.tracks.map((track) => (
           <tr key={`track-${track.md5}`}>
-            <td>
-              {/* <AddToQueueButton track={track} /> */}
+            <td className="controls">
+              <AVButton item={objectToQueueItem(track)} />
             </td>
-            <td>
-              <AVButton item={ objectToQueueItem(track) } />
+            <td className="controls pr-2">
+              <AddToQueueButton item={objectToQueueItem(track)} />
             </td>
             { 
               release.multiBundle &&

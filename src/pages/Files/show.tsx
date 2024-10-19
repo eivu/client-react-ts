@@ -81,7 +81,7 @@ const File: React.FC = () => {
                       Artist(s)
                     </td>
                     <td className={valueClassNames}>
-                      {file.artists.map(artist => <Link to={`/artists/${artist.id}`}>{artist.name}</Link>)}
+                      {file.artists.map(artist => <Link className="pr-2" to={`/artists/${artist.id}`} key={`artist-${artist.id}`}>{artist.name}</Link>)}
                     </td>
                   </tr>
               }

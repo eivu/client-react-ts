@@ -472,3 +472,6 @@ table#file-details-table tbody tr td:nth-child(1) {
   overflow-wrap: normal;
   display: inline-block;
 }
+.release-table .controls {
+  width: 0.5em;
+}
