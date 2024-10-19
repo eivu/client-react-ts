@@ -11,6 +11,7 @@ import ArtistPage from './pages/Artists/show';
 import ReleasesIndex from './pages/Releases';
 import FoldersIndex from './pages/Folders';
 import MetadataIndex from './pages/Metadata';
+import MetadatumPage from './pages/Metadata/show';
 import TrashIndex from './pages/Trash';
 
 const router = createBrowserRouter([
@@ -94,6 +95,17 @@ const router = createBrowserRouter([
         <MetadataIndex />
       </>,
     path: "/metadata"
+  },
+  {
+    element: 
+      <>
+        <PageTitle title="EIVU::Metadatum" />
+        <MetadatumPage />
+      </>,
+    path: "/metadata/:metadatumId",
+    loader: ({ params }) => {
+      return params.metadatumId;
+    },
   },
   {
     element: 
