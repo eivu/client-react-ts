@@ -6,6 +6,7 @@ import { useMemo, useState, useEffect, FC } from 'react';
 import api from '../../configs/api';
 import { MiniLoader } from '../../components/Loader';
 import { PaginationMenu } from '../../layout/PaginationMenu';
+import { MetadatumEntry } from '../../components/MetadatumEntry';
 
 const MetadataIndex: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -56,10 +57,7 @@ const MetadataIndex: React.FC = () => {
             <div id="metadata-list" className="list pt-10">
               {metadata.map((metadatum) => (
                 <div className="entry" key={`metadatum-entry-${metadatum.id}`}>
-                  <Link to={`/metadata/${metadatum.id}`}>
-                    <span className="type">{metadatum.type}</span>
-                    {metadatum.value}
-                  </Link>
+                  <MetadatumEntry metadatum={metadatum} />
                 </div>
               ))}
             </div>

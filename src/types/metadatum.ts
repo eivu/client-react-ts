@@ -5,4 +5,6 @@ export interface Metadatum {
     explorable: boolean;
     delicate: boolean;
     nsfw: boolean;
+    cloudFilesCount: number;
+    secured: boolean;
 };
