@@ -12,7 +12,7 @@ const Queue: React.FC = () => {
     <DefaultLayout>
       <ContentHeader>::Queue</ContentHeader>
       <ContentContainer>
-        <div id="queue-wrapper">
+        <div id="queue-wrapper" className="list">
           {queue.map((item, index) => (
             <div key={index}
               onClick={() => index != queueIndex && dispatch({ type: 'setQueueIndex', queueIndex: index })}

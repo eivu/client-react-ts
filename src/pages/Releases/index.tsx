@@ -51,7 +51,7 @@ const ReleasesIndex: React.FC = () => {
         loading ? <MiniLoader /> : (
           <>
             <AlphabetMenu activeLetter={letter} collection="releases" handleLetterChange={handleLetterChange} />
-            <div id="releases-list" className="pt-10">
+            <div id="releases-list" className="list pt-10">
               {releases.map((release) => (
                 <div className="entry">
                   <Link to={`/releases/${release.id}`}>{release.name}</Link>
