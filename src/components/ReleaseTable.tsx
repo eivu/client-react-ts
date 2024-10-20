@@ -20,36 +20,33 @@ export type ReleaseTableProps = {
 };
 
 export function ReleaseTable({ release }: ReleaseTableProps): React.JSX.Element {
-  const topRowKeyClassNames   = "";
-  const topRowvalueClassNames = "";
-  const valueClassNames = topRowvalueClassNames.concat(" border-t");
   return (
-    <table id="release-details-table" className="release-table w-full text-left border-collapse font-mono" key={`release-table-${release.id}`}>
+    <table id="release-details-table" className="release-table font-mono" key={`release-table-${release.id}`}>
       <thead>
         <tr>
           <th></th>
           <th></th>
           { release.multiBundle &&
-            <th className={topRowKeyClassNames}>
+            <th>
               Bundle
             </th>
           }
-          <th className={topRowKeyClassNames}>
+          <th>
             Position
           </th>
-          <th className={topRowKeyClassNames}>
+          <th>
             Name
           </th>
-          <th className={topRowKeyClassNames}>
+          <th>
             Duration
           </th>
-          <th className={topRowKeyClassNames}>
+          <th>
             Size
           </th>
-          <th className={topRowKeyClassNames}>
+          <th>
             Rating
           </th>
-          <th className={topRowKeyClassNames}>
+          <th>
             Plays
           </th>
         </tr>
@@ -65,26 +62,26 @@ export function ReleaseTable({ release }: ReleaseTableProps): React.JSX.Element 
             </td>
             { 
               release.multiBundle &&
-                <td className={valueClassNames}>
+                <td>
                   {track.bundlePos}
                 </td>
             }
-            <td className={valueClassNames}>
+            <td>
               {track.position}
             </td>
-            <td className={valueClassNames}>
+            <td>
               <Link to={`/files/${track.md5}`}>{track.name}</Link>
             </td>
-            <td className={valueClassNames}>
+            <td>
               {track.duration && convertSecondsToTimeHhMmSs(track.duration)}
             </td>
-            <td className={valueClassNames}>
+            <td>
               {prettyBytes(track.filesize)}
             </td>
-            <td className={valueClassNames}>
+            <td>
               { track.rating }
             </td>
-            <td className={valueClassNames}>
+            <td>
               { track.numPlays }
             </td>
           </tr>
