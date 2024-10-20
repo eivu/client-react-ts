@@ -26,16 +26,8 @@ const File: React.FC = () => {
   const [file, setFile] = useState<CloudFile>();
   const [responseError, setResponseError] = useState<string>('');
 
-  const topRowKeyClassNames   = "py-2 pr-2 font-mono font-medium leading-6 whitespace-nowrap border-slate-100 dark:border-slate-400/10"
-  const keyClassNames   = topRowKeyClassNames.concat(" border-t")
-  const topRowvalueClassNames = "break-words py-2 pl-2 font-mono leading-6 whitespace-pre border-slate-100 dark:border-slate-400/10 text-wrap"
-  const valueClassNames = topRowvalueClassNames.concat(" border-t")
-
-  // const [loading, setLoading] = useState<boolean>(true);
-  // const [responseError, setResponseError] = useState<String | undefined>(undefined);
-  // const [queueItems, setQueueItems] = useState<QueueItem[]>([]);
-
   // // From queue page
+  // const [queueItems, setQueueItems] = useState<QueueItem[]>([]);
   // const { queue, queueIndex, player, dispatch } = useAppContext();
   // const isPlaying = useMediaState('playing', player);
 
@@ -48,6 +40,7 @@ const File: React.FC = () => {
     }).catch((error) => {
       setLoading(false);
       setResponseError(error.message);
+      console.log("error:", responseError);
     })
   },[]);
 
@@ -64,23 +57,23 @@ const File: React.FC = () => {
       }
       <ContentContainer>
         { loading ? <MiniLoader /> : file &&
-          <table id="file-details-table" className="w-full text-left border-collapse">
+          <table id="file-details-table" className="font-mono">
             <tbody className="align-baseline">
               <tr>
-                <td className={topRowKeyClassNames}>
+                <td>
                   Name
                 </td>
-                <td className={topRowvalueClassNames}>
+                <td>
                   {file.name}
                 </td>
               </tr>
               {
                 file.artists.length > 0 &&
                   <tr>
-                    <td className={keyClassNames}>
+                    <td>
                       Artist(s)
                     </td>
-                    <td className={valueClassNames}>
+                    <td>
                       {file.artists.map(artist => <Link className="pr-2" to={`/artists/${artist.id}`} key={`artist-${artist.id}`}>{artist.name}</Link>)}
                     </td>
                   </tr>
@@ -88,10 +81,10 @@ const File: React.FC = () => {
               {
                 file.releases.length > 0 &&
                   <tr>
-                    <td className={keyClassNames}>
+                    <td>
                       Release(s)
                     </td>
-                    <td className={valueClassNames}>
+                    <td>
                       {file.releases.map(release => <Link to={`/releases/${release.id}`}>{release.name}</Link>)}
                     </td>
                   </tr>
@@ -99,10 +92,10 @@ const File: React.FC = () => {
               {
                 file.releasePos &&
                   <tr>
-                    <td className={keyClassNames}>
+                    <td>
                       Release Pos
                     </td>
-                    <td className={valueClassNames}>
+                    <td>
                       {file.releasePos}
                     </td>
                   </tr>
@@ -110,45 +103,45 @@ const File: React.FC = () => {
               {
                 file.state == 'completed' && file.duration && file.duration > 0 &&
                   <tr>
-                    <td className={keyClassNames}>
+                    <td>
                       Duration
                     </td>
-                    <td className={valueClassNames}>
+                    <td>
                       {convertSecondsToTimeHhMmSs(file.duration)}
                     </td>
                   </tr>
               }
               <tr>
-                <td className={keyClassNames}>
+                <td>
                   Content Type
                 </td>
-                <td className={valueClassNames}>
+                <td>
                   {file.contentType}
                 </td>
               </tr>
               <tr>
-                <td className={keyClassNames}>
+                <td>
                   NSFW
                 </td>
-                <td className={valueClassNames}>
+                <td>
                   {file.nsfw ? "Yes" : "No"}
                 </td>
               </tr>
               <tr>
-                <td className={keyClassNames}>
+                <td>
                   Secured
                 </td>
-                <td className={valueClassNames}>
+                <td>
                   {file.secured ? "Yes" : "No"}
                 </td>
               </tr>
               {
                 file.filesize &&
                   <tr>
-                    <td className={keyClassNames}>
+                    <td>
                       Filesize
                     </td>
-                    <td className={valueClassNames}>
+                    <td>
                       {prettyBytes(file.filesize)}
                     </td>
                   </tr>
@@ -156,10 +149,10 @@ const File: React.FC = () => {
               {
                 file.year &&
                   <tr>
-                    <td className={keyClassNames}>
+                    <td>
                       Year
                     </td>
-                    <td className={valueClassNames}>
+                    <td>
                       {file.year}
                     </td>
                   </tr>
@@ -167,10 +160,10 @@ const File: React.FC = () => {
               {
                 file.description &&
                   <tr>
-                    <td className={keyClassNames}>
+                    <td>
                       Description
                     </td>
-                    <td className={valueClassNames}>
+                    <td>
                       {file.description}
                     </td>
                   </tr>
@@ -178,62 +171,62 @@ const File: React.FC = () => {
               {
                 file.rating &&
                   <tr>
-                    <td className={keyClassNames}>
+                    <td>
                       Rating
                     </td>
-                    <td className={valueClassNames}>
+                    <td>
                       {file.rating}
                     </td>
                   </tr>
               }
               <tr>
-                <td className={keyClassNames}>
+                <td>
                   Source
                 </td>
-                <td className={valueClassNames}>
+                <td>
                   <Link to={file.url}>Link</Link>
                 </td>
               </tr>
               {
                 file.dateAquiredAt &&
                   <tr>
-                    <td className={keyClassNames}>
+                    <td>
                       Num Plays
                     </td>
-                    <td className={valueClassNames}>
+                    <td>
                       {timeAgo(file.date_aquiredAt)}
                     </td>
                   </tr>
               }
               <tr>
-                <td className={keyClassNames}>
+                <td>
                   State
                 </td>
-                <td className={valueClassNames}>
+                <td>
                   {file.state}
                 </td>
               </tr>
               <tr>
-                <td className={keyClassNames}>
+                <td>
                   Created At
                 </td>
-                <td className={valueClassNames}>
+                <td>
                   {timeAgo(file.createdAt)}
                 </td>
               </tr>
               <tr>
-                <td className={keyClassNames}>
+                <td>
                   Updated At
                 </td>
-                <td className={valueClassNames}>
+                <td>
                   {timeAgo(file.updatedAt)}
                 </td>
               </tr>
               <tr>
-                <td className={keyClassNames}>
+                <td>
                   Shared
                 </td>
-                <td className={valueClassNames}>
+                <td>
                   {file.shared ? "Yes" : "No"}
                 </td>
               </tr>
@@ -244,15 +237,15 @@ const File: React.FC = () => {
         { file && file.metadata.length > 0 &&
           <>
             <div className="text-xl pt-20">Metadata</div>
-            <table id="file-details-table" className="w-full text-left border-collapse">
+            <table id="file-details-table" className="metadata">
               <tbody className="align-baseline">
                 {
                   file.metadata.map((metadatum, index) => (
                     <tr key={`medatum-row-${metadatum.id}`}>
-                      <td className={index === 0 ? topRowKeyClassNames : keyClassNames}>
+                      <td style={{borderTopStyle: 'solid'}}>
                         {metadatum.type}
                       </td>
-                      <td className={index === 0 ? topRowvalueClassNames : valueClassNames}>
+                      <td style={{borderTopStyle: 'solid'}}>
                         {/* {
                           () => {
                             if (metadatum.explorable)
