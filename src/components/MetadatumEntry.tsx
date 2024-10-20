@@ -23,19 +23,20 @@ export const MetadatumEntry: React.FC<MetadataEntryProps> = ({metadatum}) => {
   function handleClick():void {
     if (!dataLoaded) {
       setLoading(true);
-      api.get(`/metadata/${metadatum.id}/cloud_files`)
-        .then((response) => {
-          setFiles(response.data.cloudFiles);
-          console.log("data", response.data);
-          console.log("files", files);
-          setLoading(false);
-          setExpanded(true);
-          setDataLoaded(true);
-        })
-        .catch((error) => {
-          setLoading(false);
-          setResponseError(error.message);
-        });
+      api.get(`/metadata/${metadatum.id}/cloud_files`,
+        { params: { sortBy: 'name', sortDesc: false } }
+      ).then((response) => {
+        setFiles(response.data.cloudFiles);
+        console.log("data", response.data);
+        console.log("files", files);
+        setLoading(false);
+        setExpanded(true);
+        setDataLoaded(true);
+      })
+      .catch((error) => {
+        setLoading(false);
+        setResponseError(error.message);
+      });
       
     } else {
       setExpanded(!expanded);
