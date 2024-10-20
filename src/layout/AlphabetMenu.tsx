@@ -13,7 +13,7 @@ export function AlphabetMenu({
 }:AlphabetMenuProps): JSX.Element {
   const alphabet:string[] = Array.from({ length: 26 }, (_, i) => String.fromCharCode(65 + i));
   return (
-    <table id="alphabet-menu" className="w-full">
+    <table id="alphabet-menu" className="w-full align-middle">
       <tbody>
         <tr>
            <td className="px-2 py-1">
@@ -50,6 +50,8 @@ export function AlphabetMenu({
                   {letter}
                 </div>
               ) : (
+                // <Link to={{ pathname: '/my-route', hash: { param1: 'value1', param2: 'value2' } }} onClick={()=>{handleLetterChange(letter)}} className="text-sm text-black dark:text-white hover:text-primary dark:hover:text-primary-dark">
+
                 <Link to={`/${collection}?letter=${letter}`} onClick={()=>{handleLetterChange(letter)}} className="text-sm text-black dark:text-white hover:text-primary dark:hover:text-primary-dark">
                   {letter}
                 </Link>
