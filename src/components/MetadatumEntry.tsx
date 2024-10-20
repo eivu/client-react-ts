@@ -21,7 +21,6 @@ export const MetadatumEntry: React.FC<MetadataEntryProps> = ({metadatum}) => {
   const { dispatch, queue } = useAppContext();
 
   function handleClick():void {
-    // setExpanded(!expanded);
     if (!dataLoaded) {
       setLoading(true);
       api.get(`/metadata/${metadatum.id}/cloud_files`)
@@ -37,6 +36,9 @@ export const MetadatumEntry: React.FC<MetadataEntryProps> = ({metadatum}) => {
           setLoading(false);
           setResponseError(error.message);
         });
+      
+    } else {
+      setExpanded(!expanded);
     }
   }
 
