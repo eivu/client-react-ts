@@ -1,14 +1,13 @@
-import React from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import DefaultLayout, { ContentHeader, ContentContainer} from '../../layout/DefaultLayout';
 import { AlphabetMenu } from '../../layout/AlphabetMenu';
-import { useMemo, useState, useEffect, FC } from 'react';
+import { useState, useEffect, FC } from 'react';
 import api from '../../configs/api';
 import { MiniLoader } from '../../components/Loader';
 import { PaginationMenu } from '../../layout/PaginationMenu';
 import { MetadatumEntry } from '../../components/MetadatumEntry';
 
-const MetadataIndex: React.FC = () => {
+const MetadataIndex: FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [letter, setLetter] = useState<string>(searchParams.get('letter') || '');
   const [pageNum, setPageNum] = useState<number>(1);
@@ -40,6 +39,7 @@ const MetadataIndex: React.FC = () => {
     }).catch((error) => {
       setLoading(false);
       setResponseError(error.message);  
+      console.log("error", responseError)
     })
   },[pageNum, letter])
 
