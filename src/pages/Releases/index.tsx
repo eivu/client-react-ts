@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import DefaultLayout, { ContentHeader, ContentContainer} from '../../layout/DefaultLayout';
 import { AlphabetMenu } from '../../layout/AlphabetMenu';
-import { useMemo, useState, useEffect, FC } from 'react';
+import { useState, useEffect, FC } from 'react';
 import api from '../../configs/api';
 import { MiniLoader } from '../../components/Loader';
 import { PaginationMenu } from '../../layout/PaginationMenu';
@@ -10,7 +10,7 @@ import { PaginationMenu } from '../../layout/PaginationMenu';
 const ReleasesIndex: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [letter, setLetter] = useState<string>(searchParams.get('letter') || '');
-  const [pageNum, setPageNum] = useState<number>(1);
+  const [pageNum, setPageNum] = useState<number>(Number(searchParams.get('pageNum')) || 1);
   const [releases, setReleases] = useState<Release[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [meta, setMeta] = useState<any>({});
@@ -19,12 +19,14 @@ const ReleasesIndex: React.FC = () => {
   function handlePageChange(pageNum: number) {
     setLoading(true);
     setPageNum(pageNum);
+    setSearchParams({ pageNum: pageNum.toString(), letter: letter });
   }
 
   function handleLetterChange(letter: string) {
     setLoading(true);
     setLetter(letter);
     setPageNum(1);
+    setSearchParams({ pageNum: '1', letter: letter });
   }
 
   useEffect(() => {
@@ -38,6 +40,7 @@ const ReleasesIndex: React.FC = () => {
       .catch((error) => {
         setLoading(false);
         setResponseError(error.message);
+        console.log("error:", responseError);
       });
   },[pageNum, letter])
 

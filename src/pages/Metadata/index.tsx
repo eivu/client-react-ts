@@ -10,22 +10,23 @@ import { MetadatumEntry } from '../../components/MetadatumEntry';
 const MetadataIndex: FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [letter, setLetter] = useState<string>(searchParams.get('letter') || '');
-  const [pageNum, setPageNum] = useState<number>(1);
+  const [pageNum, setPageNum] = useState<number>(Number(searchParams.get('pageNum')) || 1);
   const [metadata, setMetadata] = useState<Metadata[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [meta, setMeta] = useState<any>({});
   const [responseError, setResponseError] = useState<string>('');
   
-
   function handlePageChange(pageNum: number) {
     setLoading(true);
     setPageNum(pageNum);
+    setSearchParams({ pageNum: pageNum.toString(), letter: letter });
   }
 
   function handleLetterChange(letter: string) {
     setLoading(true);
     setLetter(letter);
     setPageNum(1);
+    setSearchParams({ pageNum: '1', letter: letter });
   }
 
   useEffect(() => {
