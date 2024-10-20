@@ -54,22 +54,23 @@ export const MetadatumEntry: React.FC<MetadataEntryProps> = ({metadatum}) => {
                 className='cursor-pointer pr-2 expander'
                 onClick={() => handleClick()}/>      
       }
-        <Link to={`/metadata/${metadatum.id}`}>
-          <span className="type">{metadatum.type}</span>
-          {metadatum.value}
-        </Link>
-        <span className="pl-2">
-          ({ metadatum.cloudFilesCount })
-        </span>
-      <div>
-        { files?.length > 0 && //expanded &&
-          files.map((file) => (
-            <div className="entry" key={`metadatum-${metadatum}-item-entry-${file.id}`}>
+      <Link to={`/metadata/${metadatum.id}`}>
+        <span className="type">{metadatum.type}</span>
+        {metadatum.value}
+      </Link>
+      <span className="pl-2">
+        ({ metadatum.cloudFilesCount })
+      </span>
+      {
+        expanded && files?.length > 0 &&
+        <div className="ml-10 border-slate-100 dark:border-slate-400/10 text-wrap border-t">
+          {files.map((file) => (
+            <div className="entry" key={`file-entry-${file.id}`}>
               <Link to={`/files/${file.md5}`}>{file.name}</Link>
             </div>
-          ))
-        }
-      </div>
+          ))}
+        </div>
+      }
     </div>
   );
 };
