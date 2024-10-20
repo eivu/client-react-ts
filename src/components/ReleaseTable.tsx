@@ -20,11 +20,11 @@ export type ReleaseTableProps = {
 };
 
 export function ReleaseTable({ release }: ReleaseTableProps): React.JSX.Element {
-  const topRowKeyClassNames   = "py-2 pr-2 font-mono font-medium leading-6 whitespace-nowrap border-slate-100 dark:border-slate-400/10";
-  const topRowvalueClassNames = "break-words py-2 pl-2 font-mono leading-6 whitespace-pre border-slate-100 dark:border-slate-400/10 text-wrap";
+  const topRowKeyClassNames   = "";
+  const topRowvalueClassNames = "";
   const valueClassNames = topRowvalueClassNames.concat(" border-t");
   return (
-    <table id="release-details-table" className="release-table w-full text-left border-collapse" key={`release-table-${release.id}`}>
+    <table id="release-details-table" className="release-table w-full text-left border-collapse font-mono" key={`release-table-${release.id}`}>
       <thead>
         <tr>
           <th></th>
