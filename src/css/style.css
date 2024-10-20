@@ -289,7 +289,7 @@ span.flatpickr-weekday,
   @apply text-primary dark:text-white;
 }
 .data-table-common .datatable-table > tbody > tr > td {
-  @apply border-b border-stroke py-5 font-medium dark:border-strokedark;
+  @apply border-b border-stroke py-2 font-medium dark:border-strokedark;
 }
 .data-table-one .datatable-bottom {
   @apply flex flex-col gap-4 px-8 py-7 after:hidden sm:flex-row-reverse sm:items-center sm:justify-between sm:gap-0 sm:space-x-4;
