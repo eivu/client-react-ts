@@ -475,3 +475,8 @@ table#file-details-table tbody tr td:nth-child(1) {
 .release-table .controls {
   width: 0.5em;
 }
+
+.expander {
+  display: inline-block;
+  margin-top: -2px;
+}
