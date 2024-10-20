@@ -36,6 +36,7 @@ export const MetadatumEntry: React.FC<MetadataEntryProps> = ({metadatum}) => {
       .catch((error) => {
         setLoading(false);
         setResponseError(error.message);
+        console.log("error", responseError);
       });
       
     } else {
