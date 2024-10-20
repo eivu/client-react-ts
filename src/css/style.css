@@ -476,6 +476,10 @@ table#file-details-table tbody tr td:nth-child(1) {
   width: 0.5em;
 }
 
+.release-table tbody tr:hover {
+  background-color: #f5f6fe
+}
+
 .expander {
   display: inline-block;
   margin-top: -2px;
