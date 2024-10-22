@@ -65,7 +65,7 @@ const ReleasesIndex: React.FC = () => {
         )
       }
       </ContentContainer>
-    {
+      {
         !loading &&
           <PaginationMenu
             pageNum={pageNum}
