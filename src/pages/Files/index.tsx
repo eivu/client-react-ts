@@ -72,7 +72,7 @@ const FilesIndex: React.FC = () => {
       },
       {
         header: 'Uploaded',
-        accessorKey: 'createdAt',
+        accessorKey: 'uploadedAt',
         cell: info => <span>{timeAgo(info?.getValue())}</span>
       },
     ],

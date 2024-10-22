@@ -63,7 +63,7 @@ export const MetadatumEntry: React.FC<MetadataEntryProps> = ({metadatum}) => {
         {metadatum.value}
       </Link>
       <span className="pl-2">
-        ({ metadatum.cloudFilesCount })
+        ({ metadatum.filesCount })
       </span>
       {
         expanded && files?.length > 0 &&

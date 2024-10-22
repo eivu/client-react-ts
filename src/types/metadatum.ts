@@ -1,3 +1,5 @@
+import { QueueItem } from "./queueItem";
+
 export interface Metadatum {
     id: number;
     type: string;
@@ -5,6 +7,7 @@ export interface Metadatum {
     explorable: boolean;
     delicate: boolean;
     nsfw: boolean;
-    cloudFilesCount: number;
+    filesCount: number;
     secured: boolean;
+    files: QueueItem[];
 };
