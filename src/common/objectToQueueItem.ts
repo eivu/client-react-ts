@@ -1,4 +1,4 @@
-import CloudFile from '../types/cloudFile';
+import { CloudFile } from '../types/cloudFile';
 import { QueueItem } from '../types/queueItem';
 import { Track } from '../types/track';
 

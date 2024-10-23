@@ -2,7 +2,7 @@ import { Metadatum } from "./metadatum"
 import { Artist } from "./artist"
 import { Release } from "./release"
 
-export default interface CloudFile {
+export interface CloudFile {
   name: string
   asset: string
   md5: string
