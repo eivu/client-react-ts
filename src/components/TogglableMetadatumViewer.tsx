@@ -1,12 +1,12 @@
 import React from 'react';
 import { useState } from 'react';
 
-export type TogglableViewerProps = {
+export type TogglableMetadatumViewerProps = {
   text: string;
 };
 
 
-export function TogglableViewer({ text }: TogglableViewerProps): React.JSX.Element {
+export function TogglableMetadatumViewer({ text }: TogglableMetadatumViewerProps): React.JSX.Element {
   const [fullyVisible, setFullyVisible] = useState<boolean>(false);
 
   return (    

@@ -16,7 +16,7 @@ import type { Artist } from '../../types/artist';
 import type { Release } from '../../types/release';
 import { MiniLoader } from '../../components/Loader';
 import convertSecondsToTimeHhMmSs from '../../common/convertSecondsToTimeHhMmSs';
-import { TogglableViewer } from '../../components/TogglableViewer';
+import { TogglableMetadatumViewer } from '../../components/TogglableMetadatumViewer';
 
 
 
@@ -251,7 +251,7 @@ const File: React.FC = () => {
                             if (metadatum.explorable)
                               return <Link to={`/metadata/${metadatum.id}`}>{metadatum.value} [+]</Link>
                             // else if (metadatum.value.length > 100)
-                              // return <TogglableViewer text={metadatum.value} />
+                              // return <TogglableMetadatumViewer text={metadatum.value} />
                             else
                               return metadatum.value
                           }
@@ -260,7 +260,7 @@ const File: React.FC = () => {
                           metadatum.explorable ?
                             <Link to={`/metadata/${metadatum.id}`}>{metadatum.value} [+]</Link>
                             : metadatum.value.length > 100 ?
-                              <TogglableViewer text={metadatum.value} />
+                              <TogglableMetadatumViewer text={metadatum.value} />
                               : metadatum.value
                         }
                       </td>
