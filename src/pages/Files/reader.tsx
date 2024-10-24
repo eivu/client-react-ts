@@ -1,11 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import DefaultLayout, { ContentContainer, ContentHeader} from '../../layout/DefaultLayout';
+import DefaultLayout from '../../layout/DefaultLayout';
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
-import { PaginationMenu } from '../../layout/PaginationMenu';
 import  { useAppContext } from '../../store/AppContext';
-import api from '../../configs/api';
 import getPaginationItems from '../../common/getPaginationItems';
+import axios from 'axios';
 import prettyBytes from 'pretty-bytes';
 import { timeAgo } from '../../common/timeAgo';
 import { useMemo, useState, useEffect, FC } from 'react';
@@ -25,9 +23,10 @@ import {
 
 
 
-const FilesIndex: React.FC = () => {
+const FilesReader: React.FC = () => {
+  const url = import.meta.env.VITE_EIVU_SERVER_HOST + '/api/frontend/v1/cloud_files';
   const [loading, setLoading] = useState<boolean>(true);
-  const [sorting, setSorting] = useState<SortingState>([{id: "name", desc: false}])
+  const [sorting, setSorting] = useState<SortingState>([{id: "label", desc: false}])
   const [responseError, setResponseError] = useState<String | undefined>(undefined);
   const [pageNum, setPageNum] = useState<number>(1);
   const [meta, setMeta] = useState<any>({});
@@ -48,9 +47,6 @@ const FilesIndex: React.FC = () => {
       {
         header: 'Name',
         accessorKey: 'name',
-        cell: info => (
-          <Link to={`/files/${info.row.original.md5}`}>{info?.getValue()}</Link>
-        )
       },
       {
         header: 'Size',
@@ -72,7 +68,7 @@ const FilesIndex: React.FC = () => {
       },
       {
         header: 'Uploaded',
-        accessorKey: 'uploadedAt',
+        accessorKey: 'createdAt',
         cell: info => <span>{timeAgo(info?.getValue())}</span>
       },
     ],
@@ -86,18 +82,20 @@ const FilesIndex: React.FC = () => {
       sortBy: sorting[0]?.id,
       page: pageNum,
       sortDesc: sorting[0]?.desc,
-      // keyFormat: 'camel_lower'
+      keyFormat: 'camel_lower'
     }
   }
 
   useEffect(() => {
-    api.get('/cloud_files', {
-      params: constructParams(sorting)})
+    axios.get(url, {
+      params: constructParams(sorting),
+      headers: {
+        'Authorization': 'Bearer ' + import.meta.env.VITE_EIVU_USER_TOKEN
+      }})
       .then((response) => {
         setQueueItems(response.data.cloudFiles);
         setMeta(response.data.meta);
         setLoading(false);
-        console.log(response.data);
       })
       .catch((error) => {
         setLoading(false);
@@ -129,29 +127,28 @@ const FilesIndex: React.FC = () => {
 
   return (
     <DefaultLayout>
-      <ContentHeader>
-        ::Files
-      </ContentHeader>
+      <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <h2 className="text-title-md2 font-semibold text-black dark:text-white">Eivu::Files</h2>
+      </div>
 
-
-      <section id="content-container" className="data-table-common data-table-two rounded-sm border border-stroke bg-white py-4 shadow-default dark:border-strokedark  dark:bg-boxdark">
+      <section className="data-table-common data-table-two rounded-sm border border-stroke bg-white py-4 shadow-default dark:border-strokedark  dark:bg-boxdark">
         <div className="flex justify-between border-b border-stroke px-8 pb-4 dark:border-strokedark">
-          {/* Search Field */}
+          {/* Search Field
           <div className="w-100">
             <input
               type="text"
-              // value={globalFilter}
-              // onChange={(e) => setGlobalFilter(e.target.value)}
+              value={globalFilter}
+              onChange={(e) => setGlobalFilter(e.target.value)}
               className="w-full rounded-md border border-stroke px-5 py-2.5 outline-none focus:border-primary dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
               placeholder="Search..."
             />
-          </div>
+          </div> */}
 
-          {/* Num Entries */}
+          {/* Num Entries
           <div className="flex items-center font-medium">
             <select
-              // value={pageSize}
-              // onChange={(e) => setPageSize(Number(e.target.value))}
+              value={pageSize}
+              onChange={(e) => setPageSize(Number(e.target.value))}
               className="bg-transparent pl-2"
             >
               {[5, 10, 20, 50].map((page) => (
@@ -161,7 +158,7 @@ const FilesIndex: React.FC = () => {
               ))}
             </select>
             <p className="pl-2 text-black dark:text-white">Entries Per Page</p>
-          </div>
+          </div> */}
         </div>
         <table id="files-table" className="datatable-table border-collapse overflow-hidden break-words px-4 md:overflow-auto md:px-8">
           <thead >
@@ -239,15 +236,78 @@ const FilesIndex: React.FC = () => {
 
       {
         !loading &&
-          <PaginationMenu
-            pageNum={pageNum}
-            totalPages={meta.totalPages}
-            handlePageChange={handlePageChange}
-            size={12} />
-      }
+        <div className="flex justify-between border-t border-stroke px-8 pt-5 dark:border-strokedark">
+          <div className="flex">
+            <button
+              className="flex cursor-pointer items-center justify-center rounded-md p-1 px-2 hover:bg-primary hover:text-white"
+              onClick={
+                () => alert('oi')
+                // () => previousPage()
+              }
+              disabled={
+                false
+                // !canPreviousPage
+              }
+            >
+              <svg
+                className="fill-current"
+                width="18"
+                height="18"
+                viewBox="0 0 18 18"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12.1777 16.1156C12.009 16.1156 11.8402 16.0593 11.7277 15.9187L5.37148 9.44995C5.11836 9.19683 5.11836 8.80308 5.37148 8.54995L11.7277 2.0812C11.9809 1.82808 12.3746 1.82808 12.6277 2.0812C12.8809 2.33433 12.8809 2.72808 12.6277 2.9812L6.72148 8.99995L12.6559 15.0187C12.909 15.2718 12.909 15.6656 12.6559 15.9187C12.4871 16.0312 12.3465 16.1156 12.1777 16.1156Z"
+                  fill=""
+                />
+              </svg>
+            </button>
+
+            {getPaginationItems(pageNum, meta.totalPages, 12).map((pageValue, index) => (
+              <button
+                key={index}
+                onClick={() => {
+                  handlePageChange(pageValue);
+                }}
+                className={`${
+                  pageNum === pageValue && 'bg-primary text-white'
+                } mx-1 flex cursor-pointer items-center justify-center rounded-md p-1 px-3 hover:bg-primary hover:text-white`}
+              >
+                {pageValue || ''}
+              </button>
+            ))}
+
+            <button
+              className="flex cursor-pointer items-center justify-center rounded-md p-1 px-2 hover:bg-primary hover:text-white"
+              onClick={
+                () => alert('oi')
+                // () => nextPage()
+              }
+              disabled={ /*!canNextPage*/
+                true
+              }
+            >
+              <svg
+                className="fill-current"
+                width="18"
+                height="18"
+                viewBox="0 0 18 18"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M5.82148 16.1156C5.65273 16.1156 5.51211 16.0593 5.37148 15.9468C5.11836 15.6937 5.11836 15.3 5.37148 15.0468L11.2777 8.99995L5.37148 2.9812C5.11836 2.72808 5.11836 2.33433 5.37148 2.0812C5.62461 1.82808 6.01836 1.82808 6.27148 2.0812L12.6277 8.54995C12.8809 8.80308 12.8809 9.19683 12.6277 9.44995L6.27148 15.9187C6.15898 16.0312 5.99023 16.1156 5.82148 16.1156Z"
+                  fill=""
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+}
       </section>
     </DefaultLayout>
   );
 };
 
-export default FilesIndex;
+export default FilesReader;

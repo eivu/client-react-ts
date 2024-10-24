@@ -1,7 +1,7 @@
 import { createContext, useContext, useReducer, ReactNode } from 'react';
 import { type MediaPlayerInstance, } from '@vidstack/react';
 import { defaultQueue } from '../components/Player/defaultQueue';
-import { QueueItem } from '../types/queueItem';
+import type { QueueItem } from '../types/queueItem';
 
 type State = {
   player: MediaPlayerInstance | undefined,

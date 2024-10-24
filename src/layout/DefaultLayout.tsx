@@ -1,7 +1,9 @@
 import React, { useState, ReactNode } from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header/index';
 import Sidebar from '../components/Sidebar/index';
-import Footer from '../components/Footer';
+
+
 
 const DefaultLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -31,9 +33,34 @@ const DefaultLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
         {/* <!-- ===== Content Area End ===== --> */}
       </div>
       {/* <!-- ===== Page Wrapper End ===== --> */}
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };
+
+
+
+export const ContentHeader:React.FC<{ children: ReactNode }> = ({ children }) => {
+  return(
+    <section id="content-header" className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <h2 className="text-title-md2 font-semibold text-black dark:text-white">
+        <Link to="/" className="breadcrumb">Eivu</Link>
+        {children}
+      </h2>
+    </section>
+  )
+};
+
+export const ContentContainer:React.FC<{ children: ReactNode }> = ({ children }) => {
+  return (
+    <section id="content-container" className="flex flex-col gap-7.5">
+      <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+        <div className="p-4 sm:p-6 xl:p-9">
+          {children}
+        </div>
+      </div>
+    </section>
+  )
+};    
 
 export default DefaultLayout;

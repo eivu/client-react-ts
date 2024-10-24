@@ -157,7 +157,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
           </ul>
           {/* Promo/MP3/Artwork Area */}
           <div className="mx-auto mb-10 w-full max-w-60 rounded-sm border border-strokedark bg-boxdark px-4 py-6 text-center shadow-default">
-           <img src="https://upload.wikimedia.org/wikipedia/en/3/3f/Bjork_Post.png" />
+           <img src="https://s3.us-east-1.wasabisys.com/eivu/logos/eivu008.png" />
           </div>
         </nav>
         {/* <!-- Sidebar Menu --> */}

@@ -24,16 +24,18 @@
     scrollbar-width: none; /* Firefox */
   }
 
-  .chat-height {
+  /* .chat-height {
     @apply h-[calc(100vh_-_8.125rem)] lg:h-[calc(100vh_-_5.625rem)];
   }
   .inbox-height {
     @apply h-[calc(100vh_-_8.125rem)] lg:h-[calc(100vh_-_5.625rem)];
-  }
+  } */
 }
+
 
 /* third-party libraries CSS */
 
+/*
 .tableCheckbox:checked ~ div span {
   @apply opacity-100;
 }
@@ -246,7 +248,7 @@ span.flatpickr-weekday,
 .carouselThree .swiper-pagination {
   @apply xl:!bottom-8;
 }
-
+*/
 .data-table-common .datatable-search {
   @apply relative !ml-0 w-100 overflow-hidden rounded;
 }
@@ -289,7 +291,7 @@ span.flatpickr-weekday,
   @apply text-primary dark:text-white;
 }
 .data-table-common .datatable-table > tbody > tr > td {
-  @apply border-b border-stroke py-5 font-medium dark:border-strokedark;
+  @apply border-b border-stroke py-2 font-medium dark:border-strokedark;
 }
 .data-table-one .datatable-bottom {
   @apply flex flex-col gap-4 px-8 py-7 after:hidden sm:flex-row-reverse sm:items-center sm:justify-between sm:gap-0 sm:space-x-4;
@@ -396,4 +398,132 @@ footer {
 footer .player {
   /* background-color: rgb(28, 36, 52) */
   background-color: black;
+}
+
+table#files-table thead tr th#playHeader svg {
+  display: none;
+}
+
+.break-words {
+  word-wrap: break-word;
+  word-break: break-all;
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+/* table#files-table tbody tr td#labelCol{
+  @apply col-span-9;
+} */
+
+#alphabet-menu a {
+  cursor: pointer;
+}
+
+.artist-releases-entry .artwork-wrapper {
+  float: left;
+  max-width: 250px;
+  max-height: 250px;
+}
+
+.artist-releases-entry .artwork-wrapper img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+
+a.release-title:hover, 
+.list .entry a:hover, 
+#queue-wrapper a:hover,
+table tbody tr td a:hover {
+  text-decoration: underline;
+}
+
+/* #metadata-list .entry a span.type:hover {
+  text-decoration: none;
+} */
+
+section#content-container {
+  font-size: 0.8rem;
+}
+
+table#file-details-table tbody tr td {
+  vertical-align: top;
+}
+
+
+
+table#file-details-table tbody tr td:nth-child(1) {  
+  width: 20em;
+}
+
+#content-header a.breadcrumb:hover  {
+  @apply text-indigo-600;
+}
+
+#metadata-list .entry .type {
+  font-style: italic;
+  color: #bbb;
+  padding-right: 0.5em;
+}
+
+.truncate {
+  width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  overflow-wrap: normal;
+  display: inline-block;
+}
+
+.release-table {
+  @apply w-full text-left border-collapse;
+}
+
+.release-table .controls {
+  width: 0.5em;
+}
+
+.release-table thead > tr > th {
+  @apply py-2 pr-2 font-medium leading-6 whitespace-nowrap border-slate-100 default-border-color
+}
+
+.release-table tbody > tr > td {
+  @apply border-t break-words py-2 pl-2 leading-6 whitespace-pre border-slate-100 default-border-color text-wrap
+}
+
+.release-table tbody tr:hover {
+  background-color: #f5f6fe
+}
+
+.expander {
+  display: inline-block;
+  margin-top: -2px;
+}
+
+#file-details-table {
+  @apply w-full text-left border-collapse;
+}
+
+#file-details-table > tbody > tr:first-child > td:first-child {
+  @apply py-2 pr-2 font-medium leading-6 whitespace-nowrap border-slate-100 default-border-color;
+  border-top-style: hidden;
+}
+
+#file-details-table > tbody > tr:first-child > td:last-child {
+  /* @apply border-t border-b border-stroke dark:border-strokedark; */
+  @apply break-words py-2 pl-2 leading-6 whitespace-pre border-slate-100 default-border-color text-wrap;
+  border-top-style: hidden;
+}
+
+#file-details-table > tbody > tr > td:first-child {
+  @apply border-t py-2 pr-2 font-medium leading-6 whitespace-nowrap border-slate-100 default-border-color;
+}
+
+#file-details-table > tbody > tr > td:last-child {
+  @apply border-t break-words py-2 pl-2 leading-6 whitespace-pre border-slate-100 default-border-color text-wrap;
+}
+
+.default-border-color {
+  @apply dark:border-slate-400/10
+  /* border-color: rgb(226, 232, 240)  */
 }

@@ -25,7 +25,7 @@ const CateogryTabs: React.FC = () => {
         }`}
         onClick={() => setOpenTab(2)}
       >
-        Video
+        Audio
       </Link>
       <Link
         to="#"
@@ -34,7 +34,7 @@ const CateogryTabs: React.FC = () => {
         }`}
         onClick={() => setOpenTab(3)}
       >
-        Team
+        Video
       </Link>
       <Link
         to="#"
@@ -43,14 +43,23 @@ const CateogryTabs: React.FC = () => {
         }`}
         onClick={() => setOpenTab(4)}
       >
-        Audio
+        Image
       </Link>
+      { false && <Link
+        to="#"
+        className={`border-b-2 py-4 text-sm font-medium hover:text-primary md:text-base ${
+          openTab === 5 ? activeClasses : inactiveClasses
+        }`}
+        onClick={() => setOpenTab(5)}
+      >
+        Delicates
+      </Link> }
       <Link
         to="#"
         className={`border-b-2 py-4 text-sm font-medium hover:text-primary md:text-base ${
-          openTab === 4 ? activeClasses : inactiveClasses
+          openTab === 6 ? activeClasses : inactiveClasses
         }`}
-        onClick={() => setOpenTab(4)}
+        onClick={() => setOpenTab(6)}
       >
         Archive
       </Link>
