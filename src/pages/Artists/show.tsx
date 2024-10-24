@@ -15,7 +15,7 @@ import AVButton from '../../components/AVButton';
 import type { Artist } from '../../types/artist';
 import { MiniLoader } from '../../components/Loader';
 import { ReleaseTable } from '../../components/ReleaseTable';
-import { PaginationMenu } from '../../components/PaginationMenu';
+import { PaginationMenu } from '../../layout/PaginationMenu';
 
 
 const ArtistPage: React.FC = () => {

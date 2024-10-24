@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import DefaultLayout, { ContentContainer, ContentHeader} from '../../layout/DefaultLayout';
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
-import { PaginationMenu } from '../../components/PaginationMenu';
+import { PaginationMenu } from '../../layout/PaginationMenu';
 import  { useAppContext } from '../../store/AppContext';
 import api from '../../configs/api';
 import getPaginationItems from '../../common/getPaginationItems';
