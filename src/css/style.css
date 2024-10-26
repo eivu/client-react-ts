@@ -560,6 +560,10 @@ table#file-details-table tbody tr td:nth-child(1) {
 #content-viewer-wrapper img {
   border: 1px solid whiteSmoke
 }
+#content-viewer-wrapper .loading {
+  color: whiteSmoke;
+  /* color:  white; */
+}
 .offline {
   color: silver;
   /* color: rgb(237, 237, 237); */
