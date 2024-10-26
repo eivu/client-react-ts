@@ -404,6 +404,22 @@ table#files-table thead tr th#playHeader svg {
   display: none;
 }
 
+table#files-table tbody tr td.nameCol div.icon {
+  float: left;
+}
+
+table#files-table tbody tr td.nameCol div.icon .audio {
+  margin-top: 7px;
+}
+
+table#files-table tbody tr td.nameCol div.icon .image {
+  margin-top: 6px;
+}
+
+table#files-table tbody tr td.nameCol div.icon .video {
+  margin-top: 6px;
+}
+
 .break-words {
   word-wrap: break-word;
   word-break: break-all;

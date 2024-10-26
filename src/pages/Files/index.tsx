@@ -1,8 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
+import { AlphabetMenu } from '../../layout/AlphabetMenu';
 import DefaultLayout, { ContentContainer, ContentHeader} from '../../layout/DefaultLayout';
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
 import { PaginationMenu } from '../../layout/PaginationMenu';
+import { FileIcon } from '../../components/FileIcon';
 import  { useAppContext } from '../../store/AppContext';
 import api from '../../configs/api';
 import getPaginationItems from '../../common/getPaginationItems';
@@ -26,10 +28,12 @@ import {
 
 
 const FilesIndex: React.FC = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [loading, setLoading] = useState<boolean>(true);
   const [sorting, setSorting] = useState<SortingState>([{id: "name", desc: false}])
   const [responseError, setResponseError] = useState<String | undefined>(undefined);
-  const [pageNum, setPageNum] = useState<number>(1);
+  const [letter, setLetter] = useState<string>(searchParams.get('letter') || '');
+  const [pageNum, setPageNum] = useState<number>(Number(searchParams.get('pageNum')) || 1);
   const [meta, setMeta] = useState<any>({});
   const [queueItems, setQueueItems] = useState<QueueItem[]>([]);
   const columns = useMemo<ColumnDef<QueueItem>[]>(
@@ -49,7 +53,10 @@ const FilesIndex: React.FC = () => {
         header: 'Name',
         accessorKey: 'name',
         cell: info => (
-          <Link to={`/files/${info.row.original.md5}`}>{info?.getValue()}</Link>
+          <span>
+            <div className="icon"><FileIcon contentType={info.row.original.contentType} /></div>
+            <Link to={`/files/${info.row.original.md5}`}>{info?.getValue()}</Link>
+          </span>
         )
       },
       {
@@ -86,6 +93,7 @@ const FilesIndex: React.FC = () => {
       sortBy: sorting[0]?.id,
       page: pageNum,
       sortDesc: sorting[0]?.desc,
+      letter: letter,
       // keyFormat: 'camel_lower'
     }
   }
@@ -103,7 +111,7 @@ const FilesIndex: React.FC = () => {
         setLoading(false);
         setResponseError(error.message);
       });
-  },[sorting, pageNum])
+  },[sorting, pageNum, letter])
 
   const table = useReactTable({
     data: queueItems,
@@ -124,7 +132,14 @@ const FilesIndex: React.FC = () => {
   function handlePageChange(pageNum: number) {
     setLoading(true);
     setPageNum(pageNum);
-    console.log('pageNum', pageNum);
+    setSearchParams({ pageNum: pageNum.toString(), letter: letter });
+  }
+
+  function handleLetterChange(letter: string) {
+    setLoading(true);
+    setLetter(letter);
+    setPageNum(1);
+    setSearchParams({ pageNum: '1', letter: letter });
   }
 
   return (
@@ -133,8 +148,9 @@ const FilesIndex: React.FC = () => {
         ::Files
       </ContentHeader>
 
-
       <section id="content-container" className="data-table-common data-table-two rounded-sm border border-stroke bg-white py-4 shadow-default dark:border-strokedark  dark:bg-boxdark">
+      <AlphabetMenu activeLetter={letter} collection="files" handleLetterChange={handleLetterChange} />
+
         <div className="flex justify-between border-b border-stroke px-8 pb-4 dark:border-strokedark">
           {/* Search Field */}
           <div className="w-100">
