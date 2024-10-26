@@ -50,6 +50,7 @@ const File: FC = () => {
       <ContentContainer>
         { loading ? <MiniLoader /> : file &&
           <>
+            { file?.artworkUrl && <img src={file.artworkUrl} alt={file.name} className="file-coverart mr-4" /> }
             <ContentViewer file={file} />
             <table id="file-details-table" className="font-mono">
               <tbody className="align-baseline">
