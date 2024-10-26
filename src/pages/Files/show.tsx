@@ -17,7 +17,8 @@ import type { Release } from '../../types/release';
 import { MiniLoader } from '../../components/Loader';
 import convertSecondsToTimeHhMmSs from '../../common/convertSecondsToTimeHhMmSs';
 import { TogglableMetadatumViewer } from '../../components/TogglableMetadatumViewer';
-
+import { ContentViewer } from '../../components/ContentViewer';
+import { objectToQueueItem } from '../../common/objectToQueueItem';
 
 
 const File: React.FC = () => {
@@ -49,7 +50,8 @@ const File: React.FC = () => {
     <DefaultLayout>
       {
         file && 
-        <ContentHeader>::<Link to="/files" className="breadcrumb">Files</Link>::
+        <ContentHeader>
+          ::<Link to="/files" className="breadcrumb">Files</Link>::
           {
             file.secured ? file.md5 : file.name
           }
@@ -57,181 +59,184 @@ const File: React.FC = () => {
       }
       <ContentContainer>
         { loading ? <MiniLoader /> : file &&
-          <table id="file-details-table" className="font-mono">
-            <tbody className="align-baseline">
-              <tr>
-                <td>
-                  Name
-                </td>
-                <td>
-                  {file.name}
-                </td>
-              </tr>
-              {
-                file.artists.length > 0 &&
-                  <tr>
-                    <td>
-                      Artist(s)
-                    </td>
-                    <td>
-                      {file.artists.map(artist => <Link className="pr-2" to={`/artists/${artist.id}`} key={`artist-${artist.id}`}>{artist.name}</Link>)}
-                    </td>
-                  </tr>
-              }
-              {
-                file.releases.length > 0 &&
-                  <tr>
-                    <td>
-                      Release(s)
-                    </td>
-                    <td>
-                      {file.releases.map(release => <Link to={`/releases/${release.id}`}>{release.name}</Link>)}
-                    </td>
-                  </tr>
-              }
-              {
-                file.releasePos &&
-                  <tr>
-                    <td>
-                      Release Pos
-                    </td>
-                    <td>
-                      {file.releasePos}
-                    </td>
-                  </tr>
-              }
-              {
-                file.state == 'completed' && file.duration && file.duration > 0 &&
-                  <tr>
-                    <td>
-                      Duration
-                    </td>
-                    <td>
-                      {convertSecondsToTimeHhMmSs(file.duration)}
-                    </td>
-                  </tr>
-              }
-              <tr>
-                <td>
-                  Content Type
-                </td>
-                <td>
-                  {file.contentType}
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  NSFW
-                </td>
-                <td>
-                  {file.nsfw ? "Yes" : "No"}
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Secured
-                </td>
-                <td>
-                  {file.secured ? "Yes" : "No"}
-                </td>
-              </tr>
-              {
-                file.filesize &&
-                  <tr>
-                    <td>
-                      Filesize
-                    </td>
-                    <td>
-                      {prettyBytes(file.filesize)}
-                    </td>
-                  </tr>
-              }
-              {
-                file.year &&
-                  <tr>
-                    <td>
-                      Year
-                    </td>
-                    <td>
-                      {file.year}
-                    </td>
-                  </tr>
-              }
-              {
-                file.description &&
-                  <tr>
-                    <td>
-                      Description
-                    </td>
-                    <td>
-                      {file.description}
-                    </td>
-                  </tr>
-              }
-              {
-                file.rating &&
-                  <tr>
-                    <td>
-                      Rating
-                    </td>
-                    <td>
-                      {file.rating}
-                    </td>
-                  </tr>
-              }
-              <tr>
-                <td>
-                  Source
-                </td>
-                <td>
-                  <Link to={file.url}>Link</Link>
-                </td>
-              </tr>
-              {
-                file.dateAquiredAt &&
-                  <tr>
-                    <td>
-                      Num Plays
-                    </td>
-                    <td>
-                      {timeAgo(file.date_aquiredAt)}
-                    </td>
-                  </tr>
-              }
-              <tr>
-                <td>
-                  State
-                </td>
-                <td>
-                  {file.state}
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Created At
-                </td>
-                <td>
-                  {timeAgo(file.createdAt)}
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Updated At
-                </td>
-                <td>
-                  {timeAgo(file.updatedAt)}
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Shared
-                </td>
-                <td>
-                  {file.shared ? "Yes" : "No"}
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <>
+            <ContentViewer file={file} />
+            <table id="file-details-table" className="font-mono">
+              <tbody className="align-baseline">
+                <tr>
+                  <td>
+                    Name
+                  </td>
+                  <td>
+                    {file.name}
+                  </td>
+                </tr>
+                {
+                  file.artists.length > 0 &&
+                    <tr>
+                      <td>
+                        Artist(s)
+                      </td>
+                      <td>
+                        {file.artists.map(artist => <Link className="pr-2" to={`/artists/${artist.id}`} key={`artist-${artist.id}`}>{artist.name}</Link>)}
+                      </td>
+                    </tr>
+                }
+                {
+                  file.releases.length > 0 &&
+                    <tr>
+                      <td>
+                        Release(s)
+                      </td>
+                      <td>
+                        {file.releases.map(release => <Link to={`/releases/${release.id}`}>{release.name}</Link>)}
+                      </td>
+                    </tr>
+                }
+                {
+                  file.releasePos &&
+                    <tr>
+                      <td>
+                        Release Pos
+                      </td>
+                      <td>
+                        {file.releasePos}
+                      </td>
+                    </tr>
+                }
+                {
+                  file.state == 'completed' && file.duration && file.duration > 0 &&
+                    <tr>
+                      <td>
+                        Duration
+                      </td>
+                      <td>
+                        {convertSecondsToTimeHhMmSs(file.duration)}
+                      </td>
+                    </tr>
+                }
+                <tr>
+                  <td>
+                    Content Type
+                  </td>
+                  <td>
+                    {file.contentType}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    NSFW
+                  </td>
+                  <td>
+                    {file.nsfw ? "Yes" : "No"}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Secured
+                  </td>
+                  <td>
+                    {file.secured ? "Yes" : "No"}
+                  </td>
+                </tr>
+                {
+                  file.filesize &&
+                    <tr>
+                      <td>
+                        Filesize
+                      </td>
+                      <td>
+                        {prettyBytes(file.filesize)}
+                      </td>
+                    </tr>
+                }
+                {
+                  file.year &&
+                    <tr>
+                      <td>
+                        Year
+                      </td>
+                      <td>
+                        {file.year}
+                      </td>
+                    </tr>
+                }
+                {
+                  file.description &&
+                    <tr>
+                      <td>
+                        Description
+                      </td>
+                      <td>
+                        {file.description}
+                      </td>
+                    </tr>
+                }
+                {
+                  file.rating &&
+                    <tr>
+                      <td>
+                        Rating
+                      </td>
+                      <td>
+                        {file.rating}
+                      </td>
+                    </tr>
+                }
+                <tr>
+                  <td>
+                    Source
+                  </td>
+                  <td>
+                    <Link to={file.url}>Link</Link>
+                  </td>
+                </tr>
+                {
+                  file.dateAquiredAt &&
+                    <tr>
+                      <td>
+                        Num Plays
+                      </td>
+                      <td>
+                        {timeAgo(file.date_aquiredAt)}
+                      </td>
+                    </tr>
+                }
+                <tr>
+                  <td>
+                    State
+                  </td>
+                  <td>
+                    {file.state}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Created At
+                  </td>
+                  <td>
+                    {timeAgo(file.createdAt)}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Updated At
+                  </td>
+                  <td>
+                    {timeAgo(file.updatedAt)}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Shared
+                  </td>
+                  <td>
+                    {file.shared ? "Yes" : "No"}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </>
         }
 
         { file && file.metadata.length > 0 &&
