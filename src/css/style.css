@@ -564,7 +564,8 @@ table#file-details-table tbody tr td:nth-child(1) {
   color: silver;
   /* color: rgb(237, 237, 237); */
 }
-.offline-label {
+
+.label {
   padding-top: 30px;
   padding-left: 1.5em;
   text-transform:lowercase;

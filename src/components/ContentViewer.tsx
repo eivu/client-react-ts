@@ -1,23 +1,23 @@
-import { FC, useEffect, useState } from 'react';
+import { JSX, useEffect, useState } from 'react';
 import { CloudFile } from '../types/cloudFile';
 import { objectToQueueItem } from '../common/objectToQueueItem';
 import AVButton from './AVButton';
 import AddToQueueButton from './AddToQueueButton';
 import axios from 'axios';
 import { GoCloudOffline } from "react-icons/go";
+import { IoIosHourglass } from "react-icons/io";
 
 export type ViewerProps = {
   file: CloudFile;
 }
 
-export const ContentViewer:FC = ({file}:ViewerProps) => {
+export const ContentViewer:JSX.Element = ({file}:ViewerProps) => {
   const [online, setOnline] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     file && axios.head(file.url)
     .then((response) => {
-      console.log('header', response)
       if (response.status === 200) {
         setOnline(true);
       } else {
@@ -34,7 +34,7 @@ export const ContentViewer:FC = ({file}:ViewerProps) => {
 
   return(
     <div id="content-viewer-wrapper">
-      { loading ? <span>loading...</span> :
+      { loading ? <div className="loading"><IoIosHourglass className="float-left" size={96}/><div className="label">loading...</div></div> :
           online ? 
             ( 
               file.contentType.startsWith('image') ?
@@ -51,7 +51,7 @@ export const ContentViewer:FC = ({file}:ViewerProps) => {
             ) 
             : <div className="offline">
                 <GoCloudOffline className="float-left" size={96}/>
-                <div className="offline-label">offline</div>
+                <div className="label">offline</div>
               </div>
       }
     </div>
