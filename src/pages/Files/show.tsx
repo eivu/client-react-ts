@@ -36,7 +36,12 @@ const File: FC = () => {
       {
         file && 
         <ContentHeader>
-          ::<Link to="/files" className="breadcrumb">Files</Link>::
+          ::
+          {
+            file.deletable ?
+              <Link to="/trash" className="breadcrumb">Trash</Link> :
+                <Link to="/files" className="breadcrumb">Files</Link> 
+          }::
           {
             file.secured ? file.md5 : file.name
           }
