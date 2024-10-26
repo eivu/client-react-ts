@@ -8,9 +8,10 @@ import { Link } from 'react-router-dom';
 
 export type AVButtonProps = {
   item: QueueItem;
+  size?: number;
 }
 
-const AVButton:FC = ({item}:AVButtonProps) => {
+const AVButton:FC = ({item, size=32}:AVButtonProps) => {
   const { player, queue, queueIndex } = useAppContext();
   const isPlaying = useMediaState('playing', player);
 
@@ -23,7 +24,7 @@ const AVButton:FC = ({item}:AVButtonProps) => {
       { item.contentType
           ?
             item.contentType?.includes('audio')
-              ? (isPlaying && nowPlayingMd5() === item.md5 ? <AudioPauseButton item={item} /> : <AudioPlayButton item={item} />)
+              ? (isPlaying && nowPlayingMd5() === item.md5 ? <AudioPauseButton item={item} size={size} /> : <AudioPlayButton item={item} size={size} />)
               : (item.contentType.includes('video')
                   ? <VideoPlayModal item={item} />
                   : <Link to={`/files/${item.md5}`}>View</Link>

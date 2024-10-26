@@ -2,7 +2,11 @@ import { useState } from 'react';
 import { RiPauseCircleLine, RiPauseCircleFill } from "react-icons/ri";
 import { useAppContext } from '../store/AppContext';
 
-const AudioPauseButton: FC = () => {
+export type AudioPauseButtonProps = {
+  size?: number;
+}
+
+const AudioPauseButton: FC = ({size=32}:AudioPauseButtonProps) => {
   const [hover, setHover] = useState(false);
   const { player } = useAppContext();
 
@@ -12,7 +16,7 @@ const AudioPauseButton: FC = () => {
       onMouseLeave={() => setHover(false)}
       onClick={() => player!.current.pause()}
     >
-      {hover ? <RiPauseCircleLine size={32} className='cursor-pointer'/> : <RiPauseCircleFill size={32} className='cursor-pointer'/>}  
+      {hover ? <RiPauseCircleLine size={size} className='cursor-pointer'/> : <RiPauseCircleFill size={size} className='cursor-pointer'/>}  
     </div>
   );
 }
