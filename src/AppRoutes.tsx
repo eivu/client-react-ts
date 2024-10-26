@@ -2,7 +2,6 @@ import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import FilesIndex from './pages/Files';
 import File from './pages/Files/show';
-import api from './configs/api';
 import ArtistsIndex from './pages/Artists';
 import Queue from './pages/Queue';
 import PageTitle from './components/PageTitle';
@@ -12,7 +11,7 @@ import ReleasesIndex from './pages/Releases';
 import FoldersIndex from './pages/Folders';
 import MetadataIndex from './pages/Metadata';
 import MetadatumPage from './pages/Metadata/show';
-import TrashIndex from './pages/Trash';
+import { TrashPage} from './pages/TrashPage';
 
 const router = createBrowserRouter([
   {
@@ -111,7 +110,7 @@ const router = createBrowserRouter([
     element: 
       <>
         <PageTitle title="EIVU::Trash" />
-        <TrashIndex />
+        <TrashPage />
       </>,
     path: "/trash"
   }
