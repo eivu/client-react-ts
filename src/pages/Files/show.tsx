@@ -1,36 +1,21 @@
-import React from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 import DefaultLayout, { ContentHeader, ContentContainer } from '../../layout/DefaultLayout';
-import  { useAppContext } from '../../store/AppContext';
-import getPaginationItems from '../../common/getPaginationItems';
-// import axios from 'axios';
 import api from '../../configs/api';
 import prettyBytes from 'pretty-bytes';
 import { timeAgo } from '../../common/timeAgo';
-import { useMediaState } from '@vidstack/react';
-import { useMemo, useState, useEffect, FC } from 'react';
-import AddToQueueButton from '../../components/AddToQueueButton';
-import AVButton from '../../components/AVButton';
+import { useState, useEffect, FC } from 'react';
 import type { CloudFile } from '../../types/cloudFile';
-import type { Artist } from '../../types/artist';
-import type { Release } from '../../types/release';
 import { MiniLoader } from '../../components/Loader';
 import convertSecondsToTimeHhMmSs from '../../common/convertSecondsToTimeHhMmSs';
 import { TogglableMetadatumViewer } from '../../components/TogglableMetadatumViewer';
 import { ContentViewer } from '../../components/ContentViewer';
-import { objectToQueueItem } from '../../common/objectToQueueItem';
 
 
-const File: React.FC = () => {
+const File: FC = () => {
   const fileId = useLoaderData();
   const [loading, setLoading] = useState<boolean>(true);
   const [file, setFile] = useState<CloudFile>();
   const [responseError, setResponseError] = useState<string>('');
-
-  // // From queue page
-  // const [queueItems, setQueueItems] = useState<QueueItem[]>([]);
-  // const { queue, queueIndex, player, dispatch } = useAppContext();
-  // const isPlaying = useMediaState('playing', player);
 
   useEffect(() => {
     api.get(`/cloud_files/${fileId}`, {
@@ -251,16 +236,6 @@ const File: React.FC = () => {
                         {metadatum.type}
                       </td>
                       <td style={{borderTopStyle: 'solid'}}>
-                        {/* {
-                          () => {
-                            if (metadatum.explorable)
-                              return <Link to={`/metadata/${metadatum.id}`}>{metadatum.value} [+]</Link>
-                            // else if (metadatum.value.length > 100)
-                              // return <TogglableMetadatumViewer text={metadatum.value} />
-                            else
-                              return metadatum.value
-                          }
-                        } */}
                         {
                           metadatum.explorable ?
                             <Link to={`/metadata/${metadatum.id}`}>{metadatum.value} [+]</Link>
