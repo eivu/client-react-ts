@@ -4,6 +4,7 @@ import { objectToQueueItem } from '../common/objectToQueueItem';
 import AVButton from './AVButton';
 import AddToQueueButton from './AddToQueueButton';
 import axios from 'axios';
+import { GoCloudOffline } from "react-icons/go";
 
 export type ViewerProps = {
   file: CloudFile;
@@ -32,23 +33,27 @@ export const ContentViewer:FC = ({file}:ViewerProps) => {
 
 
   return(
-    <div id="content-viewer">
-      { loading ? <div>loading...</div> :
-      online ? 
-        ( 
-          file.contentType.startsWith('image') ?
-            <ImageViewer file={file} /> :
-              file.contentType.startsWith('audio') ?
-                <AudioViewer file={file} /> :
-                  file.contentType.startsWith('video') ?
-                    <VideoViewer file={file} /> :
-                      file.contentType.startsWith('application') ?
-                        <ArchiveViewer file={file} /> :
-                          file.contentType.startsWith('text') ?
-                            <pre></pre> :
-                              <div>Unknown file type</div>
-        ) 
-        : <div className="offline">offline</div> }
+    <div id="content-viewer-wrapper">
+      { loading ? <span>loading...</span> :
+          online ? 
+            ( 
+              file.contentType.startsWith('image') ?
+                <ImageViewer file={file} /> :
+                  file.contentType.startsWith('audio') ?
+                    <AudioViewer file={file} /> :
+                      file.contentType.startsWith('video') ?
+                        <VideoViewer file={file} /> :
+                          file.contentType.startsWith('application') ?
+                            <ArchiveViewer file={file} /> :
+                              file.contentType.startsWith('text') ?
+                                <pre></pre> :
+                                  <div>Unknown file type</div>
+            ) 
+            : <div className="offline">
+                <GoCloudOffline className="float-left" size={96}/>
+                <div className="offline-label">offline</div>
+              </div>
+      }
     </div>
   )
 }

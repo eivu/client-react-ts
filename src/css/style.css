@@ -553,9 +553,19 @@ table#file-details-table tbody tr td:nth-child(1) {
   /* border-color: rgb(226, 232, 240)  */
 }
 
-.offline {
-  color: red;
-  font-weight: bold;
-  text-transform: uppercase;
+#content-viewer-wrapper {
   font-size: 6em;
+}
+
+#content-viewer-wrapper img {
+  border: 1px solid whiteSmoke
+}
+.offline {
+  color: silver;
+  /* color: rgb(237, 237, 237); */
+}
+.offline-label {
+  padding-top: 30px;
+  padding-left: 1.5em;
+  text-transform:lowercase;
 }
