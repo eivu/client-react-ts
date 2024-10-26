@@ -1,29 +1,55 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { CloudFile } from '../types/cloudFile';
 import { objectToQueueItem } from '../common/objectToQueueItem';
 import AVButton from './AVButton';
 import AddToQueueButton from './AddToQueueButton';
+import axios from 'axios';
 
 export type ViewerProps = {
   file: CloudFile;
 }
 
 export const ContentViewer:FC = ({file}:ViewerProps) => {
-  return(
-    <>
-      { file.contentType.startsWith('image') ?
-          <ImageViewer file={file} /> :
-            file.contentType.startsWith('audio') ?
-              <AudioViewer file={file} /> :
-                file.contentType.startsWith('video') ?
-                  <VideoViewer file={file} /> :
-                    file.contentType.startsWith('application') ?
-                      <ArchiveViewer file={file} /> :
-                        file.contentType.startsWith('text') ?
-                          <pre></pre> :
-                            <div>Unknown file type</div>
+  const [online, setOnline] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    file && axios.head(file.url)
+    .then((response) => {
+      console.log('header', response)
+      if (response.status === 200) {
+        setOnline(true);
+      } else {
+        setLoading(false);
       }
-    </>
+      setLoading(false);
+    }).catch(() => {
+      setOnline(false);
+      setLoading(false);
+    });
+  }, []);
+
+
+
+  return(
+    <div id="content-viewer">
+      { loading ? <div>loading...</div> :
+      online ? 
+        ( 
+          file.contentType.startsWith('image') ?
+            <ImageViewer file={file} /> :
+              file.contentType.startsWith('audio') ?
+                <AudioViewer file={file} /> :
+                  file.contentType.startsWith('video') ?
+                    <VideoViewer file={file} /> :
+                      file.contentType.startsWith('application') ?
+                        <ArchiveViewer file={file} /> :
+                          file.contentType.startsWith('text') ?
+                            <pre></pre> :
+                              <div>Unknown file type</div>
+        ) 
+        : <div className="offline">offline</div> }
+    </div>
   )
 }
 
@@ -49,7 +75,7 @@ export const VideoViewer:JSX.Element = ({file}:ViewerProps) => {
 }
 
 export const ArchiveViewer:JSX.Element = ({file}:ViewerProps) => {
-  return(<div>audio here</div>)
+  return(<div>archive here</div>)
 }
 
 export const TextViewer:JSX.Element = ({file}:ViewerProps) => {
