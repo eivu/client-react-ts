@@ -79,7 +79,7 @@ const File: FC = () => {
                         Release(s)
                       </td>
                       <td>
-                        {file.releases.map(release => <Link to={`/releases/${release.id}`}>{release.name}</Link>)}
+                        {file.releases.map(release => <Link to={`/releases/${release.id}`} key={`release-${release.id}`}>{release.name}</Link>)}
                       </td>
                     </tr>
                 }
