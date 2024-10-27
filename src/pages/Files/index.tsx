@@ -135,7 +135,6 @@ const FilesIndex: FC = () => {
   }
 
   function handleSearchKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
-  /* function handleSearchKeyDown(event: { target: HTMLInputElement }) { */
     if (event.key === 'Enter') {
       event.preventDefault();
       setLoading(true);
@@ -145,20 +144,6 @@ const FilesIndex: FC = () => {
       setSearchTerm(event.target.value);
     }
   }
-
-   function handleSearchChange(event: React.KeyboardEvent<HTMLInputElement>) {
-  /* function handleSearchKeyDown(event: { target: HTMLInputElement }) { */
-  alert('handleSearchChange');
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      setLoading(true);
-      setPageNum(1);
-      setLetter('');
-      setSearchParams({ pageNum: 1, letter: '', s: event.target.value });
-      setSearchTerm(event.target.value);
-    }
-  }
-  
 
   function handleLetterChange(letter: string) {
     setLoading(true);
@@ -246,6 +231,16 @@ const FilesIndex: FC = () => {
                 <td colSpan={columns.length}>
                   <div className="flex items-center justify-center">
                     {responseError}
+                  </div>
+                </td>
+              </tr>
+            }
+            {
+              !loading && !!searchTerm && queueItems.length === 0 &&
+              <tr>
+                <td colSpan={columns.length}>
+                  <div className="flex items-center justify-center">
+                    No matching files found.  Please try another search term.
                   </div>
                 </td>
               </tr>

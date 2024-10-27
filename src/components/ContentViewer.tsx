@@ -46,7 +46,7 @@ export const ContentViewer:JSX.Element = ({file}:ViewerProps) => {
                           file.contentType.startsWith('application') ?
                             <ArchiveViewer file={file} /> :
                               file.contentType.startsWith('text') ?
-                                <pre></pre> :
+                                <TextViewer file={file} /> :
                                   <div>Unknown file type</div>
             ) 
             : <div className="offline">
@@ -84,8 +84,16 @@ export const ArchiveViewer:JSX.Element = ({file}:ViewerProps) => {
 }
 
 export const TextViewer:JSX.Element = ({file}:ViewerProps) => {
-  
-  return(<pre>text here</pre>)
+  const [text, setText] = useState<string>('code text here');
+  useEffect(() => {
+    axios.get(file.url)
+    .then((response) => {
+      setText(response.data);
+    }).catch(() => {
+      console.log('error');
+    });
+  }, []);
+  return(<pre>{text}</pre>)
 }
 
 
