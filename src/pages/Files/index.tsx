@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { AlphabetMenu } from '../../layout/AlphabetMenu';
 import DefaultLayout, { ContentContainer, ContentHeader} from '../../layout/DefaultLayout';
@@ -7,7 +6,6 @@ import { PaginationMenu } from '../../layout/PaginationMenu';
 import { FileIcon } from '../../components/FileIcon';
 import  { useAppContext } from '../../store/AppContext';
 import api from '../../configs/api';
-import getPaginationItems from '../../common/getPaginationItems';
 import prettyBytes from 'pretty-bytes';
 import { timeAgo } from '../../common/timeAgo';
 import { useMemo, useState, useEffect, FC } from 'react';
@@ -27,7 +25,7 @@ import {
 
 
 
-const FilesIndex: React.FC = () => {
+const FilesIndex: FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [loading, setLoading] = useState<boolean>(true);
   const [sorting, setSorting] = useState<SortingState>([{id: "name", desc: false}])
@@ -36,6 +34,7 @@ const FilesIndex: React.FC = () => {
   const [pageNum, setPageNum] = useState<number>(Number(searchParams.get('pageNum')) || 1);
   const [meta, setMeta] = useState<any>({});
   const [queueItems, setQueueItems] = useState<QueueItem[]>([]);
+  const [searchTerm, setSearchTerm] = useState<string>(searchParams.get('s') || '');
   const columns = useMemo<ColumnDef<QueueItem>[]>(
     () => [
       {
@@ -94,6 +93,7 @@ const FilesIndex: React.FC = () => {
       page: pageNum,
       sortDesc: sorting[0]?.desc,
       letter: letter,
+      search_term: searchTerm,
       // keyFormat: 'camel_lower'
     }
   }
@@ -105,13 +105,12 @@ const FilesIndex: React.FC = () => {
         setQueueItems(response.data.cloudFiles);
         setMeta(response.data.meta);
         setLoading(false);
-        console.log(response.data);
       })
       .catch((error) => {
         setLoading(false);
         setResponseError(error.message);
       });
-  },[sorting, pageNum, letter])
+  },[sorting, pageNum, letter, searchTerm])
 
   const table = useReactTable({
     data: queueItems,
@@ -135,6 +134,32 @@ const FilesIndex: React.FC = () => {
     setSearchParams({ pageNum: pageNum.toString(), letter: letter });
   }
 
+  function handleSearchKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
+  /* function handleSearchKeyDown(event: { target: HTMLInputElement }) { */
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      setLoading(true);
+      setPageNum(1);
+      setLetter('');
+      setSearchParams({ pageNum: 1, letter: '', s: event.target.value });
+      setSearchTerm(event.target.value);
+    }
+  }
+
+   function handleSearchChange(event: React.KeyboardEvent<HTMLInputElement>) {
+  /* function handleSearchKeyDown(event: { target: HTMLInputElement }) { */
+  alert('handleSearchChange');
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      setLoading(true);
+      setPageNum(1);
+      setLetter('');
+      setSearchParams({ pageNum: 1, letter: '', s: event.target.value });
+      setSearchTerm(event.target.value);
+    }
+  }
+  
+
   function handleLetterChange(letter: string) {
     setLoading(true);
     setLetter(letter);
@@ -155,16 +180,18 @@ const FilesIndex: React.FC = () => {
           {/* Search Field */}
           <div className="w-100">
             <input
-              type="text"
-              // value={globalFilter}
-              // onChange={(e) => setGlobalFilter(e.target.value)}
-              className="w-full rounded-md border border-stroke px-5 py-2.5 outline-none focus:border-primary dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
-              placeholder="Search..."
-            />
+              id="search"
+                type="text"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full rounded-md border border-stroke px-5 py-2.5 outline-none focus:border-primary dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
+                placeholder="Search..."
+                onKeyDown={handleSearchKeyDown}
+              />
           </div>
 
           {/* Num Entries */}
-          <div className="flex items-center font-medium">
+          {/* <div className="flex items-center font-medium">
             <select
               // value={pageSize}
               // onChange={(e) => setPageSize(Number(e.target.value))}
@@ -177,7 +204,7 @@ const FilesIndex: React.FC = () => {
               ))}
             </select>
             <p className="pl-2 text-black dark:text-white">Entries Per Page</p>
-          </div>
+          </div> */}
         </div>
         <table id="files-table" className="datatable-table border-collapse overflow-hidden break-words px-4 md:overflow-auto md:px-8">
           <thead >
