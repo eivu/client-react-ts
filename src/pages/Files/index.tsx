@@ -84,17 +84,16 @@ const FilesIndex: FC = () => {
     ],
     []
   )
-
+  const { activeCategory } = useAppContext();
   const constructParams = (sorting: SortingState) => {
     return {
-      category: null,
+      category: activeCategory,
       delicate: false,
       sortBy: sorting[0]?.id,
       page: pageNum,
       sortDesc: sorting[0]?.desc,
       letter: letter,
       search_term: searchTerm,
-      // keyFormat: 'camel_lower'
     }
   }
 
@@ -110,7 +109,7 @@ const FilesIndex: FC = () => {
         setLoading(false);
         setResponseError(error.message);
       });
-  },[sorting, pageNum, letter, searchTerm])
+  },[sorting, pageNum, letter, searchTerm, activeCategory])
 
   const table = useReactTable({
     data: queueItems,
