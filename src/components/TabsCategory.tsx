@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { TabCategoryLink } from './TabCategoryLink';
 
 const CateogryTabs: React.FC = () => {
   const [openTab, setOpenTab] = useState(1);
@@ -9,42 +10,10 @@ const CateogryTabs: React.FC = () => {
 
   return (
     <div className="mb-6 flex flex-wrap gap-5 border-b border-stroke dark:border-strokedark sm:gap-10">
-      <Link
-        to="#"
-        className={`border-b-2 py-4 text-sm font-medium hover:text-primary md:text-base ${
-          openTab === 1 ? activeClasses : inactiveClasses
-        }`}
-        onClick={() => setOpenTab(1)}
-      >
-        EVERYTHING
-      </Link>
-      <Link
-        to="#"
-        className={`border-b-2 py-4 text-sm font-medium hover:text-primary md:text-base ${
-          openTab === 2 ? activeClasses : inactiveClasses
-        }`}
-        onClick={() => setOpenTab(2)}
-      >
-        Audio
-      </Link>
-      <Link
-        to="#"
-        className={`border-b-2 py-4 text-sm font-medium hover:text-primary md:text-base ${
-          openTab === 3 ? activeClasses : inactiveClasses
-        }`}
-        onClick={() => setOpenTab(3)}
-      >
-        Video
-      </Link>
-      <Link
-        to="#"
-        className={`border-b-2 py-4 text-sm font-medium hover:text-primary md:text-base ${
-          openTab === 4 ? activeClasses : inactiveClasses
-        }`}
-        onClick={() => setOpenTab(4)}
-      >
-        Image
-      </Link>
+      <TabCategoryLink category={null} label={'EVERYTHING'} />
+      <TabCategoryLink category="audio" label={'Audio'} />
+      <TabCategoryLink category="video" label={'Video'} />
+      <TabCategoryLink category="image" label={'Image'} />
       { false && <Link
         to="#"
         className={`border-b-2 py-4 text-sm font-medium hover:text-primary md:text-base ${
@@ -54,15 +23,7 @@ const CateogryTabs: React.FC = () => {
       >
         Delicates
       </Link> }
-      <Link
-        to="#"
-        className={`border-b-2 py-4 text-sm font-medium hover:text-primary md:text-base ${
-          openTab === 6 ? activeClasses : inactiveClasses
-        }`}
-        onClick={() => setOpenTab(6)}
-      >
-        Archive
-      </Link>
+      <TabCategoryLink category={'archive'} label={'Archive'} />
     </div>
   );
 };
