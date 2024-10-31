@@ -17,10 +17,12 @@ const ReleasePage: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [release, setRelease] = useState<Release>();
   const [responseError, setResponseError] = useState<string>('');
+  const { activeCategory } = useAppContext();
 
   useEffect(() => {
+    setLoading(true);
     api.get(`/releases/${releaseId}`, {
-      params: { category: null, delicate: false }}
+      params: { category: activeCategory, delicate: false }}
     ).then((response) => {
       console.log(response.data)
       setRelease(response.data.release);
@@ -30,7 +32,7 @@ const ReleasePage: React.FC = () => {
       setResponseError(error.message);
       console.log(responseError)
     })
-  },[])
+  },[activeCategory])
 
   return (
     <DefaultLayout>
@@ -42,7 +44,7 @@ const ReleasePage: React.FC = () => {
         )
       }
       {
-        !loading && release && (
+        release && (
           <ContentHeader>::
             <span><Link to="/releases" className="breadcrumb">Release</Link>::{release?.secured ? `Release ${release?.id}` : release?.name}</span>
             {

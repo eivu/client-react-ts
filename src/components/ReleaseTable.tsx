@@ -52,40 +52,48 @@ export function ReleaseTable({ release }: ReleaseTableProps): React.JSX.Element 
         </tr>
       </thead>
       <tbody>
-        {release.tracks.map((track) => (
-          <tr key={`track-${track.md5}`}>
-            <td className="controls">
-              <AVButton item={objectToQueueItem(track)} />
-            </td>
-            <td className="controls pr-2">
-              <AddToQueueButton item={objectToQueueItem(track)} />
-            </td>
-            { 
-              release.multiBundle &&
-                <td>
-                  {track.bundlePos}
+        {
+          release.tracks.length > 0 ?
+            release.tracks.map((track) => (
+              <tr key={`track-${track.md5}`}>
+                <td className="controls">
+                  <AVButton item={objectToQueueItem(track)} />
                 </td>
-            }
-            <td>
-              {track.position}
-            </td>
-            <td>
-              <Link to={`/files/${track.md5}`}>{track.name}</Link>
-            </td>
-            <td>
-              {track.duration && convertSecondsToTimeHhMmSs(track.duration)}
-            </td>
-            <td>
-              {prettyBytes(track.filesize)}
-            </td>
-            <td>
-              { track.rating }
-            </td>
-            <td>
-              { track.numPlays }
-            </td>
-          </tr>
-        ))}
+                <td className="controls pr-2">
+                  <AddToQueueButton item={objectToQueueItem(track)} />
+                </td>
+                { 
+                  release.multiBundle &&
+                    <td>
+                      {track.bundlePos}
+                    </td>
+                }
+                <td>
+                  {track.position}
+                </td>
+                <td>
+                  <Link to={`/files/${track.md5}`}>{track.name}</Link>
+                </td>
+                <td>
+                  {track.duration && convertSecondsToTimeHhMmSs(track.duration)}
+                </td>
+                <td>
+                  {prettyBytes(track.filesize)}
+                </td>
+                <td>
+                  { track.rating }
+                </td>
+                <td>
+                  { track.numPlays }
+                </td>
+              </tr>
+            )) :
+            <tr>
+              <td colSpan={8} className="empty">
+                Empty
+              </td>
+            </tr>
+        }
       </tbody>
     </table>
   );
