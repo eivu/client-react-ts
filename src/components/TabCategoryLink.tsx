@@ -14,6 +14,10 @@ export const TabCategoryLink:FC = ({category, label}:TabCategoryLinkProps) => {
   const activeClasses = 'text-primary border-primary';
   const inactiveClasses = 'border-transparent';
 
+  function handleCategoryClick() {
+    dispatch({type: 'setActiveCategory', activeCategory: category});
+  }
+
   return (
     <Link
       to="#"
