@@ -24,6 +24,9 @@ const CateogryTabs: React.FC = () => {
         Delicates
       </Link> }
       <TabCategoryLink category={'archive'} label={'Archive'} />
+      <TabCategoryLink category={'text'} label={'text'} />
+      <TabCategoryLink category={'pdf'} label={'pdf'} />
+      <TabCategoryLink category={'comics'} label={'comics'} />
     </div>
   );
 };
