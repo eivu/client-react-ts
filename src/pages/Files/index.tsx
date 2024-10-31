@@ -98,6 +98,7 @@ const FilesIndex: FC = () => {
   }
 
   useEffect(() => {
+    setLoading(true);
     api.get('/cloud_files', {
       params: constructParams(sorting)})
       .then((response) => {
