@@ -98,6 +98,12 @@ const FilesIndex: FC = () => {
   }
 
   useEffect(() => {
+    setPageNum(1);
+    setSearchParams({ pageNum: 1 });
+    // setSearchParams({ pageNum: 1, letter: letter, s: searchTerm });
+  },[activeCategory])
+
+  useEffect(() => {
     setLoading(true);
     api.get('/cloud_files', {
       params: constructParams(sorting)})
