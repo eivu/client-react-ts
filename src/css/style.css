@@ -584,3 +584,9 @@ table#file-details-table tbody tr td:nth-child(1) {
   max-width: 250px;
   max-height: 250px;
 }
+
+.delete-restore {
+  @apply text-xs;
+  /* color: #e7e7e7; */
+  color: silver;
+}
