@@ -9,6 +9,7 @@ import { MiniLoader } from '../../components/Loader';
 import convertSecondsToTimeHhMmSs from '../../common/convertSecondsToTimeHhMmSs';
 import { TogglableMetadatumViewer } from '../../components/TogglableMetadatumViewer';
 import { ContentViewer } from '../../components/ContentViewer';
+import { ContentDeleteRestore } from '../../components/ContentDeleteRestore';
 
 
 const File: FC = () => {
@@ -22,6 +23,7 @@ const File: FC = () => {
       params: { category: null, delicate: false }}
     ).then((response) => {
       setFile(response.data.cloudFile);
+      console.log("file:", response.data.cloudFile);
       setLoading(false);
     }).catch((error) => {
       setLoading(false);
@@ -51,6 +53,7 @@ const File: FC = () => {
         { loading ? <MiniLoader /> : file &&
           <>
             { file?.artworkUrl && <img src={file.artworkUrl} alt={file.name} className="file-coverart mr-4" /> }
+            <ContentDeleteRestore file={file} />
             <ContentViewer file={file} />
             <table id="file-details-table" className="font-mono">
               <tbody className="align-baseline">

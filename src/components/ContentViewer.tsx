@@ -6,8 +6,6 @@ import AddToQueueButton from './AddToQueueButton';
 import axios from 'axios';
 import { GoCloudOffline } from "react-icons/go";
 import { IoIosHourglass } from "react-icons/io";
-import { Link } from 'react-router-dom';
-import { ContentDeleteRestore } from './ContentDeleteRestore';
 
 export type ViewerProps = {
   file: CloudFile;
@@ -38,23 +36,19 @@ export const ContentViewer:JSX.Element = ({file}:ViewerProps) => {
     <div id="content-viewer-wrapper">
       { loading ? <div className="loading"><IoIosHourglass className="float-left" size={96}/><div className="label">loading...</div></div> :
           online ? 
-            <>
-              {/* <Link to="#" className="delete-restore">delete</Link> */}
-              <ContentDeleteRestore file={file} />
-              {
-                file.contentType.startsWith('image') ?
-                  <ImageViewer file={file} /> :
-                    file.contentType.startsWith('audio') ?
-                      <AudioViewer file={file} /> :
-                        file.contentType.startsWith('video') ?
-                          <VideoViewer file={file} /> :
-                            file.contentType.startsWith('application') ?
-                              <ArchiveViewer file={file} /> :
-                                file.contentType.startsWith('text') ?
-                                  <TextViewer file={file} /> :
-                                    <div>Unknown file type</div>
-              }
-            </>
+            ( 
+              file.contentType.startsWith('image') ?
+                <ImageViewer file={file} /> :
+                  file.contentType.startsWith('audio') ?
+                    <AudioViewer file={file} /> :
+                      file.contentType.startsWith('video') ?
+                        <VideoViewer file={file} /> :
+                          file.contentType.startsWith('application') ?
+                            <ArchiveViewer file={file} /> :
+                              file.contentType.startsWith('text') ?
+                                <TextViewer file={file} /> :
+                                  <div>Unknown file type</div>
+            ) 
             : <div className="offline">
                 <GoCloudOffline className="float-left" size={96}/>
                 <div className="label">offline</div>
@@ -101,10 +95,3 @@ export const TextViewer:JSX.Element = ({file}:ViewerProps) => {
   }, []);
   return(<pre>{text}</pre>)
 }
-
-
-
-
-
-
-
