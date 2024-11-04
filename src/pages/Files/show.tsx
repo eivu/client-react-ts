@@ -17,6 +17,7 @@ const File: FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [file, setFile] = useState<CloudFile>();
   const [responseError, setResponseError] = useState<string>('');
+  const [deleted, setDeleted] = useState<boolean>(false);
 
   useEffect(() => {
     api.get(`/cloud_files/${fileId}`, {
@@ -25,6 +26,7 @@ const File: FC = () => {
       setFile(response.data.cloudFile);
       console.log("file:", response.data.cloudFile);
       setLoading(false);
+      setDeleted(response.data.cloudFile.deletable);
     }).catch((error) => {
       setLoading(false);
       setResponseError(error.message);
@@ -40,7 +42,7 @@ const File: FC = () => {
         <ContentHeader>
           ::
           {
-            file.deletable ?
+            deleted ?
               <Link to="/trash" className="breadcrumb">Trash</Link> :
                 <Link to="/files" className="breadcrumb">Files</Link> 
           }::
@@ -53,7 +55,7 @@ const File: FC = () => {
         { loading ? <MiniLoader /> : file &&
           <>
             { file?.artworkUrl && <img src={file.artworkUrl} alt={file.name} className="file-coverart mr-4" /> }
-            <ContentDeleteRestore file={file} />
+            <ContentDeleteRestore file={file} deleted={deleted} setDeleted={setDeleted}/>
             <ContentViewer file={file} />
             <table id="file-details-table" className="font-mono">
               <tbody className="align-baseline">

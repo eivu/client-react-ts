@@ -2,10 +2,16 @@ import api from '../configs/api';
 import { FC, useState } from 'react';
 import { Link, redirect } from 'react-router-dom';
 import { ViewerProps } from './ContentViewer';
+import { CloudFile } from '../types/cloudFile';
 
 
-export const ContentDeleteRestore:FC<ViewerProps> = ({file}) => {
-  const [deleted, setDeleted] = useState<boolean>(file.deletable === true);
+type ContentDeleteRestoreProps = {
+  file: CloudFile,
+  deleted: boolean,
+  setDeleted: (deleted: boolean) => void
+}
+
+export const ContentDeleteRestore:FC<ContentDeleteRestoreProps> = ({file, deleted, setDeleted}) => {
 
   const handleDelete = async () => {
     const response = await api.delete(`/cloud_files/${file.md5}`);
