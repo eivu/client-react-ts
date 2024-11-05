@@ -11,7 +11,7 @@ import ReleasesIndex from './pages/Releases';
 import FoldersIndex from './pages/Folders';
 import MetadataIndex from './pages/Metadata';
 import MetadatumPage from './pages/Metadata/show';
-import { TrashPage} from './pages/TrashPage';
+import { AuthPage } from './pages/Auth';
 
 const router = createBrowserRouter([
   {
@@ -113,7 +113,15 @@ const router = createBrowserRouter([
         <FilesIndex valid_files={false} />
       </>,
     path: "/trash"
-  }
+  },
+  {
+    element: 
+      <>
+        <PageTitle title="EIVU::Auth" />
+        <AuthPage />
+      </>,
+    path: "/auth"
+  },
 ]);
 
 
