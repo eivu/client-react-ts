@@ -8,15 +8,11 @@ import { useState, useEffect, FC } from 'react';
 import type { QueueItem } from '../../types/queueItem';
 import { FilesTable } from '../../components/FilesTable';
 
-
-
-
-
 const FilesIndex: FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [loading, setLoading] = useState<boolean>(true);
   const [sorting, setSorting] = useState<SortingState>([{id: "name", desc: false}])
-  const [responseError, setResponseError] = useState<String | undefined>(undefined);
+  const [responseError, setResponseError] = useState<string | undefined>(undefined);
   const [letter, setLetter] = useState<string>(searchParams.get('letter') || '');
   const [pageNum, setPageNum] = useState<number>(Number(searchParams.get('pageNum')) || 1);
   const [meta, setMeta] = useState<any>({});
@@ -123,7 +119,13 @@ const FilesIndex: FC = () => {
           </div> */}
         </div>
 
-      <FilesTable queueItems={queueItems} loading={loading} responseError={responseError} sorting={sorting} setSorting={setSorting} searchTerm={searchTerm}/>
+      <FilesTable
+        queueItems={queueItems}
+        loading={loading}
+        responseError={responseError}
+        sorting={sorting}
+        searchTerm={searchTerm}
+        setSorting={setSorting} />
 
       {
         !loading &&
