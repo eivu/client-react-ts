@@ -12,6 +12,7 @@ import FoldersIndex from './pages/Folders';
 import MetadataIndex from './pages/Metadata';
 import MetadatumPage from './pages/Metadata/show';
 import { AuthPage } from './pages/Auth';
+import { Login } from './pages/Login';
 
 const router = createBrowserRouter([
   {
@@ -122,6 +123,14 @@ const router = createBrowserRouter([
       </>,
     path: "/auth"
   },
+  {
+    element: 
+      <>
+        <PageTitle title="EIVU::Auth" />
+        <Login />
+      </>,
+    path: "/login"
+  }
 ]);
 
 
