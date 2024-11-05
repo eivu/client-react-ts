@@ -1,7 +1,6 @@
 import api from '../configs/api';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { Link, redirect } from 'react-router-dom';
-import { ViewerProps } from './ContentViewer';
 import { CloudFile } from '../types/cloudFile';
 
 
