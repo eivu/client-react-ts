@@ -8,7 +8,14 @@ import { useState, useEffect, FC } from 'react';
 import type { QueueItem } from '../../types/queueItem';
 import { FilesTable } from '../../components/FilesTable';
 
-const FilesIndex: FC = () => {
+type FilesIndexProps = {
+  valid_files: boolean;
+};
+
+const FilesIndex: FC<FilesIndexProps> = ({ valid_files }) => {
+// const FilesIndex: FC<FilesIndexProps> = (valid_files) => {
+  console.log("valid_files", valid_files);
+  const label = valid_files ? 'Files' : 'Trash';
   const [searchParams, setSearchParams] = useSearchParams();
   const [loading, setLoading] = useState<boolean>(true);
   const [sorting, setSorting] = useState<SortingState>([{id: "name", desc: false}])
@@ -27,7 +34,7 @@ const FilesIndex: FC = () => {
       sortBy: sorting[0]?.id,
       page: pageNum,
       sortDesc: sorting[0]?.desc,
-      valid_files: true,
+      valid_files: valid_files,
       letter: letter,
       search_term: searchTerm,
     }
@@ -52,7 +59,7 @@ const FilesIndex: FC = () => {
         setLoading(false);
         setResponseError(error.message);
       });
-  },[sorting, pageNum, letter, searchTerm, activeCategory])
+  },[sorting, pageNum, letter, searchTerm, activeCategory, valid_files])
 
 
 
@@ -83,7 +90,7 @@ const FilesIndex: FC = () => {
   return (
     <DefaultLayout>
       <ContentHeader>
-        ::Files
+        ::{label}
       </ContentHeader>
 
       <section id="content-container" className="data-table-common data-table-two rounded-sm border border-stroke bg-white py-4 shadow-default dark:border-strokedark  dark:bg-boxdark">

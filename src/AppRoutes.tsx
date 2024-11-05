@@ -18,7 +18,7 @@ const router = createBrowserRouter([
     element: 
       <>
         <PageTitle title="EIVU" />
-        <FilesIndex />
+        <FilesIndex valid_files={true} />
       </>,
     path: "/",
   },
@@ -26,7 +26,7 @@ const router = createBrowserRouter([
     element: 
       <>
         <PageTitle title="EIVU::Files" />
-        <FilesIndex />
+        <FilesIndex valid_files={true}/>
       </>,
     path: "/files"
   },
@@ -110,7 +110,7 @@ const router = createBrowserRouter([
     element: 
       <>
         <PageTitle title="EIVU::Trash" />
-        <TrashPage />
+        <FilesIndex valid_files={false} />
       </>,
     path: "/trash"
   }
