@@ -27,6 +27,7 @@ const FilesIndex: FC = () => {
       sortBy: sorting[0]?.id,
       page: pageNum,
       sortDesc: sorting[0]?.desc,
+      valid_files: true,
       letter: letter,
       search_term: searchTerm,
     }
