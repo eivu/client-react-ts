@@ -11,18 +11,16 @@ export const AuthPage: React.FC = () => {
       </ContentHeader>
 
       <ContentContainer>
-<div className="no-scrollbar overflow-y-auto py-20">
+        <div className="no-scrollbar overflow-y-auto py-20">
           <div className="mx-auto w-full max-w-[480px]">
             <div className="text-center">
-
-
               <div className="rounded-xl bg-white p-4 shadow-14 dark:bg-boxdark lg:p-7.5 xl:p-12.5">
                 <h1 className="mb-2.5 text-3xl font-black leading-[48px] text-black dark:text-white">
                   Verify Your Account
                 </h1>
 
                 <p className="mb-7.5 font-medium">
-                  Enter the 6 digit code sent to the registered email id.
+                  Enter the 6 digit 2FA code.
                 </p>
 
                 <form>
@@ -36,18 +34,9 @@ export const AuthPage: React.FC = () => {
                     ))}
                   </div>
 
-                  <p className="mb-5 mt-4 text-left font-medium text-black dark:text-white">
-                    Did not receive a code?
-                    <button className="text-primary">Resend</button>
-                  </p>
-
-                  <button className="flex w-full justify-center rounded-md bg-primary p-[13px] font-bold text-gray hover:bg-opacity-90">
+                  <button className="mt-10 flex w-full justify-center rounded-md bg-primary p-[13px] font-bold text-gray hover:bg-opacity-90">
                     Verify
                   </button>
-
-                  <span className="mt-5 block text-red">
-                    Don’t share the verification code with anyone!
-                  </span>
                 </form>
               </div>
             </div>
