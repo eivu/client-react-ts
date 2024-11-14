@@ -13,7 +13,6 @@ type FilesIndexProps = {
 };
 
 const FilesIndex: FC<FilesIndexProps> = ({ valid_files }) => {
-// const FilesIndex: FC<FilesIndexProps> = (valid_files) => {
   const label = valid_files ? 'Files' : 'Trash';
   const [searchParams, setSearchParams] = useSearchParams();
   const [loading, setLoading] = useState<boolean>(true);
