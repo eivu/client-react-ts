@@ -14,7 +14,7 @@ export const Login: FC = () => {
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     console.log('Form submitted');
-    api.post('/api/frontend/sessions',
+    api.post('sessions',
       { email, password }
     ).then((response) => {
       console.log(response);
