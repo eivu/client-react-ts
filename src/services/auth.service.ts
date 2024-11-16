@@ -12,8 +12,8 @@ export const login = (email: string, password: string) => {
       // }
       return response
     })
-    .catch((error) => {
-      console.log(error);
-      return error
-    });
+    // .catch((error) => {
+    //   console.log(error);
+    //   return error
+    // });
 }

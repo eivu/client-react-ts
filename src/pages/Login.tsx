@@ -1,29 +1,59 @@
-import { Link } from 'react-router-dom';
+import { Link, redirect } from 'react-router-dom';
 import { useState, FC, FormEvent } from 'react';
 import { MdOutlineMailOutline, MdLockOutline } from "react-icons/md";
 import { AlertError } from '../components/AlertError';
 import DefaultLayout, { ContentHeader, ContentContainer } from '../layout/DefaultLayout';
-import api from '../services/api';
+import { login } from '../services/auth.service';
 
 export const Login: FC = () => {
   const [error, setError] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+  const [credentials, setCredentials] = useState<{ email: string, password: string }>(
+    {
+      email: '',
+      password: ''
+    }
+  );
 
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    console.log('Form submitted');
-    api.post('sessions',
-      { email, password }
-    ).then((response) => {
-      console.log(response);
-    })
-    .catch((error) => {
-      console.log(error);
-      setError('Invalid email or password');
-    });
+    // console.log('Form submitted');
+    console.log('credentials', credentials);
+    if (credentials.email !== "" && credentials.password !== "") {
+
+
+      login(credentials.email, credentials.password).then(
+        (response) => {
+          // redirect("https://www.google.com");
+          console.log("response", response)
+          // window.location.reload();
+        },
+        (error) => {
+          console.log("error", error);
+          // const resMessage =
+          //   (error.response &&
+          //     error.response.data &&
+          //     error.response.data.message) ||
+          //   error.message ||
+          //   error.toString();
+
+          // // setLoading(false);
+          // // setMessage(resMessage);
+        })
+
+
+    } else {
+      setError("please provide a valid input");
+    }
   }
+
+  const handleInput = (e) => {
+    const { name, value } = e.target;
+    setCredentials((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   return (
     <DefaultLayout>
@@ -47,9 +77,10 @@ export const Login: FC = () => {
                   <div className="relative">
                     <input
                       type="email"
+                      name="email"
                       placeholder="Enter your email"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                      onChange={(e) => setEmail(e.target.value)}
+                      onChange={handleInput}
                    />
                     <span className="absolute right-4 top-4">
                       <MdOutlineMailOutline size="22" className="login-field-icon" />
@@ -64,9 +95,10 @@ export const Login: FC = () => {
                   <div className="relative">
                     <input
                       type="password"
+                      name="password"
                       placeholder="Enter your password"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                      onChange={(e) => setPassword(e.target.value)}
+                      onChange={handleInput}
                     />
 
                     <span className="absolute right-4 top-4">
