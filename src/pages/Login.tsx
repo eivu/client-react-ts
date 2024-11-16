@@ -20,28 +20,15 @@ export const Login: FC = () => {
     // console.log('Form submitted');
     console.log('credentials', credentials);
     if (credentials.email !== "" && credentials.password !== "") {
-
-
       login(credentials.email, credentials.password).then(
         (response) => {
           // redirect("https://www.google.com");
-          console.log("response", response)
+          console.log("response", response);
+          // do things with the token here
           // window.location.reload();
-        },
-        (error) => {
-          console.log("error", error);
-          // const resMessage =
-          //   (error.response &&
-          //     error.response.data &&
-          //     error.response.data.message) ||
-          //   error.message ||
-          //   error.toString();
-
-          // // setLoading(false);
-          // // setMessage(resMessage);
-        })
-
-
+        }).catch((error) => {
+          setError(error.response.data.error);
+        });
     } else {
       setError("please provide a valid input");
     }

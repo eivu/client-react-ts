@@ -11,9 +11,5 @@ export const login = (email: string, password: string) => {
       //   localStorage.setItem("user", JSON.stringify(response.data));
       // }
       return response
-    })
-    // .catch((error) => {
-    //   console.log(error);
-    //   return error
-    // });
+    });
 }
