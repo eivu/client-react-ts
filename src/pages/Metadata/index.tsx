@@ -2,7 +2,7 @@ import { useSearchParams } from 'react-router-dom';
 import DefaultLayout, { ContentHeader, ContentContainer} from '../../layout/DefaultLayout';
 import { AlphabetMenu } from '../../layout/AlphabetMenu';
 import { useState, useEffect, FC } from 'react';
-import api from '../../configs/api';
+import api from '../../services/api';
 import { MiniLoader } from '../../components/Loader';
 import { PaginationMenu } from '../../layout/PaginationMenu';
 import { MetadatumEntry } from '../../components/MetadatumEntry';

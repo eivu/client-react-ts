@@ -3,7 +3,7 @@ import { useState, FC, FormEvent } from 'react';
 import { MdOutlineMailOutline, MdLockOutline } from "react-icons/md";
 import { AlertError } from '../components/AlertError';
 import DefaultLayout, { ContentHeader, ContentContainer } from '../layout/DefaultLayout';
-import api from '../configs/api';
+import api from '../services/api';
 
 export const Login: FC = () => {
   const [error, setError] = useState<string>('');

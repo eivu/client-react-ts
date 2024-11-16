@@ -5,7 +5,7 @@
 import React from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 import DefaultLayout, { ContentHeader, ContentContainer } from '../../layout/DefaultLayout';
-import api from '../../configs/api';
+import api from '../../services/api';
 import  { useAppContext } from '../../store/AppContext';
 // import axios from 'axios';
 import { useMediaState } from '@vidstack/react';

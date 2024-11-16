@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { Link, useLoaderData, useSearchParams } from 'react-router-dom';
 import DefaultLayout, { ContentHeader, ContentContainer } from '../../layout/DefaultLayout';
-import api from '../../configs/api';
+import api from '../../services/api';
 import { Metadatum } from '../../types/metadatum';
 import { MiniLoader } from '../../components/Loader';
 import prettyBytes from 'pretty-bytes';
