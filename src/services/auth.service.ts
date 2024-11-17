@@ -16,6 +16,10 @@ export const login = (email: string, password: string) => {
     });
 }
 
+export const logout = () => {
+  localStorage.removeItem('user');
+}
+
 export const getCurrentUser = () => {
   const userStr: string | null = localStorage.getItem('user');
 
