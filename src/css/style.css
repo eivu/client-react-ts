@@ -597,3 +597,9 @@ table#file-details-table tbody tr td:nth-child(1) {
 .tab-category {
   @apply border-b-2 py-4 text-sm font-medium hover:text-primary md:text-base;
 }
+
+.tab-label {
+  @apply border-b-2 py-4 text-sm font-medium md:text-base;
+  color: silver;
+  cursor: default;
+}

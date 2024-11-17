@@ -7,9 +7,10 @@ import { Category } from '../types/Category';
 type TabCategoryLinkProps = {
   category: Category;
   label: string;
+  authStatus: 'logged-in' | 'logged-out';
 }
 
-export const TabCategoryLink:FC = ({category, label}:TabCategoryLinkProps) => {
+export const TabCategoryLink:FC = ({category, label, authStatus}:TabCategoryLinkProps) => {
   const { dispatch, activeCategory } = useAppContext();
   const activeClasses = 'text-primary border-primary';
   const inactiveClasses = 'border-transparent';
@@ -21,9 +22,10 @@ export const TabCategoryLink:FC = ({category, label}:TabCategoryLinkProps) => {
   return (
     <Link
       to="#"
-      className={`tab-category ${
-        category === activeCategory ? activeClasses : inactiveClasses
-      }`}
+      className={`
+        ${authStatus === 'logged-in' ? 'tab-category' : 'tab-label'}
+        ${category === activeCategory ? activeClasses : inactiveClasses}
+      `}
       onClick={() => dispatch({type: 'setActiveCategory', activeCategory: category})}
     >
       {label}
