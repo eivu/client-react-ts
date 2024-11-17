@@ -1,9 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import Logo from '../../images/logo/logo.svg';
+import { getCurrentUser } from '../../services/auth.service';
 
-
-const SidebarLoggedInNavItems: FC = () => {
+const LoggedInItems: FC = () => {
   const location = useLocation();
   const { pathname } = location;
 
@@ -88,6 +87,46 @@ const SidebarLoggedInNavItems: FC = () => {
   )
 }
 
+const LoggedOutItems: FC = () => {
+  const location = useLocation();
+  const { pathname } = location;
+
+  return(
+    <>
+      <li>
+        <NavLink
+          to="/"
+          className={`sidebar-nav-item ${
+            pathname === '/' || pathname.includes('home') && "active"                  
+          }`}
+        >
+          Home
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/about"
+          className={`sidebar-nav-item ${
+            pathname.includes('about') && "active"                  
+          }`}
+        >
+          About
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/about"
+          className={`sidebar-nav-item ${
+            pathname.includes('login') && "active"                  
+          }`}
+        >
+          Login
+        </NavLink>
+      </li>
+    </>    
+  )
+}
+
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -95,9 +134,13 @@ interface SidebarProps {
 }
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
-
   const trigger = useRef<any>(null);
   const sidebar = useRef<any>(null);
+  const user = getCurrentUser();
+
+  useEffect(() => {
+    const user = getCurrentUser();
+  },[user])
 
   // close on click outside
   useEffect(() => {
@@ -164,7 +207,11 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
           {/* <!-- Menu Group --> */}
 
           <ul className="mb-6 flex flex-col gap-1.5">
-            <SidebarLoggedInNavItems />
+            { 
+              user ? 
+                <LoggedInItems /> :
+                  <LoggedOutItems />
+            }
           </ul>
           {/* Promo/MP3/Artwork Area */}
           <div className="mx-auto mb-10 w-full max-w-60 rounded-sm border border-strokedark bg-boxdark px-4 py-6 text-center shadow-default">
