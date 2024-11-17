@@ -9,6 +9,7 @@ const CateogryTabs: React.FC = () => {
   const user = getCurrentUser();
   const activeClasses = 'text-primary border-primary';
   const inactiveClasses = 'border-transparent';
+
   useEffect(() => {
     const user = getCurrentUser();
     user ? setAuthStatus('logged-in') : setAuthStatus('logged-out');

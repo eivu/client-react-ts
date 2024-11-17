@@ -12,12 +12,8 @@ type TabCategoryLinkProps = {
 
 export const TabCategoryLink:FC = ({category, label, authStatus}:TabCategoryLinkProps) => {
   const { dispatch, activeCategory } = useAppContext();
-  const activeClasses = 'text-primary border-primary';
+  const activeClasses = authStatus === 'logged-in' ? 'text-primary border-primary' : "border-transparent";
   const inactiveClasses = 'border-transparent';
-
-  function handleCategoryClick() {
-    dispatch({type: 'setActiveCategory', activeCategory: category});
-  }
 
   return (
     <Link
