@@ -1,13 +1,14 @@
 import { FC, useEffect, useState } from 'react';
 import { Link, useLoaderData, useSearchParams } from 'react-router-dom';
 import DefaultLayout, { ContentHeader, ContentContainer } from '../../layout/DefaultLayout';
-import api from '../../configs/api';
+import api from '../../services/api.config';
 import { Metadatum } from '../../types/metadatum';
 import { MiniLoader } from '../../components/Loader';
 import prettyBytes from 'pretty-bytes';
 import { timeAgo } from '../../common/timeAgo';
 import { QueueItem } from '../../types/queueItem';
 import { PaginationMenu } from '../../layout/PaginationMenu';
+import { useAppContext } from '../../store/AppContext';
 
 const MetadatumPage: FC = () => {
   const medatatumId = useLoaderData();
@@ -17,6 +18,7 @@ const MetadatumPage: FC = () => {
   const [responseError, setResponseError] = useState<string>('');
   const [files, setFiles] = useState<QueueItem[]>([]);
   const [meta, setMeta] = useState<any>({});
+  const { activeCategory } = useAppContext();
   const [pageNum, setPageNum] = useState<number>(Number(searchParams.get('pageNum')) || 1);
 
   function handlePageChange(pageNum: number) {
@@ -25,11 +27,18 @@ const MetadatumPage: FC = () => {
     setSearchParams({ pageNum: pageNum.toString() });
   }
 
+
   useEffect(() => {
+    setPageNum(1);
+    setSearchParams({ pageNum: 1 });
+    // setSearchParams({ pageNum: 1, letter: letter, s: searchTerm });
+  },[activeCategory])
+
+  useEffect(() => {
+    setLoading(true);
     api.get(`/metadata/${medatatumId}`, {
-      params: { page: pageNum, category: null, delicate: false }}
+      params: { page: pageNum, category: activeCategory, delicate: false }}
     ).then((response) => {
-      console.log(response.data)
       setMetadatum(response.data.metadatum);
       setFiles(response.data.files);
       setMeta(response.data.meta);
@@ -39,7 +48,7 @@ const MetadatumPage: FC = () => {
       setResponseError(error.message);
       console.log(responseError)
     })
-  },[pageNum])
+  },[pageNum, activeCategory])
   return (
     <DefaultLayout>
       {/* PageTitle: ::{artist?.secured ? `Artist ${artist?.id}` : artist?.name} */}

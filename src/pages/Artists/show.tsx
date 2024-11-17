@@ -5,7 +5,7 @@
 import React from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 import DefaultLayout, { ContentHeader, ContentContainer } from '../../layout/DefaultLayout';
-import api from '../../configs/api';
+import api from '../../services/api.config';
 import  { useAppContext } from '../../store/AppContext';
 // import axios from 'axios';
 import { useMediaState } from '@vidstack/react';
@@ -26,22 +26,25 @@ const ArtistPage: React.FC = () => {
   const [releases, setReleases] = useState<Release[]>([]);
   const [responseError, setResponseError] = useState<string>('');
   const [meta, setMeta] = useState<any>({});
+  const { activeCategory } = useAppContext();
 
   useEffect(() => {
+    setLoading(true);
     api.get(`/artists/${artistId}`, {
-      params: { page: pageNum, category: null, delicate: false }}
+      params: { page: pageNum, category: activeCategory, delicate: false }}
     ).then((response) => {
       setArtist(response.data.artist);
       setReleases(response.data.releases);
       setLoading(false);
       setMeta(response.data.meta);
+      console.log("artist:", response.data);
     })
     .catch((error) => {
       setLoading(false);
       setResponseError(error.message);
       console.log(responseError)
     })
-  }, [pageNum])
+  }, [pageNum, activeCategory])
 
   function handlePageChange(pageNum: number) {
     setLoading(true);
@@ -72,6 +75,8 @@ const ArtistPage: React.FC = () => {
       <ContentContainer>
         {
           loading ? <MiniLoader /> : (
+            releases?.length === 0 ? <div className="empty">No releases found</div> :
+           ( 
             releases?.map((release:Release, index:number) => (
               <div className="artist-releases-entry" key={`artist-releases-entry-${release.id}`}>
                 <div className={`text-xl ${index === 0 ? '' : 'pt-20'}`}>
@@ -92,7 +97,7 @@ const ArtistPage: React.FC = () => {
                 <div className="clear-both"></div>
                 <ReleaseTable release={release} />
               </div>
-            ))  
+            )) ) 
           )
         }
       </ContentContainer>

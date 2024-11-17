@@ -31,6 +31,7 @@ export interface CloudFile {
   bucketName: string | null
   userUuid: string 
   folderUuid: string | null
+  artworkUrl: string | null
   artworkMd5: string | null
   metadata: Metadatum[]
   artists: Artist[]

@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom';
 import DropdownUser from './DropdownUser';
 import TabsCategory from '../TabsCategory';
+import { getCurrentUser } from '../../services/auth.service';
 
 const Header = (props: {
   sidebarOpen: string | boolean | undefined;
   setSidebarOpen: (arg0: boolean) => void;
 }) => {
+  const user = getCurrentUser();
   return (
     <header className="top-0 z-999 flex w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none">
       <div className="flex flex-grow items-center justify-between px-4 py-4 shadow-2 md:px-6 2xl:px-11">
@@ -62,7 +64,7 @@ const Header = (props: {
         <TabsCategory />
 
         <div className="flex items-center gap-3 2xsm:gap-7">
-          <DropdownUser />
+          {user ? <DropdownUser /> : <Link to="/login">Login</Link>}
         </div>
       </div>
     </header>

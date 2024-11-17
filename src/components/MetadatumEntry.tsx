@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { useAppContext } from '../store/AppContext';
-import api from '../configs/api';
+import api from '../services/api.config';
 import { CiSquarePlus, CiSquareMinus, CiSquareInfo } from "react-icons/ci";
 import { Metadatum } from '../types/metadatum';
 

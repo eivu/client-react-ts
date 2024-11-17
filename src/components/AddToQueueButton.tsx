@@ -1,7 +1,12 @@
 import { CgPlayListAdd } from "react-icons/cg";
 import { useAppContext } from '../store/AppContext';
+import { QueueItem } from "../types/queueItem";
 
-const AddToQueueButton:FC = ({item}) => {
+export type AddToQueueButtonProps = {
+  item: QueueItem;
+  size?: number;
+}
+const AddToQueueButton:FC = ({item, size=32}:AddToQueueButtonProps) => {
   const { dispatch, queue } = useAppContext();
 
   function handleClick():void {
@@ -11,7 +16,7 @@ const AddToQueueButton:FC = ({item}) => {
 
   return (
     <div className='float-left'>
-      <CgPlayListAdd  size={32} className='cursor-pointer' onClick={() => handleClick()}/>
+      <CgPlayListAdd  size={size} className='cursor-pointer' onClick={() => handleClick()}/>
     </div>
   );
 }

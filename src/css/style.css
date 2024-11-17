@@ -404,6 +404,30 @@ table#files-table thead tr th#playHeader svg {
   display: none;
 }
 
+table#files-table tbody tr td.nameCol div.icon {
+  float: left;
+}
+
+table#files-table tbody tr td.nameCol div.icon .audio {
+  margin-top: 7px;
+}
+
+table#files-table tbody tr td.nameCol div.icon .image {
+  margin-top: 6px;
+}
+
+table#files-table tbody tr td.nameCol div.icon .video {
+  margin-top: 6px;
+}
+
+table#files-table tbody tr td.nameCol div.icon .archive {
+  margin-top: 6px;
+}
+
+table#files-table tbody tr td.nameCol div.icon .text {
+  margin-top: 6px;
+}
+
 .break-words {
   word-wrap: break-word;
   word-break: break-all;
@@ -504,6 +528,7 @@ table#file-details-table tbody tr td:nth-child(1) {
   @apply w-full text-left border-collapse;
 }
 
+
 #file-details-table > tbody > tr:first-child > td:first-child {
   @apply py-2 pr-2 font-medium leading-6 whitespace-nowrap border-slate-100 default-border-color;
   border-top-style: hidden;
@@ -526,4 +551,63 @@ table#file-details-table tbody tr td:nth-child(1) {
 .default-border-color {
   @apply dark:border-slate-400/10
   /* border-color: rgb(226, 232, 240)  */
+}
+
+#content-viewer-wrapper {
+  font-size: 6em;
+}
+
+#content-viewer-wrapper img {
+  border: 1px solid whiteSmoke
+}
+
+#content-viewer-wrapper pre {
+  @apply text-base font-normal text-body;
+} 
+#content-viewer-wrapper .loading {
+  color: whiteSmoke;
+  /* color:  white; */
+}
+.offline {
+  color: silver;
+  /* color: rgb(237, 237, 237); */
+}
+
+.label {
+  padding-top: 30px;
+  padding-left: 1.5em;
+  text-transform:lowercase;
+}
+
+.file-coverart {
+  float: left;
+  max-width: 250px;
+  max-height: 250px;
+}
+
+.delete-restore {
+  @apply text-xs;
+  /* color: #e7e7e7; */
+  color: silver;
+}
+
+#tab-category-wrapper {
+  @apply mb-6 flex flex-wrap gap-5 border-b border-stroke dark:border-strokedark sm:gap-10;
+}
+.tab-category {
+  @apply border-b-2 py-4 text-sm font-medium hover:text-primary md:text-base;
+}
+
+.tab-label {
+  @apply border-b-2 py-4 text-sm font-medium md:text-base;
+  color: silver;
+  cursor: default;
+}
+
+.sidebar-nav-item {
+  @apply relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4;
+}
+
+.sidebar-nav-item.active {
+  @apply bg-graydark dark:bg-meta-4;
 }

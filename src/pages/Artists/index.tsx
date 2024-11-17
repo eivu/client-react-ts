@@ -6,7 +6,7 @@ import { MiniLoader } from '../../components/Loader';
 import { PaginationMenu } from '../../layout/PaginationMenu';
 import { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import api from '../../configs/api';
+import api from '../../services/api.config';
 
 
 

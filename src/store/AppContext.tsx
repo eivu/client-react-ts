@@ -2,10 +2,14 @@ import { createContext, useContext, useReducer, ReactNode } from 'react';
 import { type MediaPlayerInstance, } from '@vidstack/react';
 import { defaultQueue } from '../components/Player/defaultQueue';
 import type { QueueItem } from '../types/queueItem';
+import type { Category } from '../types/Category';
+
 
 type State = {
   player: MediaPlayerInstance | undefined,
   queueIndex: number,
+  activeCategory: Category,
+  secured: boolean,
   queue: QueueItem[]
 };
 
@@ -13,6 +17,8 @@ type State = {
 const initialState: State = {
   queueIndex: 0,
   queue: defaultQueue,
+  activeCategory: null,
+  secured: false,
   player: undefined
 }
 
@@ -26,7 +32,8 @@ type Action =
   | { type: 'clearQueueItem' }
   | { type: 'addQueueItem', queueItem: QueueItem }
   | { type: 'removeQueueItem', queueItem: QueueItem }
-  | { type: 'clearAll' };
+  | { type: 'clearAll' }
+  | { type: 'setActiveCategory', activeCategory: Category };
 
 function reducer(state: State, action: Action): State {
   switch (action.type) {
@@ -48,6 +55,8 @@ function reducer(state: State, action: Action): State {
       return { ...state, queue: [...state.queue, action.queueItem] };
     case 'removeQueueItem':
       return { ...state, queue: state.queue.filter((item) => item.md5 !== action.queueItem.md5) };
+    case 'setActiveCategory':
+      return { ...state, activeCategory: action.activeCategory };
     case 'clearAll':
       return { ...initialState };
     default:
@@ -70,16 +79,15 @@ type Props = {
 
 export function AppProvider({children }: Props) {
   // const [state, dispatch] = useReducer(reducer, initialState)
-  const [{ queueIndex, player, queue }, dispatch] =
+  const [{ queueIndex, player, queue, activeCategory }, dispatch] =
     useReducer(reducer, initialState);
   
   return (
-    <AppContext.Provider value={{queueIndex, player, queue, dispatch}}>
+    <AppContext.Provider value={{queueIndex, player, queue, activeCategory, dispatch}}>
       {children}
     </AppContext.Provider>
   )
 };
 
-// export const currentQueueItem = (queue: QueueItem[]): QueueItem | undefined => queue.length > 0 ? queue[0] : undefined;
-export const currentQueueItemMd5 = (queue: QueueItem[]): QueueItem | undefined => queue.length > 0 ? queue[0].md5 : undefined;
+export const currentQueueItemMd5 = (queue: QueueItem[]): string | undefined => queue.length > 0 ? queue[0].md5 : undefined;
 export const useAppContext = () => useContext(AppContext);

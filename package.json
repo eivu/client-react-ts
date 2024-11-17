@@ -22,6 +22,7 @@
     "flatpickr": "^4.6.13",
     "javascript-time-ago": "^2.5.9",
     "jsvectormap": "^1.5.1",
+    "jwt-decode": "^4.0.0",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",
     "media-icons": "^1.0.0",
@@ -34,7 +35,8 @@
     "react-icons": "^5.0.1",
     "react-router-dom": "^6.8.1",
     "sort-by": "^0.0.2",
-    "swiper": "^9.4.1"
+    "swiper": "^9.4.1",
+    "uuid": "^11.0.3"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.3",
