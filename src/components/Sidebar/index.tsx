@@ -2,14 +2,99 @@ import React, { useEffect, useRef, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import Logo from '../../images/logo/logo.svg';
 
+
+const SidebarLoggedInNavItems: FC = () => {
+  const location = useLocation();
+  const { pathname } = location;
+
+  return(
+    <>
+      <li>
+        <NavLink
+          to="/queue"
+          className={`sidebar-nav-item ${
+            pathname === '/' || pathname.includes('queue') && "active"                  
+          }`}
+        >
+          Queue
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/artists"
+          className={`sidebar-nav-item ${
+            pathname === '/' || pathname.includes('artists') && "active"                  
+          }`}
+        >
+          Artists
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/releases"
+          className={`sidebar-nav-item ${
+            pathname.includes('releases') &&
+            "active"
+          }`}
+        >
+          Releases
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/files"
+          className={`sidebar-nav-item ${
+            pathname.includes('files') &&
+            "active"
+          }`}
+        >
+          Files
+        </NavLink>
+      </li>
+      {/* <li>
+        <NavLink
+          to="/folders"
+          className={`sidebar-nav-item ${
+            pathname.includes('folders') &&
+            "active"
+          }`}
+        >
+          Folders
+        </NavLink>
+      </li> */}
+      <li>
+        <NavLink
+          to="/metadata"
+          className={`sidebar-nav-item ${
+            pathname.includes('metadata') &&
+            "active"
+          }`}
+        >
+          Metadata
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/trash"
+          className={`sidebar-nav-item ${
+            pathname.includes('trash') &&
+            "active"
+          }`}
+        >
+          Trash
+        </NavLink>
+      </li>
+    </>    
+  )
+}
+
+
 interface SidebarProps {
   sidebarOpen: boolean;
   setSidebarOpen: (arg: boolean) => void;
 }
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
-  const location = useLocation();
-  const { pathname } = location;
 
   const trigger = useRef<any>(null);
   const sidebar = useRef<any>(null);
@@ -79,81 +164,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
           {/* <!-- Menu Group --> */}
 
           <ul className="mb-6 flex flex-col gap-1.5">
-            <li>
-              <NavLink
-                to="/queue"
-                className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                  pathname === '/' || pathname.includes('queue') && 'bg-graydark dark:bg-meta-4'                  
-                }`}
-              >
-                Queue
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/artists"
-                className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                  pathname === '/' || pathname.includes('artists') && 'bg-graydark dark:bg-meta-4'                  
-                }`}
-              >
-                Artists
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/releases"
-                className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                  pathname.includes('releases') &&
-                  'bg-graydark dark:bg-meta-4'
-                }`}
-              >
-                Releases
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/files"
-                className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                  pathname.includes('files') &&
-                  'bg-graydark dark:bg-meta-4'
-                }`}
-              >
-                Files
-              </NavLink>
-            </li>
-            {/* <li>
-              <NavLink
-                to="/folders"
-                className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                  pathname.includes('folders') &&
-                  'bg-graydark dark:bg-meta-4'
-                }`}
-              >
-                Folders
-              </NavLink>
-            </li> */}
-            <li>
-              <NavLink
-                to="/metadata"
-                className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                  pathname.includes('metadata') &&
-                  'bg-graydark dark:bg-meta-4'
-                }`}
-              >
-                Metadata
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/trash"
-                className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                  pathname.includes('trash') &&
-                  'bg-graydark dark:bg-meta-4'
-                }`}
-              >
-                Trash
-              </NavLink>
-            </li>
+            <SidebarLoggedInNavItems />
           </ul>
           {/* Promo/MP3/Artwork Area */}
           <div className="mx-auto mb-10 w-full max-w-60 rounded-sm border border-strokedark bg-boxdark px-4 py-6 text-center shadow-default">
