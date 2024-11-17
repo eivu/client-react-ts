@@ -2,7 +2,7 @@ import type { QueueItem } from '../../types/queueItem';
 
 export const defaultQueue: QueueItem[] = [
   {
-    "fileSize": 477,
+    "filesize": 477,
     "rating": null,
     "numPlays": 0,
     "uploadedAt": "2024-01-01T21:06:42.122Z",
