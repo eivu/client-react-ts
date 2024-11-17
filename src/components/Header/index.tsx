@@ -64,7 +64,7 @@ const Header = (props: {
         <TabsCategory />
 
         <div className="flex items-center gap-3 2xsm:gap-7">
-          {user && <DropdownUser />}
+          {user ? <DropdownUser /> : <Link to="/login">Login</Link>}
         </div>
       </div>
     </header>
