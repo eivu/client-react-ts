@@ -21,7 +21,7 @@ export const TabCategoryLink:FC = ({category, label}:TabCategoryLinkProps) => {
   return (
     <Link
       to="#"
-      className={`border-b-2 py-4 text-sm font-medium hover:text-primary md:text-base ${
+      className={`tab-category ${
         category === activeCategory ? activeClasses : inactiveClasses
       }`}
       onClick={() => dispatch({type: 'setActiveCategory', activeCategory: category})}

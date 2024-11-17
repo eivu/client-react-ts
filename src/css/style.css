@@ -590,3 +590,10 @@ table#file-details-table tbody tr td:nth-child(1) {
   /* color: #e7e7e7; */
   color: silver;
 }
+
+#tab-category-wrapper {
+  @apply mb-6 flex flex-wrap gap-5 border-b border-stroke dark:border-strokedark sm:gap-10;
+}
+.tab-category {
+  @apply border-b-2 py-4 text-sm font-medium hover:text-primary md:text-base;
+}

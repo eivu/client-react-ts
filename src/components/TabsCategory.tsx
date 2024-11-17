@@ -1,15 +1,17 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { TabCategoryLink } from './TabCategoryLink';
+import { getCurrentUser } from '../services/auth.service';
 
 const CateogryTabs: React.FC = () => {
   const [openTab, setOpenTab] = useState(1);
-
+  const user = getCurrentUser();
   const activeClasses = 'text-primary border-primary';
   const inactiveClasses = 'border-transparent';
+  const status = user ? 'logged-in' : 'logged-out';
 
   return (
-    <div className="mb-6 flex flex-wrap gap-5 border-b border-stroke dark:border-strokedark sm:gap-10">
+    <div id="tab-category-wrapper">
       <TabCategoryLink category={null} label={'EVERYTHING'} />
       <TabCategoryLink category="audio" label={'Audio'} />
       <TabCategoryLink category="video" label={'Video'} />
