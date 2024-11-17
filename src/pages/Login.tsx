@@ -6,8 +6,8 @@ import DefaultLayout, { ContentHeader, ContentContainer } from '../layout/Defaul
 import { login } from '../services/auth.service';
 
 export const Login: FC = () => {
-  const [error, setError] = useState<string>('');
   const navigate = useNavigate();
+  const [error, setError] = useState<string>('');
   const [credentials, setCredentials] = useState<{ email: string, password: string }>(
     {
       email: '',
@@ -16,13 +16,14 @@ export const Login: FC = () => {
   );
 
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  function handleLogin(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     console.log('credentials', credentials);
     if (credentials.email !== "" && credentials.password !== "") {
       login(credentials.email, credentials.password).then(
         () => {
           navigate("/files");
+          window.location.reload();
         }).catch((error) => {
           setError(error.response.data.error);
         });
@@ -53,7 +54,7 @@ export const Login: FC = () => {
                 Welcome
               </h2>
 
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={handleLogin}>
                 <div className="mb-4">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
                     Email
