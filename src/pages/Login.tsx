@@ -1,4 +1,4 @@
-import { Link, redirect } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState, FC, FormEvent } from 'react';
 import { MdOutlineMailOutline, MdLockOutline } from "react-icons/md";
 import { AlertError } from '../components/AlertError';
@@ -7,6 +7,7 @@ import { login } from '../services/auth.service';
 
 export const Login: FC = () => {
   const [error, setError] = useState<string>('');
+  const navigate = useNavigate();
   const [credentials, setCredentials] = useState<{ email: string, password: string }>(
     {
       email: '',
@@ -17,15 +18,11 @@ export const Login: FC = () => {
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    // console.log('Form submitted');
     console.log('credentials', credentials);
     if (credentials.email !== "" && credentials.password !== "") {
       login(credentials.email, credentials.password).then(
-        (response) => {
-          // redirect("https://www.google.com");
-          console.log("response", response);
-          // do things with the token here
-          // window.location.reload();
+        () => {
+          navigate("/files");
         }).catch((error) => {
           setError(error.response.data.error);
         });
