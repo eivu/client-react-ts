@@ -95,7 +95,7 @@ const LoggedOutItems: FC = () => {
     <>
       <li>
         <NavLink
-          to="/"
+          to="/home"
           className={`sidebar-nav-item ${
             pathname === '/' || pathname.includes('home') && "active"                  
           }`}
@@ -113,7 +113,7 @@ const LoggedOutItems: FC = () => {
           About
         </NavLink>
       </li>
-      <li>
+      {/* <li>
         <NavLink
           to="/about"
           className={`sidebar-nav-item ${
@@ -122,7 +122,7 @@ const LoggedOutItems: FC = () => {
         >
           Login
         </NavLink>
-      </li>
+      </li> */}
     </>    
   )
 }
@@ -215,7 +215,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
           </ul>
           {/* Promo/MP3/Artwork Area */}
           <div className="mx-auto mb-10 w-full max-w-60 rounded-sm border border-strokedark bg-boxdark px-4 py-6 text-center shadow-default">
-           <img src="https://s3.us-east-1.wasabisys.com/eivu/logos/eivu008.png" />
+           <img src="/eivu008.png" />
           </div>
         </nav>
         {/* <!-- Sidebar Menu --> */}

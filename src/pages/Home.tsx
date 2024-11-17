@@ -20,7 +20,7 @@ export const Home: FC = () => {
         With support from:
         <div>
           <Link to="https://www.bugsnag.com/">
-            <img src="https://eivu.io/assets/bugsnag_logo-9796bfc71896bfba566ce96c9d2cb99b5f7b710ac63287c37321ac102f158ee9.png" alt="bugsnag logo" width="199" height="49" />
+            <img src="/bugsnag_logo.png" alt="bugsnag logo" width="199" height="49" />
           </Link>
         </div>
       </ContentContainer>

@@ -31,7 +31,7 @@ const router = createBrowserRouter([
         <PageTitle title="EIVU" />
         <Home />
       </>,
-    path: "/",
+    path: "/home",
   },
   {
     element: 
