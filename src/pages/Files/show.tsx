@@ -1,6 +1,6 @@
 import { Link, useLoaderData } from 'react-router-dom';
 import DefaultLayout, { ContentHeader, ContentContainer } from '../../layout/DefaultLayout';
-import api from '../../services/api';
+import api from '../../services/api.config';
 import prettyBytes from 'pretty-bytes';
 import { timeAgo } from '../../common/timeAgo';
 import { useState, useEffect, FC } from 'react';

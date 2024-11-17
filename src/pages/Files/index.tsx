@@ -3,7 +3,7 @@ import { AlphabetMenu } from '../../layout/AlphabetMenu';
 import DefaultLayout, { ContentContainer, ContentHeader} from '../../layout/DefaultLayout';
 import { PaginationMenu } from '../../layout/PaginationMenu';
 import  { useAppContext } from '../../store/AppContext';
-import api from '../../services/api';
+import api from '../../services/api.config';
 import { useState, useEffect, FC } from 'react';
 import type { QueueItem } from '../../types/queueItem';
 import { FilesTable } from '../../components/FilesTable';

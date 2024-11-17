@@ -1,4 +1,4 @@
-import api from '../services/api';
+import api from '../services/api.config';
 import { FC } from 'react';
 import { Link, redirect } from 'react-router-dom';
 import { CloudFile } from '../types/cloudFile';

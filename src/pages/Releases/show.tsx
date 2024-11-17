@@ -5,7 +5,7 @@ import  { useAppContext } from '../../store/AppContext';
 import { useState, useEffect} from 'react';
 import type { Release } from '../../types/release';
 import { MiniLoader } from '../../components/Loader';
-import api from '../../services/api';
+import api from '../../services/api.config';
 import { ReleaseTable } from '../../components/ReleaseTable';
 
 

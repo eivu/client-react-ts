@@ -1,4 +1,4 @@
-import api from './api';
+import api from './api.config';
 import { jwtDecode } from "jwt-decode";
 import { User } from '../types/user';
 
