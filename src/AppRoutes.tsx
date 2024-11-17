@@ -1,5 +1,6 @@
 import React from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, Outlet, Navigate } from 'react-router-dom';
+import { getCurrentUser } from './services/auth.service';
 import FilesIndex from './pages/Files';
 import File from './pages/Files/show';
 import ArtistsIndex from './pages/Artists';
@@ -13,8 +14,33 @@ import MetadataIndex from './pages/Metadata';
 import MetadatumPage from './pages/Metadata/show';
 import { AuthPage } from './pages/Auth';
 import { Login } from './pages/Login';
+import { Home } from './pages/Home';
+import { About } from './pages/About';
+
+const ProtectedRoute = () => {
+  const user = getCurrentUser();
+
+  if (!user) return <Navigate to="/login" />;
+  return <Outlet />;
+};
 
 const router = createBrowserRouter([
+  {
+    element: 
+      <>
+        <PageTitle title="EIVU" />
+        <Home />
+      </>,
+    path: "/home",
+  },
+  {
+    element: 
+      <>
+        <PageTitle title="EIVU" />
+        <About />
+      </>,
+    path: "/about",
+  },
   {
     element: 
       <>
@@ -136,11 +162,11 @@ const router = createBrowserRouter([
 
 
 export const AppRoutes:React.FC = () => {
-  // const { pathname } = useLocation();
+  // const user = getCurrentUser();
 
   // React.useEffect(() => {
-  //   window.scrollTo(0, 0);
-  // }, [pathname]);
+  //   const user = getCurrentUser();
+  // }, [user]);
 
   return <RouterProvider router={router} />;
 
