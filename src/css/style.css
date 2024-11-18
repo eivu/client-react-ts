@@ -611,3 +611,30 @@ table#file-details-table tbody tr td:nth-child(1) {
 .sidebar-nav-item.active {
   @apply bg-graydark dark:bg-meta-4;
 }
+
+#definition {
+}
+
+#definition #definition-overview {
+  @apply text-xl;
+  color: black;
+}
+
+#definition #definition-overview #word {
+  @apply font-extrabold;
+  font-family: "LFT Etica", sans-serif;
+  padding-right: 5px;
+  /* font-weight: bolder; */
+  font-size: 40px;
+}
+
+#definition #definition-overview #pronunciation {
+  @apply font-light italic;
+  font-family: 'Times New Roman', Times, serif;
+  /* font-size: 20px; */
+  padding-right: .5em;
+}
+
+#definition #definitions-list {
+  margin-left: 35px;
+}
