@@ -18,13 +18,13 @@ export const Login: FC = () => {
 
   function handleLogin(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    console.log('credentials', credentials);
     if (credentials.email !== "" && credentials.password !== "") {
       login(credentials.email, credentials.password).then(
         () => {
           navigate("/files");
           window.location.reload();
         }).catch((error) => {
+          console.log(error);
           setError(error.response.data.error);
         });
     } else {
