@@ -12,6 +12,17 @@ Title
 
 <!--- 🚨 Add screenshots or screen videos here if appropriate -->
 
+- Components
+  - tbd
+- Pages
+  - tbd
+- UI/UX
+  - tbd
+- Types
+  - tbd
+- Misc
+  - tbd
+
 ## ❓ Motivation and Context
 
 <!--- Why is this change required? What problem does it solve? -->
