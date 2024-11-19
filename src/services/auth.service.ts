@@ -2,6 +2,12 @@ import api from './api.config';
 import { jwtDecode } from "jwt-decode";
 import { User } from '../types/user';
 
+export const isLoggedIn = ():boolean => {
+  const user  = getCurrentUser();
+  const token = localStorage.getItem("token");
+  return user && token ? true : false;
+}
+
 export const login = (email: string, password: string) => {
   let user: User;
   return api

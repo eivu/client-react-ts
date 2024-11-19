@@ -6,12 +6,11 @@ import { getCurrentUser } from '../services/auth.service';
 const CateogryTabs: React.FC = () => {
   const [openTab, setOpenTab] = useState(1);
   const [authStatus, setAuthStatus] = useState('logged-out');
-  const user = getCurrentUser();
   const activeClasses = 'text-primary border-primary';
   const inactiveClasses = 'border-transparent';
+  const user = getCurrentUser();
 
   useEffect(() => {
-    const user = getCurrentUser();
     user ? setAuthStatus('logged-in') : setAuthStatus('logged-out');
   }, [user])
 

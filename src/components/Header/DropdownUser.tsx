@@ -12,7 +12,7 @@ const DropdownUser = () => {
 
   function handleLogout() {
     logout();
-    navigate('/login');
+    navigate('/home');
   }
 
   // close on click outside

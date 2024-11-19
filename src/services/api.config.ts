@@ -1,7 +1,5 @@
 import axios from 'axios';
 import { v4 as uuid } from 'uuid'
-import { getCurrentUser } from './auth.service';
-import { User } from '../types/user';
 
 const clientUuid = () => {
   if (!localStorage.getItem('clientUuid')) {
