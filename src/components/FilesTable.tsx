@@ -73,6 +73,8 @@ export const FilesTable: FC<FilesTableProps> = ({ queueItems, loading, responseE
       },
       {
         header: 'Uploaded',
+        headerClassName: 'hidden lg:block',
+        className: "hidden lg:block",
         accessorKey: 'uploadedAt',
         cell: info => <span>{timeAgo(info?.getValue())}</span>
       },
@@ -104,7 +106,7 @@ export const FilesTable: FC<FilesTableProps> = ({ queueItems, loading, responseE
           <tr key={headerGroup.id}>
             {headerGroup.headers.map(header => {
               return (
-                <th key={header.id} id={`${header.id}Header`}> 
+                <th key={header.id} id={`${header.id}Header`} className={header.column.columnDef.headerClassName}> 
                   {header.isPlaceholder ? null : (
                     <div
                       {...{
@@ -135,7 +137,7 @@ export const FilesTable: FC<FilesTableProps> = ({ queueItems, loading, responseE
         {
           responseError &&
           <tr>
-            <td colSpan={columns.length}>
+            <td colSpan={columns.length} className={cell.column.className}>
               <div className="flex items-center justify-center">
                 {responseError}
               </div>
@@ -168,7 +170,7 @@ export const FilesTable: FC<FilesTableProps> = ({ queueItems, loading, responseE
               <tr key={row.id}>
                 {row.getVisibleCells().map(cell => {
                   return (
-                    <td key={cell.id} className={`${cell.column.id}Col`}>
+                    <td key={cell.id} className={`${cell.column.columnDef.className} ${cell.column.id}Col`}>
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()
