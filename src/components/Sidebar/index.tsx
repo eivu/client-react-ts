@@ -138,10 +138,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   const sidebar = useRef<any>(null);
   const user = getCurrentUser();
 
-  useEffect(() => {
-    const user = getCurrentUser();
-  },[user])
-
   // close on click outside
   useEffect(() => {
     const clickHandler = ({ target }: MouseEvent) => {

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { createBrowserRouter, RouterProvider, Outlet, Navigate } from 'react-router-dom';
-import { getCurrentUser } from './services/auth.service';
+import { isLoggedIn } from './services/auth.service';
 import FilesIndex from './pages/Files';
 import File from './pages/Files/show';
 import ArtistsIndex from './pages/Artists';
@@ -17,49 +17,50 @@ import { Login } from './pages/Login';
 import { Home } from './pages/Home';
 import { About } from './pages/About';
 
-const ProtectedRoutes = () => {
-  const user = getCurrentUser();
 
-  if (!user) return <Navigate to="/login" />;
-  return <Outlet />;
-};
+export const AppRoutes:React.FC = () => {
 
-const router = createBrowserRouter([
-  {
-    element: 
-      <>
-        <PageTitle title="EIVU" />
-        <Home />
-      </>,
-    path: "/home",
-  },
-  {
-    element: 
-      <>
-        <PageTitle title="EIVU" />
-        <About />
-      </>,
-    path: "/about",
-  },
+  const ProtectedRoutes = () => {
+    if (!isLoggedIn) return <Navigate to="/login" />;
+    return <Outlet />;
+  };
+
+  const router = createBrowserRouter([
     {
-    element: 
-      <>
-        <PageTitle title="EIVU::Auth" />
-        <Login />
-      </>,
-    path: "/login"
-  },
-  {
-    element: <ProtectedRoutes />,
-    children: [
-      {
-          element: 
-            <>
-              <PageTitle title="EIVU" />
-              <FilesIndex valid_files={true} />
-            </>,
-          path: "/",
-        },
+      element: 
+        <>
+          <PageTitle title="EIVU" />
+          { isLoggedIn() ? <Navigate to="/files" /> : <Home /> }
+        </>,
+      path: "/",
+    },
+    {
+      element: 
+        <>
+          <PageTitle title="EIVU::Home" />
+          <Home />
+        </>,
+      path: "/home",
+    },
+    {
+      element: 
+        <>
+          <PageTitle title="EIVU::About" />
+          <About />
+        </>,
+      path: "/about",
+    },
+    {
+      element: 
+        <>
+          <PageTitle title="EIVU::Auth" />
+          <Login />
+        </>,
+      path: "/login"
+    },
+    {
+      element: <ProtectedRoutes />,
+      children: [
         {
           element: 
             <>
@@ -160,13 +161,13 @@ const router = createBrowserRouter([
             </>,
           path: "/auth"
         },
-    ]
-  }
-]);
+      ]
+    }
+  ]);
 
 
 
-export const AppRoutes:React.FC = () => {
+  // const [user, setUser] = useState<User | null>(getCurrentUser());
   // const user = getCurrentUser();
 
   // React.useEffect(() => {
