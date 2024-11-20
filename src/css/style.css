@@ -652,7 +652,7 @@ table#file-details-table tbody tr td:nth-child(1) {
 
 #files-table .filesizeCol,
 #files-table #filesizeHeader {
-  width: 150px;
+  width: 100px;
 }
 
 #files-table .ratingCol,
