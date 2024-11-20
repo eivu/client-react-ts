@@ -642,7 +642,6 @@ table#file-details-table tbody tr td:nth-child(1) {
 #files-table .playCol,
 #files-table #playHeader {
   max-width: 125px;
-  /* min-width: 200px; */
 }
 
 
@@ -652,10 +651,16 @@ table#file-details-table tbody tr td:nth-child(1) {
   min-width: 200px;
 }
 
+#files-table .filesizeCol,
+#files-table #filesizeHeader {
+  width: 150px;
+}
+
 #files-table .ratingCol,
 #files-table #ratingHeader {
-  width: 53px;
+  width: 70px;
 }
+
 
 #files-table #rating-icon-wrapper {
   float: left
@@ -667,13 +672,11 @@ table#file-details-table tbody tr td:nth-child(1) {
 
 
 @media only screen and (max-width: 400px) {
-
   #files-table .nameCol,
   #files-table #nameHeader {
     width: 200px;
   }
 }
-
 
 @media only screen and (max-width: 500px) {
   #files-table .mobile-hidden-500 {
@@ -682,7 +685,7 @@ table#file-details-table tbody tr td:nth-child(1) {
 
   #files-table .nameCol,
   #files-table #nameHeader {
-    width: 200px;
+    width: 230px;
   }
 }
 
@@ -690,6 +693,17 @@ table#file-details-table tbody tr td:nth-child(1) {
   #files-table .mobile-hidden-600 {
     display: none;
   }
+
+  #files-table .nameCol,
+  #files-table #nameHeader {
+    width: 400px;
+  }
+
+  #files-table .playCol,
+  #files-table #playHeader {
+    width: 60px;
+  }
+
 }
 
 @media only screen and (max-width: 850px) {
