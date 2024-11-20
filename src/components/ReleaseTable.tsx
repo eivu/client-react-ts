@@ -21,32 +21,32 @@ export type ReleaseTableProps = {
 
 export function ReleaseTable({ release }: ReleaseTableProps): React.JSX.Element {
   return (
-    <table id="release-details-table" className="release-table font-mono" key={`release-table-${release.id}`}>
+    <table id={`release-details-table-${release.id}`} className="release-table font-mono" key={`release-table-${release.id}`}>
       <thead>
         <tr>
-          <th></th>
-          <th></th>
+          <th id="playheader"></th>
+          <th id="addToQueueHeader"></th>
           { release.multiBundle &&
-            <th>
+            <th id="bundleHeader">
               Bundle
             </th>
           }
-          <th>
+          <th id="positionHeader">
             Position
           </th>
-          <th>
+          <th id="nameHeader">
             Name
           </th>
-          <th>
+          <th id="durationHeader">
             Duration
           </th>
-          <th>
+          <th id="filesizeheader">
             Size
           </th>
-          <th>
+          <th id="ratingHeader">
             Rating
           </th>
-          <th>
+          <th id="numPlaysHeader">
             Plays
           </th>
         </tr>
@@ -56,34 +56,34 @@ export function ReleaseTable({ release }: ReleaseTableProps): React.JSX.Element 
           release.tracks.length > 0 ?
             release.tracks.map((track) => (
               <tr key={`track-${track.md5}`}>
-                <td className="controls">
+                <td className="playCol controls">
                   <AVButton item={objectToQueueItem(track)} />
                 </td>
-                <td className="controls pr-2">
+                <td className="addToQueueCol controls pr-2">
                   <AddToQueueButton item={objectToQueueItem(track)} />
                 </td>
                 { 
                   release.multiBundle &&
-                    <td>
+                    <td className="bundleCol">
                       {track.bundlePos}
                     </td>
                 }
-                <td>
+                <td className="positionCol">
                   {track.position}
                 </td>
-                <td>
+                <td className="nameCol">
                   <Link to={`/files/${track.md5}`}>{track.name}</Link>
                 </td>
-                <td>
+                <td className="durationCol">
                   {track.duration && convertSecondsToTimeHhMmSs(track.duration)}
                 </td>
-                <td>
+                <td className="filesizeCol">
                   {prettyBytes(track.filesize)}
                 </td>
-                <td>
+                <td className="ratingCol">
                   { track.rating }
                 </td>
-                <td>
+                <td className="numPlaysCol">
                   { track.numPlays }
                 </td>
               </tr>
