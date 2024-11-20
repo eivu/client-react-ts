@@ -1,6 +1,7 @@
 import { FC, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
+import { CiStar as Star } from "react-icons/ci";
 import type { QueueItem } from '../types/queueItem';
 import { MiniLoader } from './Loader';
 import prettyBytes from 'pretty-bytes';
@@ -60,21 +61,22 @@ export const FilesTable: FC<FilesTableProps> = ({ queueItems, loading, responseE
         cell: info => <span>{info?.getValue() && prettyBytes(info?.getValue())}</span>
       },
       {
-        header: 'Rating',
+        // header: 'Rating',
+        header: <span id="rating-icon-wrapper"><Star id="rating-icon" size={20} /></span>,
         accessorKey: 'rating',
-        headerClassName: 'mobile-hidden-400',
-        className: "mobile-hidden-400",
+        headerClassName: 'mobile-hidden-500',
+        className: "mobile-hidden-500",
       },
       {
         header: '# Plays',
         accessorKey: 'numPlays',
-        headerClassName: 'mobile-hidden-400',
-        className: "mobile-hidden-400",
+        headerClassName: 'mobile-hidden-600',
+        className: "mobile-hidden-600",
       },
       {
         header: 'Last Viewed',
-        headerClassName: 'mobile-hidden-800',
-        className: "mobile-hidden-800",
+        headerClassName: 'mobile-hidden-850',
+        className: "mobile-hidden-850",
         accessorKey: 'lastViewedAt',
         cell: info => <span>{timeAgo(info?.getValue())}</span>
       },

@@ -639,19 +639,61 @@ table#file-details-table tbody tr td:nth-child(1) {
   margin-left: 35px;
 }
 
+#files-table .playCol,
+#files-table #playHeader {
+  max-width: 125px;
+  /* min-width: 200px; */
+}
+
+
 #files-table .nameCol,
 #files-table #nameHeader {
   max-width: 400px;
+  min-width: 200px;
 }
 
+#files-table .ratingCol,
+#files-table #ratingHeader {
+  width: 53px;
+}
+
+#files-table #rating-icon-wrapper {
+  float: left
+}
+
+#files-table #rating-icon-wrapper #rating-icon {
+  margin-top: 2px;
+}
+
+
 @media only screen and (max-width: 400px) {
-  #files-table .mobile-hidden-400 {
+
+  #files-table .nameCol,
+  #files-table #nameHeader {
+    width: 200px;
+  }
+}
+
+
+@media only screen and (max-width: 500px) {
+  #files-table .mobile-hidden-500 {
+    display: none;
+  }
+
+  #files-table .nameCol,
+  #files-table #nameHeader {
+    width: 200px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  #files-table .mobile-hidden-600 {
     display: none;
   }
 }
 
-@media only screen and (max-width: 800px) {
-  #files-table .mobile-hidden-800 {
+@media only screen and (max-width: 850px) {
+  #files-table .mobile-hidden-850 {
     display: none;
   }
 }
