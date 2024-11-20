@@ -2,6 +2,7 @@ import { FC, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
 import { CiStar as Star } from "react-icons/ci";
+import { LuGauge as Gauge } from "react-icons/lu";
 import type { QueueItem } from '../types/queueItem';
 import { MiniLoader } from './Loader';
 import prettyBytes from 'pretty-bytes';
@@ -68,7 +69,8 @@ export const FilesTable: FC<FilesTableProps> = ({ queueItems, loading, responseE
         className: "mobile-hidden-500",
       },
       {
-        header: '# Plays',
+        // header: '# Plays',
+        header: <span id="numPlays-icon-wrapper"><Gauge id="numPlays-icon" size={20} /></span>,
         accessorKey: 'numPlays',
         headerClassName: 'mobile-hidden-600',
         className: "mobile-hidden-600",

@@ -644,7 +644,6 @@ table#file-details-table tbody tr td:nth-child(1) {
   max-width: 125px;
 }
 
-
 #files-table .nameCol,
 #files-table #nameHeader {
   max-width: 400px;
@@ -661,6 +660,10 @@ table#file-details-table tbody tr td:nth-child(1) {
   width: 70px;
 }
 
+#files-table .numPlaysCol,
+#files-table #numPlaysHeader {
+  width: 70px;
+}
 
 #files-table #rating-icon-wrapper {
   float: left
@@ -670,6 +673,13 @@ table#file-details-table tbody tr td:nth-child(1) {
   margin-top: 2px;
 }
 
+#files-table #numPlays-icon-wrapper {
+  float: left
+}
+
+#files-table #numPlays-icon-wrapper #numPlays-icon {
+  margin-top: 2px;
+}
 
 @media only screen and (max-width: 400px) {
   #files-table .nameCol,
@@ -703,7 +713,6 @@ table#file-details-table tbody tr td:nth-child(1) {
   #files-table #playHeader {
     width: 60px;
   }
-
 }
 
 @media only screen and (max-width: 850px) {
