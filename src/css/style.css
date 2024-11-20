@@ -435,10 +435,6 @@ table#files-table tbody tr td.nameCol div.icon .text {
   overflow-wrap: break-word;
 }
 
-/* table#files-table tbody tr td#labelCol{
-  @apply col-span-9;
-} */
-
 #alphabet-menu-horizontal a {
   cursor: pointer;
 }
@@ -639,6 +635,22 @@ table#file-details-table tbody tr td:nth-child(1) {
   margin-left: 35px;
 }
 
+
+/* Toggle Alphabet Menu based on screen size */
+
+@media only screen and (min-width: 850px) {
+  #alphabet-menu-vertical {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 849px) {
+  #alphabet-menu-horizontal {
+    display: none;
+  }
+}
+
+/* Files Table */
 #files-table .playCol,
 #files-table #playHeader {
   max-width: 125px;
@@ -715,6 +727,7 @@ table#file-details-table tbody tr td:nth-child(1) {
   }
 }
 
+
 @media only screen and (max-width: 850px) {
   #files-table .mobile-hidden-850 {
     display: none;
@@ -726,3 +739,4 @@ table#file-details-table tbody tr td:nth-child(1) {
     display: none;
   }
 }
+
