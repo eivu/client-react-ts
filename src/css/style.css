@@ -638,6 +638,11 @@ table#file-details-table tbody tr td:nth-child(1) {
 
 /* Toggle Alphabet Menu based on screen size */
 
+
+#alphabet-menu-vertical {
+  @apply ml-2 text-sm
+}
+
 @media only screen and (min-width: 850px) {
   #alphabet-menu-vertical {
     display: none;
@@ -651,6 +656,7 @@ table#file-details-table tbody tr td:nth-child(1) {
 }
 
 /* Files Table */
+
 #files-table .playCol,
 #files-table #playHeader {
   max-width: 125px;
@@ -739,4 +745,3 @@ table#file-details-table tbody tr td:nth-child(1) {
     display: none;
   }
 }
-
