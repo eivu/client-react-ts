@@ -6,7 +6,20 @@ export type AlphabetMenuProps = {
   handleLetterChange: (letter: string) => void;
 };
 
-export function AlphabetMenu({
+
+
+
+export function AlphabetMenuVertical({
+  collection,
+  activeLetter,
+  handleLetterChange,
+}:AlphabetMenuProps): JSX.Element {
+  return(
+    <div>Horizontal menu here</div>
+  )
+}
+
+export function AlphabetMenuHorizontal({
   collection,
   activeLetter,
   handleLetterChange,
@@ -62,5 +75,19 @@ export function AlphabetMenu({
         </tr>
       </tbody>
     </table>
+  )
+}
+
+
+export function AlphabetMenu({
+  collection,
+  activeLetter,
+  handleLetterChange,
+}:AlphabetMenuProps): JSX.Element {
+  return(
+    <>
+      <AlphabetMenuVertical activeLetter={activeLetter} collection="files" handleLetterChange={handleLetterChange} />
+      <AlphabetMenuHorizontal activeLetter={activeLetter} collection="files" handleLetterChange={handleLetterChange} />
+    </>
   )
 }
