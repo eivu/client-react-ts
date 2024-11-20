@@ -15,6 +15,7 @@ type FilesIndexProps = {
 const FilesIndex: FC<FilesIndexProps> = ({ valid_files }) => {
   const label = valid_files ? 'Files' : 'Trash';
   const [searchParams, setSearchParams] = useSearchParams();
+  const [searchSubmittedAt, setSearchSubmittedAt] = useState<number>(Date.now());
   const [loading, setLoading] = useState<boolean>(true);
   const [sorting, setSorting] = useState<SortingState>([{id: "name", desc: false}])
   const [responseError, setResponseError] = useState<string | undefined>(undefined);
@@ -57,7 +58,7 @@ const FilesIndex: FC<FilesIndexProps> = ({ valid_files }) => {
         setLoading(false);
         setResponseError(error.message);
       });
-  },[sorting, pageNum, letter, searchTerm, activeCategory, valid_files])
+  },[sorting, pageNum, letter, searchSubmittedAt, activeCategory, valid_files])
 
 
 
@@ -73,6 +74,7 @@ const FilesIndex: FC<FilesIndexProps> = ({ valid_files }) => {
       setLoading(true);
       setPageNum(1);
       setLetter('');
+      setSearchSubmittedAt(Date.now());
       setSearchParams({ pageNum: 1, letter: '', s: event.target.value });
       setSearchTerm(event.target.value);
     }
