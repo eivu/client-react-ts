@@ -46,6 +46,7 @@ export const FilesTable: FC<FilesTableProps> = ({ queueItems, loading, responseE
       {
         header: 'Name',
         accessorKey: 'name',
+        className: 'break-words',
         cell: info => (
           <span>
             <div className="icon"><FileIcon contentType={info.row.original.contentType} /></div>
@@ -61,20 +62,26 @@ export const FilesTable: FC<FilesTableProps> = ({ queueItems, loading, responseE
       {
         header: 'Rating',
         accessorKey: 'rating',
+        headerClassName: 'mobile-hidden-400',
+        className: "mobile-hidden-400",
       },
       {
         header: '# Plays',
         accessorKey: 'numPlays',
+        headerClassName: 'mobile-hidden-400',
+        className: "mobile-hidden-400",
       },
       {
         header: 'Last Viewed',
+        headerClassName: 'mobile-hidden-800',
+        className: "mobile-hidden-800",
         accessorKey: 'lastViewedAt',
         cell: info => <span>{timeAgo(info?.getValue())}</span>
       },
       {
         header: 'Uploaded',
-        headerClassName: 'hidden lg:block',
-        className: "hidden lg:block",
+        headerClassName: 'mobile-hidden-900',
+        className: "mobile-hidden-900",
         accessorKey: 'uploadedAt',
         cell: info => <span>{timeAgo(info?.getValue())}</span>
       },
@@ -100,7 +107,7 @@ export const FilesTable: FC<FilesTableProps> = ({ queueItems, loading, responseE
 
 
   return (
-    <table id="files-table" className="datatable-table border-collapse overflow-hidden break-words px-4 md:overflow-auto md:px-8">
+    <table id="files-table" className="datatable-table border-collapse overflow-hidden  px-4 md:overflow-auto md:px-8">
       <thead >
         {table.getHeaderGroups().map(headerGroup => (
           <tr key={headerGroup.id}>

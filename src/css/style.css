@@ -638,3 +638,26 @@ table#file-details-table tbody tr td:nth-child(1) {
 #definition #definitions-list {
   margin-left: 35px;
 }
+
+#files-table .nameCol,
+#files-table #nameHeader {
+  max-width: 400px;
+}
+
+@media only screen and (max-width: 400px) {
+  #files-table .mobile-hidden-400 {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  #files-table .mobile-hidden-800 {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  #files-table .mobile-hidden-900 {
+    display: none;
+  }
+}
