@@ -7,6 +7,7 @@ import api from '../../services/api.config';
 import { useState, useEffect, FC } from 'react';
 import type { QueueItem } from '../../types/queueItem';
 import { FilesTable } from '../../components/FilesTable';
+import { cleanseSearchParams } from '../../common/cleanseSearchParams';
 
 type FilesIndexProps = {
   valid_files: boolean;
@@ -39,14 +40,20 @@ const FilesIndex: FC<FilesIndexProps> = ({ valid_files }) => {
     }
   }
 
-  useEffect(() => {
-    setPageNum(1);
-    setSearchParams({ pageNum: 1 });
-    // setSearchParams({ pageNum: 1, letter: letter, s: searchTerm });
-  },[activeCategory])
+  // useEffect(() => {
+  //   // const queryParams = new URLSearchParams(location.search)
+  //   // console.log("sss", searchParams);
+  //   // // searchParams.delete('pageNum');
+  //   // // setSearchParams(searchParams);
+  //   // setPageNum(1);
+  //   // setSearchParams({ pageNum: 1 });
+  //   // setSearchParams({ pageNum: 1, letter: letter, s: searchTerm });
+  //   setLoading(true);
+  // },[activeCategory])
 
   useEffect(() => {
     setLoading(true);
+    setSearchParams(cleanseSearchParams(searchParams));
     api.get('/cloud_files', {
       params: constructParams(sorting)})
       .then((response) => {
