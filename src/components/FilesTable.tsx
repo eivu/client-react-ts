@@ -1,6 +1,8 @@
 import { FC, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
+import { CiStar as Star } from "react-icons/ci";
+import { LuGauge as Gauge } from "react-icons/lu";
 import type { QueueItem } from '../types/queueItem';
 import { MiniLoader } from './Loader';
 import prettyBytes from 'pretty-bytes';
@@ -46,6 +48,7 @@ export const FilesTable: FC<FilesTableProps> = ({ queueItems, loading, responseE
       {
         header: 'Name',
         accessorKey: 'name',
+        className: 'break-words',
         cell: info => (
           <span>
             <div className="icon"><FileIcon contentType={info.row.original.contentType} /></div>
@@ -59,20 +62,30 @@ export const FilesTable: FC<FilesTableProps> = ({ queueItems, loading, responseE
         cell: info => <span>{info?.getValue() && prettyBytes(info?.getValue())}</span>
       },
       {
-        header: 'Rating',
+        // header: 'Rating',
+        header: <span id="rating-icon-wrapper"><Star id="rating-icon" size={20} /></span>,
         accessorKey: 'rating',
+        headerClassName: 'mobile-hidden-500',
+        className: "mobile-hidden-500",
       },
       {
-        header: '# Plays',
+        // header: '# Plays',
+        header: <span id="numPlays-icon-wrapper"><Gauge id="numPlays-icon" size={20} /></span>,
         accessorKey: 'numPlays',
+        headerClassName: 'mobile-hidden-600',
+        className: "mobile-hidden-600",
       },
       {
         header: 'Last Viewed',
+        headerClassName: 'mobile-hidden-850',
+        className: "mobile-hidden-850",
         accessorKey: 'lastViewedAt',
         cell: info => <span>{timeAgo(info?.getValue())}</span>
       },
       {
         header: 'Uploaded',
+        headerClassName: 'mobile-hidden-900',
+        className: "mobile-hidden-900",
         accessorKey: 'uploadedAt',
         cell: info => <span>{timeAgo(info?.getValue())}</span>
       },
@@ -98,13 +111,13 @@ export const FilesTable: FC<FilesTableProps> = ({ queueItems, loading, responseE
 
 
   return (
-    <table id="files-table" className="datatable-table border-collapse overflow-hidden break-words px-4 md:overflow-auto md:px-8">
+    <table id="files-table" className="datatable-table border-collapse overflow-hidden  px-4 md:overflow-auto md:px-8">
       <thead >
         {table.getHeaderGroups().map(headerGroup => (
           <tr key={headerGroup.id}>
             {headerGroup.headers.map(header => {
               return (
-                <th key={header.id} id={`${header.id}Header`}> 
+                <th key={header.id} id={`${header.id}Header`} className={header.column.columnDef.headerClassName}> 
                   {header.isPlaceholder ? null : (
                     <div
                       {...{
@@ -135,7 +148,7 @@ export const FilesTable: FC<FilesTableProps> = ({ queueItems, loading, responseE
         {
           responseError &&
           <tr>
-            <td colSpan={columns.length}>
+            <td colSpan={columns.length} className={cell.column.className}>
               <div className="flex items-center justify-center">
                 {responseError}
               </div>
@@ -168,7 +181,7 @@ export const FilesTable: FC<FilesTableProps> = ({ queueItems, loading, responseE
               <tr key={row.id}>
                 {row.getVisibleCells().map(cell => {
                   return (
-                    <td key={cell.id} className={`${cell.column.id}Col`}>
+                    <td key={cell.id} className={`${cell.column.columnDef.className} ${cell.column.id}Col`}>
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()

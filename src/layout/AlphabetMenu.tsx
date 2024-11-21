@@ -1,19 +1,49 @@
 import { Link } from 'react-router-dom';
 
+
+const alphabet:string[] = Array.from({ length: 26 }, (_, i) => String.fromCharCode(65 + i));
+
 export type AlphabetMenuProps = {
   activeLetter: string;
   collection: string;
   handleLetterChange: (letter: string) => void;
 };
 
-export function AlphabetMenu({
+
+
+
+export function AlphabetMenuVertical({
   collection,
   activeLetter,
   handleLetterChange,
 }:AlphabetMenuProps): JSX.Element {
-  const alphabet:string[] = Array.from({ length: 26 }, (_, i) => String.fromCharCode(65 + i));
+
+  function handleLetterSelect(e: React.ChangeEvent<HTMLSelectElement>) {
+    const letter = e.target.value;
+    handleLetterChange(letter);
+  }
+
+  return(
+    <div id="alphabet-menu-vertical">
+      Letter:
+      <select onChange={handleLetterSelect}>
+        <option value="">All</option>
+        <option value="#">#</option>
+        { alphabet.map((letter, index) => (
+          <option key={`vert-${index}`} value={letter} selected={activeLetter === letter}>{letter}</option>
+        ))}
+      </select>
+    </div>
+  )
+}
+
+export function AlphabetMenuHorizontal({
+  collection,
+  activeLetter,
+  handleLetterChange,
+}:AlphabetMenuProps): JSX.Element {
   return (
-    <table id="alphabet-menu" className="w-full align-middle">
+    <table id="alphabet-menu-horizontal" className="w-full align-middle">
       <tbody>
         <tr>
            <td className="px-2 py-1">
@@ -62,5 +92,19 @@ export function AlphabetMenu({
         </tr>
       </tbody>
     </table>
+  )
+}
+
+
+export function AlphabetMenu({
+  collection,
+  activeLetter,
+  handleLetterChange,
+}:AlphabetMenuProps): JSX.Element {
+  return(
+    <>
+      <AlphabetMenuVertical activeLetter={activeLetter} collection="files" handleLetterChange={handleLetterChange} />
+      <AlphabetMenuHorizontal activeLetter={activeLetter} collection="files" handleLetterChange={handleLetterChange} />
+    </>
   )
 }

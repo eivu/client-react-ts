@@ -3,6 +3,8 @@ import React from 'react';
 // import { timeAgo } from '../../common/timeAgo';
 // import { useMediaState } from '@vidstack/react';
 // import { useMemo, useState, useEffect, FC } from 'react';
+import { CiStar as Star } from "react-icons/ci";
+import { LuGauge as Gauge } from "react-icons/lu";
 import { Release } from '../types/release';
 import { Link } from 'react-router-dom';
 import prettyBytes from 'pretty-bytes';
@@ -21,33 +23,38 @@ export type ReleaseTableProps = {
 
 export function ReleaseTable({ release }: ReleaseTableProps): React.JSX.Element {
   return (
-    <table id="release-details-table" className="release-table font-mono" key={`release-table-${release.id}`}>
+    <table id={`release-details-table-${release.id}`} className="release-table font-mono" key={`release-table-${release.id}`}>
       <thead>
         <tr>
-          <th></th>
-          <th></th>
+          <th id="controlsHeader"></th>
           { release.multiBundle &&
-            <th>
-              Bundle
+            <th id="bundleHeader">
+              Bun<span className="mobile-hidden-600">dle</span>
             </th>
           }
-          <th>
-            Position
+          <th id="positionHeader">
+            Pos<span className="mobile-hidden-600">ition</span>
           </th>
-          <th>
+          <th id="nameHeader">
             Name
           </th>
-          <th>
+          <th id="durationHeader">
             Duration
           </th>
-          <th>
+          <th id="filesizeheader" className="mobile-hidden-500">
             Size
           </th>
-          <th>
-            Rating
+          <th id="ratingHeader" className="mobile-hidden-600">
+            {/* Rating */}
+            <span id="rating-icon-wrapper">
+              <Star id="rating-icon" size={20} />
+            </span>
           </th>
-          <th>
-            Plays
+          <th id="numPlaysHeader" className="mobile-hidden-700">
+            {/* Plays */}
+            <span id="numPlays-icon-wrapper">
+              <Gauge id="numPlays-icon" size={20} />
+            </span>
           </th>
         </tr>
       </thead>
@@ -56,34 +63,32 @@ export function ReleaseTable({ release }: ReleaseTableProps): React.JSX.Element 
           release.tracks.length > 0 ?
             release.tracks.map((track) => (
               <tr key={`track-${track.md5}`}>
-                <td className="controls">
+                <td className="controlsCol controls pr-2">
                   <AVButton item={objectToQueueItem(track)} />
-                </td>
-                <td className="controls pr-2">
                   <AddToQueueButton item={objectToQueueItem(track)} />
                 </td>
                 { 
                   release.multiBundle &&
-                    <td>
+                    <td className="bundleCol">
                       {track.bundlePos}
                     </td>
                 }
-                <td>
+                <td className="positionCol">
                   {track.position}
                 </td>
-                <td>
+                <td className="nameCol break-words">
                   <Link to={`/files/${track.md5}`}>{track.name}</Link>
                 </td>
-                <td>
+                <td className="durationCol">
                   {track.duration && convertSecondsToTimeHhMmSs(track.duration)}
                 </td>
-                <td>
+                <td className="filesizeCol mobile-hidden-500">
                   {prettyBytes(track.filesize)}
                 </td>
-                <td>
+                <td className="ratingCol mobile-hidden-600">
                   { track.rating }
                 </td>
-                <td>
+                <td className="numPlaysCol mobile-hidden-700">
                   { track.numPlays }
                 </td>
               </tr>

@@ -435,11 +435,7 @@ table#files-table tbody tr td.nameCol div.icon .text {
   overflow-wrap: break-word;
 }
 
-/* table#files-table tbody tr td#labelCol{
-  @apply col-span-9;
-} */
-
-#alphabet-menu a {
+#alphabet-menu-horizontal a {
   cursor: pointer;
 }
 
@@ -500,7 +496,7 @@ table#file-details-table tbody tr td:nth-child(1) {
 }
 
 .release-table {
-  @apply w-full text-left border-collapse;
+  @apply w-full text-left border-collapse align-top;
 }
 
 .release-table .controls {
@@ -512,7 +508,7 @@ table#file-details-table tbody tr td:nth-child(1) {
 }
 
 .release-table tbody > tr > td {
-  @apply border-t break-words py-2 pl-2 leading-6 whitespace-pre border-slate-100 default-border-color text-wrap
+  @apply border-t py-2 pl-2 leading-6 whitespace-pre border-slate-100 default-border-color text-wrap
 }
 
 .release-table tbody tr:hover {
@@ -638,3 +634,143 @@ table#file-details-table tbody tr td:nth-child(1) {
 #definition #definitions-list {
   margin-left: 35px;
 }
+
+
+/* Toggle Alphabet Menu based on screen size */
+
+
+#alphabet-menu-vertical {
+  @apply ml-2 text-sm
+}
+
+@media only screen and (min-width: 850px) {
+  #alphabet-menu-vertical {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 849px) {
+  #alphabet-menu-horizontal {
+    display: none;
+  }
+}
+
+/* Files Table */
+
+#files-table .playCol,
+#files-table #playHeader {
+  max-width: 125px;
+}
+
+#files-table .nameCol,
+#files-table #nameHeader {
+  max-width: 400px;
+  min-width: 200px;
+}
+
+#files-table .filesizeCol,
+#files-table #filesizeHeader {
+  width: 100px;
+}
+
+#files-table .ratingCol,
+#files-table #ratingHeader {
+  width: 70px;
+}
+
+#files-table .numPlaysCol,
+#files-table #numPlaysHeader {
+  width: 70px;
+}
+
+#files-table #rating-icon-wrapper {
+  float: left
+}
+
+#files-table #rating-icon-wrapper #rating-icon {
+  margin-top: 2px;
+}
+
+#files-table #numPlays-icon-wrapper {
+  float: left
+}
+
+#files-table #numPlays-icon-wrapper #numPlays-icon {
+  margin-top: 2px;
+}
+
+@media only screen and (max-width: 400px) {
+  #files-table .nameCol,
+  #files-table #nameHeader {
+    width: 200px;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  #files-table .mobile-hidden-500 {
+    display: none;
+  }
+
+  #files-table .nameCol,
+  #files-table #nameHeader {
+    width: 230px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  #files-table .mobile-hidden-600 {
+    display: none;
+  }
+
+  #files-table .nameCol,
+  #files-table #nameHeader {
+    width: 400px;
+  }
+
+  #files-table .playCol,
+  #files-table #playHeader {
+    width: 60px;
+  }
+}
+
+
+@media only screen and (max-width: 850px) {
+  #files-table .mobile-hidden-850 {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  #files-table .mobile-hidden-900 {
+    display: none;
+  }
+}
+
+
+/* Release Table */
+
+
+@media only screen and (max-width: 200px) {
+  /* .release-table .mobile-hidden-850 {
+    display: none;
+  } */
+}
+
+@media only screen and (max-width: 499px) {
+  .release-table .mobile-hidden-500 {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 599px) {
+  .release-table .mobile-hidden-600 {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 699px) {
+  .release-table .mobile-hidden-700 {
+    display: none;
+  }
+}
+

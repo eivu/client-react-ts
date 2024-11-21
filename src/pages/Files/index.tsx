@@ -7,6 +7,7 @@ import api from '../../services/api.config';
 import { useState, useEffect, FC } from 'react';
 import type { QueueItem } from '../../types/queueItem';
 import { FilesTable } from '../../components/FilesTable';
+import { cleanseSearchParams } from '../../common/cleanseSearchParams';
 
 type FilesIndexProps = {
   valid_files: boolean;
@@ -15,15 +16,18 @@ type FilesIndexProps = {
 const FilesIndex: FC<FilesIndexProps> = ({ valid_files }) => {
   const label = valid_files ? 'Files' : 'Trash';
   const [searchParams, setSearchParams] = useSearchParams();
+  const [searchSubmittedAt, setSearchSubmittedAt] = useState<number>(Date.now());
   const [loading, setLoading] = useState<boolean>(true);
-  const [sorting, setSorting] = useState<SortingState>([{id: "name", desc: false}])
+  const [sorting, setSorting] = useState<SortingState>([{
+    id: searchParams.get('sortBy') || 'name',
+    desc: searchParams.get('sortDesc') || false
+  }])
   const [responseError, setResponseError] = useState<string | undefined>(undefined);
   const [letter, setLetter] = useState<string>(searchParams.get('letter') || '');
   const [pageNum, setPageNum] = useState<number>(Number(searchParams.get('pageNum')) || 1);
   const [meta, setMeta] = useState<any>({});
   const [queueItems, setQueueItems] = useState<QueueItem[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>(searchParams.get('s') || '');
-
   const { activeCategory } = useAppContext();
   const constructParams = (sorting: SortingState) => {
     return {
@@ -38,14 +42,20 @@ const FilesIndex: FC<FilesIndexProps> = ({ valid_files }) => {
     }
   }
 
-  useEffect(() => {
-    setPageNum(1);
-    setSearchParams({ pageNum: 1 });
-    // setSearchParams({ pageNum: 1, letter: letter, s: searchTerm });
-  },[activeCategory])
+  // useEffect(() => {
+  //   // const queryParams = new URLSearchParams(location.search)
+  //   // console.log("sss", searchParams);
+  //   // // searchParams.delete('pageNum');
+  //   // // setSearchParams(searchParams);
+  //   // setPageNum(1);
+  //   // setSearchParams({ pageNum: 1 });
+  //   // setSearchParams({ pageNum: 1, letter: letter, s: searchTerm });
+  //   setLoading(true);
+  // },[activeCategory])
 
   useEffect(() => {
     setLoading(true);
+    setSearchParams(cleanseSearchParams(searchParams));
     api.get('/cloud_files', {
       params: constructParams(sorting)})
       .then((response) => {
@@ -57,7 +67,7 @@ const FilesIndex: FC<FilesIndexProps> = ({ valid_files }) => {
         setLoading(false);
         setResponseError(error.message);
       });
-  },[sorting, pageNum, letter, searchTerm, activeCategory, valid_files])
+  },[sorting, pageNum, letter, searchSubmittedAt, activeCategory, valid_files])
 
 
 
@@ -73,6 +83,7 @@ const FilesIndex: FC<FilesIndexProps> = ({ valid_files }) => {
       setLoading(true);
       setPageNum(1);
       setLetter('');
+      setSearchSubmittedAt(Date.now());
       setSearchParams({ pageNum: 1, letter: '', s: event.target.value });
       setSearchTerm(event.target.value);
     }
