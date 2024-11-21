@@ -93,7 +93,17 @@ const FilesIndex: FC<FilesIndexProps> = ({ valid_files }) => {
     setLoading(true);
     setLetter(letter);
     setPageNum(1);
-    setSearchParams({ pageNum: '1', letter: letter });
+    searchParams.set('pageNum', '1');
+    searchParams.set('letter', letter);
+    setSearchParams(searchParams);
+  }
+
+  function handleSortChange(sorting: SortingState) {
+    setSorting(sorting);
+    searchParams.set('pageNum', '1');
+    searchParams.set('sortBy', sorting()[0].id);
+    searchParams.set('sortDesc', sorting()[0].desc);
+    setSearchParams(searchParams);
   }
 
   return (
@@ -142,7 +152,7 @@ const FilesIndex: FC<FilesIndexProps> = ({ valid_files }) => {
         responseError={responseError}
         sorting={sorting}
         searchTerm={searchTerm}
-        setSorting={setSorting} />
+        setSorting={handleSortChange} />
 
       {
         !loading &&
