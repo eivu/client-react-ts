@@ -29,11 +29,11 @@ export function ReleaseTable({ release }: ReleaseTableProps): React.JSX.Element 
           <th id="controlsHeader"></th>
           { release.multiBundle &&
             <th id="bundleHeader">
-              Bundle
+              Bun<span className="mobile-hidden-600">dle</span>
             </th>
           }
           <th id="positionHeader">
-            <span className="pr-2">Pos</span>
+            Pos<span className="mobile-hidden-600">ition</span>
           </th>
           <th id="nameHeader">
             Name
