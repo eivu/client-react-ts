@@ -18,14 +18,16 @@ const FilesIndex: FC<FilesIndexProps> = ({ valid_files }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchSubmittedAt, setSearchSubmittedAt] = useState<number>(Date.now());
   const [loading, setLoading] = useState<boolean>(true);
-  const [sorting, setSorting] = useState<SortingState>([{id: "name", desc: false}])
+  const [sorting, setSorting] = useState<SortingState>([{
+    id: searchParams.get('sortBy') || 'name',
+    desc: searchParams.get('sortDesc') || false
+  }])
   const [responseError, setResponseError] = useState<string | undefined>(undefined);
   const [letter, setLetter] = useState<string>(searchParams.get('letter') || '');
   const [pageNum, setPageNum] = useState<number>(Number(searchParams.get('pageNum')) || 1);
   const [meta, setMeta] = useState<any>({});
   const [queueItems, setQueueItems] = useState<QueueItem[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>(searchParams.get('s') || '');
-
   const { activeCategory } = useAppContext();
   const constructParams = (sorting: SortingState) => {
     return {
