@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/eivu/client-react-ts/compare/v1.2.0...v1.3.0) (2024-11-21)
+
+
+### Features
+
+* creating a real mobile design ([f7781f1](https://github.com/eivu/client-react-ts/commit/f7781f1011b78355d6b06543e4fa3c2da6e66feb))
+
 # [1.2.0](https://github.com/eivu/client-react-ts/compare/v1.1.0...v1.2.0) (2024-11-19)
 
 
