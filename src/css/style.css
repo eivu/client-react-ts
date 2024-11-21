@@ -750,8 +750,26 @@ table#file-details-table tbody tr td:nth-child(1) {
 /* Release Table */
 
 
-@media only screen and (max-width: 850px) {
-  .release-table .mobile-hidden-850 {
+@media only screen and (max-width: 200px) {
+  /* .release-table .mobile-hidden-850 {
+    display: none;
+  } */
+}
+
+@media only screen and (max-width: 499px) {
+  .release-table .mobile-hidden-500 {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 599px) {
+  .release-table .mobile-hidden-600 {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 699px) {
+  .release-table .mobile-hidden-700 {
     display: none;
   }
 }
