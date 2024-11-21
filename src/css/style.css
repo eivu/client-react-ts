@@ -496,7 +496,7 @@ table#file-details-table tbody tr td:nth-child(1) {
 }
 
 .release-table {
-  @apply w-full text-left border-collapse;
+  @apply w-full text-left border-collapse align-top;
 }
 
 .release-table .controls {
@@ -508,7 +508,7 @@ table#file-details-table tbody tr td:nth-child(1) {
 }
 
 .release-table tbody > tr > td {
-  @apply border-t break-words py-2 pl-2 leading-6 whitespace-pre border-slate-100 default-border-color text-wrap
+  @apply border-t py-2 pl-2 leading-6 whitespace-pre border-slate-100 default-border-color text-wrap
 }
 
 .release-table tbody tr:hover {
@@ -745,3 +745,14 @@ table#file-details-table tbody tr td:nth-child(1) {
     display: none;
   }
 }
+
+
+/* Release Table */
+
+
+@media only screen and (max-width: 850px) {
+  .release-table .mobile-hidden-850 {
+    display: none;
+  }
+}
+

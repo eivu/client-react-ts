@@ -24,15 +24,14 @@ export function ReleaseTable({ release }: ReleaseTableProps): React.JSX.Element 
     <table id={`release-details-table-${release.id}`} className="release-table font-mono" key={`release-table-${release.id}`}>
       <thead>
         <tr>
-          <th id="playheader"></th>
-          <th id="addToQueueHeader"></th>
+          <th id="controlsHeader"></th>
           { release.multiBundle &&
             <th id="bundleHeader">
               Bundle
             </th>
           }
           <th id="positionHeader">
-            Position
+            <span className="pr-2">Pos</span>
           </th>
           <th id="nameHeader">
             Name
@@ -40,13 +39,13 @@ export function ReleaseTable({ release }: ReleaseTableProps): React.JSX.Element 
           <th id="durationHeader">
             Duration
           </th>
-          <th id="filesizeheader">
+          <th id="filesizeheader" className="mobile-hidden-850">
             Size
           </th>
-          <th id="ratingHeader">
+          <th id="ratingHeader" className="mobile-hidden-850">
             Rating
           </th>
-          <th id="numPlaysHeader">
+          <th id="numPlaysHeader" className="mobile-hidden-850">
             Plays
           </th>
         </tr>
@@ -56,10 +55,8 @@ export function ReleaseTable({ release }: ReleaseTableProps): React.JSX.Element 
           release.tracks.length > 0 ?
             release.tracks.map((track) => (
               <tr key={`track-${track.md5}`}>
-                <td className="playCol controls">
+                <td className="controlsCol controls pr-2">
                   <AVButton item={objectToQueueItem(track)} />
-                </td>
-                <td className="addToQueueCol controls pr-2">
                   <AddToQueueButton item={objectToQueueItem(track)} />
                 </td>
                 { 
@@ -71,19 +68,19 @@ export function ReleaseTable({ release }: ReleaseTableProps): React.JSX.Element 
                 <td className="positionCol">
                   {track.position}
                 </td>
-                <td className="nameCol">
+                <td className="nameCol break-words">
                   <Link to={`/files/${track.md5}`}>{track.name}</Link>
                 </td>
                 <td className="durationCol">
                   {track.duration && convertSecondsToTimeHhMmSs(track.duration)}
                 </td>
-                <td className="filesizeCol">
+                <td className="filesizeCol mobile-hidden-850">
                   {prettyBytes(track.filesize)}
                 </td>
-                <td className="ratingCol">
+                <td className="ratingCol mobile-hidden-850">
                   { track.rating }
                 </td>
-                <td className="numPlaysCol">
+                <td className="numPlaysCol mobile-hidden-850">
                   { track.numPlays }
                 </td>
               </tr>
