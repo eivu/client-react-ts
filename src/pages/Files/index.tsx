@@ -74,7 +74,11 @@ const FilesIndex: FC<FilesIndexProps> = ({ valid_files }) => {
   function handlePageChange(pageNum: number) {
     setLoading(true);
     setPageNum(pageNum);
-    setSearchParams({ pageNum: pageNum.toString(), letter: letter });
+    searchParams.set('pageNum', pageNum.toString());
+    searchParams.set('letter', letter);
+    searchParams.set('sortBy', sorting()[0].id);
+    searchParams.set('sortDesc', sorting()[0].desc);
+    setSearchParams(searchParams);
   }
 
   function handleSearchKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
@@ -95,6 +99,8 @@ const FilesIndex: FC<FilesIndexProps> = ({ valid_files }) => {
     setPageNum(1);
     searchParams.set('pageNum', '1');
     searchParams.set('letter', letter);
+    searchParams.set('sortBy', sorting()[0].id);
+    searchParams.set('sortDesc', sorting()[0].desc);
     setSearchParams(searchParams);
   }
 
