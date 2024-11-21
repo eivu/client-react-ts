@@ -11,6 +11,14 @@ export function cleanseSearchParams(searchParams: URLSearchParams): URLSearchPar
     searchParams.delete('category')
   }
 
+  if (searchParams.get('sortBy') === 'name') {
+    searchParams.delete('sortBy')
+  }
+
+  if (searchParams.get('sortDesc') === 'false') {
+    searchParams.delete('sortDesc')
+  }
+
   if (searchParams.get('s') === '') {
     searchParams.delete('letter')
   }
