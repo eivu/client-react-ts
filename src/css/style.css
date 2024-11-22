@@ -616,10 +616,19 @@ table#file-details-table tbody tr td:nth-child(1) {
 }
 
 #header-hover-menu-items .tab-category {
-  width: px;
-  /* padding-left: 1rem; */
-  /* margin-top: 1rem; */
+  width: 112px;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
+
+#header-hover-menu-items .tab-category.active {
+  background-color: rgb(60 80 224);
+  color: white;
+  margin-top: -2px;
+}
+
+
+
 
 .tab-label {
   @apply border-b-2 py-4 text-sm font-medium md:text-base;

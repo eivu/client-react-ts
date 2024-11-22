@@ -37,7 +37,7 @@ const CateogryTabs: React.FC = () => {
         </div>
         {
           authStatus === 'logged-in' &&
-            <div id="header-hover-menu-items" className="invisible absolute z-50 flex bg-opacity-90 bg-white flex-col px-4 shadow-xl group-hover:visible">
+            <div id="header-hover-menu-items" className="invisible absolute z-50 flex bg-opacity-90 bg-white flex-col shadow-xl group-hover:visible">
               <TabCategoryLink category={'text'} label={'text'} authStatus={authStatus} />
               <TabCategoryLink category={'pdf'} label={'pdf'} authStatus={authStatus} />
               <TabCategoryLink category={'comics'} label={'comics'} authStatus={authStatus} />
