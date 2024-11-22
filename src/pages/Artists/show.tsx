@@ -16,7 +16,7 @@ import type { Artist } from '../../types/artist';
 import { MiniLoader } from '../../components/Loader';
 import { ReleaseTable } from '../../components/ReleaseTable';
 import { PaginationMenu } from '../../layout/PaginationMenu';
-
+import { ErrorPanel } from '../../components/ErrorPanel';
 
 const ArtistPage: React.FC = () => {
   const artistId = useLoaderData()<number>;
@@ -74,30 +74,35 @@ const ArtistPage: React.FC = () => {
       }
       <ContentContainer>
         {
-          loading ? <MiniLoader /> : (
-            releases?.length === 0 ? <div className="empty">No releases found</div> :
-           ( 
-            releases?.map((release:Release, index:number) => (
-              <div className="artist-releases-entry" key={`artist-releases-entry-${release.id}`}>
-                <div className={`text-xl ${index === 0 ? '' : 'pt-20'}`}>
-                  {
-                    release.artworkUrl && (
-                      <div className="artwork-wrapper mb-1 mr-2">
-                        <img src={release.artworkUrl} alt={release.name} className="artwork w-250 h-250" />
-                      </div>
-                    )
-                  }
+          loading ? <MiniLoader /> : 
+          
+          
+          ( 
+            responseError ? <ErrorPanel errorMessage={responseError} /> :
+              releases?.length === 0 ? <div className="empty">No releases found</div> :
+              ( 
+                releases?.map((release:Release, index:number) => (
+                  <div className="artist-releases-entry" key={`artist-releases-entry-${release.id}`}>
+                    <div className={`text-xl ${index === 0 ? '' : 'pt-20'}`}>
+                      {
+                        release.artworkUrl && (
+                          <div className="artwork-wrapper mb-1 mr-2">
+                            <img src={release.artworkUrl} alt={release.name} className="artwork w-250 h-250" />
+                          </div>
+                        )
+                      }
 
 
-                  <Link to={`/releases/${release.id}`} className='release-title'>
-                    {release.name}
-                    {release.year && (` (${release.year})`)}
-                  </Link>
-                </div>
-                <div className="clear-both"></div>
-                <ReleaseTable release={release} />
-              </div>
-            )) ) 
+                      <Link to={`/releases/${release.id}`} className='release-title'>
+                        {release.name}
+                        {release.year && (` (${release.year})`)}
+                      </Link>
+                    </div>
+                    <div className="clear-both"></div>
+                    <ReleaseTable release={release} />
+                  </div>
+                ))
+              ) 
           )
         }
       </ContentContainer>
