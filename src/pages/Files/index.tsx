@@ -8,6 +8,7 @@ import { useState, useEffect, FC } from 'react';
 import type { QueueItem } from '../../types/queueItem';
 import { FilesTable } from '../../components/FilesTable';
 import { cleanseSearchParams } from '../../common/cleanseSearchParams';
+import { ErrorPanel } from '../../components/ErrorPanel';
 
 type FilesIndexProps = {
   valid_files: boolean;
@@ -109,8 +110,8 @@ const FilesIndex: FC<FilesIndexProps> = ({ valid_files }) => {
       </ContentHeader>
 
       <section id="content-container" className="data-table-common data-table-two rounded-sm border border-stroke bg-white py-4 shadow-default dark:border-strokedark  dark:bg-boxdark">
-      <AlphabetMenu activeLetter={letter} collection="files" handleLetterChange={handleLetterChange} />
-
+      <div>
+        <AlphabetMenu activeLetter={letter} collection="files" handleLetterChange={handleLetterChange} />
         <div className="flex justify-between border-b border-stroke px-8 pb-4 dark:border-strokedark">
           {/* Search Field */}
           <div className="w-100">
@@ -124,6 +125,7 @@ const FilesIndex: FC<FilesIndexProps> = ({ valid_files }) => {
                 onKeyDown={handleSearchKeyDown}
               />
           </div>
+        </div>
 
           {/* Num Entries */}
           {/* <div className="flex items-center font-medium">
@@ -141,17 +143,17 @@ const FilesIndex: FC<FilesIndexProps> = ({ valid_files }) => {
             <p className="pl-2 text-black dark:text-white">Entries Per Page</p>
           </div> */}
         </div>
-
-      <FilesTable
+        {
+          responseError ? <ErrorPanel errorMessage={responseError} /> :
+        <FilesTable
         queueItems={queueItems}
         loading={loading}
         responseError={responseError}
         sorting={sorting}
         searchTerm={searchTerm}
-        setSorting={handleSortChange} />
-
+        setSorting={handleSortChange} /> }
       {
-        !loading &&
+        !loading && !responseError &&
           <PaginationMenu
             pageNum={pageNum}
             totalPages={meta.totalPages}
