@@ -361,6 +361,12 @@ input[type="search"]::-webkit-search-cancel-button {
   display: none !important;
 }
 
+/* Eivu Styling */
+
+.file-icon {
+  color: silver;
+}
+
 .queueRow.otherItem {
   cursor: pointer;
 }
