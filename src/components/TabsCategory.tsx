@@ -37,15 +37,12 @@ const CateogryTabs: React.FC = () => {
     <div class="group">
 
         <div class="flex items-center justify-between space-x-5 bg-white px-4">
-                  <TabCategoryLink category={'archive'} label={'Archive'} authStatus={authStatus} />
-
-            <span>
-                <CaretDown size="15" />
-            </span>
+          <TabCategoryLink category={'archive'} label={'Archive'} authStatus={authStatus} />
+          <span> <CaretDown size="15" /></span>
         </div>
 
         <div
-            class="invisible absolute z-50 flex w-full flex-col bg-gray-100 py-1 px-4 text-gray-800 shadow-xl group-hover:visible">
+            class="invisible absolute z-50 flex bg-opacity-90 bg-white flex-col px-4 shadow-xl group-hover:visible">
 
          <TabCategoryLink category={'text'} label={'text'} authStatus={authStatus} />
       <TabCategoryLink category={'pdf'} label={'pdf'} authStatus={authStatus} />
