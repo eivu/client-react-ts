@@ -6,6 +6,7 @@ import { MiniLoader } from '../../components/Loader';
 import { PaginationMenu } from '../../layout/PaginationMenu';
 import { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
+import { ErrorPanel } from '../../components/ErrorPanel';
 import api from '../../services/api.config';
 
 
@@ -54,8 +55,9 @@ const ArtistsIndex: React.FC = () => {
         <span>::Artists</span>
       </ContentHeader>
       <ContentContainer>
+      {           responseError &&  <ErrorPanel errorMessage={responseError} /> }
       {
-        loading ? <MiniLoader /> : (
+        loading ? <MiniLoader /> : !responseError && (
           <>
             <AlphabetMenu activeLetter={letter} collection="artists" handleLetterChange={handleLetterChange} />
             <div id="artists-list" className="list pt-10">
@@ -70,7 +72,7 @@ const ArtistsIndex: React.FC = () => {
       }
       </ContentContainer>
       {
-        !loading &&
+        !loading && !responseError &&
           <PaginationMenu
             pageNum={pageNum}
             totalPages={meta.totalPages}
