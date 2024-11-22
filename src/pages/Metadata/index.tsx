@@ -6,6 +6,7 @@ import api from '../../services/api.config';
 import { MiniLoader } from '../../components/Loader';
 import { PaginationMenu } from '../../layout/PaginationMenu';
 import { MetadatumEntry } from '../../components/MetadatumEntry';
+import { ErrorPanel } from '../../components/ErrorPanel';
 
 const MetadataIndex: FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -55,19 +56,20 @@ const MetadataIndex: FC = () => {
         loading ? <MiniLoader /> : (
           <>
             <AlphabetMenu activeLetter={letter} collection="metadata" handleLetterChange={handleLetterChange} />
-            <div id="metadata-list" className="list pt-10">
+            { responseError ? <ErrorPanel errorMessage={responseError} /> :
+              <div id="metadata-list" className="list pt-10">
               {metadata.map((metadatum) => (
                 <div className="entry" key={`metadatum-entry-${metadatum.id}`}>
                   <MetadatumEntry metadatum={metadatum} />
                 </div>
               ))}
-            </div>
+            </div>}
           </>
         )
       }
       </ContentContainer>
     {
-        !loading &&
+        !loading && !responseError &&
           <PaginationMenu
             pageNum={pageNum}
             totalPages={meta.totalPages}

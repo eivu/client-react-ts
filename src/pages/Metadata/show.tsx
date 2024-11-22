@@ -9,6 +9,7 @@ import { timeAgo } from '../../common/timeAgo';
 import { QueueItem } from '../../types/queueItem';
 import { PaginationMenu } from '../../layout/PaginationMenu';
 import { useAppContext } from '../../store/AppContext';
+import { ErrorPanel } from '../../components/ErrorPanel';
 
 const MetadatumPage: FC = () => {
   const medatatumId = useLoaderData();
@@ -62,45 +63,46 @@ const MetadatumPage: FC = () => {
           <MiniLoader /> : (
             <ContentContainer>
               {
-                metadatum && metadatum.filesCount === 0 ?
-                  <div className="text-center text-gray-500">No cloud files found</div> :
-                    <table>
-                      <thead>
-                        <tr>
-                          <th></th>
-                          <th>Name</th>
-                          <th>Size</th>
-                          <th>Rating</th>
-                          <th># Plays</th>
-                          <th>Last Viewed</th>
-                          <th>Uploaded At</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {
-                        files.map((file) => {
-                          return (
-                            <tr key={`metadatum-file-entry-${file.md5}`}>
-                              <td></td>
-                              <td><Link to={`/files/${file.md5}`}>{file.name}</Link></td>
-                              <td>{prettyBytes(file.filesize)}</td>
-                              <td>{file.rating}</td>
-                              <td>{file.numPlays}</td>
-                              <td>{file.lastViewedAt && timeAgo(file.lastViewedAt)}</td>
-                              <td>{timeAgo(file.uploadedAt)}</td>
-                            </tr>
-                          )
-                        })
-                        }
-                      </tbody>
-                    </table>
+                responseError ? <ErrorPanel errorMessage={responseError} /> :
+                  metadatum?.filesCount === 0 ?
+                    <div className="text-center text-gray-500">No cloud files found</div> :
+                      <table>
+                        <thead>
+                          <tr>
+                            <th></th>
+                            <th>Name</th>
+                            <th>Size</th>
+                            <th>Rating</th>
+                            <th># Plays</th>
+                            <th>Last Viewed</th>
+                            <th>Uploaded At</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {
+                          files.map((file) => {
+                            return (
+                              <tr key={`metadatum-file-entry-${file.md5}`}>
+                                <td></td>
+                                <td><Link to={`/files/${file.md5}`}>{file.name}</Link></td>
+                                <td>{prettyBytes(file.filesize)}</td>
+                                <td>{file.rating}</td>
+                                <td>{file.numPlays}</td>
+                                <td>{file.lastViewedAt && timeAgo(file.lastViewedAt)}</td>
+                                <td>{timeAgo(file.uploadedAt)}</td>
+                              </tr>
+                            )
+                          })
+                          }
+                        </tbody>
+                      </table>
               }
             </ContentContainer>
               
           )
       }
       {
-        !loading &&
+        !loading && !responseError &&
           <PaginationMenu
             pageNum={pageNum}
             totalPages={meta.totalPages}
