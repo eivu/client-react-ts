@@ -2,6 +2,7 @@ import {FC} from 'react';
 import { useAppContext } from '../store/AppContext';
 import { Link } from 'react-router-dom';
 import { Category } from '../types/Category';
+import { PiCaretDownBold as CaretDown } from "react-icons/pi";
 
 
 type TabCategoryLinkProps = {
@@ -27,6 +28,7 @@ export const TabCategoryLink:FC = ({category, label, authStatus, subCategories}:
       onClick={() => dispatch({type: 'setActiveCategory', activeCategory: category})}
     >
       {label}
+      { authStatus === 'logged-in' && !!subCategories &&  <span className="caret-down"><CaretDown size="15" /></span> }
     </Link>
   );
 }

@@ -609,6 +609,17 @@ table#file-details-table tbody tr td:nth-child(1) {
   @apply border-transparent;
 }
 
+.tab-category .caret-down {
+  padding-left: 10px;
+  margin-top: 4px;
+  float: right;
+}
+
+#header-hover-menu-items .tab-category {
+  width: px;
+  /* padding-left: 1rem; */
+  /* margin-top: 1rem; */
+}
 
 .tab-label {
   @apply border-b-2 py-4 text-sm font-medium md:text-base;

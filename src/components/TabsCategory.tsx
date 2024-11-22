@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { TabCategoryLink } from './TabCategoryLink';
 import { getCurrentUser } from '../services/auth.service';
-import { PiCaretDownBold as CaretDown } from "react-icons/pi";
 
 
 const CateogryTabs: React.FC = () => {
@@ -34,12 +33,11 @@ const CateogryTabs: React.FC = () => {
       
       <div className="group">
         <div className="flex items-center justify-between space-x-5 bg-white px-4">
-          <TabCategoryLink category={'archive'} label={'Archive'} authStatus={authStatus} subCategories={['text', 'pdf', 'comics', 'roms']} />
-          { authStatus === 'logged-in' && <span><CaretDown size="15" /></span> }
+          <TabCategoryLink category={'archive'} label={'Archive '} authStatus={authStatus} subCategories={['text', 'pdf', 'comics', 'roms']} />
         </div>
         {
           authStatus === 'logged-in' &&
-            <div className="invisible absolute z-50 flex bg-opacity-90 bg-white flex-col px-4 shadow-xl group-hover:visible">
+            <div id="header-hover-menu-items" className="invisible absolute z-50 flex bg-opacity-90 bg-white flex-col px-4 shadow-xl group-hover:visible">
               <TabCategoryLink category={'text'} label={'text'} authStatus={authStatus} />
               <TabCategoryLink category={'pdf'} label={'pdf'} authStatus={authStatus} />
               <TabCategoryLink category={'comics'} label={'comics'} authStatus={authStatus} />
