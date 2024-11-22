@@ -596,9 +596,19 @@ table#file-details-table tbody tr td:nth-child(1) {
 #tab-category-wrapper {
   @apply mb-6 flex flex-wrap gap-5 border-b border-stroke dark:border-strokedark sm:gap-10;
 }
+
 .tab-category {
   @apply border-b-2 py-4 text-sm font-medium hover:text-primary md:text-base;
 }
+
+.tab-category.active {
+  @apply text-primary border-primary
+}
+
+.tab-category.inactive {
+  @apply border-transparent;
+}
+
 
 .tab-label {
   @apply border-b-2 py-4 text-sm font-medium md:text-base;
