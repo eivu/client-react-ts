@@ -7,7 +7,7 @@ import type { Release } from '../../types/release';
 import { MiniLoader } from '../../components/Loader';
 import api from '../../services/api.config';
 import { ReleaseTable } from '../../components/ReleaseTable';
-
+import { ErrorPanel } from '../../components/ErrorPanel';
 
 const ReleasePage: React.FC = () => {
   const releaseId = useLoaderData();
@@ -59,7 +59,10 @@ const ReleasePage: React.FC = () => {
         )
       }
       <ContentContainer>
-        { loading ? <MiniLoader /> : <ReleaseTable release={release} /> }
+        { 
+          loading ? <MiniLoader /> :
+            responseError ? <ErrorPanel errorMessage={responseError} /> : <ReleaseTable release={release} /> 
+        }
       </ContentContainer>
     </DefaultLayout>
   );
