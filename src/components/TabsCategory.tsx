@@ -34,7 +34,7 @@ const CateogryTabs: React.FC = () => {
       
       <div className="group">
         <div className="flex items-center justify-between space-x-5 bg-white px-4">
-          <TabCategoryLink category={'archive'} label={'Archive'} authStatus={authStatus} />
+          <TabCategoryLink category={'archive'} label={'Archive'} authStatus={authStatus} subCategories={['text', 'pdf', 'comics', 'roms']} />
           { authStatus === 'logged-in' && <span><CaretDown size="15" /></span> }
         </div>
         {
