@@ -41,9 +41,12 @@ const ReleasePage: React.FC = () => {
         )
       }
       {
-        release && (
+        !loading && (
           <ContentHeader>::
-            <span><Link to="/releases" className="breadcrumb">Release</Link>::{release?.secured ? `Release ${release?.id}` : release?.name}</span>
+            <span><Link to="/releases" className="breadcrumb">Release</Link>::{
+              responseError ? 'Err0r' :
+                release?.secured ? `Release ${release?.id
+              }` : release?.name}</span>
             {
               release?.artists.length > 0 &&
                 <div>

@@ -38,7 +38,7 @@ const File: FC = () => {
   return (
     <DefaultLayout>
       {
-        file && 
+        !loading && 
         <ContentHeader>
           ::
           {
@@ -47,7 +47,8 @@ const File: FC = () => {
                 <Link to="/files" className="breadcrumb">Files</Link> 
           }::
           {
-            file.secured ? file.md5 : file.name
+            responseError ? 'Err0r' :
+              file.secured ? file.md5 : file.name
           }
         </ContentHeader>
       }

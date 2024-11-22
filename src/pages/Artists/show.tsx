@@ -67,9 +67,12 @@ const ArtistPage: React.FC = () => {
         //   </div>
         // )
       }
-      { artist &&
+      { !loading &&
           <ContentHeader>::
-            <Link to="/artists" className="breadcrumb">Artist</Link>::{artist?.secured ? `Artist ${artist?.id}` : artist?.name}
+            <Link to="/artists" className="breadcrumb">Artist</Link>::{
+              responseError ? 'Err0r' :
+                artist?.secured ? `Artist ${artist?.id}` : artist?.name
+            }
           </ContentHeader>
       }
       <ContentContainer>
