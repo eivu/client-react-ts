@@ -42,17 +42,6 @@ const FilesIndex: FC<FilesIndexProps> = ({ valid_files }) => {
     }
   }
 
-  // useEffect(() => {
-  //   // const queryParams = new URLSearchParams(location.search)
-  //   // console.log("sss", searchParams);
-  //   // // searchParams.delete('pageNum');
-  //   // // setSearchParams(searchParams);
-  //   // setPageNum(1);
-  //   // setSearchParams({ pageNum: 1 });
-  //   // setSearchParams({ pageNum: 1, letter: letter, s: searchTerm });
-  //   setLoading(true);
-  // },[activeCategory])
-
   useEffect(() => {
     setLoading(true);
     setSearchParams(cleanseSearchParams(searchParams));
@@ -94,6 +83,7 @@ const FilesIndex: FC<FilesIndexProps> = ({ valid_files }) => {
   }
 
   function handleLetterChange(letter: string) {
+    event?.preventDefault();
     setLoading(true);
     setLetter(letter);
     setPageNum(1);
