@@ -595,11 +595,26 @@ table#file-details-table tbody tr td:nth-child(1) {
 
 #tab-category-wrapper {
   @apply mb-6 flex flex-wrap gap-5 border-b border-stroke dark:border-strokedark sm:gap-10;
+
+  /* mobile */ 
+  margin-left: -35px;
 }
 
 .tab-category {
-  @apply border-b-2 py-4 text-sm font-medium hover:text-primary md:text-base;
+  @apply border-b-2 py-4 font-medium hover:text-primary md:text-base;
 }
+
+@media only screen and (max-width: 500px) {
+  .tab-category {
+    /* mobile */ 
+    font-size: 11px
+  }
+}
+
+header#top-nav {
+  @apply top-0 z-999 flex w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none;
+}
+
 
 .tab-category.active {
   @apply text-primary border-primary
