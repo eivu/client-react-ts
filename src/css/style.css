@@ -608,7 +608,7 @@ table#file-details-table tbody tr td:nth-child(1) {
 @media only screen and (max-width: 499px) {
   .tab-category {
     /* mobile */ 
-    font-size: 11px
+    font-size: 10px
   }
 
   #tab-category-wrapper {
@@ -626,6 +626,10 @@ table#file-details-table tbody tr td:nth-child(1) {
   .tab-category .caret-down {
     padding-left: 2px;
     margin-top: 6px;
+  }
+
+  #header-hover-menu-items {
+    margin-left: -30px;
   }
 }
 
