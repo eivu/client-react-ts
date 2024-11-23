@@ -646,7 +646,13 @@ table#file-details-table tbody tr td:nth-child(1) {
 }
 
 header#top-nav {
-  @apply top-0 z-999 flex w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none;
+  @apply top-0 z-999 w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none;
+}
+
+@media only screen and (min-width: 700px) {
+  header#top-nav {
+    @apply flex
+  }
 }
 
 #top-nav-sidebar-toggle {
