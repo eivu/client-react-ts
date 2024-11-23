@@ -11,7 +11,7 @@ const Header = (props: {
   return (
     <header id="top-nav" className="">
       <div className="flex flex-grow items-center justify-between px-4 py-4 shadow-2 md:px-6 2xl:px-11">
-        <div className="flex items-center gap-2 lg:hidden">
+        <div id="top-nav-sidebar-toggle">
           {/* <!-- Hamburger Toggle BTN --> */}
           <button
             aria-controls="sidebar"

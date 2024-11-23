@@ -595,9 +595,6 @@ table#file-details-table tbody tr td:nth-child(1) {
 
 #tab-category-wrapper {
   @apply mb-6 flex flex-wrap gap-5 border-b border-stroke dark:border-strokedark sm:gap-10;
-
-  /* mobile */ 
-  margin-left: -35px;
 }
 
 .tab-category {
@@ -609,12 +606,20 @@ table#file-details-table tbody tr td:nth-child(1) {
     /* mobile */ 
     font-size: 11px
   }
+
+  #tab-category-wrapper {
+    /* mobile */ 
+    margin-left: -35px;
+  }
 }
 
 header#top-nav {
   @apply top-0 z-999 flex w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none;
 }
 
+#top-nav-sidebar-toggle {
+  @apply flex items-center gap-2 lg:hidden;
+}
 
 .tab-category.active {
   @apply text-primary border-primary
