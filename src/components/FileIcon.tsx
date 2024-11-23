@@ -10,7 +10,7 @@ export type FileIconProps = {
 
 export const FileIcon:JSX.Element = ({contentType}:FileIconProps) => {
   return(
-    <>
+    <span className="file-icon">
       { contentType.startsWith('image') ?
           <MdOutlineImage className="image" /> :
             contentType.startsWith('audio') ?
@@ -23,6 +23,6 @@ export const FileIcon:JSX.Element = ({contentType}:FileIconProps) => {
                           <TiDocumentText className="text" /> :
                             <FaFile />
       }
-    </>
+    </span>
   )
 }

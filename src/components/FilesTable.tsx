@@ -24,14 +24,13 @@ import {
 type FilesTableProps = {
   queueItems: QueueItem[];
   loading: boolean;
-  responseError: string | undefined;
   searchTerm: string;
   sorting: SortingState;
   setSorting: (sorting: SortingState) => void;
 }
 
 
-export const FilesTable: FC<FilesTableProps> = ({ queueItems, loading, responseError, sorting, setSorting, searchTerm }) => {
+export const FilesTable: FC<FilesTableProps> = ({ queueItems, loading, sorting, setSorting, searchTerm }) => {
   const columns = useMemo<ColumnDef<QueueItem>[]>(
     () => [
       {
@@ -145,16 +144,6 @@ export const FilesTable: FC<FilesTableProps> = ({ queueItems, loading, responseE
         ))}
       </thead>
       <tbody>
-        {
-          responseError &&
-          <tr>
-            <td colSpan={columns.length} className={cell.column.className}>
-              <div className="flex items-center justify-center">
-                {responseError}
-              </div>
-            </td>
-          </tr>
-        }
         {
           !loading && !!searchTerm && queueItems.length === 0 &&
           <tr>

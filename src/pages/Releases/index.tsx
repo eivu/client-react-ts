@@ -6,6 +6,7 @@ import { useState, useEffect, FC } from 'react';
 import api from '../../services/api.config';
 import { MiniLoader } from '../../components/Loader';
 import { PaginationMenu } from '../../layout/PaginationMenu';
+import { ErrorPanel } from '../../components/ErrorPanel';
 
 const ReleasesIndex: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -52,21 +53,22 @@ const ReleasesIndex: React.FC = () => {
       <ContentContainer>
       {
         loading ? <MiniLoader /> : (
-          <>
-            <AlphabetMenu activeLetter={letter} collection="releases" handleLetterChange={handleLetterChange} />
-            <div id="releases-list" className="list pt-10">
-              {releases.map((release) => (
-                <div className="entry">
-                  <Link to={`/releases/${release.id}`}>{release.name}</Link>
-                </div>
-              ))}
-            </div>
-          </>
+          responseError ? <ErrorPanel errorMessage={responseError} /> :
+            <>
+              <AlphabetMenu activeLetter={letter} collection="releases" handleLetterChange={handleLetterChange} />
+              <div id="releases-list" className="list pt-10">
+                {releases.map((release) => (
+                  <div className="entry">
+                    <Link to={`/releases/${release.id}`}>{release.name}</Link>
+                  </div>
+                ))}
+              </div>
+            </>
         )
       }
       </ContentContainer>
       {
-        !loading &&
+        !loading && !responseError &&
           <PaginationMenu
             pageNum={pageNum}
             totalPages={meta.totalPages}

@@ -33,3 +33,9 @@
   margin-inline: auto;
   max-width: 300px;
 }
+
+@media only screen and (max-width: 475px) {
+  .vds-title-text {
+    font-size: 13px;
+  }
+}

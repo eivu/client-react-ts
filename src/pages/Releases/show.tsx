@@ -7,7 +7,7 @@ import type { Release } from '../../types/release';
 import { MiniLoader } from '../../components/Loader';
 import api from '../../services/api.config';
 import { ReleaseTable } from '../../components/ReleaseTable';
-
+import { ErrorPanel } from '../../components/ErrorPanel';
 
 const ReleasePage: React.FC = () => {
   const releaseId = useLoaderData();
@@ -41,9 +41,12 @@ const ReleasePage: React.FC = () => {
         )
       }
       {
-        release && (
+        !loading && (
           <ContentHeader>::
-            <span><Link to="/releases" className="breadcrumb">Release</Link>::{release?.secured ? `Release ${release?.id}` : release?.name}</span>
+            <span><Link to="/releases" className="breadcrumb">Release</Link>::{
+              responseError ? 'Err0r' :
+                release?.secured ? `Release ${release?.id
+              }` : release?.name}</span>
             {
               release?.artists.length > 0 &&
                 <div>
@@ -59,7 +62,10 @@ const ReleasePage: React.FC = () => {
         )
       }
       <ContentContainer>
-        { loading ? <MiniLoader /> : <ReleaseTable release={release} /> }
+        { 
+          loading ? <MiniLoader /> :
+            responseError ? <ErrorPanel errorMessage={responseError} /> : <ReleaseTable release={release} /> 
+        }
       </ContentContainer>
     </DefaultLayout>
   );

@@ -55,7 +55,9 @@ const DropdownUser = () => {
           </span>
           <span className="block text-xs">{user.role}</span>
         </span>
-
+        {/* <span className="h-12 w-12 rounded-full">
+          XXX
+        </span> */}
         <svg
           className="hidden fill-current sm:block"
           width="12"

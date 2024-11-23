@@ -361,6 +361,12 @@ input[type="search"]::-webkit-search-cancel-button {
   display: none !important;
 }
 
+/* Eivu Styling */
+
+.file-icon {
+  color: silver;
+}
+
 .queueRow.otherItem {
   cursor: pointer;
 }
@@ -590,12 +596,100 @@ table#file-details-table tbody tr td:nth-child(1) {
 #tab-category-wrapper {
   @apply mb-6 flex flex-wrap gap-5 border-b border-stroke dark:border-strokedark sm:gap-10;
 }
+
 .tab-category {
-  @apply border-b-2 py-4 text-sm font-medium hover:text-primary md:text-base;
+  @apply border-b-2 py-4 font-medium hover:text-primary md:text-base;
 }
 
+#top-nav-inner-wrapper {
+  @apply items-center justify-between px-4 py-4 shadow-2 md:px-6 2xl:px-11;
+}
+
+@media only screen and (max-width: 499px) {
+  .tab-label.inactive,
+  .tab-category {
+    /* mobile */ 
+    font-size: 10px
+  }
+
+  #tab-category-wrapper {
+    flex-wrap: nowrap;
+    /* mobile */ 
+    /* margin-left: -35px; */
+  }
+
+  #tab-archive-wrapper {
+    /* mobile */ 
+    margin-left: -20px;
+    width: 100px
+  }
+
+  .tab-category .caret-down {
+    padding-left: 2px;
+    margin-top: 6px;
+  }
+
+  #header-hover-menu-items {
+    margin-left: -30px;
+  }
+}
+
+@media only screen and (min-width: 500px) {
+  #top-nav-inner-wrapper {
+    @apply flex flex-grow 
+  }
+
+  .tab-category .caret-down {
+    padding-left: 10px;
+    margin-top: 4px;
+  }
+
+}
+
+header#top-nav {
+  @apply top-0 z-999 w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none;
+}
+
+@media only screen and (min-width: 700px) {
+  header#top-nav {
+    @apply flex
+  }
+}
+
+#top-nav-sidebar-toggle {
+  @apply flex items-center gap-2 lg:hidden;
+}
+
+.tab-category.active {
+  @apply text-primary border-primary
+}
+
+.tab-category.inactive {
+  @apply border-transparent;
+}
+
+
+.tab-category .caret-down {
+  float: right;
+}
+
+#header-hover-menu-items .tab-category {
+  width: 112px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+#header-hover-menu-items .tab-category.active {
+  background-color: rgb(60 80 224);
+  color: white;
+  margin-top: -2px;
+}
+
+
+
+
 .tab-label {
-  @apply border-b-2 py-4 text-sm font-medium md:text-base;
+  @apply border-b-2 py-4 text-sm font-medium md:text-base border-transparent;
   color: silver;
   cursor: default;
 }

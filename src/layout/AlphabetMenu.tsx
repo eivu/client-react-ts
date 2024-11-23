@@ -53,7 +53,7 @@ export function AlphabetMenuHorizontal({
                   All
                 </div>
               ) : (
-                <Link to={`/${collection}`} onClick={()=>{handleLetterChange('')}} className="text-sm text-black dark:text-white hover:text-primary dark:hover:text-primary-dark">
+                <Link to="#" onClick={()=>{handleLetterChange('')}} className="text-sm text-black dark:text-white hover:text-primary dark:hover:text-primary-dark">
                   All
                 </Link>
               )
@@ -66,7 +66,7 @@ export function AlphabetMenuHorizontal({
                   #
                 </div>
               ) : (
-                <Link to={`/${collection}?letter=#`} onClick={()=>{handleLetterChange('#')}} className="text-sm text-black dark:text-white hover:text-primary dark:hover:text-primary-dark">
+                <Link to="#" onClick={()=>{handleLetterChange('#')}} className="text-sm text-black dark:text-white hover:text-primary dark:hover:text-primary-dark">
                   #
                 </Link>
               )
@@ -82,7 +82,7 @@ export function AlphabetMenuHorizontal({
               ) : (
                 // <Link to={{ pathname: '/my-route', hash: { param1: 'value1', param2: 'value2' } }} onClick={()=>{handleLetterChange(letter)}} className="text-sm text-black dark:text-white hover:text-primary dark:hover:text-primary-dark">
 
-                <Link to={`/${collection}?letter=${letter}`} onClick={()=>{handleLetterChange(letter)}} className="text-sm text-black dark:text-white hover:text-primary dark:hover:text-primary-dark">
+                <Link to="#" onClick={()=>{handleLetterChange(letter)}} className="text-sm text-black dark:text-white hover:text-primary dark:hover:text-primary-dark">
                   {letter}
                 </Link>
               )
