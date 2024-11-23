@@ -688,7 +688,7 @@ header#top-nav {
 
 
 .tab-label {
-  @apply border-b-2 py-4 text-sm font-medium md:text-base;
+  @apply border-b-2 py-4 text-sm font-medium md:text-base border-transparent;
   color: silver;
   cursor: default;
 }
