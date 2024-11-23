@@ -616,12 +616,29 @@ table#file-details-table tbody tr td:nth-child(1) {
     /* mobile */ 
     /* margin-left: -35px; */
   }
+
+  #tab-archive-wrapper {
+    /* mobile */ 
+    margin-left: -20px;
+    width: 100px
+  }
+
+  .tab-category .caret-down {
+    padding-left: 2px;
+    margin-top: 6px;
+  }
 }
 
 @media only screen and (min-width: 500px) {
   #top-nav-inner-wrapper {
     @apply flex flex-grow 
   }
+
+  .tab-category .caret-down {
+    padding-left: 10px;
+    margin-top: 4px;
+  }
+
 }
 
 header#top-nav {
@@ -640,9 +657,8 @@ header#top-nav {
   @apply border-transparent;
 }
 
+
 .tab-category .caret-down {
-  padding-left: 10px;
-  margin-top: 4px;
   float: right;
 }
 

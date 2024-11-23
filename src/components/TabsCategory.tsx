@@ -21,18 +21,9 @@ const CateogryTabs: React.FC = () => {
       <TabCategoryLink category="audio" label={'Audio'} authStatus={authStatus} />
       <TabCategoryLink category="video" label={'Video'} authStatus={authStatus} />
       <TabCategoryLink category="image" label={'Image'} authStatus={authStatus} />
-      { false && <Link
-        to="#"
-        className={`border-b-2 py-4 text-sm font-medium hover:text-primary md:text-base ${
-          openTab === 5 ? activeClasses : inactiveClasses
-        }`}
-        onClick={() => setOpenTab(5)}
-      >
-        Secured
-      </Link> }
-      
-      <div className="group">
-        <div className="flex items-center justify-between space-x-5 bg-white px-4">
+
+      <div id="archive-menu" className="group">
+        <div id="tab-archive-wrapper" className="flex items-center justify-between space-x-5 bg-white px-4">
           <TabCategoryLink category={'archive'} label={'Archive '} authStatus={authStatus} subCategories={['text', 'pdf', 'comics', 'roms']} />
         </div>
         {

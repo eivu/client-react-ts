@@ -21,6 +21,7 @@ export const TabCategoryLink:FC = ({category, label, authStatus, subCategories}:
   return (
     <Link
       to="#"
+      id={`tab-${category}`}
       className={`
         ${authStatus === 'logged-in' ? 'tab-category' : 'tab-label'}
         ${category === activeCategory || subCategories?.includes(activeCategory) ? activeClasses : inactiveClasses}
@@ -28,7 +29,9 @@ export const TabCategoryLink:FC = ({category, label, authStatus, subCategories}:
       onClick={() => dispatch({type: 'setActiveCategory', activeCategory: category})}
     >
       {label}
-      { authStatus === 'logged-in' && !!subCategories &&  <span className="caret-down"><CaretDown size="15" /></span> }
+      { authStatus === 'logged-in' && !!subCategories &&  <span className="caret-down"><CaretDown /></span> }
+      {/* { authStatus === 'logged-in' && !!subCategories &&  <span className="caret-down"><CaretDown size="15" /></span> } */}
+
     </Link>
   );
 }
