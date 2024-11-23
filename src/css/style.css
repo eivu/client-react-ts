@@ -606,6 +606,7 @@ table#file-details-table tbody tr td:nth-child(1) {
 }
 
 @media only screen and (max-width: 499px) {
+  .tab-label.inactive,
   .tab-category {
     /* mobile */ 
     font-size: 10px
