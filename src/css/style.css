@@ -602,18 +602,25 @@ table#file-details-table tbody tr td:nth-child(1) {
 }
 
 #top-nav-inner-wrapper {
-  @apply flex flex-grow items-center justify-between px-4 py-4 shadow-2 md:px-6 2xl:px-11;
+  @apply items-center justify-between px-4 py-4 shadow-2 md:px-6 2xl:px-11;
 }
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 499px) {
   .tab-category {
     /* mobile */ 
     font-size: 11px
   }
 
   #tab-category-wrapper {
+    flex-wrap: nowrap;
     /* mobile */ 
-    margin-left: -35px;
+    /* margin-left: -35px; */
+  }
+}
+
+@media only screen and (min-width: 500px) {
+  #top-nav-inner-wrapper {
+    @apply flex flex-grow 
   }
 }
 
