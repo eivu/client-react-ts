@@ -21,6 +21,7 @@ const CateogryTabs: React.FC = () => {
       <TabCategoryLink category="audio" label={'Audio'} authStatus={authStatus} />
       <TabCategoryLink category="video" label={'Video'} authStatus={authStatus} />
       <TabCategoryLink category="image" label={'Image'} authStatus={authStatus} />
+      {/* <TabCategoryLink category="secured" label={'Secured'} authStatus={authStatus} /> */}
 
       <div id="archive-menu" className="group">
         <div id="tab-archive-wrapper" className="flex items-center justify-between space-x-5 bg-white px-4">
