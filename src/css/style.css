@@ -868,3 +868,6 @@ header#top-nav {
   }
 }
 
+.file-key-col {
+  max-width: 255px;
+}

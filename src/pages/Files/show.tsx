@@ -63,20 +63,20 @@ const File: FC = () => {
                 <table id="file-details-table" className="font-mono">
                   <tbody className="align-baseline">
                     <tr>
-                      <td>
+                      <td className="file-key-col">
                         Name
                       </td>
-                      <td>
+                      <td className="file-key-col">
                         {file.name}
                       </td>
                     </tr>
                     {
                       file.artists.length > 0 &&
                         <tr>
-                          <td>
+                          <td className="file-key-col">
                             Artist(s)
                           </td>
-                          <td>
+                          <td className="file-key-col">
                             {file.artists.map(artist => <Link className="pr-2" to={`/artists/${artist.id}`} key={`artist-${artist.id}`}>{artist.name}</Link>)}
                           </td>
                         </tr>
@@ -84,10 +84,10 @@ const File: FC = () => {
                     {
                       file.releases.length > 0 &&
                         <tr>
-                          <td>
+                          <td className="file-key-col">
                             Release(s)
                           </td>
-                          <td>
+                          <td className="file-key-col">
                             {file.releases.map(release => <Link to={`/releases/${release.id}`} key={`release-${release.id}`}>{release.name}</Link>)}
                           </td>
                         </tr>
@@ -95,10 +95,10 @@ const File: FC = () => {
                     {
                       file.releasePos &&
                         <tr>
-                          <td>
+                          <td className="file-key-col">
                             Release Pos
                           </td>
-                          <td>
+                          <td className="file-key-col">
                             {file.releasePos}
                           </td>
                         </tr>
@@ -106,45 +106,45 @@ const File: FC = () => {
                     {
                       file.state == 'completed' && file.duration && file.duration > 0 &&
                         <tr>
-                          <td>
+                          <td className="file-key-col">
                             Duration
                           </td>
-                          <td>
+                          <td className="file-key-col">
                             {convertSecondsToTimeHhMmSs(file.duration)}
                           </td>
                         </tr>
                     }
                     <tr>
-                      <td>
+                      <td className="file-key-col">
                         Content Type
                       </td>
-                      <td>
+                      <td className="file-key-col">
                         {file.contentType}
                       </td>
                     </tr>
                     <tr>
-                      <td>
+                      <td className="file-key-col">
                         NSFW
                       </td>
-                      <td>
+                      <td className="file-key-col">
                         {file.nsfw ? "Yes" : "No"}
                       </td>
                     </tr>
                     <tr>
-                      <td>
+                      <td className="file-key-col">
                         Secured
                       </td>
-                      <td>
+                      <td className="file-key-col">
                         {file.secured ? "Yes" : "No"}
                       </td>
                     </tr>
                     {
                       file.filesize &&
                         <tr>
-                          <td>
+                          <td className="file-key-col">
                             Filesize
                           </td>
-                          <td>
+                          <td className="file-key-col">
                             {prettyBytes(file.filesize)}
                           </td>
                         </tr>
@@ -152,10 +152,10 @@ const File: FC = () => {
                     {
                       file.year &&
                         <tr>
-                          <td>
+                          <td className="file-key-col">
                             Year
                           </td>
-                          <td>
+                          <td className="file-key-col">
                             {file.year}
                           </td>
                         </tr>
@@ -163,10 +163,10 @@ const File: FC = () => {
                     {
                       file.description &&
                         <tr>
-                          <td>
+                          <td className="file-key-col">
                             Description
                           </td>
-                          <td>
+                          <td className="file-key-col">
                             {file.description}
                           </td>
                         </tr>
@@ -174,62 +174,62 @@ const File: FC = () => {
                     {
                       file.rating &&
                         <tr>
-                          <td>
+                          <td className="file-key-col">
                             Rating
                           </td>
-                          <td>
+                          <td className="file-key-col">
                             {file.rating}
                           </td>
                         </tr>
                     }
                     <tr>
-                      <td>
+                      <td className="file-key-col">
                         Source
                       </td>
-                      <td>
+                      <td className="file-key-col">
                         <Link to={file.url}>Link</Link>
                       </td>
                     </tr>
                     {
                       file.dateAquiredAt &&
                         <tr>
-                          <td>
+                          <td className="file-key-col">
                             Num Plays
                           </td>
-                          <td>
+                          <td className="file-key-col">
                             {timeAgo(file.date_aquiredAt)}
                           </td>
                         </tr>
                     }
                     <tr>
-                      <td>
+                      <td className="file-key-col">
                         State
                       </td>
-                      <td>
+                      <td className="file-key-col">
                         {file.state}
                       </td>
                     </tr>
                     <tr>
-                      <td>
+                      <td className="file-key-col">
                         Created At
                       </td>
-                      <td>
+                      <td className="file-key-col">
                         {timeAgo(file.createdAt)}
                       </td>
                     </tr>
                     <tr>
-                      <td>
+                      <td className="file-key-col">
                         Updated At
                       </td>
-                      <td>
+                      <td className="file-key-col">
                         {timeAgo(file.updatedAt)}
                       </td>
                     </tr>
                     <tr>
-                      <td>
+                      <td className="file-key-col">
                         Shared
                       </td>
-                      <td>
+                      <td className="file-key-col">
                         {file.shared ? "Yes" : "No"}
                       </td>
                     </tr>
