@@ -34,7 +34,21 @@
   max-width: 300px;
 }
 
-@media only screen and (max-width: 475px) {
+
+@media only screen and (max-width: 360px) {
+  .vds-title-text {
+    font-size: 10px;
+  }
+}
+
+@media only screen and (min-width: 361px)  and (max-width: 375px) {
+  .vds-title-text {
+    font-size: 12px;
+  }
+}
+
+
+@media only screen and (min-width: 376px) and (max-width: 475px) {
   .vds-title-text {
     font-size: 13px;
   }
