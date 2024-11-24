@@ -873,5 +873,14 @@ header#top-nav {
 }
 
 #cover-art-frame {
-  @apply mx-auto mb-10 w-full max-w-60 rounded-sm border border-strokedark bg-boxdark px-4 py-6 text-center shadow-default;
+  @apply mx-auto  w-full max-w-60 rounded-sm border border-strokedark bg-boxdark px-4 py-6 text-center shadow-default;
+}
+
+#cover-art-frame.logged-in {
+  @apply mb-10;
+}
+
+
+#cover-art-frame.logged-out {
+  margin-top: 208px;
 }

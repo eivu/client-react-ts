@@ -2,6 +2,13 @@ import api from './api.config';
 import { jwtDecode } from "jwt-decode";
 import { User } from '../types/user';
 
+
+export type AuthStatusType = 'logged-in' | 'logged-out';
+
+export const authStatus =():AuthStatusType => {
+  return isLoggedIn() ? 'logged-in' : 'logged-out';
+}
+
 export const isLoggedIn = ():boolean => {
   const user  = getCurrentUser();
   const token = localStorage.getItem("token");

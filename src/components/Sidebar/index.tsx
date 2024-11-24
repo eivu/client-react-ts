@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { getCurrentUser } from '../../services/auth.service';
+import { getCurrentUser, authStatus } from '../../services/auth.service';
 
 const LoggedInItems: FC = () => {
   const location = useLocation();
@@ -210,7 +210,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             }
           </ul>
           {/* Promo/MP3/Artwork Area */}
-          <div id="cover-art-frame" className="">
+          <div id="cover-art-frame" className={authStatus()}>
             <img src="/eivu008.png" />
           </div>
         </nav>
