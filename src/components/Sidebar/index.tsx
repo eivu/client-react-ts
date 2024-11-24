@@ -210,8 +210,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             }
           </ul>
           {/* Promo/MP3/Artwork Area */}
-          <div className="mx-auto mb-10 w-full max-w-60 rounded-sm border border-strokedark bg-boxdark px-4 py-6 text-center shadow-default">
-           <img src="/eivu008.png" />
+          <div id="cover-art-frame" className="">
+            <img src="/eivu008.png" />
           </div>
         </nav>
         {/* <!-- Sidebar Menu --> */}
