@@ -44,7 +44,8 @@ const MetadatumPage: FC = () => {
     setLoading(true);
     setSearchParams(cleanseSearchParams(searchParams));
     api.get(`/metadata/${medatatumId}`, {
-      params: { page: pageNum, category: activeCategory, delicate: false }}
+      params: constructParams(sorting)}
+      // params: { page: pageNum, category: activeCategory, delicate: false }}
     ).then((response) => {
       setMetadatum(response.data.metadatum);
       setQueueItems(response.data.files);
@@ -62,8 +63,8 @@ const MetadatumPage: FC = () => {
     setPageNum(pageNum);
     searchParams.set('pageNum', pageNum.toString());
     searchParams.set('letter', letter);
-    searchParams.set('sortBy', sorting()[0].id);
-    searchParams.set('sortDesc', sorting()[0].desc);
+    searchParams.set('sortBy', sorting[0].id);
+    searchParams.set('sortDesc', sorting[0].desc);
     setSearchParams(searchParams);
   }
 
@@ -79,20 +80,20 @@ const MetadatumPage: FC = () => {
     }
   }
 
-  function handleLetterChange(letter: string) {
-    event?.preventDefault();
-    setLoading(true);
-    setLetter(letter);
-    setPageNum(1);
-    searchParams.set('pageNum', '1');
-    searchParams.set('letter', letter);
-    searchParams.set('sortBy', sorting()[0].id);
-    searchParams.set('sortDesc', sorting()[0].desc);
-    setSearchParams(searchParams);
-  }
+  // function handleLetterChange(letter: string) {
+  //   event?.preventDefault();
+  //   setLoading(true);
+  //   setLetter(letter);
+  //   setPageNum(1);
+  //   searchParams.set('pageNum', '1');
+  //   searchParams.set('letter', letter);
+  //   searchParams.set('sortBy', sorting[0].id);
+  //   searchParams.set('sortDesc', sorting[0].desc);
+  //   // setSearchParams({pageNum: '1', letter, sortBy: sorting[0].id, sortDesc: sorting[0].desc});
+  // }
 
   function handleSortChange(sorting: SortingState) {
-    setSorting(sorting);
+    setSorting(sorting());
     searchParams.set('pageNum', '1');
     searchParams.set('sortBy', sorting()[0].id);
     searchParams.set('sortDesc', sorting()[0].desc);
@@ -112,7 +113,7 @@ const MetadatumPage: FC = () => {
 
       <section id="content-container" className="data-table-common data-table-two rounded-sm border border-stroke bg-white py-4 shadow-default dark:border-strokedark  dark:bg-boxdark">
       <div>
-        <AlphabetMenu activeLetter={letter} collection="files" handleLetterChange={handleLetterChange} />
+        {/* <AlphabetMenu activeLetter={letter} collection="files" handleLetterChange={handleLetterChange} /> */}
         {/* <div className="flex justify-between border-b border-stroke px-8 pb-4 dark:border-strokedark">
           {/* Search Field * /}
           <div className="w-100">
