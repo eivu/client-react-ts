@@ -8,6 +8,7 @@ import { MiniLoader } from '../../components/Loader';
 import { PaginationMenu } from '../../layout/PaginationMenu';
 import { ErrorPanel } from '../../components/ErrorPanel';
 
+
 const ReleasesIndex: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [letter, setLetter] = useState<string>(searchParams.get('letter') || '');

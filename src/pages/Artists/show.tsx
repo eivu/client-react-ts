@@ -1,17 +1,9 @@
-// http://localhost:5173/artists/71
-// http://localhost:5173/artists/427
-
-
-import React from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 import DefaultLayout, { ContentHeader, ContentContainer } from '../../layout/DefaultLayout';
 import api from '../../services/api.config';
 import  { useAppContext } from '../../store/AppContext';
 // import axios from 'axios';
-import { useMediaState } from '@vidstack/react';
-import { useMemo, useState, useEffect, FC } from 'react';
-import AddToQueueButton from '../../components/AddToQueueButton';
-import AVButton from '../../components/AVButton';
+import { useState, useEffect, FC } from 'react';
 import type { Artist } from '../../types/artist';
 import type { Release } from '../../types/release';
 import { MiniLoader } from '../../components/Loader';
@@ -19,8 +11,10 @@ import { ReleaseTable } from '../../components/ReleaseTable';
 import { PaginationMenu } from '../../layout/PaginationMenu';
 import { ErrorPanel } from '../../components/ErrorPanel';
 import { objectToQueueItem } from "../../common/objectToQueueItem";
+import { AlbumControls } from '../../components/AlbumControls';
 
-const ArtistPage: React.FC = () => {
+
+const ArtistPage: FC = () => {
   const artistId = useLoaderData()<number>;
   const [pageNum, setPageNum] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(true);
@@ -28,24 +22,7 @@ const ArtistPage: React.FC = () => {
   const [releases, setReleases] = useState<Release[]>([]);
   const [responseError, setResponseError] = useState<string>('');
   const [meta, setMeta] = useState<any>({});
-  const { activeCategory, dispatch, player } = useAppContext();
-
-  function playAll(release: Release) {
-    const tracks:QueueItem[] = release.tracks.map((track) => { return objectToQueueItem(track)})
-
-      dispatch({type: 'setQueueIndex', queueIndex: 0})
-      dispatch({type: 'setQueue', queue: tracks});
-      player!.current.play();
-
-
-    // dispatch({type: 'insertMultiQueueItems', queueItems: tracks })
-  }
-
-  function addAllToQueue(release: Release) {
-    const tracks:QueueItem[] = release.tracks.map((track) => { return objectToQueueItem(track)})
-    dispatch({type: 'addMultiQueueItems', queueItems: tracks })
-  }
-
+  const { activeCategory } = useAppContext();
 
   useEffect(() => {
     setLoading(true);
@@ -97,8 +74,6 @@ const ArtistPage: React.FC = () => {
       <ContentContainer>
         {
           loading ? <MiniLoader /> : 
-          
-          
           ( 
             responseError ? <ErrorPanel errorMessage={responseError} /> :
               releases?.length === 0 ? <div className="empty">No releases found</div> :
@@ -119,14 +94,7 @@ const ArtistPage: React.FC = () => {
                         {release.name}
                         {release.year && (` (${release.year})`)}
                       </Link>
-                      {
-                        release &&
-                          <div className="text-sm font-normal">
-                            <span className="cursor-pointer" onClick={() => playAll(release)}>Play All</span>
-                            |
-                            <span className="cursor-pointer" onClick={() => addAllToQueue(release)}>Add All</span>
-                          </div>
-                      }
+                      { release && <AlbumControls release={release} /> }
                     </div>
                     <div className="clear-both"></div>
                     <ReleaseTable release={release} />

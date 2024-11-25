@@ -8,30 +8,16 @@ import { MiniLoader } from '../../components/Loader';
 import api from '../../services/api.config';
 import { ReleaseTable } from '../../components/ReleaseTable';
 import { ErrorPanel } from '../../components/ErrorPanel';
-import { objectToQueueItem } from "../../common/objectToQueueItem";
+import { AlbumControls } from '../../components/AlbumControls';
+
 
 const ReleasePage: React.FC = () => {
   const releaseId = useLoaderData();
   const [loading, setLoading] = useState<boolean>(true);
   const [release, setRelease] = useState<Release>();
   const [responseError, setResponseError] = useState<string>('');
-  const { activeCategory, dispatch, player } = useAppContext();
+  const { activeCategory } = useAppContext();
 
-  function playAll(release: Release) {
-    const tracks:QueueItem[] = release.tracks.map((track) => { return objectToQueueItem(track)})
-
-      dispatch({type: 'setQueueIndex', queueIndex: 0})
-      dispatch({type: 'setQueue', queue: tracks});
-      player!.current.play();
-
-
-    // dispatch({type: 'insertMultiQueueItems', queueItems: tracks })
-  }
-
-  function addAllToQueue(release: Release) {
-    const tracks:QueueItem[] = release.tracks.map((track) => { return objectToQueueItem(track)})
-    dispatch({type: 'addMultiQueueItems', queueItems: tracks })
-  }
 
   useEffect(() => {
     setLoading(true);
@@ -75,14 +61,7 @@ const ReleasePage: React.FC = () => {
                    }
                 </div>
             }
-            {
-              release &&
-                <div className="text-sm font-normal">
-                  <span className="cursor-pointer" onClick={() => playAll(release)}>Play All</span>
-                  |
-                  <span className="cursor-pointer" onClick={() => addAllToQueue(release)}>Add All</span>
-                </div>
-            }
+            { release && <AlbumControls release={release} /> }
           </ContentHeader>
         )
       }
