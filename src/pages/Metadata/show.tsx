@@ -141,7 +141,7 @@ const MetadatumPage: FC = () => {
         searchTerm={searchTerm}
         setSorting={handleSortChange} /> }
       {
-        !loading && !responseError &&
+        !loading && !responseError && meta.totalPages > 1 &&
           <PaginationMenu
             pageNum={pageNum}
             totalPages={meta.totalPages}
