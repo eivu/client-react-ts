@@ -23,10 +23,13 @@ export function PaginationMenu({
     <div className="flex justify-between border-t border-stroke px-8 pt-5 dark:border-strokedark">
       <div className="flex">
         <button
-          className="flex cursor-pointer items-center justify-center rounded-md p-1 px-2 hover:bg-primary hover:text-white"
+          className={ pageNum > 1 ? `pagination-button` : 'cursor-not-allowed' }
           onClick={
-            () => alert('oi')
-            // () => previousPage()
+            () => {
+              if (pageNum > 1) {
+                handlePageChange(pageNum - 1);
+              }
+            }
           }
           disabled={
             false
@@ -56,17 +59,20 @@ export function PaginationMenu({
             }}
             className={`${
               pageNum === pageValue && 'bg-primary text-white'
-            } mx-1 flex cursor-pointer items-center justify-center rounded-md p-1 px-3 hover:bg-primary hover:text-white`}
+            } mx-1 pagination-button`}
           >
             {pageValue || ''}
           </button>
         ))}
 
         <button
-          className="flex cursor-pointer items-center justify-center rounded-md p-1 px-2 hover:bg-primary hover:text-white"
+          className={pageNum < totalPages ? 'pagination-button' : 'cursor-not-allowed'}
           onClick={
-            () => alert('oi')
-            // () => nextPage()
+            () => {
+              if (pageNum < totalPages) {
+                handlePageChange(pageNum + 1);
+              }
+            }
           }
           disabled={ /*!canNextPage*/
             true
