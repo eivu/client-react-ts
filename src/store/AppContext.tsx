@@ -31,6 +31,7 @@ type Action =
   | { type: 'clearQueue' }
   | { type: 'clearQueueItem' }
   | { type: 'addQueueItem', queueItem: QueueItem }
+  | { type: 'addMultiQueueItems', queueItems: QueueItem[] }
   | { type: 'removeQueueItem', queueItem: QueueItem }
   | { type: 'clearAll' }
   | { type: 'setActiveCategory', activeCategory: Category };
@@ -53,6 +54,8 @@ function reducer(state: State, action: Action): State {
       return { ...state, queueItem: undefined };
     case 'addQueueItem':
       return { ...state, queue: [...state.queue, action.queueItem] };
+    case 'addMultiQueueItems':
+      return { ...state, queue: state.queue.concat(action.queueItems) };
     case 'removeQueueItem':
       return { ...state, queue: state.queue.filter((item) => item.md5 !== action.queueItem.md5) };
     case 'setActiveCategory':

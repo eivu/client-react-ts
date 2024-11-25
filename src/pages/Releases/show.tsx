@@ -8,13 +8,19 @@ import { MiniLoader } from '../../components/Loader';
 import api from '../../services/api.config';
 import { ReleaseTable } from '../../components/ReleaseTable';
 import { ErrorPanel } from '../../components/ErrorPanel';
+import { objectToQueueItem } from "../../common/objectToQueueItem";
 
 const ReleasePage: React.FC = () => {
   const releaseId = useLoaderData();
   const [loading, setLoading] = useState<boolean>(true);
   const [release, setRelease] = useState<Release>();
   const [responseError, setResponseError] = useState<string>('');
-  const { activeCategory } = useAppContext();
+  const { activeCategory, dispatch } = useAppContext();
+
+  function addAllToQueue(release: Release) {
+    const tracks:QueueItem[] = release.tracks.map((track) => { return objectToQueueItem(track)})
+    dispatch({type: 'addMultiQueueItems', queueItems: tracks })
+  }
 
   useEffect(() => {
     setLoading(true);
@@ -48,14 +54,21 @@ const ReleasePage: React.FC = () => {
                 release?.secured ? `Release ${release?.id
               }` : release?.name}</span>
             {
-              release?.artists.length > 0 &&
+              release?.artists?.length > 0 &&
                 <div>
                   {/* BY */}
                   { release.artists.map((artist) => {
                     return (
-                      <Link to={`/artists/${artist.id}`} className="pr-2">{artist.name}</Link>
+                      <Link to={`/artists/${artist.id}`} className="pr-2" key={`artist-link-${artist.id}`}>{artist.name}</Link>
                     )})
                    }
+                </div>
+            }
+            {
+              release &&
+                <div className="text-sm font-normal">
+                  Play All |
+                  <span className="cursor-pointer" onClick={() => addAllToQueue(release)}>Add All</span>
                 </div>
             }
           </ContentHeader>
