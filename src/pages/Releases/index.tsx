@@ -58,7 +58,7 @@ const ReleasesIndex: React.FC = () => {
               <AlphabetMenu activeLetter={letter} collection="releases" handleLetterChange={handleLetterChange} />
               <div id="releases-list" className="list pt-10">
                 {releases.map((release) => (
-                  <div className="entry">
+                  <div className="entry" key={`release-${release.id}-entry`}>
                     <Link to={`/releases/${release.id}`}>{release.name}</Link>
                   </div>
                 ))}
