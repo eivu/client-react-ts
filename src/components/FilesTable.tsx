@@ -145,11 +145,11 @@ export const FilesTable: FC<FilesTableProps> = ({ queueItems, loading, sorting, 
       </thead>
       <tbody>
         {
-          !loading && !!searchTerm && queueItems.length === 0 &&
+          !loading && queueItems.length === 0 &&
           <tr>
             <td colSpan={columns.length}>
               <div className="flex items-center justify-center">
-                No matching files found.  Please try another search term.
+                No matching files found. { !!searchTerm  && `Please try another search term.`}
               </div>
             </td>
           </tr>
