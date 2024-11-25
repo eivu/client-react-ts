@@ -22,7 +22,7 @@ const CateogryTabs: React.FC = () => {
               <TabCategoryLink category={'text'} label={'text'} />
               <TabCategoryLink category={'pdf'} label={'pdf'} />
               <TabCategoryLink category={'comics'} label={'comics'} />
-              <TabCategoryLink category={'comics'} label={'roms'} />
+              <TabCategoryLink category={'roms'} label={'roms'} />
             </div>
         }
       </div>
