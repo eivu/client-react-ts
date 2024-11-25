@@ -15,7 +15,18 @@ const ReleasePage: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [release, setRelease] = useState<Release>();
   const [responseError, setResponseError] = useState<string>('');
-  const { activeCategory, dispatch } = useAppContext();
+  const { activeCategory, dispatch, player } = useAppContext();
+
+  function playAll(release: Release) {
+    const tracks:QueueItem[] = release.tracks.map((track) => { return objectToQueueItem(track)})
+
+      dispatch({type: 'setQueueIndex', queueIndex: 0})
+      dispatch({type: 'setQueue', queue: tracks});
+      player!.current.play();
+
+
+    // dispatch({type: 'insertMultiQueueItems', queueItems: tracks })
+  }
 
   function addAllToQueue(release: Release) {
     const tracks:QueueItem[] = release.tracks.map((track) => { return objectToQueueItem(track)})
@@ -67,7 +78,8 @@ const ReleasePage: React.FC = () => {
             {
               release &&
                 <div className="text-sm font-normal">
-                  Play All |
+                  <span className="cursor-pointer" onClick={() => playAll(release)}>Play All</span>
+                  |
                   <span className="cursor-pointer" onClick={() => addAllToQueue(release)}>Add All</span>
                 </div>
             }
