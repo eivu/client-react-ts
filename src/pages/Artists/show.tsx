@@ -13,10 +13,12 @@ import { useMemo, useState, useEffect, FC } from 'react';
 import AddToQueueButton from '../../components/AddToQueueButton';
 import AVButton from '../../components/AVButton';
 import type { Artist } from '../../types/artist';
+import type { Release } from '../../types/release';
 import { MiniLoader } from '../../components/Loader';
 import { ReleaseTable } from '../../components/ReleaseTable';
 import { PaginationMenu } from '../../layout/PaginationMenu';
 import { ErrorPanel } from '../../components/ErrorPanel';
+import { objectToQueueItem } from "../../common/objectToQueueItem";
 
 const ArtistPage: React.FC = () => {
   const artistId = useLoaderData()<number>;
@@ -26,7 +28,24 @@ const ArtistPage: React.FC = () => {
   const [releases, setReleases] = useState<Release[]>([]);
   const [responseError, setResponseError] = useState<string>('');
   const [meta, setMeta] = useState<any>({});
-  const { activeCategory } = useAppContext();
+  const { activeCategory, dispatch, player } = useAppContext();
+
+  function playAll(release: Release) {
+    const tracks:QueueItem[] = release.tracks.map((track) => { return objectToQueueItem(track)})
+
+      dispatch({type: 'setQueueIndex', queueIndex: 0})
+      dispatch({type: 'setQueue', queue: tracks});
+      player!.current.play();
+
+
+    // dispatch({type: 'insertMultiQueueItems', queueItems: tracks })
+  }
+
+  function addAllToQueue(release: Release) {
+    const tracks:QueueItem[] = release.tracks.map((track) => { return objectToQueueItem(track)})
+    dispatch({type: 'addMultiQueueItems', queueItems: tracks })
+  }
+
 
   useEffect(() => {
     setLoading(true);
@@ -100,6 +119,14 @@ const ArtistPage: React.FC = () => {
                         {release.name}
                         {release.year && (` (${release.year})`)}
                       </Link>
+                      {
+                        release &&
+                          <div className="text-sm font-normal">
+                            <span className="cursor-pointer" onClick={() => playAll(release)}>Play All</span>
+                            |
+                            <span className="cursor-pointer" onClick={() => addAllToQueue(release)}>Add All</span>
+                          </div>
+                      }
                     </div>
                     <div className="clear-both"></div>
                     <ReleaseTable release={release} />
