@@ -62,7 +62,7 @@ const ArtistsIndex: React.FC = () => {
             <AlphabetMenu activeLetter={letter} collection="artists" handleLetterChange={handleLetterChange} />
             <div id="artists-list" className="list pt-10">
               {artists.map((artist) => (
-                <div className="entry">
+                <div className="entry" key={`artist-${artist.id}-entry`}>
                   <Link to={`/artists/${artist.id}`}>{artist.name}</Link>
                 </div>
               ))}
