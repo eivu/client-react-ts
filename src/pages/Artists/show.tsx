@@ -11,7 +11,7 @@ import { ReleaseTable } from '../../components/ReleaseTable';
 import { PaginationMenu } from '../../layout/PaginationMenu';
 import { ErrorPanel } from '../../components/ErrorPanel';
 import { objectToQueueItem } from "../../common/objectToQueueItem";
-import { AlbumControls } from '../../components/AlbumControls';
+import { ReleaseControls } from '../../components/ReleaseControls';
 
 
 const ArtistPage: FC = () => {
@@ -94,7 +94,7 @@ const ArtistPage: FC = () => {
                         {release.name}
                         {release.year && (` (${release.year})`)}
                       </Link>
-                      { release && <AlbumControls release={release} /> }
+                      { release && <ReleaseControls release={release} /> }
                     </div>
                     <div className="clear-both"></div>
                     <ReleaseTable release={release} />

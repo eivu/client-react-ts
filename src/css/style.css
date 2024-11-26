@@ -896,3 +896,11 @@ header#top-nav {
 .album-control {
   @apply cursor-pointer;
 }
+
+.album-controls-inner-wrapper {
+  border-top: 1px solid silver;
+}
+
+.album-controls .spacer {
+  color: silver;
+}

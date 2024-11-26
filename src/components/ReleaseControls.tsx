@@ -6,7 +6,7 @@ import { useAppContext } from '../store/AppContext';
 
 
 
-export const AlbumControls: JSX.Element = ({release}:{release: Release}) => {
+export const ReleaseControls: JSX.Element = ({release}:{release: Release}) => {
   const tracks:QueueItem[] = release.tracks.map((track) => { return objectToQueueItem(track)})
   const { dispatch, player } = useAppContext();
 
@@ -29,9 +29,11 @@ export const AlbumControls: JSX.Element = ({release}:{release: Release}) => {
 
   return (
     <div className="album-controls">
-      <span className="album-control" onClick={() => playAll(release)}>Play All</span>
-      |
-      <span className="album-control" onClick={() => addAllToQueue(release)}>Add All</span>
+      <span className='album-controls-inner-wrapper'>
+        <button className="album-control pr-2" onClick={() => playAll(release)}>Play All</button>
+        <span className='spacer'>|</span>
+        <button className="album-control pl-2" onClick={() => addAllToQueue(release)}>Add All</button>
+      </span>
     </div>
   );
 }

@@ -8,7 +8,7 @@ import { MiniLoader } from '../../components/Loader';
 import api from '../../services/api.config';
 import { ReleaseTable } from '../../components/ReleaseTable';
 import { ErrorPanel } from '../../components/ErrorPanel';
-import { AlbumControls } from '../../components/AlbumControls';
+import { ReleaseControls } from '../../components/ReleaseControls';
 
 
 const ReleasePage: React.FC = () => {
@@ -61,7 +61,7 @@ const ReleasePage: React.FC = () => {
                    }
                 </div>
             }
-            { release && <AlbumControls release={release} /> }
+            { release && <ReleaseControls release={release} /> }
           </ContentHeader>
         )
       }
