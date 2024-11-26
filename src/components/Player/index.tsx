@@ -1,5 +1,5 @@
 import './player.css';
-import { ReactElement, useEffect, useRef } from 'react';
+import { ReactElement, useEffect, useState, useRef } from 'react';
 import { useAppContext } from '../../store/AppContext';
 import {
   MediaPlayer,
@@ -20,6 +20,9 @@ import { type QueueItem } from '../../types/queueItem';
 import { AudioLayout } from './layouts/audio-layout';
 
 export function Player():ReactElement {
+  let playerTimeout:number;
+  const [markAsPlayedTimeout, setMarkAsPlayedTimeout] = useState<boolean>(false);
+  const MIN_PLAYING_DURATION:number =  1000;
   const { dispatch, queueIndex, queue } = useAppContext();
   let player = useRef<MediaPlayerInstance>(null);
 
@@ -40,14 +43,41 @@ export function Player():ReactElement {
     return {src: currentQueueItem().url, type: currentQueueItem().contentType }; 
   }
 
+  function setTimer():void {
+    playerTimeout = setTimeout(updateServerStats, MIN_PLAYING_DURATION);
+    console.log('onPlay', currentQueueItem().name);
+  }
+
+  function onSeeked():void {
+    clearTimeout(playerTimeout);
+    playerTimeout = setTimeout(updateServerStats, MIN_PLAYING_DURATION);
+    console.log('onSeeked', currentQueueItem().name);
+    // alert("found onSeeked");
+    // clearTimeout(playerTimeout);
+  }
+
+  function updateServerStats():void {
+    // alert('updateServerStats');
+    if (!markAsPlayedTimeout) {
+      console.log('updateServerStats', currentQueueItem().name);
+      clearTimeout(playerTimeout);
+      setMarkAsPlayedTimeout(true);
+    }
+  }
+
   // We can listen for the `can-play` event to be notified when the player is ready.
-  function onCanPlay(detail: MediaCanPlayDetail, nativeEvent: MediaCanPlayEvent) {
+  function onCanPlay(detail: MediaCanPlayDetail, nativeEvent: MediaCanPlayEvent):void {
     player && player!.current.play();
   }
 
   function onEnded():void {
     // play next item in queue if it exists.
-    nextQueueItem() && dispatch({type: 'incrementQueueIndex'})
+    resetMarkAsPlayedTimeout() && nextQueueItem() && dispatch({type: 'incrementQueueIndex'});
+  }
+
+  function resetMarkAsPlayedTimeout():boolean {
+    setMarkAsPlayedTimeout(false);
+    return true;
   }
 
   return (
@@ -56,7 +86,8 @@ export function Player():ReactElement {
       title={currentQueueItem().name}
       src={currentPlayerSrc}
       onCanPlay={onCanPlay}
-      // onEnded={() => alert('Media ended')}
+      onPlay={setTimer}
+      onSeeked={onSeeked}
       onEnded={onEnded}
       crossOrigin
       playsInline
