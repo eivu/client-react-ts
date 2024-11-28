@@ -21,18 +21,34 @@ import { AudioLayout } from './layouts/audio-layout';
 
 export function Player():ReactElement {
   let playerTimeout:number;
+  const [currentTrack, setCurrentTrack] = useState<QueueItem | undefined>(undefined);
   const [markAsPlayedTimeout, setMarkAsPlayedTimeout] = useState<boolean>(false);
   const [markedTrack, setMarkedTrack] = useState<QueueItem | undefined>(undefined);
-  const MIN_PLAYING_DURATION:number =  5000;
+  const [trackTimer, setTrackTimer] = useState<number>(0);
+  const MIN_PLAYING_DURATION:number =  2000;
   const { dispatch, queueIndex, queue } = useAppContext();
   let player = useRef<MediaPlayerInstance>(null);
 
+
+  // initialize player
   useEffect(() => {
     // assign ref to player context.
     dispatch({type: 'setPlayer', player: player});
+    // // set current track
+    // setCurrentTrack(queue[queueIndex]);
   }, []);
 
+  useEffect(() => {
+    // set current track
+    setCurrentTrack(queue[queueIndex]);
+  }, [queueIndex]);
+
+  // useEffect(() => {
+  //   setMarkedTrack(currentQueueItem());
+  // }, [currentQueueItem()]);
+
   function nextQueueItem():QueueItem | undefined {
+    // setCurrentTrack(queue[queueIndex + 1])
     return queue[queueIndex + 1];
   }
 
@@ -45,16 +61,19 @@ export function Player():ReactElement {
   }
 
   function setTimer():void {
-    setMarkedTrack(currentQueueItem());
-    playerTimeout = setTimeout(updateServerStats, MIN_PLAYING_DURATION);
-    console.log('setTimer c:', currentQueueItem().name);
-    console.log('setTimer m:', markedTrack?.name);
+    console.log('tracking', currentTrack?.name);
+    setTrackTimer(setTimeout(updateServerStats, MIN_PLAYING_DURATION));
+    // playerTimeout = 
+    // console.log('setTimer c:', currentQueueItem().name);
+    // console.log('setTimer m:', markedTrack?.name);
 
-    console.log('onPlay', currentQueueItem().name);
+    // console.log('onPlay', currentQueueItem().name);
   }
 
   function onSeeked():void {
-    clearTimeout(playerTimeout);
+    console.log('onSeeked', currentTrack?.name);
+    console.log('trackTimer', trackTimer);
+    clearTimeout(trackTimer);
     setTimer();
     // playerTimeout = setTimeout(updateServerStats, MIN_PLAYING_DURATION);
     // setMarkedTrack(currentQueueItem());
@@ -66,10 +85,10 @@ export function Player():ReactElement {
   function updateServerStats():void {
     // alert('updateServerStats');
     if (!markAsPlayedTimeout) {
-      console.log('updateServerStats: current', currentQueueItem().name);
-      console.log('updateServerStats: marked', markedTrack?.name);
+      console.log('updateServerStats: cq', currentQueueItem().name);
+      // console.log('updateServerStats: marked', markedTrack?.name);
 
-      clearTimeout(playerTimeout);
+      clearTimeout(trackTimer);
       setMarkAsPlayedTimeout(true);
     }
   }
@@ -83,7 +102,9 @@ export function Player():ReactElement {
     // play next item in queue if it exists.
     // setMarkedTrack(nextQueueItem());
     // console.log('onEnded', markedTrack?.name);
-    resetMarkAsPlayedTimeout() && nextQueueItem() && dispatch({type: 'incrementQueueIndex'});
+    // resetMarkAsPlayedTimeout() && nextQueueItem() && dispatch({type: 'incrementQueueIndex'});
+    clearTimeout(trackTimer)
+    resetMarkAsPlayedTimeout() && dispatch({type: 'incrementQueueIndex'});
     // console.log('onEnded', currentQueueItem().name);
   }
 
@@ -99,11 +120,11 @@ export function Player():ReactElement {
       src={currentPlayerSrc}
       onCanPlay={onCanPlay}
       onPlay={setTimer}
-      onPlaying={() => {
+      // onPlaying={() => {
 
-        setMarkedTrack(currentQueueItem())
-        console.log('onPlaying c:', currentQueueItem().name, ' m:', markedTrack?.name);
-      }}
+      //   setMarkedTrack(currentQueueItem())
+      //   console.log('onPlaying c:', currentQueueItem().name, ' m:', markedTrack?.name);
+      // }}
       onSeeked={onSeeked}
       onEnded={onEnded}
       crossOrigin
