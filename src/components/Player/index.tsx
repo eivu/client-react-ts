@@ -22,7 +22,8 @@ import { AudioLayout } from './layouts/audio-layout';
 export function Player():ReactElement {
   let playerTimeout:number;
   const [markAsPlayedTimeout, setMarkAsPlayedTimeout] = useState<boolean>(false);
-  const MIN_PLAYING_DURATION:number =  1000;
+  const [markedTrack, setMarkedTrack] = useState<QueueItem | undefined>(undefined);
+  const MIN_PLAYING_DURATION:number =  5000;
   const { dispatch, queueIndex, queue } = useAppContext();
   let player = useRef<MediaPlayerInstance>(null);
 
@@ -44,14 +45,20 @@ export function Player():ReactElement {
   }
 
   function setTimer():void {
+    setMarkedTrack(currentQueueItem());
     playerTimeout = setTimeout(updateServerStats, MIN_PLAYING_DURATION);
+    console.log('setTimer c:', currentQueueItem().name);
+    console.log('setTimer m:', markedTrack?.name);
+
     console.log('onPlay', currentQueueItem().name);
   }
 
   function onSeeked():void {
     clearTimeout(playerTimeout);
-    playerTimeout = setTimeout(updateServerStats, MIN_PLAYING_DURATION);
-    console.log('onSeeked', currentQueueItem().name);
+    setTimer();
+    // playerTimeout = setTimeout(updateServerStats, MIN_PLAYING_DURATION);
+    // setMarkedTrack(currentQueueItem());
+    // console.log('onSeeked', currentQueueItem().name);
     // alert("found onSeeked");
     // clearTimeout(playerTimeout);
   }
@@ -59,7 +66,9 @@ export function Player():ReactElement {
   function updateServerStats():void {
     // alert('updateServerStats');
     if (!markAsPlayedTimeout) {
-      console.log('updateServerStats', currentQueueItem().name);
+      console.log('updateServerStats: current', currentQueueItem().name);
+      console.log('updateServerStats: marked', markedTrack?.name);
+
       clearTimeout(playerTimeout);
       setMarkAsPlayedTimeout(true);
     }
@@ -72,7 +81,10 @@ export function Player():ReactElement {
 
   function onEnded():void {
     // play next item in queue if it exists.
+    // setMarkedTrack(nextQueueItem());
+    // console.log('onEnded', markedTrack?.name);
     resetMarkAsPlayedTimeout() && nextQueueItem() && dispatch({type: 'incrementQueueIndex'});
+    // console.log('onEnded', currentQueueItem().name);
   }
 
   function resetMarkAsPlayedTimeout():boolean {
@@ -87,6 +99,11 @@ export function Player():ReactElement {
       src={currentPlayerSrc}
       onCanPlay={onCanPlay}
       onPlay={setTimer}
+      onPlaying={() => {
+
+        setMarkedTrack(currentQueueItem())
+        console.log('onPlaying c:', currentQueueItem().name, ' m:', markedTrack?.name);
+      }}
       onSeeked={onSeeked}
       onEnded={onEnded}
       crossOrigin
