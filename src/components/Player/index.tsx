@@ -17,7 +17,6 @@ import {
 
 // import { textTracks } from './tracks';
 import { type QueueItem } from '../../types/queueItem';
-import { AudioLayout } from './layouts/audio-layout';
 
 export function Player():ReactElement {
   const [currentTrack, setCurrentTrack] = useState<QueueItem | undefined>(undefined);
@@ -32,23 +31,12 @@ export function Player():ReactElement {
   useEffect(() => {
     // assign ref to player context.
     dispatch({type: 'setPlayer', player: player});
-    // // set current track
-    // setCurrentTrack(queue[queueIndex]);
   }, []);
 
   useEffect(() => {
-    // set current track
+    // set current track when queue index changes.
     setCurrentTrack(queue[queueIndex]);
   }, [queueIndex]);
-
-  // useEffect(() => {
-  //   setMarkedTrack(currentQueueItem());
-  // }, [currentQueueItem()]);
-
-  function nextQueueItem():QueueItem | undefined {
-    // setCurrentTrack(queue[queueIndex + 1])
-    return queue[queueIndex + 1];
-  }
 
   function currentQueueItem():QueueItem {
     return queue[queueIndex];
@@ -62,31 +50,16 @@ export function Player():ReactElement {
     console.log('tracking', currentTrack?.name);
     // only set timer if track is not marked as played.
     unmarkedTrack && setTrackTimer(setTimeout(updateServerStats, MIN_PLAYING_DURATION));
-    // playerTimeout = 
-    // console.log('setTimer c:', currentQueueItem().name);
-    // console.log('setTimer m:', markedTrack?.name);
-
-    // console.log('onPlay', currentQueueItem().name);
   }
 
   function onSeeked():void {
-    console.log('onSeeked', currentTrack?.name);
-    console.log('trackTimer', trackTimer);
     clearTimeout(trackTimer);
     setTimer();
-    // playerTimeout = setTimeout(updateServerStats, MIN_PLAYING_DURATION);
-    // setMarkedTrack(currentQueueItem());
-    // console.log('onSeeked', currentQueueItem().name);
-    // alert("found onSeeked");
-    // clearTimeout(playerTimeout);
   }
 
   function updateServerStats():void {
-    // alert('updateServerStats');
     if (unmarkedTrack) {
       console.log('updateServerStats: cq', currentQueueItem().name);
-      // console.log('updateServerStats: marked', markedTrack?.name);
-
       clearTimeout(trackTimer);
       setUnmarkedTrack(false);
     }
@@ -98,16 +71,11 @@ export function Player():ReactElement {
   }
 
   function onEnded():void {
-    // play next item in queue if it exists.
-    // setMarkedTrack(nextQueueItem());
-    // console.log('onEnded', markedTrack?.name);
-    // resetTimer() && nextQueueItem() && dispatch({type: 'incrementQueueIndex'});
-    clearTimeout(trackTimer)
     resetTimer() && dispatch({type: 'incrementQueueIndex'});
-    // console.log('onEnded', currentQueueItem().name);
   }
 
   function resetTimer():boolean {
+    clearTimeout(trackTimer)
     setUnmarkedTrack(true);
     return true;
   }
@@ -119,11 +87,6 @@ export function Player():ReactElement {
       src={currentPlayerSrc}
       onCanPlay={onCanPlay}
       onPlay={setTimer}
-      // onPlaying={() => {
-
-      //   setMarkedTrack(currentQueueItem())
-      //   console.log('onPlaying c:', currentQueueItem().name, ' m:', markedTrack?.name);
-      // }}
       onSeeked={onSeeked}
       onEnded={onEnded}
       crossOrigin
@@ -144,7 +107,6 @@ export function Player():ReactElement {
         }}
       />
     
-
     </MediaPlayer>
   );
 }
