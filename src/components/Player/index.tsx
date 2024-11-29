@@ -20,12 +20,10 @@ import { type QueueItem } from '../../types/queueItem';
 import { AudioLayout } from './layouts/audio-layout';
 
 export function Player():ReactElement {
-  let playerTimeout:number;
   const [currentTrack, setCurrentTrack] = useState<QueueItem | undefined>(undefined);
-  const [markAsPlayedTimeout, setMarkAsPlayedTimeout] = useState<boolean>(false);
-  const [markedTrack, setMarkedTrack] = useState<QueueItem | undefined>(undefined);
+  const [unmarkedTrack, setUnmarkedTrack] = useState<boolean>(false);
   const [trackTimer, setTrackTimer] = useState<number>(0);
-  const MIN_PLAYING_DURATION:number =  2000;
+  const MIN_PLAYING_DURATION:number =  5000;
   const { dispatch, queueIndex, queue } = useAppContext();
   let player = useRef<MediaPlayerInstance>(null);
 
@@ -62,7 +60,8 @@ export function Player():ReactElement {
 
   function setTimer():void {
     console.log('tracking', currentTrack?.name);
-    setTrackTimer(setTimeout(updateServerStats, MIN_PLAYING_DURATION));
+    // only set timer if track is not marked as played.
+    !unmarkedTrack && setTrackTimer(setTimeout(updateServerStats, MIN_PLAYING_DURATION));
     // playerTimeout = 
     // console.log('setTimer c:', currentQueueItem().name);
     // console.log('setTimer m:', markedTrack?.name);
@@ -84,12 +83,12 @@ export function Player():ReactElement {
 
   function updateServerStats():void {
     // alert('updateServerStats');
-    if (!markAsPlayedTimeout) {
+    if (!unmarkedTrack) {
       console.log('updateServerStats: cq', currentQueueItem().name);
       // console.log('updateServerStats: marked', markedTrack?.name);
 
       clearTimeout(trackTimer);
-      setMarkAsPlayedTimeout(true);
+      setUnmarkedTrack(true);
     }
   }
 
@@ -102,14 +101,14 @@ export function Player():ReactElement {
     // play next item in queue if it exists.
     // setMarkedTrack(nextQueueItem());
     // console.log('onEnded', markedTrack?.name);
-    // resetMarkAsPlayedTimeout() && nextQueueItem() && dispatch({type: 'incrementQueueIndex'});
+    // resetTimer() && nextQueueItem() && dispatch({type: 'incrementQueueIndex'});
     clearTimeout(trackTimer)
-    resetMarkAsPlayedTimeout() && dispatch({type: 'incrementQueueIndex'});
+    resetTimer() && dispatch({type: 'incrementQueueIndex'});
     // console.log('onEnded', currentQueueItem().name);
   }
 
-  function resetMarkAsPlayedTimeout():boolean {
-    setMarkAsPlayedTimeout(false);
+  function resetTimer():boolean {
+    setUnmarkedTrack(false);
     return true;
   }
 
