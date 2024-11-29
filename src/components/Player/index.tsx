@@ -23,7 +23,7 @@ export function Player():ReactElement {
   const [currentTrack, setCurrentTrack] = useState<QueueItem | undefined>(undefined);
   const [unmarkedTrack, setUnmarkedTrack] = useState<boolean>(true);
   const [trackTimer, setTrackTimer] = useState<number>(0);
-  const MIN_PLAYING_DURATION:number =  30000;
+  const MIN_PLAYING_DURATION:number =  2000;
   const { dispatch, queueIndex, queue } = useAppContext();
   let player = useRef<MediaPlayerInstance>(null);
 
@@ -38,6 +38,11 @@ export function Player():ReactElement {
     // set current track when queue index changes.
     setCurrentTrack(queue[queueIndex]);
   }, [queueIndex]);
+
+
+  function nextQueueItem():QueueItem | undefined {
+    return queue[queueIndex + 1];
+  }
 
   function currentQueueItem():QueueItem {
     return queue[queueIndex];
@@ -83,7 +88,7 @@ export function Player():ReactElement {
   }
 
   function onEnded():void {
-    resetTimer() && dispatch({type: 'incrementQueueIndex'});
+    resetTimer() && nextQueueItem() && dispatch({type: 'incrementQueueIndex'});
   }
 
   function resetTimer():boolean {
