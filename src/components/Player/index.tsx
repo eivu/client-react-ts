@@ -21,7 +21,7 @@ import { AudioLayout } from './layouts/audio-layout';
 
 export function Player():ReactElement {
   const [currentTrack, setCurrentTrack] = useState<QueueItem | undefined>(undefined);
-  const [unmarkedTrack, setUnmarkedTrack] = useState<boolean>(false);
+  const [unmarkedTrack, setUnmarkedTrack] = useState<boolean>(true);
   const [trackTimer, setTrackTimer] = useState<number>(0);
   const MIN_PLAYING_DURATION:number =  5000;
   const { dispatch, queueIndex, queue } = useAppContext();
@@ -61,7 +61,7 @@ export function Player():ReactElement {
   function setTimer():void {
     console.log('tracking', currentTrack?.name);
     // only set timer if track is not marked as played.
-    !unmarkedTrack && setTrackTimer(setTimeout(updateServerStats, MIN_PLAYING_DURATION));
+    unmarkedTrack && setTrackTimer(setTimeout(updateServerStats, MIN_PLAYING_DURATION));
     // playerTimeout = 
     // console.log('setTimer c:', currentQueueItem().name);
     // console.log('setTimer m:', markedTrack?.name);
@@ -83,12 +83,12 @@ export function Player():ReactElement {
 
   function updateServerStats():void {
     // alert('updateServerStats');
-    if (!unmarkedTrack) {
+    if (unmarkedTrack) {
       console.log('updateServerStats: cq', currentQueueItem().name);
       // console.log('updateServerStats: marked', markedTrack?.name);
 
       clearTimeout(trackTimer);
-      setUnmarkedTrack(true);
+      setUnmarkedTrack(false);
     }
   }
 
@@ -108,7 +108,7 @@ export function Player():ReactElement {
   }
 
   function resetTimer():boolean {
-    setUnmarkedTrack(false);
+    setUnmarkedTrack(true);
     return true;
   }
 
