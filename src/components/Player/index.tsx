@@ -9,6 +9,7 @@ import {
 } from '@vidstack/react';
 
 import * as Buttons from './layouts/shared/buttons';
+import api from '../../services/api.config';
 
 import {
   DefaultAudioLayout,
@@ -22,7 +23,7 @@ export function Player():ReactElement {
   const [currentTrack, setCurrentTrack] = useState<QueueItem | undefined>(undefined);
   const [unmarkedTrack, setUnmarkedTrack] = useState<boolean>(true);
   const [trackTimer, setTrackTimer] = useState<number>(0);
-  const MIN_PLAYING_DURATION:number =  5000;
+  const MIN_PLAYING_DURATION:number =  30000;
   const { dispatch, queueIndex, queue } = useAppContext();
   let player = useRef<MediaPlayerInstance>(null);
 
@@ -58,8 +59,19 @@ export function Player():ReactElement {
   }
 
   function updateServerStats():void {
+
     if (unmarkedTrack) {
       console.log('updateServerStats: cq', currentQueueItem().name);
+
+      // make sure Whispers of Silence is never tracked
+      currentTrack?.md5 != "D258C1A40E785406564616AFD8045351" &&
+        api.post(`/cloud_files/${currentTrack?.md5}/update_stats`)
+          .then((response) => {
+            console.log('track stats updated', response);
+          }).catch((error) => {
+            console.log('error occured while trying to update track stats', error);
+          })
+
       clearTimeout(trackTimer);
       setUnmarkedTrack(false);
     }
