@@ -24,13 +24,13 @@ const File: FC = () => {
       params: { category: null, delicate: false }}
     ).then((response) => {
       setFile(response.data.cloudFile);
-      console.log("file:", response.data.cloudFile);
+      // console.log("file:", response.data.cloudFile);
       setLoading(false);
       setDeleted(response.data.cloudFile.deletable);
     }).catch((error) => {
       setLoading(false);
       setResponseError(error.message);
-      console.log("error:", responseError);
+      console.log("file show error:", responseError);
     })
   },[]);
 

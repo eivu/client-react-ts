@@ -64,7 +64,6 @@ export function Player():ReactElement {
   }
 
   function updateServerStats():void {
-
     if (unmarkedTrack) {
       console.log('updateServerStats: cq', currentQueueItem().name);
 
