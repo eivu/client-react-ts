@@ -32,7 +32,7 @@ export function VideoPlayer({item, player}:VideoPlayerProps):ReactElement {
     <MediaPlayer
       className="player"
       title={item.name}
-      src={item.url}
+      src={`${item.url}?rando=${Math.random()}`} // gets around CORS issue
       crossOrigin
       playsInline
       onCanPlay={onCanPlay}
