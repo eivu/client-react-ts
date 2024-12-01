@@ -58,6 +58,12 @@ export const VideoPlayer:ReactElement = ({item, player}:VideoPlayerProps) => {
     }
   }
 
+  function resetTimer():boolean {
+    clearTimeout(trackTimer)
+    unmarkedTrack = true;
+    return true;
+  }
+
 
   // We can listen for the `can-play` event to be notified when the player is ready.
   function onCanPlay(detail: MediaCanPlayDetail, nativeEvent: MediaCanPlayEvent) {
@@ -72,6 +78,7 @@ export const VideoPlayer:ReactElement = ({item, player}:VideoPlayerProps) => {
       src={`${item.url}?rando=${Math.random()}`} // gets around CORS issue
       crossOrigin
       playsInline
+      onEnded={resetTimer}
       onCanPlay={onCanPlay}
       onPlay={setTimer}
       onSeeked={onSeeked}
