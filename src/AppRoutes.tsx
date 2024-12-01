@@ -18,6 +18,7 @@ import { Home } from './pages/Home';
 import { About } from './pages/About';
 import { History } from './pages/History';
 import { Settings } from './pages/Settings';
+import { Profile } from './pages/Profile';
 
 
 export const AppRoutes:React.FC = () => {
