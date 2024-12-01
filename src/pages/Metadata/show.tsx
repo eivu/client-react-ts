@@ -12,6 +12,7 @@ import { ErrorPanel } from '../../components/ErrorPanel';
 
 
 const MetadatumPage: FC = () => {
+  const titlePrefix = "EIVU::Metadata::";
   const medatatumId = useLoaderData();
   const [metadatum, setMetadatum] = useState<Metadata>();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -28,6 +29,7 @@ const MetadatumPage: FC = () => {
   const [queueItems, setQueueItems] = useState<QueueItem[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>(searchParams.get('s') || '');
   const { activeCategory } = useAppContext();
+  let title: string | undefined = "Loading...";
   const constructParams = (sorting: SortingState) => {
     return {
       category: activeCategory,
@@ -39,6 +41,14 @@ const MetadatumPage: FC = () => {
       search_term: searchTerm,
     }
   }
+
+  useEffect(() => {
+    title = responseError 
+              ?  'Err0r' :
+                metadatum?.secured
+                  ? `Metadatum ${metadatum?.id}` : metadatum?.value
+    document.title = titlePrefix + title ;
+  }, [metadatum])
 
   useEffect(() => {
     setLoading(true);

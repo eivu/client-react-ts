@@ -12,12 +12,20 @@ import { ReleaseControls } from '../../components/ReleaseControls';
 
 
 const ReleasePage: React.FC = () => {
+  const titlePrefix = "EIVU::Releases::";
   const releaseId = useLoaderData();
+  const [title, setTitle] = useState<string | undefined>("Loading...");
   const [loading, setLoading] = useState<boolean>(true);
   const [release, setRelease] = useState<Release>();
   const [responseError, setResponseError] = useState<string>('');
   const { activeCategory } = useAppContext();
 
+  useEffect(() => {
+    setTitle(responseError ? 'Err0r' :
+              release?.secured ?
+                `Release ${release?.id}` : release?.name);
+    document.title = titlePrefix + title ;
+  }, [release])
 
   useEffect(() => {
     setLoading(true);
@@ -46,10 +54,7 @@ const ReleasePage: React.FC = () => {
       {
         !loading && (
           <ContentHeader>::
-            <span><Link to="/releases" className="breadcrumb">Release</Link>::{
-              responseError ? 'Err0r' :
-                release?.secured ? `Release ${release?.id
-              }` : release?.name}</span>
+            <span><Link to="/releases" className="breadcrumb">Release</Link>::{title}</span>
             {
               release?.artists?.length > 0 &&
                 <div>

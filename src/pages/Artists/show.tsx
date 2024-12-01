@@ -10,7 +10,6 @@ import { MiniLoader } from '../../components/Loader';
 import { ReleaseTable } from '../../components/ReleaseTable';
 import { PaginationMenu } from '../../layout/PaginationMenu';
 import { ErrorPanel } from '../../components/ErrorPanel';
-import { objectToQueueItem } from "../../common/objectToQueueItem";
 import { ReleaseControls } from '../../components/ReleaseControls';
 
 
@@ -23,6 +22,8 @@ const ArtistPage: FC = () => {
   const [responseError, setResponseError] = useState<string>('');
   const [meta, setMeta] = useState<any>({});
   const { activeCategory } = useAppContext();
+  const titlePrefix = "EIVU::Artists::";
+  let title:string | undefined = "Loading...";
 
   useEffect(() => {
     setLoading(true);
@@ -33,7 +34,6 @@ const ArtistPage: FC = () => {
       setReleases(response.data.releases);
       setLoading(false);
       setMeta(response.data.meta);
-      console.log("artist:", response.data);
     })
     .catch((error) => {
       setLoading(false);
@@ -42,17 +42,18 @@ const ArtistPage: FC = () => {
     })
   }, [pageNum, activeCategory])
 
+  useEffect(() =>{
+    title = responseError 
+              ?  'Err0r' :
+                artist?.secured
+                  ? `Artist ${artist?.id}` : artist?.name
+    document.title = titlePrefix + title ;
+  },[artist])
+
   function handlePageChange(pageNum: number) {
     setLoading(true);
     setPageNum(pageNum);
   }
-  // const [loading, setLoading] = useState<boolean>(true);
-  // const [responseError, setResponseError] = useState<String | undefined>(undefined);
-  // const [queueItems, setQueueItems] = useState<QueueItem[]>([]);
-
-  // // From queue page
-  // const { queue, queueIndex, player, dispatch } = useAppContext();
-  // const isPlaying = useMediaState('playing', player);
 
   return (
     <DefaultLayout>
