@@ -1,6 +1,7 @@
 import './player.css';
 import { ReactElement, useEffect, useState, useRef } from 'react';
 import { useAppContext } from '../../store/AppContext';
+import { ACTIVE_DEBUGGING, INTRO_TRACK_MD5, TRACKING_DURATION } from '../../constants';
 import {
   MediaPlayer,
   MediaProvider,
@@ -23,7 +24,6 @@ export function Player():ReactElement {
   const [currentTrack, setCurrentTrack] = useState<QueueItem | undefined>(undefined);
   const [unmarkedTrack, setUnmarkedTrack] = useState<boolean>(true);
   const [trackTimer, setTrackTimer] = useState<number>(0);
-  const MIN_PLAYING_DURATION:number =  2000;
   const { dispatch, queueIndex, queue } = useAppContext();
   let player = useRef<MediaPlayerInstance>(null);
 
@@ -53,9 +53,9 @@ export function Player():ReactElement {
   }
 
   function setTimer():void {
-    console.log('tracking', currentTrack?.name);
+    ACTIVE_DEBUGGING && console.log('audio player tracking', currentTrack?.name);
     // only set timer if track is not marked as played.
-    unmarkedTrack && setTrackTimer(setTimeout(updateServerStats, MIN_PLAYING_DURATION));
+    unmarkedTrack && setTrackTimer(setTimeout(updateServerStats, TRACKING_DURATION));
   }
 
   function onSeeked():void {
@@ -65,15 +65,15 @@ export function Player():ReactElement {
 
   function updateServerStats():void {
     if (unmarkedTrack) {
-      console.log('updateServerStats: cq', currentQueueItem().name);
+      ACTIVE_DEBUGGING && console.log('audio player updateServerStats: currentQueueItem', currentQueueItem().name);
 
       // make sure Whispers of Silence is never tracked
-      currentTrack?.md5 != "D258C1A40E785406564616AFD8045351" &&
+      currentTrack?.md5 != INTRO_TRACK_MD5 &&
         api.post(`/cloud_files/${currentTrack?.md5}/update_stats`)
           .then((response) => {
-            console.log('track stats updated', response);
+            ACTIVE_DEBUGGING && console.log('audio player track stats updated', response);
           }).catch((error) => {
-            console.log('error occured while trying to update track stats', error);
+            console.log('audio player error occured while trying to update track stats', error);
           })
 
       clearTimeout(trackTimer);
