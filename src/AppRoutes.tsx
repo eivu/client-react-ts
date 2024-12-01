@@ -16,6 +16,8 @@ import { AuthPage } from './pages/Auth';
 import { Login } from './pages/Login';
 import { Home } from './pages/Home';
 import { About } from './pages/About';
+import { History } from './pages/History';
+import { Settings } from './pages/Settings';
 
 
 export const AppRoutes:React.FC = () => {
@@ -160,6 +162,22 @@ export const AppRoutes:React.FC = () => {
               <AuthPage />
             </>,
           path: "/auth"
+        },
+        {
+          element: 
+            <>
+              <PageTitle title="EIVU::History" />
+              <History />
+            </>,
+          path: "/history"
+        },
+                {
+          element: 
+            <>
+              <PageTitle title="EIVU::Settings" />
+              <Settings />
+            </>,
+          path: "/settings"
         },
       ]
     }
