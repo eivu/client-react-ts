@@ -56,11 +56,7 @@ const File: FC = () => {
             deleted ?
               <Link to="/trash" className="breadcrumb">Trash</Link> :
                 <Link to="/files" className="breadcrumb">Files</Link> 
-          }::
-          {
-            responseError ? 'Err0r' :
-              file.secured ? file.md5 : file.name
-          }
+          }::{title}
         </ContentHeader>
       }
       <ContentContainer>

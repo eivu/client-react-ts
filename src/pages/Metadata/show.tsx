@@ -12,12 +12,14 @@ import { ErrorPanel } from '../../components/ErrorPanel';
 
 
 const MetadatumPage: FC = () => {
+  let metadata_type:string | undefined;
   const titlePrefix = "EIVU::Metadata::";
   const medatatumId = useLoaderData();
   const [metadatum, setMetadatum] = useState<Metadata>();
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchSubmittedAt, setSearchSubmittedAt] = useState<number>(Date.now());
   const [loading, setLoading] = useState<boolean>(true);
+  const [title, setTitle] = useState<string | undefined>("Loading...");
   const [sorting, setSorting] = useState<SortingState>([{
     id: searchParams.get('sortBy') || 'name',
     desc: searchParams.get('sortDesc') || false
@@ -29,7 +31,6 @@ const MetadatumPage: FC = () => {
   const [queueItems, setQueueItems] = useState<QueueItem[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>(searchParams.get('s') || '');
   const { activeCategory } = useAppContext();
-  let title: string | undefined = "Loading...";
   const constructParams = (sorting: SortingState) => {
     return {
       category: activeCategory,
@@ -43,10 +44,11 @@ const MetadatumPage: FC = () => {
   }
 
   useEffect(() => {
-    title = responseError 
+    metadata_type = metadatum?.type;
+    setTitle(responseError 
               ?  'Err0r' :
                 metadatum?.secured
-                  ? `Metadatum ${metadatum?.id}` : metadatum?.value
+                  ? `[${metadata_type}]Metadatum ${metadatum?.id}` : `[${metadata_type}]${metadatum?.value}`);
     document.title = titlePrefix + title ;
   }, [metadatum])
 
@@ -114,10 +116,7 @@ const MetadatumPage: FC = () => {
     <DefaultLayout>
       { !loading &&
           <ContentHeader>::
-            <Link to="/metadata" className="breadcrumb">Metadata</Link>::[{metadatum.type}]::{
-              responseError ? 'Err0r' :
-                metadatum?.secured ? `Metadatum ${metadatum?.id}` : metadatum?.value
-            }
+            <Link to="/metadata" className="breadcrumb">Metadata</Link>::{title}
           </ContentHeader>
       }
 

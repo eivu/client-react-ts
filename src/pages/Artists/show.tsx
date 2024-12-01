@@ -16,6 +16,7 @@ import { ReleaseControls } from '../../components/ReleaseControls';
 const ArtistPage: FC = () => {
   const artistId = useLoaderData()<number>;
   const [pageNum, setPageNum] = useState<number>(1);
+  const [title, setTitle] = useState<string | undefined>("Loading...");
   const [loading, setLoading] = useState<boolean>(true);
   const [artist, setArtist] = useState<Artist>();
   const [releases, setReleases] = useState<Release[]>([]);
@@ -23,7 +24,6 @@ const ArtistPage: FC = () => {
   const [meta, setMeta] = useState<any>({});
   const { activeCategory } = useAppContext();
   const titlePrefix = "EIVU::Artists::";
-  let title:string | undefined = "Loading...";
 
   useEffect(() => {
     setLoading(true);
@@ -43,10 +43,10 @@ const ArtistPage: FC = () => {
   }, [pageNum, activeCategory])
 
   useEffect(() =>{
-    title = responseError 
+    setTitle(responseError 
               ?  'Err0r' :
                 artist?.secured
-                  ? `Artist ${artist?.id}` : artist?.name
+                  ? `Artist ${artist?.id}` : artist?.name);
     document.title = titlePrefix + title ;
   },[artist])
 
@@ -66,10 +66,7 @@ const ArtistPage: FC = () => {
       }
       { !loading &&
           <ContentHeader>::
-            <Link to="/artists" className="breadcrumb">Artist</Link>::{
-              responseError ? 'Err0r' :
-                artist?.secured ? `Artist ${artist?.id}` : artist?.name
-            }
+            <Link to="/artists" className="breadcrumb">Artist</Link>::{title}
           </ContentHeader>
       }
       <ContentContainer>
