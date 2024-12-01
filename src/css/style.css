@@ -476,11 +476,19 @@ table#file-details-table tbody tr td {
   vertical-align: top;
 }
 
-
-
-table#file-details-table tbody tr td:nth-child(1) {  
-  width: 20em;
+@media only screen and (min-width: 600px) {
+  table#file-details-table tbody tr td:nth-child(1) {  
+    /* width: 20em; */
+  }
 }
+
+
+@media only screen and (max-width: 600px) {
+  table#file-details-table tbody tr td.file-key-col {  
+    width: 160px;
+  }
+}
+
 
 #content-header a.breadcrumb:hover  {
   @apply text-indigo-600;
@@ -796,7 +804,7 @@ header#top-nav {
 @media only screen and (max-width: 400px) {
   #files-table .nameCol,
   #files-table #nameHeader {
-    width: 200px;
+    width: 150px;
   }
 }
 
