@@ -19,7 +19,7 @@ import { About } from './pages/About';
 import { History } from './pages/History';
 import { Settings } from './pages/Settings';
 import { Profile } from './pages/Profile';
-
+import { LogoutPage } from './pages/LogoutPage';
 
 export const AppRoutes:React.FC = () => {
 
@@ -172,13 +172,29 @@ export const AppRoutes:React.FC = () => {
             </>,
           path: "/history"
         },
-                {
+        {
           element: 
             <>
               <PageTitle title="EIVU::Settings" />
               <Settings />
             </>,
           path: "/settings"
+        },
+        {
+          element: 
+            <>
+              <PageTitle title="EIVU::Profile" />
+              <Profile />
+            </>,
+          path: "/profile"
+        },
+        {
+          element: 
+            <>
+              <PageTitle title="EIVU::Logging out..." />
+              <LogoutPage />
+            </>,
+          path: "/logout"
         },
       ]
     }

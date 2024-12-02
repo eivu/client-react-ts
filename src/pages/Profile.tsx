@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import DefaultLayout, { ContentHeader, ContentContainer } from '../layout/DefaultLayout';
 
 
-export const Settings: React.FC = () => {
+export const Profile: React.FC = () => {
   return (
     <DefaultLayout>
       <ContentHeader>
