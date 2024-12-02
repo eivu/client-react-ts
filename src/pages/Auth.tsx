@@ -1,9 +1,33 @@
-import React from 'react';
+import { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { submit2Fa } from '../services/auth.service';
 import DefaultLayout, { ContentHeader, ContentContainer } from '../layout/DefaultLayout';
 
 
-export const AuthPage: React.FC = () => {
+export const AuthPage: FC = () => {
+  const [codeArray, setCodeArray] = useState<string[]>(['', '', '', '', '', '']);
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    console.log('submit');
+    submit2Fa
+  }
+
+  function set2faInputs(index:number, newValue:string):void {
+    console.log("trying to set", index, newValue);
+    // Make a copy of the current array
+    const updatedInputs = codeArray.map((origValue, i) => {
+      if (i === index) {
+        // Increment the clicked counter
+        return newValue;
+      } else {
+        // The rest haven't changed
+        return origValue;
+      }
+    });
+    setCodeArray(updatedInputs);
+  }
+
   return (
     <DefaultLayout>
       <ContentHeader>
@@ -28,6 +52,10 @@ export const AuthPage: React.FC = () => {
                     {Array.from({ length: 6 }).map((_, index) => (
                       <input
                         key={index}
+                        value={codeArray[index]}
+                        onChange={(e) => set2faInputs(index, e.target.value)}
+                        //  value={searchTerm}
+                        // onChange={(e) => setSearchTerm(e.target.value)}
                         type="text"
                         className="w-full rounded-md border-[1.5px] border-stroke bg-transparent px-5 py-3 text-center text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                       />

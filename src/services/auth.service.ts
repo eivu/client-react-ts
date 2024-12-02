@@ -25,6 +25,22 @@ export const login = (email: string, password: string) => {
         user = {...jwtDecode(response.data.data.user), token: response.data.data.user};
         localStorage.setItem("user", JSON.stringify(user));
         localStorage.setItem("token", user.token);
+        localStorage.setItem("secureAccessExpiresAt", '0');
+      }
+      return response
+    });
+}
+
+export const submit2Fa = (code: string) => {
+  return api
+    .post('secure_auths',
+      { code }
+    ).then((response) => {
+      if (response.data.data.user) {
+        const user = {...jwtDecode(response.data.data.user), token: response.data.data.user};
+        localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("token", user.token);
+        localStorage.setItem("secureAccessExpiresAt", '0');
       }
       return response
     });
@@ -33,6 +49,7 @@ export const login = (email: string, password: string) => {
 export const logout = () => {
   localStorage.removeItem("user");
   localStorage.removeItem("token");
+  localStorage.removeItem("secureAccessExpiresAt");
 }
 
 export const getCurrentUser = () => {
