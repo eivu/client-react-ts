@@ -10,8 +10,16 @@ export const AuthPage: FC = () => {
   const [codeArray, setCodeArray] = useState<string[]>(['', '', '', '', '', '']);
   const [error, setError] = useState<string>('');
   const inputRefsArray = useRef<(HTMLInputElement[] | null)>([])
+
+  useEffect(() => {
+    if (inputRefsArray.current) {
+      inputRefsArray.current[0]?.focus();
+    }
+  },[])
+
   function handleSubmit(event: FormEvent<HTMLFormElement>):void {
     event.preventDefault();
+    console.log(codeArray.join(''));
     submit2Fa(codeArray.join('')
     ).catch((error) => {
       setError(error.response.data.error);
@@ -30,7 +38,10 @@ export const AuthPage: FC = () => {
         return origValue;
       }
     });
+    console.log(updatedInputs);
     setCodeArray(updatedInputs);
+    console.log(codeArray);
+    console.log(updatedInputs == codeArray);
   }
 
   return (
@@ -74,11 +85,12 @@ export const AuthPage: FC = () => {
                         value={codeArray[index]}
                         onChange={(element) => {
                           set2faInputs(index, element.target.value)
-                        
-                          
+                          // verify the useRef is not null
                           if (inputRefsArray.current) {
+                            // skip to the next input field if the index is less than 5
                             if (index < 5 )
                               inputRefsArray.current[index + 1 ]?.focus();
+                            // if the index is 5, submit the form
                             else
                               handleSubmit(element);
                           }
