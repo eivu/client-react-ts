@@ -20,7 +20,8 @@ export const AuthPage: FC = () => {
   function handleSubmit(event: FormEvent<HTMLFormElement>):void {
     event.preventDefault();
     console.log(codeArray.join(''));
-    submit2Fa(codeArray.join('')
+    submit2Fa(
+      codeArray.join('')
     ).catch((error) => {
       setError(error.response.data.error);
       ACTIVE_DEBUGGING && console.log(error);
@@ -79,7 +80,7 @@ export const AuthPage: FC = () => {
                           const clipboard = e.clipboardData.getData('text/plain');
                           const snippetArray = clipboard.substring(0, 6).split('');
                           setCodeArray(snippetArray);
-                          handleSubmit(e);
+                          // handleSubmit(e);
                         }}
                         maxLength={1}
                         value={codeArray[index]}
@@ -88,11 +89,13 @@ export const AuthPage: FC = () => {
                           // verify the useRef is not null
                           if (inputRefsArray.current) {
                             // skip to the next input field if the index is less than 5
-                            if (index < 5 )
+                            if (index < 5 ) {
+                              inputRefsArray.current[index + 1 ].value = '';
                               inputRefsArray.current[index + 1 ]?.focus();
+                            }
                             // if the index is 5, submit the form
-                            else
-                              handleSubmit(element);
+                            // else
+                              // handleSubmit(element);
                           }
                         }
                         }
