@@ -12,9 +12,9 @@ import { ErrorPanel } from '../../components/ErrorPanel';
 
 
 const MetadatumPage: FC = () => {
-  let metadata_type:string | undefined;
   const titlePrefix = "EIVU::Metadata::";
   const medatatumId = useLoaderData();
+  const [metadataType, setMetadataType] = useState<string>('')
   const [metadatum, setMetadatum] = useState<Metadata>();
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchSubmittedAt, setSearchSubmittedAt] = useState<number>(Date.now());
@@ -44,11 +44,10 @@ const MetadatumPage: FC = () => {
   }
 
   useEffect(() => {
-    metadata_type = metadatum?.type;
     setTitle(responseError 
               ?  'Err0r' :
                 metadatum?.secured
-                  ? `[${metadata_type}]Metadatum ${metadatum?.id}` : `[${metadata_type}]${metadatum?.value}`);
+                  ? `[${metadataType}]Metadatum ${metadatum?.id}` : `[${metadataType}]${metadatum?.value}`);
     document.title = titlePrefix + title ;
   }, [metadatum])
 
@@ -60,6 +59,7 @@ const MetadatumPage: FC = () => {
       // params: { page: pageNum, category: activeCategory, delicate: false }}
     ).then((response) => {
       setMetadatum(response.data.metadatum);
+      setMetadataType(response.data.metadatum?.type);
       setQueueItems(response.data.files);
       setMeta(response.data.meta);
       setLoading(false);
@@ -116,7 +116,11 @@ const MetadatumPage: FC = () => {
     <DefaultLayout>
       { !loading &&
           <ContentHeader>::
-            <Link to="/metadata" className="breadcrumb">Metadata</Link>::{title}
+            <Link to="/metadata" className="breadcrumb">Metadata</Link>::{
+              responseError 
+                ? 'Err0r'
+                : `[${metadataType}]${metadatum?.value} (${metadatum?.id})`
+            }
           </ContentHeader>
       }
 

@@ -66,7 +66,7 @@ const ArtistPage: FC = () => {
       }
       { !loading &&
           <ContentHeader>::
-            <Link to="/artists" className="breadcrumb">Artist</Link>::{title}
+            <Link to="/artists" className="breadcrumb">Artist</Link>::{responseError ? 'Err0r': artist?.name}
           </ContentHeader>
       }
       <ContentContainer>
