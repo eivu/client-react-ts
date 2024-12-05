@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { AlertError } from '../components/AlertError';
 import { ACTIVE_DEBUGGING } from '../constants';
@@ -9,6 +9,7 @@ import DefaultLayout, { ContentHeader, ContentContainer } from '../layout/Defaul
 export const AuthPage: FC = () => {
   const [codeArray, setCodeArray] = useState<string[]>(['', '', '', '', '', '']);
   const [error, setError] = useState<string>('');
+  const inputRefsArray = useRef<(HTMLInputElement[] | null)>([])
   function handleSubmit(event: FormEvent<HTMLFormElement>):void {
     event.preventDefault();
     submit2Fa(codeArray.join('')
@@ -32,6 +33,11 @@ export const AuthPage: FC = () => {
     setCodeArray(updatedInputs);
   }
 
+  useEffect(() => {
+    if (inputRefsArray.current) {
+      inputRefsArray.current[0]?.focus();
+    }
+  },[])
   return (
     <DefaultLayout>
       <ContentHeader>
@@ -57,11 +63,17 @@ export const AuthPage: FC = () => {
                     {Array.from({ length: 6 }).map((_, index) => (
                       <input
                         key={index}
+                        ref={(element) => {
+                          if (element && inputRefsArray.current) {
+                            inputRefsArray.current[index] = element;
+                          }
+                        }}
                         onPaste={(e) => {
                           e.preventDefault();
                           const clipboard = e.clipboardData.getData('text/plain');
                           const snippetArray = clipboard.substring(0, 6).split('');
                           setCodeArray(snippetArray);
+                          handleSubmit(e);
                         }}
                         maxLength={1}
                         value={codeArray[index]}
