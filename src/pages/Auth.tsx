@@ -33,11 +33,6 @@ export const AuthPage: FC = () => {
     setCodeArray(updatedInputs);
   }
 
-  useEffect(() => {
-    if (inputRefsArray.current) {
-      inputRefsArray.current[0]?.focus();
-    }
-  },[])
   return (
     <DefaultLayout>
       <ContentHeader>
@@ -77,7 +72,18 @@ export const AuthPage: FC = () => {
                         }}
                         maxLength={1}
                         value={codeArray[index]}
-                        onChange={(e) => set2faInputs(index, e.target.value)}
+                        onChange={(element) => {
+                          set2faInputs(index, element.target.value)
+                        
+                          
+                          if (inputRefsArray.current) {
+                            if (index < 5 )
+                              inputRefsArray.current[index + 1 ]?.focus();
+                            else
+                              handleSubmit(element);
+                          }
+                        }
+                        }
                         type="text"
                         className="w-full rounded-md border-[1.5px] border-stroke bg-transparent px-5 py-3 text-center text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                       />
