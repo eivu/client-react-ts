@@ -24,7 +24,9 @@ const AVButton:FC = ({item, size=32}:AVButtonProps) => {
       { item.contentType
           ?
             item.contentType?.includes('audio')
-              ? (isPlaying && nowPlayingMd5() === item.md5 ? <AudioPauseButton item={item} size={size} /> : <AudioPlayButton item={item} size={size} />)
+              ? (isPlaying && nowPlayingMd5() === item.md5
+                ? <AudioPauseButton item={item} size={size} />
+                : <AudioPlayButton item={item} size={size} />)
               : (item.contentType.includes('video')
                   ? <VideoPlayModal item={item} />
                   : <Link to={`/files/${item.md5}`} className="break-normal">View</Link>

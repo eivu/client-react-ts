@@ -117,26 +117,30 @@ export const FilesTable: FC<FilesTableProps> = ({ queueItems, loading, sorting, 
             {headerGroup.headers.map(header => {
               return (
                 <th key={header.id} id={`${header.id}Header`} className={header.column.columnDef.headerClassName}> 
-                  {header.isPlaceholder ? null : (
-                    <div
-                      {...{
-                        className: header.column.getCanSort()
-                          ? 'cursor-pointer select-none'
-                          : '',
-                        onClick: header.column.getToggleSortingHandler(),
-                      }}
-                    >
-                      {flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                      {{
-                        asc: <FaSortUp className='inline' />,
-                        desc: <FaSortDown className='inline' />,
-                        false: <FaSort  className='inline' />
-                      }[header.column.getIsSorted() as string] ?? null}
-                    </div>
-                  )}
+                  {
+                    header.isPlaceholder
+                      ? null
+                      : (
+                          <div
+                            {...{
+                              className: header.column.getCanSort()
+                                ? 'cursor-pointer select-none'
+                                : '',
+                              onClick: header.column.getToggleSortingHandler(),
+                            }}
+                          >
+                            {flexRender(
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
+                            {{
+                              asc: <FaSortUp className='inline' />,
+                              desc: <FaSortDown className='inline' />,
+                              false: <FaSort  className='inline' />
+                            }[header.column.getIsSorted() as string] ?? null}
+                          </div>
+                        )
+                    }
                 </th>
               )
             })}
