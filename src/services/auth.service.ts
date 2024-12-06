@@ -15,32 +15,34 @@ export const isLoggedIn = ():boolean => {
   return user && token ? true : false;
 }
 
+export const saveUser = (userData:any):User  => {
+  const user = {...jwtDecode(userData), token: userData} as User;
+  console.log(user);
+  localStorage.setItem("user", JSON.stringify(user));
+  localStorage.setItem("token", user.token);
+  localStorage.setItem("secureAccessExpiresAt", user.secure_expires_at.toString());
+  return user;
+} 
+
 export const login = (email: string, password: string) => {
-  let user: User;
   return api
     .post('sessions',
       { email, password }
     ).then((response) => {
       if (response.data.data.user) {
-        user = {...jwtDecode(response.data.data.user), token: response.data.data.user};
-        localStorage.setItem("user", JSON.stringify(user));
-        localStorage.setItem("token", user.token);
-        localStorage.setItem("secureAccessExpiresAt", '0');
+        saveUser(response.data.data.user);
       }
       return response
     });
 }
 
-export const submit2Fa = (code: string) => {
+export const submit2Fa = (otpCode: string) => {
   return api
-    .post('secure_auths',
-      { code }
+    .post('secure_auth',
+      { otpCode }
     ).then((response) => {
       if (response.data.data.user) {
-        const user = {...jwtDecode(response.data.data.user), token: response.data.data.user};
-        localStorage.setItem("user", JSON.stringify(user));
-        localStorage.setItem("token", user.token);
-        localStorage.setItem("secureAccessExpiresAt", '0');
+        saveUser(response.data.data.user);
       }
       return response
     });
@@ -62,4 +64,9 @@ export const getCurrentUser = () => {
   }
 
   return null;
+}
+
+export const hasSecureAccess = () => {
+  const secureAccessExpiresAt = localStorage.getItem("secureAccessExpiresAt");
+  return secureAccessExpiresAt && new Date(secureAccessExpiresAt) > new Date();
 }
