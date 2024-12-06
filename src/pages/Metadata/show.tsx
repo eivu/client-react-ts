@@ -49,7 +49,7 @@ const MetadatumPage: FC = () => {
                 metadatum?.secured
                   ? `[${metadataType}]Metadatum ${metadatum?.id}` : `[${metadataType}]${metadatum?.value}`);
     document.title = titlePrefix + title ;
-  }, [metadatum])
+  }, [metadatum, title])
 
   useEffect(() => {
     setLoading(true);
