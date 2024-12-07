@@ -50,6 +50,20 @@ export const submit2Fa = (otpCode: string) => {
     });
 }
 
+export const revokeAccess = () => {
+  // remove local access even if the server fails
+  localStorage.removeItem("secureAccessExpiresAt");
+  return api
+    .delete('secure_auth')
+      .then((response) => {
+        if (response.data.data.user) {
+          saveUser(response.data.data.user);
+        }
+        ACTIVE_DEBUGGING && console.log('has secure access', hasSecureAccess());
+        return response
+      });
+}
+
 export const logout = () => {
   localStorage.removeItem("user");
   localStorage.removeItem("token");
