@@ -2,7 +2,7 @@ import { FC, useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AlertError } from '../components/AlertError';
 import { ACTIVE_DEBUGGING } from '../constants';
-import { submit2Fa } from '../services/auth.service';
+import { submit2Fa, getSecureAccessExpiresAt } from '../services/auth.service';
 import DefaultLayout, { ContentHeader, ContentContainer } from '../layout/DefaultLayout';
 
 
@@ -25,6 +25,7 @@ export const AuthPage: FC = () => {
         codeArray.join('')
       ).then(() => {
         console.log("verified");
+        console.log('expires at', getSecureAccessExpiresAt());
       }
       ).catch((error) => {
         setError(error.response.data.error);

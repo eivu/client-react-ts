@@ -72,3 +72,8 @@ export const hasSecureAccess = () => {
   const secureAccessExpiresAt:string | null = localStorage.getItem("secureAccessExpiresAt");
   return secureAccessExpiresAt && Number(secureAccessExpiresAt) > Date.now();
 }
+
+export const getSecureAccessExpiresAt = ():Number => {
+  const secureAccessExpiresAt:string | null = localStorage.getItem("secureAccessExpiresAt");
+  return secureAccessExpiresAt ? Number(secureAccessExpiresAt) : 0;
+}
