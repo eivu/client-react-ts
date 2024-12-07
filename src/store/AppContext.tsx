@@ -10,7 +10,8 @@ type State = {
   queueIndex: number,
   activeCategory: Category,
   secured: boolean,
-  queue: QueueItem[]
+  queue: QueueItem[],
+  secureAccessExpiresAt: Number
 };
 
 
@@ -19,7 +20,8 @@ const initialState: State = {
   queue: defaultQueue,
   activeCategory: null,
   secured: false,
-  player: undefined
+  player: undefined,
+  secureAccessExpiresAt: 0
 }
 
 type Action =
@@ -35,7 +37,9 @@ type Action =
   | { type: 'insertMultiQueueItems', queueItems: QueueItem[] }
   | { type: 'removeQueueItem', queueItem: QueueItem }
   | { type: 'clearAll' }
-  | { type: 'setActiveCategory', activeCategory: Category };
+  | { type: 'setActiveCategory', activeCategory: Category }
+  | { type: 'setSecureAccessExpiresAt', secureAccessExpiresAt: Number }
+  | { type: 'clearSecureExpiresAt' };
 
 function reducer(state: State, action: Action): State {
   switch (action.type) {
@@ -65,6 +69,10 @@ function reducer(state: State, action: Action): State {
       return { ...state, activeCategory: action.activeCategory };
     case 'clearAll':
       return { ...initialState };
+    case 'setSecureAccessExpiresAt':
+      return { ...state, secureAccessExpiresAt: action.secureAccessExpiresAt };
+    case 'clearSecureExpiresAt':
+      return { ...state, secureAccessExpiresAt: 0 };
     default:
       return state;
   }
@@ -85,15 +93,16 @@ type Props = {
 
 export function AppProvider({children }: Props) {
   // const [state, dispatch] = useReducer(reducer, initialState)
-  const [{ queueIndex, player, queue, activeCategory }, dispatch] =
+  const [{ queueIndex, secureAccessExpiresAt, player, queue, activeCategory }, dispatch] =
     useReducer(reducer, initialState);
   
   return (
-    <AppContext.Provider value={{queueIndex, player, queue, activeCategory, dispatch}}>
+    <AppContext.Provider value={{queueIndex, secureAccessExpiresAt, player, queue, activeCategory, dispatch}}>
       {children}
     </AppContext.Provider>
   )
 };
+
 
 export const currentQueueItemMd5 = (queue: QueueItem[]): string | undefined => queue.length > 0 ? queue[0].md5 : undefined;
 export const useAppContext = () => useContext(AppContext);

@@ -3,11 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { AlertError } from '../components/AlertError';
 import { ACTIVE_DEBUGGING } from '../constants';
 import { submit2Fa, getSecureAccessExpiresAt } from '../services/auth.service';
+import { useAppContext } from '../store/AppContext';
 import DefaultLayout, { ContentHeader, ContentContainer } from '../layout/DefaultLayout';
 
 
 export const AuthPage: FC = () => {
   const navigate = useNavigate();
+  const { dispatch } = useAppContext();
   const [codeArray, setCodeArray] = useState<string[]>(['', '', '', '', '', '']);
   const [error, setError] = useState<string>('');
   const [formSubmittedAt, setFormSubmittedAt] = useState<number>(0);
@@ -26,6 +28,7 @@ export const AuthPage: FC = () => {
       ).then(() => {
         console.log("verified");
         console.log('expires at', getSecureAccessExpiresAt());
+        dispatch({ type: 'setSecureAccessExpiresAt', secureAccessExpiresAt: getSecureAccessExpiresAt() });
       }
       ).catch((error) => {
         setError(error.response.data.error);
