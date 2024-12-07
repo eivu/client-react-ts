@@ -8,7 +8,9 @@ import { Metadatum } from '../types/metadatum';
 import AVButton from './AVButton';
 import AddToQueueButton from './AddToQueueButton';
 import { objectToQueueItem } from '../common/objectToQueueItem';
+import { ACTIVE_DEBUGGING } from '../constants';
 import { FileIcon } from './FileIcon';
+import { CloudFile } from '../types/cloudFile';
 
 export type MetadataEntryProps = {
   metadatum: Metadatum;
@@ -19,6 +21,7 @@ export const MetadatumEntry: React.FC<MetadataEntryProps> = ({metadatum}) => {
   const [dataLoaded, setDataLoaded] = useState<boolean>(false);
   const [expanded, setExpanded] = useState<boolean>(false);
   const [files, setFiles] = useState<QueueItem[]>([]);
+  const [meta, setMeta] = useState<any>({});
   const [responseError, setResponseError] = useState<String | undefined>(undefined);
   const { dispatch, queue } = useAppContext();
 
@@ -29,8 +32,9 @@ export const MetadatumEntry: React.FC<MetadataEntryProps> = ({metadatum}) => {
         { params: { sortBy: 'name', sortDesc: false } }
       ).then((response) => {
         setFiles(response.data.cloudFiles);
-        console.log("data", response.data);
-        console.log("files", files);
+        ACTIVE_DEBUGGING && console.log("data", response.data);
+        ACTIVE_DEBUGGING && console.log("files", files);
+        setMeta(response.data.meta);
         setLoading(false);
         setExpanded(true);
         setDataLoaded(true);
@@ -38,7 +42,7 @@ export const MetadatumEntry: React.FC<MetadataEntryProps> = ({metadatum}) => {
       .catch((error) => {
         setLoading(false);
         setResponseError(error.message);
-        console.log("error", responseError);
+        ACTIVE_DEBUGGING && console.log("error", responseError);
       });
       
     } else {
@@ -70,8 +74,8 @@ export const MetadatumEntry: React.FC<MetadataEntryProps> = ({metadatum}) => {
       {
         expanded && files?.length > 0 &&
         <div className="ml-10 border-slate-100 dark:border-slate-400/10 text-wrap border-t">
-          {files.map((file) => (
-            <div className="clear-both entry" key={`file-entry-${file.id}`}>
+          {files.map((file:CloudFile) => (
+            <div className="clear-both entry" key={`medatum-${metadatum.id}-entry-${file.md5}`}>
               <AVButton item={objectToQueueItem(file)} />
               {file.contentType?.includes('audio') && <AddToQueueButton item={objectToQueueItem(file)} /> }
               {/* <span class="float-left">
@@ -80,6 +84,13 @@ export const MetadatumEntry: React.FC<MetadataEntryProps> = ({metadatum}) => {
               <Link to={`/files/${file.md5}`}>{file.name}</Link>
             </div>
           ))}
+
+          {
+            meta.totalPages > 1 &&
+              <div className="clear-both entry">
+                <Link to={`/metadata/${metadatum.id}`}>......and {meta.totalCount - 50} more</Link>
+              </div>
+          }
         </div>
       }
     </div>
