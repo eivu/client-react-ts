@@ -5,8 +5,10 @@ import { useAppContext } from '../store/AppContext';
 import api from '../services/api.config';
 import { CiSquarePlus, CiSquareMinus, CiSquareInfo } from "react-icons/ci";
 import { Metadatum } from '../types/metadatum';
-
-
+import AVButton from './AVButton';
+import AddToQueueButton from './AddToQueueButton';
+import { objectToQueueItem } from '../common/objectToQueueItem';
+import { FileIcon } from './FileIcon';
 
 export type MetadataEntryProps = {
   metadatum: Metadatum;
@@ -69,7 +71,12 @@ export const MetadatumEntry: React.FC<MetadataEntryProps> = ({metadatum}) => {
         expanded && files?.length > 0 &&
         <div className="ml-10 border-slate-100 dark:border-slate-400/10 text-wrap border-t">
           {files.map((file) => (
-            <div className="entry" key={`file-entry-${file.id}`}>
+            <div className="clear-both entry" key={`file-entry-${file.id}`}>
+              <AVButton item={objectToQueueItem(file)} />
+              {file.contentType?.includes('audio') && <AddToQueueButton item={objectToQueueItem(file)} /> }
+              {/* <span class="float-left">
+                <FileIcon contentType={file.contentType} />
+              </span> */}
               <Link to={`/files/${file.md5}`}>{file.name}</Link>
             </div>
           ))}
