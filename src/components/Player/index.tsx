@@ -53,7 +53,7 @@ export function Player():ReactElement {
   }
 
   function setTimer():void {
-    ACTIVE_DEBUGGING && console.log('audio player tracking', currentTrack?.name);
+    ACTIVE_DEBUGGING && currentTrack?.md5!= 'D258C1A40E785406564616AFD8045351' && console.log('audio player tracking', currentTrack?.name);
     // only set timer if track is not marked as played.
     unmarkedTrack && setTrackTimer(setTimeout(updateServerStats, TRACKING_DURATION));
   }
