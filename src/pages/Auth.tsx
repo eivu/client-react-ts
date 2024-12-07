@@ -20,7 +20,6 @@ export const AuthPage: FC = () => {
   },[])
 
   useEffect(() => {
-    console.log(codeArray.join(''));
     formSubmittedAt !== 0 &&
       submit2Fa(
         codeArray.join('')
