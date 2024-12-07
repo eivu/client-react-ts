@@ -6,7 +6,6 @@ import { useAppContext } from '../store/AppContext';
 
 const CateogryTabs: React.FC = () => {
   const { secureAccessExpiresAt } = useAppContext();
-
   const hasSecureAccess = ():boolean => {
     return secureAccessExpiresAt > Date.now();
   }

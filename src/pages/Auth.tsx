@@ -26,9 +26,8 @@ export const AuthPage: FC = () => {
       submit2Fa(
         codeArray.join('')
       ).then(() => {
-        console.log("verified");
-        console.log('expires at', getSecureAccessExpiresAt());
         dispatch({ type: 'setSecureAccessExpiresAt', secureAccessExpiresAt: getSecureAccessExpiresAt() });
+        navigate('/files');
       }
       ).catch((error) => {
         setError(error.response.data.error);

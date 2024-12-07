@@ -3,13 +3,20 @@ import { logout, getCurrentUser } from '../../services/auth.service';
 import { Link, useNavigate } from 'react-router-dom';
 import { MdHistory } from "react-icons/md";
 import { BsSafe2 } from "react-icons/bs";
+import { CiLogout } from "react-icons/ci";
 import { IoSettingsOutline } from "react-icons/io5";
 import { FaUserAstronaut } from "react-icons/fa";
+import { useAppContext } from '../../store/AppContext';
 
 
 
 
 const DropdownUser = () => {
+  const { secureAccessExpiresAt } = useAppContext();
+  const hasSecureAccess = ():boolean => {
+    return secureAccessExpiresAt > Date.now();
+  }
+
   const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const user = getCurrentUser();
@@ -93,9 +100,15 @@ const DropdownUser = () => {
       >
         <ul className="flex flex-col gap-5 border-b border-stroke px-6 py-7.5 dark:border-strokedark">
           <li>
-            <Link to="/auth" className="user-dropdown-menu-item">
-              <BsSafe2 size={22} /> Auth
-            </Link>
+            {
+              hasSecureAccess() 
+                ? <Link to="/revoke" className="user-dropdown-menu-item">
+                    <CiLogout size={22} /> Revoke Access
+                  </Link>
+                : <Link to="/auth" className="user-dropdown-menu-item">
+                    <BsSafe2 size={22} /> Auth
+                  </Link>
+            }
           </li>
           <li>
             <Link to="/auth" className="user-dropdown-menu-item">
