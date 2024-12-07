@@ -1,6 +1,7 @@
 import api from './api.config';
 import { jwtDecode } from "jwt-decode";
 import { User } from '../types/user';
+import { ACTIVE_DEBUGGING } from '../constants';
 
 
 export type AuthStatusType = 'logged-in' | 'logged-out';
@@ -44,6 +45,7 @@ export const submit2Fa = (otpCode: string) => {
       if (response.data.data.user) {
         saveUser(response.data.data.user);
       }
+      ACTIVE_DEBUGGING && console.log('has secure access', hasSecureAccess());
       return response
     });
 }
@@ -67,6 +69,6 @@ export const getCurrentUser = () => {
 }
 
 export const hasSecureAccess = () => {
-  const secureAccessExpiresAt = localStorage.getItem("secureAccessExpiresAt");
-  return secureAccessExpiresAt && new Date(secureAccessExpiresAt) > new Date();
+  const secureAccessExpiresAt:string | null = localStorage.getItem("secureAccessExpiresAt");
+  return secureAccessExpiresAt && Number(secureAccessExpiresAt) > Date.now();
 }
