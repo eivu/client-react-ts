@@ -1,5 +1,5 @@
 import { FC, useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { AlertError } from '../components/AlertError';
 import { ACTIVE_DEBUGGING } from '../constants';
 import { submit2Fa } from '../services/auth.service';
@@ -7,8 +7,10 @@ import DefaultLayout, { ContentHeader, ContentContainer } from '../layout/Defaul
 
 
 export const AuthPage: FC = () => {
+  const navigate = useNavigate();
   const [codeArray, setCodeArray] = useState<string[]>(['', '', '', '', '', '']);
   const [error, setError] = useState<string>('');
+  const [formSubmittedAt, setFormSubmittedAt] = useState<number>(0);
   const inputRefsArray = useRef<(HTMLInputElement[] | null)>([])
 
   useEffect(() => {
@@ -17,16 +19,20 @@ export const AuthPage: FC = () => {
     }
   },[])
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>):void {
-    event.preventDefault();
+  useEffect(() => {
     console.log(codeArray.join(''));
-    submit2Fa(
-      codeArray.join('')
-    ).catch((error) => {
-      setError(error.response.data.error);
-      ACTIVE_DEBUGGING && console.log(error);
-    })
-  }
+    formSubmittedAt !== 0 &&
+      submit2Fa(
+        codeArray.join('')
+      ).then(() => {
+        console.log("verified");
+      }
+      ).catch((error) => {
+        setError(error.response.data.error);
+        ACTIVE_DEBUGGING && console.log(error);
+      })
+  }, [formSubmittedAt])
+  
 
   function set2faInputs(index:number, newValue:string):void {
     // Make a copy of the current array but with the updated value
@@ -39,10 +45,7 @@ export const AuthPage: FC = () => {
         return origValue;
       }
     });
-    console.log(updatedInputs);
     setCodeArray(updatedInputs);
-    console.log(codeArray);
-    console.log(updatedInputs == codeArray);
   }
 
   return (
@@ -65,7 +68,7 @@ export const AuthPage: FC = () => {
                   Enter the 6 digit 2FA code.
                 </p>
 
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={() => setFormSubmittedAt(Date.now())}>
                   <div className="flex items-center gap-4.5">
                     {Array.from({ length: 6 }).map((_, index) => (
                       <input
@@ -80,7 +83,7 @@ export const AuthPage: FC = () => {
                           const clipboard = e.clipboardData.getData('text/plain');
                           const snippetArray = clipboard.substring(0, 6).split('');
                           setCodeArray(snippetArray);
-                          // handleSubmit(e);
+                          setFormSubmittedAt(Date.now())
                         }}
                         maxLength={1}
                         value={codeArray[index]}
@@ -94,8 +97,8 @@ export const AuthPage: FC = () => {
                               inputRefsArray.current[index + 1 ]?.focus();
                             }
                             // if the index is 5, submit the form
-                            // else
-                              // handleSubmit(element);
+                            else
+                              setFormSubmittedAt(Date.now())
                           }
                         }
                         }
