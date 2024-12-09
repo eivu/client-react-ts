@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/eivu/client-react-ts/compare/v1.4.0...v1.5.0) (2024-12-09)
+
+
+### Features
+
+* misc improvements v2 ([512aea9](https://github.com/eivu/client-react-ts/commit/512aea9a0e629d1f86e6155d4d91edc1c3b208c1))
+
 # [1.4.0](https://github.com/eivu/client-react-ts/compare/v1.3.0...v1.4.0) (2024-11-23)
 
 
