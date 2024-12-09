@@ -1,7 +1,7 @@
 import { createContext, useContext, useReducer, ReactNode } from 'react';
 import { type MediaPlayerInstance, } from '@vidstack/react';
 import { defaultQueue } from '../components/Player/defaultQueue';
-import { getSecured, invertSecured, getSecureAccessExpiresAt } from '../services/auth.service';
+import { getSecured, setSecured, getSecureAccessExpiresAt } from '../services/auth.service';
 import type { QueueItem } from '../types/queueItem';
 import type { Category } from '../types/Category';
 
@@ -39,7 +39,7 @@ type Action =
   | { type: 'removeQueueItem', queueItem: QueueItem }
   | { type: 'clearAll' }
   | { type: 'setActiveCategory', activeCategory: Category }
-  | { type: 'setSecureAccessExpiresAt', secureAccessExpiresAt: Number }
+  | { type: 'setSecureAccessExpiresAt', secureAccessExpiresAt: number }
   | { type: 'clearSecureExpiresAt' }
   | { type: 'setSecured' };
 
@@ -82,7 +82,7 @@ function reducer(state: State, action: Action): State {
       else 
         secured = false;
 
-      invertSecured();
+      setSecured(secured);
       return { ...state, secured };
     default:
       return state;

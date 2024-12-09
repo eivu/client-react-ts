@@ -47,8 +47,8 @@ export const TabSecureAccessToggle: FC<TabSecureAccessToggleProps> = ({ label })
 
   const handleClick = ():void => {
     dispatch({type: 'setSecured'});
-    console.log('secureAccessExpiresAt', secureAccessExpiresAt);
-    console.log('secured', secured);
+    // console.log('secureAccessExpiresAt', secureAccessExpiresAt);
+    // console.log('secured', secured);
   }
 
   return (
