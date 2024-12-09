@@ -8,13 +8,24 @@ import { MiniLoader } from '../../components/Loader';
 import api from '../../services/api.config';
 import { ReleaseTable } from '../../components/ReleaseTable';
 import { ErrorPanel } from '../../components/ErrorPanel';
+import { ReleaseControls } from '../../components/ReleaseControls';
+
 
 const ReleasePage: React.FC = () => {
+  const titlePrefix = "EIVU::Releases::";
   const releaseId = useLoaderData();
+  const [title, setTitle] = useState<string | undefined>("Loading...");
   const [loading, setLoading] = useState<boolean>(true);
   const [release, setRelease] = useState<Release>();
   const [responseError, setResponseError] = useState<string>('');
   const { activeCategory } = useAppContext();
+
+  useEffect(() => {
+    setTitle(responseError ? 'Err0r' :
+              release?.secured ?
+                `Release ${release?.id}` : release?.name);
+    document.title = titlePrefix + title ;
+  }, [release])
 
   useEffect(() => {
     setLoading(true);
@@ -44,20 +55,20 @@ const ReleasePage: React.FC = () => {
         !loading && (
           <ContentHeader>::
             <span><Link to="/releases" className="breadcrumb">Release</Link>::{
-              responseError ? 'Err0r' :
-                release?.secured ? `Release ${release?.id
-              }` : release?.name}</span>
+              responseError ? 'Err0r': release?.name
+            }</span>
             {
-              release?.artists.length > 0 &&
+              release?.artists?.length > 0 &&
                 <div>
                   {/* BY */}
                   { release.artists.map((artist) => {
                     return (
-                      <Link to={`/artists/${artist.id}`} className="pr-2">{artist.name}</Link>
+                      <Link to={`/artists/${artist.id}`} className="pr-2" key={`artist-link-${artist.id}`}>{artist.name}</Link>
                     )})
                    }
                 </div>
             }
+            { release && <ReleaseControls release={release} /> }
           </ContentHeader>
         )
       }

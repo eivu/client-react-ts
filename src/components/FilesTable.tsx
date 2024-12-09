@@ -117,26 +117,30 @@ export const FilesTable: FC<FilesTableProps> = ({ queueItems, loading, sorting, 
             {headerGroup.headers.map(header => {
               return (
                 <th key={header.id} id={`${header.id}Header`} className={header.column.columnDef.headerClassName}> 
-                  {header.isPlaceholder ? null : (
-                    <div
-                      {...{
-                        className: header.column.getCanSort()
-                          ? 'cursor-pointer select-none'
-                          : '',
-                        onClick: header.column.getToggleSortingHandler(),
-                      }}
-                    >
-                      {flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                      {{
-                        asc: <FaSortUp className='inline' />,
-                        desc: <FaSortDown className='inline' />,
-                        false: <FaSort  className='inline' />
-                      }[header.column.getIsSorted() as string] ?? null}
-                    </div>
-                  )}
+                  {
+                    header.isPlaceholder
+                      ? null
+                      : (
+                          <div
+                            {...{
+                              className: header.column.getCanSort()
+                                ? 'cursor-pointer select-none'
+                                : '',
+                              onClick: header.column.getToggleSortingHandler(),
+                            }}
+                          >
+                            {flexRender(
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
+                            {{
+                              asc: <FaSortUp className='inline' />,
+                              desc: <FaSortDown className='inline' />,
+                              false: <FaSort  className='inline' />
+                            }[header.column.getIsSorted() as string] ?? null}
+                          </div>
+                        )
+                    }
                 </th>
               )
             })}
@@ -145,11 +149,11 @@ export const FilesTable: FC<FilesTableProps> = ({ queueItems, loading, sorting, 
       </thead>
       <tbody>
         {
-          !loading && !!searchTerm && queueItems.length === 0 &&
+          !loading && queueItems.length === 0 &&
           <tr>
             <td colSpan={columns.length}>
               <div className="flex items-center justify-center">
-                No matching files found.  Please try another search term.
+                No matching files found. { !!searchTerm  && `Please try another search term.`}
               </div>
             </td>
           </tr>

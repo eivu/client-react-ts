@@ -476,11 +476,19 @@ table#file-details-table tbody tr td {
   vertical-align: top;
 }
 
-
-
-table#file-details-table tbody tr td:nth-child(1) {  
-  width: 20em;
+@media only screen and (min-width: 600px) {
+  table#file-details-table tbody tr td:nth-child(1) {  
+    /* width: 20em; */
+  }
 }
+
+
+@media only screen and (max-width: 600px) {
+  table#file-details-table tbody tr td.file-key-col {  
+    width: 160px;
+  }
+}
+
 
 #content-header a.breadcrumb:hover  {
   @apply text-indigo-600;
@@ -609,7 +617,7 @@ table#file-details-table tbody tr td:nth-child(1) {
   .tab-label.inactive,
   .tab-category {
     /* mobile */ 
-    font-size: 10px
+    font-size: 13px
   }
 
   #tab-category-wrapper {
@@ -796,7 +804,7 @@ header#top-nav {
 @media only screen and (max-width: 400px) {
   #files-table .nameCol,
   #files-table #nameHeader {
-    width: 200px;
+    width: 150px;
   }
 }
 
@@ -868,3 +876,43 @@ header#top-nav {
   }
 }
 
+.file-key-col {
+  max-width: 255px;
+}
+
+#cover-art-frame {
+  @apply mx-auto  w-full max-w-60 rounded-sm border border-strokedark bg-boxdark px-4 py-6 text-center shadow-default;
+}
+
+#cover-art-frame.logged-in {
+  @apply mb-10;
+}
+
+
+#cover-art-frame.logged-out {
+  margin-top: 208px;
+}
+
+.pagination-button {
+  @apply flex cursor-pointer items-center justify-center rounded-md p-1 px-3 hover:bg-primary hover:text-white;
+}
+
+.album-controls {
+  @apply text-sm font-normal;
+}
+
+.album-control {
+  @apply cursor-pointer;
+}
+
+.album-controls-inner-wrapper {
+  border-top: 1px solid silver;
+}
+
+.album-controls .spacer {
+  color: silver;
+}
+
+.user-dropdown-menu-item {
+  @apply flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base;
+}

@@ -1,32 +1,29 @@
-// http://localhost:5173/artists/71
-// http://localhost:5173/artists/427
-
-
-import React from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 import DefaultLayout, { ContentHeader, ContentContainer } from '../../layout/DefaultLayout';
 import api from '../../services/api.config';
 import  { useAppContext } from '../../store/AppContext';
 // import axios from 'axios';
-import { useMediaState } from '@vidstack/react';
-import { useMemo, useState, useEffect, FC } from 'react';
-import AddToQueueButton from '../../components/AddToQueueButton';
-import AVButton from '../../components/AVButton';
+import { useState, useEffect, FC } from 'react';
 import type { Artist } from '../../types/artist';
+import type { Release } from '../../types/release';
 import { MiniLoader } from '../../components/Loader';
 import { ReleaseTable } from '../../components/ReleaseTable';
 import { PaginationMenu } from '../../layout/PaginationMenu';
 import { ErrorPanel } from '../../components/ErrorPanel';
+import { ReleaseControls } from '../../components/ReleaseControls';
 
-const ArtistPage: React.FC = () => {
+
+const ArtistPage: FC = () => {
   const artistId = useLoaderData()<number>;
   const [pageNum, setPageNum] = useState<number>(1);
+  const [title, setTitle] = useState<string | undefined>("Loading...");
   const [loading, setLoading] = useState<boolean>(true);
   const [artist, setArtist] = useState<Artist>();
   const [releases, setReleases] = useState<Release[]>([]);
   const [responseError, setResponseError] = useState<string>('');
   const [meta, setMeta] = useState<any>({});
   const { activeCategory } = useAppContext();
+  const titlePrefix = "EIVU::Artists::";
 
   useEffect(() => {
     setLoading(true);
@@ -37,7 +34,6 @@ const ArtistPage: React.FC = () => {
       setReleases(response.data.releases);
       setLoading(false);
       setMeta(response.data.meta);
-      console.log("artist:", response.data);
     })
     .catch((error) => {
       setLoading(false);
@@ -46,17 +42,18 @@ const ArtistPage: React.FC = () => {
     })
   }, [pageNum, activeCategory])
 
+  useEffect(() =>{
+    setTitle(responseError 
+              ?  'Err0r' :
+                artist?.secured
+                  ? `Artist ${artist?.id}` : artist?.name);
+    document.title = titlePrefix + title ;
+  },[artist])
+
   function handlePageChange(pageNum: number) {
     setLoading(true);
     setPageNum(pageNum);
   }
-  // const [loading, setLoading] = useState<boolean>(true);
-  // const [responseError, setResponseError] = useState<String | undefined>(undefined);
-  // const [queueItems, setQueueItems] = useState<QueueItem[]>([]);
-
-  // // From queue page
-  // const { queue, queueIndex, player, dispatch } = useAppContext();
-  // const isPlaying = useMediaState('playing', player);
 
   return (
     <DefaultLayout>
@@ -69,17 +66,12 @@ const ArtistPage: React.FC = () => {
       }
       { !loading &&
           <ContentHeader>::
-            <Link to="/artists" className="breadcrumb">Artist</Link>::{
-              responseError ? 'Err0r' :
-                artist?.secured ? `Artist ${artist?.id}` : artist?.name
-            }
+            <Link to="/artists" className="breadcrumb">Artist</Link>::{responseError ? 'Err0r': artist?.name}
           </ContentHeader>
       }
       <ContentContainer>
         {
           loading ? <MiniLoader /> : 
-          
-          
           ( 
             responseError ? <ErrorPanel errorMessage={responseError} /> :
               releases?.length === 0 ? <div className="empty">No releases found</div> :
@@ -100,6 +92,7 @@ const ArtistPage: React.FC = () => {
                         {release.name}
                         {release.year && (` (${release.year})`)}
                       </Link>
+                      { release && <ReleaseControls release={release} /> }
                     </div>
                     <div className="clear-both"></div>
                     <ReleaseTable release={release} />

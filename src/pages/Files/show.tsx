@@ -18,21 +18,32 @@ const File: FC = () => {
   const [file, setFile] = useState<CloudFile>();
   const [responseError, setResponseError] = useState<string>('');
   const [deleted, setDeleted] = useState<boolean>(false);
+  const fileKeyStyle = 'file-key-col';
+  const fileValueStyle = 'file-value-col';
+  const titlePrefix:string = 'Eivu::Files::';
+  const [title, setTitle] = useState<string>('Loading...');
 
   useEffect(() => {
     api.get(`/cloud_files/${fileId}`, {
       params: { category: null, delicate: false }}
     ).then((response) => {
       setFile(response.data.cloudFile);
-      console.log("file:", response.data.cloudFile);
       setLoading(false);
       setDeleted(response.data.cloudFile.deletable);
+      setTitle(response.data.cloudFile.secured ? response.data.cloudFile.md5 : response.data.cloudFile.name);
     }).catch((error) => {
       setLoading(false);
+      setTitle('Err0r');
       setResponseError(error.message);
-      console.log("error:", responseError);
+      console.log("file show error:", responseError);
     })
   },[]);
+
+
+  useEffect(() =>{
+    document.title = titlePrefix + title ;
+  },[title])
+  
 
 
   return (
@@ -45,11 +56,7 @@ const File: FC = () => {
             deleted ?
               <Link to="/trash" className="breadcrumb">Trash</Link> :
                 <Link to="/files" className="breadcrumb">Files</Link> 
-          }::
-          {
-            responseError ? 'Err0r' :
-              file.secured ? file.md5 : file.name
-          }
+          }::{responseError ? 'Err0r': file?.name }
         </ContentHeader>
       }
       <ContentContainer>
@@ -57,180 +64,180 @@ const File: FC = () => {
         
             responseError ? <ErrorPanel errorMessage={responseError} /> :
               <div id="file-details">
-                { file?.artworkUrl && <img src={file.artworkUrl} alt={file.name} className="file-coverart mr-4" /> }
+                { file?.artworkUrl && <img src={file?.artworkUrl} alt={file?.name} className="file-coverart mr-4" /> }
                 <ContentDeleteRestore file={file} deleted={deleted} setDeleted={setDeleted}/>
                 <ContentViewer file={file} />
                 <table id="file-details-table" className="font-mono">
                   <tbody className="align-baseline">
                     <tr>
-                      <td>
+                      <td className={fileKeyStyle}>
                         Name
                       </td>
-                      <td>
-                        {file.name}
+                      <td className={fileKeyStyle}>
+                        {file?.name}
                       </td>
                     </tr>
                     {
-                      file.artists.length > 0 &&
+                      file?.artists?.length > 0 &&
                         <tr>
-                          <td>
+                          <td className={fileKeyStyle}>
                             Artist(s)
                           </td>
-                          <td>
-                            {file.artists.map(artist => <Link className="pr-2" to={`/artists/${artist.id}`} key={`artist-${artist.id}`}>{artist.name}</Link>)}
+                          <td className={fileKeyStyle}>
+                            {file?.artists.map(artist => <Link className="pr-2" to={`/artists/${artist.id}`} key={`artist-${artist.id}`}>{artist.name}</Link>)}
                           </td>
                         </tr>
                     }
                     {
-                      file.releases.length > 0 &&
+                      file?.releases.length > 0 &&
                         <tr>
-                          <td>
+                          <td className={fileKeyStyle}>
                             Release(s)
                           </td>
-                          <td>
-                            {file.releases.map(release => <Link to={`/releases/${release.id}`} key={`release-${release.id}`}>{release.name}</Link>)}
+                          <td className={fileValueStyle}>
+                            {file?.releases.map(release => <Link to={`/releases/${release.id}`} key={`release-${release.id}`}>{release.name}</Link>)}
                           </td>
                         </tr>
                     }
                     {
-                      file.releasePos &&
+                      file?.releasePos &&
                         <tr>
-                          <td>
+                          <td className={fileKeyStyle}>
                             Release Pos
                           </td>
-                          <td>
-                            {file.releasePos}
+                          <td className={fileValueStyle}>
+                            {file?.releasePos}
                           </td>
                         </tr>
                     }
                     {
-                      file.state == 'completed' && file.duration && file.duration > 0 &&
+                      file?.state == 'completed' && file?.duration && file?.duration > 0 &&
                         <tr>
-                          <td>
+                          <td className={fileKeyStyle}>
                             Duration
                           </td>
-                          <td>
-                            {convertSecondsToTimeHhMmSs(file.duration)}
+                          <td className={fileValueStyle}>
+                            {convertSecondsToTimeHhMmSs(file?.duration)}
                           </td>
                         </tr>
                     }
                     <tr>
-                      <td>
+                      <td className={fileKeyStyle}>
                         Content Type
                       </td>
-                      <td>
-                        {file.contentType}
+                      <td className={fileValueStyle}>
+                        {file?.contentType}
                       </td>
                     </tr>
                     <tr>
-                      <td>
+                      <td className={fileKeyStyle}>
                         NSFW
                       </td>
-                      <td>
-                        {file.nsfw ? "Yes" : "No"}
+                      <td className={fileValueStyle}>
+                        {file?.nsfw ? "Yes" : "No"}
                       </td>
                     </tr>
                     <tr>
-                      <td>
+                      <td className={fileKeyStyle}>
                         Secured
                       </td>
-                      <td>
-                        {file.secured ? "Yes" : "No"}
+                      <td className={fileValueStyle}>
+                        {file?.secured ? "Yes" : "No"}
                       </td>
                     </tr>
                     {
-                      file.filesize &&
+                      file?.filesize &&
                         <tr>
-                          <td>
+                          <td className={fileKeyStyle}>
                             Filesize
                           </td>
-                          <td>
-                            {prettyBytes(file.filesize)}
+                          <td className={fileValueStyle}>
+                            {prettyBytes(file?.filesize)}
                           </td>
                         </tr>
                     }
                     {
-                      file.year &&
+                      file?.year &&
                         <tr>
-                          <td>
+                          <td className={fileKeyStyle}>
                             Year
                           </td>
-                          <td>
-                            {file.year}
+                          <td className={fileValueStyle}>
+                            {file?.year}
                           </td>
                         </tr>
                     }
                     {
-                      file.description &&
+                      file?.description &&
                         <tr>
-                          <td>
+                          <td className={fileKeyStyle}>
                             Description
                           </td>
-                          <td>
-                            {file.description}
+                          <td className={fileValueStyle}>
+                            {file?.description}
                           </td>
                         </tr>
                     }
                     {
-                      file.rating &&
+                      file?.rating &&
                         <tr>
-                          <td>
+                          <td className={fileKeyStyle}>
                             Rating
                           </td>
-                          <td>
-                            {file.rating}
+                          <td className={fileValueStyle}>
+                            {file?.rating}
                           </td>
                         </tr>
                     }
                     <tr>
-                      <td>
+                      <td className={fileKeyStyle}>
                         Source
                       </td>
-                      <td>
-                        <Link to={file.url}>Link</Link>
+                      <td className={fileValueStyle}>
+                        <Link to={file?.url}>Link</Link>
                       </td>
                     </tr>
                     {
-                      file.dateAquiredAt &&
+                      file?.dateAquiredAt &&
                         <tr>
-                          <td>
+                          <td className={fileKeyStyle}>
                             Num Plays
                           </td>
-                          <td>
-                            {timeAgo(file.date_aquiredAt)}
+                          <td className={fileValueStyle}>
+                            {timeAgo(file?.date_aquiredAt)}
                           </td>
                         </tr>
                     }
                     <tr>
-                      <td>
+                      <td className={fileKeyStyle}>
                         State
                       </td>
-                      <td>
-                        {file.state}
+                      <td className={fileValueStyle}>
+                        {file?.state}
                       </td>
                     </tr>
                     <tr>
-                      <td>
+                      <td className={fileKeyStyle}>
                         Created At
                       </td>
-                      <td>
-                        {timeAgo(file.createdAt)}
+                      <td className={fileKeyStyle}>
+                        {timeAgo(file?.createdAt)}
                       </td>
                     </tr>
                     <tr>
-                      <td>
+                      <td className={fileKeyStyle}>
                         Updated At
                       </td>
-                      <td>
-                        {timeAgo(file.updatedAt)}
+                      <td className={fileKeyStyle}>
+                        {timeAgo(file?.updatedAt)}
                       </td>
                     </tr>
                     <tr>
-                      <td>
+                      <td className={fileKeyStyle}>
                         Shared
                       </td>
-                      <td>
-                        {file.shared ? "Yes" : "No"}
+                      <td className={fileKeyStyle}>
+                        {file?.shared ? "Yes" : "No"}
                       </td>
                     </tr>
                   </tbody>

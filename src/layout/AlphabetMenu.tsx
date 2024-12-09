@@ -26,11 +26,11 @@ export function AlphabetMenuVertical({
   return(
     <div id="alphabet-menu-vertical">
       Letter:
-      <select onChange={handleLetterSelect}>
+      <select onChange={handleLetterSelect} defaultValue={activeLetter}>
         <option value="">All</option>
         <option value="#">#</option>
         { alphabet.map((letter, index) => (
-          <option key={`vert-${index}`} value={letter} selected={activeLetter === letter}>{letter}</option>
+          <option key={`vert-${index}`} value={letter}>{letter}</option>
         ))}
       </select>
     </div>

@@ -6,6 +6,7 @@ import AddToQueueButton from './AddToQueueButton';
 import axios from 'axios';
 import { GoCloudOffline } from "react-icons/go";
 import { IoIosHourglass } from "react-icons/io";
+import { VideoPlayer } from './VideoPlayer';
 
 export type ViewerProps = {
   file: CloudFile;
@@ -16,7 +17,7 @@ export const ContentViewer:JSX.Element = ({file}:ViewerProps) => {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    file && axios.head(file.url)
+    file && axios.head(`${file.url}?rando=${Math.random()}`)
     .then((response) => {
       if (response.status === 200) {
         setOnline(true);
@@ -74,8 +75,10 @@ export const AudioViewer:JSX.Element = ({file}:ViewerProps) => {
 }
 
 export const VideoViewer:JSX.Element = ({file}:ViewerProps) => {
+    // const player = useRef<MediaPlayerInstance>(null);
+
   return(
-    <video reff="video_tag" src={file.url} controls/>
+    <VideoPlayer item={objectToQueueItem(file)} player={undefined}/>
   )
 }
 

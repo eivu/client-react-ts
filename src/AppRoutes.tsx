@@ -16,6 +16,12 @@ import { AuthPage } from './pages/Auth';
 import { Login } from './pages/Login';
 import { Home } from './pages/Home';
 import { About } from './pages/About';
+import { History } from './pages/History';
+import { Settings } from './pages/Settings';
+// import { Profile } from './pages/Profile';
+import { Profile } from './pages/Profile';
+import { LogoutPage } from './pages/LogoutPage';
+import { RevokePage } from './pages/RevokePage';
 
 
 export const AppRoutes:React.FC = () => {
@@ -160,6 +166,46 @@ export const AppRoutes:React.FC = () => {
               <AuthPage />
             </>,
           path: "/auth"
+        },
+        {
+          element: 
+            <>
+              <PageTitle title="EIVU::History" />
+              <History />
+            </>,
+          path: "/history"
+        },
+        {
+          element: 
+            <>
+              <PageTitle title="EIVU::Settings" />
+              <Settings />
+            </>,
+          path: "/settings"
+        },
+        {
+          element: 
+            <>
+              <PageTitle title="EIVU::Profile" />
+              <Profile />
+            </>,
+          path: "/profile"
+        },
+        {
+          element: 
+            <>
+              <PageTitle title="EIVU::Logging out..." />
+              <LogoutPage />
+            </>,
+          path: "/logout"
+        },
+        {
+          element: 
+            <>
+              <PageTitle title="EIVU::Losing Access..." />
+              <RevokePage />
+            </>,
+          path: "/revoke"
         },
       ]
     }

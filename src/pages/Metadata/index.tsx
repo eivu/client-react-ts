@@ -59,7 +59,7 @@ const MetadataIndex: FC = () => {
             { responseError ? <ErrorPanel errorMessage={responseError} /> :
               <div id="metadata-list" className="list pt-10">
               {metadata.map((metadatum) => (
-                <div className="entry" key={`metadatum-entry-${metadatum.id}`}>
+                <div className="clear-both entry" key={`metadatum-entry-${metadatum.id}`}>
                   <MetadatumEntry metadatum={metadatum} />
                 </div>
               ))}
