@@ -11,7 +11,7 @@ type State = {
   activeCategory: Category,
   secured: boolean,
   queue: QueueItem[],
-  secureAccessExpiresAt: Number
+  secureAccessExpiresAt: number
 };
 
 
@@ -39,7 +39,8 @@ type Action =
   | { type: 'clearAll' }
   | { type: 'setActiveCategory', activeCategory: Category }
   | { type: 'setSecureAccessExpiresAt', secureAccessExpiresAt: Number }
-  | { type: 'clearSecureExpiresAt' };
+  | { type: 'clearSecureExpiresAt' }
+  | { type: 'setSecured' };
 
 function reducer(state: State, action: Action): State {
   switch (action.type) {
@@ -73,6 +74,13 @@ function reducer(state: State, action: Action): State {
       return { ...state, secureAccessExpiresAt: action.secureAccessExpiresAt };
     case 'clearSecureExpiresAt':
       return { ...state, secureAccessExpiresAt: 0 };
+    case 'setSecured':
+      let secured:boolean = false;
+      if (state.secureAccessExpiresAt > Date.now()) 
+        secured = !state.secured
+      else 
+        secured = false;
+      return { ...state, secured };
     default:
       return state;
   }
@@ -93,11 +101,11 @@ type Props = {
 
 export function AppProvider({children }: Props) {
   // const [state, dispatch] = useReducer(reducer, initialState)
-  const [{ queueIndex, secureAccessExpiresAt, player, queue, activeCategory }, dispatch] =
+  const [{ queueIndex, secureAccessExpiresAt, secured, player, queue, activeCategory }, dispatch] =
     useReducer(reducer, initialState);
   
   return (
-    <AppContext.Provider value={{queueIndex, secureAccessExpiresAt, player, queue, activeCategory, dispatch}}>
+    <AppContext.Provider value={{queueIndex, secureAccessExpiresAt, secured, player, queue, activeCategory, dispatch}}>
       {children}
     </AppContext.Provider>
   )

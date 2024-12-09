@@ -11,7 +11,7 @@ type TabCategoryLinkProps = {
   subCategories?: Category[];
 }
 
-export const TabCategoryLink:FC = ({category, label, subCategories }:TabCategoryLinkProps) => {
+export const TabCategoryLink:FC<TabCategoryLinkProps> = ({category, label, subCategories }) => {
   const { dispatch, activeCategory } = useAppContext();
   const activeClasses = authStatus() === 'logged-in' ? 'active' : "inactive";
   const inactiveClasses = 'inactive';
@@ -33,3 +33,30 @@ export const TabCategoryLink:FC = ({category, label, subCategories }:TabCategory
     </Link>
   );
 }
+
+type TabSecureAccessToggleProps = {
+  label: string;
+};
+
+export const TabSecureAccessToggle: FC<TabSecureAccessToggleProps> = ({ label }) => {
+  const { secureAccessExpiresAt, secured, dispatch } = useAppContext();
+  const activeClasses = secured ? 'active' : 'inactive';
+  const hasSecureAccess = ():boolean => {
+    return secureAccessExpiresAt > Date.now();
+  }
+
+  const handleClick = ():void => {
+    dispatch({type: 'setSecured'});
+    console.log('secureAccessExpiresAt', secureAccessExpiresAt);
+    console.log('secured', secured);
+  }
+
+  return (
+    hasSecureAccess()
+      ?
+        <button className={`tab-category ${activeClasses}`} onClick={handleClick}>
+          {label}
+        </button>
+      : <></>
+  )
+} 

@@ -1,22 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { TabCategoryLink } from './TabCategoryLink';
+import { TabCategoryLink, TabSecureAccessToggle } from './TabCategoryObjects';
 import { authStatus } from '../services/auth.service';
-import { useAppContext } from '../store/AppContext';
 
 const CateogryTabs: React.FC = () => {
-  const { secureAccessExpiresAt } = useAppContext();
-  const hasSecureAccess = ():boolean => {
-    return secureAccessExpiresAt > Date.now();
-  }
-
   return (
     <div id="tab-category-wrapper">
       <TabCategoryLink category={null} label={'EVERYTHING'} />
       <TabCategoryLink category="audio" label={'Audio'} />
       <TabCategoryLink category="video" label={'Video'} />
       <TabCategoryLink category="image" label={'Image'} />
-      { hasSecureAccess() && <TabCategoryLink category="secured" label={'Secured'} /> }
+      <TabSecureAccessToggle label={'Secured'} />
 
       <div id="archive-menu" className="group">
         <div id="tab-archive-wrapper" className="flex items-center justify-between space-x-5 bg-white px-4">
