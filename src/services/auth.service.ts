@@ -68,6 +68,7 @@ export const logout = () => {
   localStorage.removeItem("user");
   localStorage.removeItem("token");
   localStorage.removeItem("secureAccessExpiresAt");
+  localStorage.removeItem("secured");
 }
 
 export const getCurrentUser = () => {
@@ -80,6 +81,29 @@ export const getCurrentUser = () => {
   }
 
   return null;
+}
+
+export const getSecured = ():boolean => {
+  if (!hasSecureAccess()) return false;
+
+  const secured:string | null = localStorage.getItem("secured");
+  return secured === 'true';
+}
+
+export const setSecured = (value:boolean):boolean => {
+  if (!hasSecureAccess()) return false;
+
+  localStorage.setItem("secured", value.toString());
+  return value;
+}
+
+export const invertSecured = ():boolean => {
+  if (!hasSecureAccess()) return false;
+
+  const secured: boolean = getSecured();
+
+  localStorage.setItem("secured", (!secured).toString());
+  return !secured;
 }
 
 export const hasSecureAccess = () => {

@@ -29,11 +29,11 @@ const FilesIndex: FC<FilesIndexProps> = ({ valid_files }) => {
   const [meta, setMeta] = useState<any>({});
   const [queueItems, setQueueItems] = useState<QueueItem[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>(searchParams.get('s') || '');
-  const { activeCategory } = useAppContext();
+  const { activeCategory, secured } = useAppContext();
   const constructParams = (sorting: SortingState) => {
     return {
       category: activeCategory,
-      delicate: false,
+      delicate: secured,
       sortBy: sorting[0]?.id,
       page: pageNum,
       sortDesc: sorting[0]?.desc,
@@ -57,7 +57,7 @@ const FilesIndex: FC<FilesIndexProps> = ({ valid_files }) => {
         setLoading(false);
         setResponseError(error.message);
       });
-  },[sorting, pageNum, letter, searchSubmittedAt, activeCategory, valid_files])
+  },[sorting, pageNum, letter, searchSubmittedAt, activeCategory, valid_files, secured])
 
 
 

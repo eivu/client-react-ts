@@ -1,6 +1,7 @@
 import { createContext, useContext, useReducer, ReactNode } from 'react';
 import { type MediaPlayerInstance, } from '@vidstack/react';
 import { defaultQueue } from '../components/Player/defaultQueue';
+import { getSecured, invertSecured, getSecureAccessExpiresAt } from '../services/auth.service';
 import type { QueueItem } from '../types/queueItem';
 import type { Category } from '../types/Category';
 
@@ -19,9 +20,9 @@ const initialState: State = {
   queueIndex: 0,
   queue: defaultQueue,
   activeCategory: null,
-  secured: false,
+  secured: getSecured(),
   player: undefined,
-  secureAccessExpiresAt: 0
+  secureAccessExpiresAt: getSecureAccessExpiresAt()
 }
 
 type Action =
@@ -80,6 +81,8 @@ function reducer(state: State, action: Action): State {
         secured = !state.secured
       else 
         secured = false;
+
+      invertSecured();
       return { ...state, secured };
     default:
       return state;
