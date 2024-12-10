@@ -57,3 +57,7 @@
 video {
   background-color: black;
 }
+
+button.vds-button {
+  color: white
+}

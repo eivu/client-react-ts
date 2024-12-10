@@ -1,9 +1,9 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useState, FC, FormEvent } from 'react';
+import { useState, useEffect, FC, FormEvent } from 'react';
 import { MdOutlineMailOutline, MdLockOutline } from "react-icons/md";
 import { AlertError } from '../components/AlertError';
 import DefaultLayout, { ContentHeader, ContentContainer } from '../layout/DefaultLayout';
-import { login } from '../services/auth.service';
+import { login, getCurrentUser } from '../services/auth.service';
 
 export const Login: FC = () => {
   const navigate = useNavigate();
@@ -14,6 +14,12 @@ export const Login: FC = () => {
       password: ''
     }
   );
+
+  useEffect(() => {
+    if (getCurrentUser())
+      navigate("/files");
+  },[])
+
 
 
   function handleLogin(event: FormEvent<HTMLFormElement>) {
