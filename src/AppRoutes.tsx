@@ -59,7 +59,7 @@ export const AppRoutes:React.FC = () => {
     {
       element: 
         <>
-          <PageTitle title="EIVU::Auth" />
+          <PageTitle title="EIVU::Login" />
           <Login />
         </>,
       path: "/login"

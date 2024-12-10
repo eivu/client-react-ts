@@ -85,12 +85,12 @@ export const VideoPlayer:ReactElement = ({item, player}:VideoPlayerProps) => {
       ref={player}
     >
       <MediaProvider>
-        {/* <Poster
+        <Poster
           className="vds-poster"
-          src="/eivu008.png"
+          src="/eivu009-cropped.png"
           // src="https://image.mux.com/VZtzUzGRv02OhRnZCxcNg49OilvolTqdnFLEqBsTwaxU/thumbnail.webp?time=268&width=1200"
           alt={item.name}
-        /> */}
+        />
         {/* {textTracks.map((track) => (
           <Track {...track} key={track.src} />
         ))} */}
