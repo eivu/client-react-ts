@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/eivu/client-react-ts/compare/v1.5.0...v1.6.0) (2024-12-13)
+
+
+### Features
+
+* All pages now respect secured param ([3a1e527](https://github.com/eivu/client-react-ts/commit/3a1e527f486660e8e17116c411f843f1ceb40062))
+
 # [1.5.0](https://github.com/eivu/client-react-ts/compare/v1.4.0...v1.5.0) (2024-12-09)
 
 
