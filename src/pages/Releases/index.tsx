@@ -4,6 +4,7 @@ import DefaultLayout, { ContentHeader, ContentContainer} from '../../layout/Defa
 import { AlphabetMenu } from '../../layout/AlphabetMenu';
 import { useState, useEffect, FC } from 'react';
 import api from '../../services/api.config';
+import  { useAppContext } from '../../store/AppContext';
 import { MiniLoader } from '../../components/Loader';
 import { PaginationMenu } from '../../layout/PaginationMenu';
 import { ErrorPanel } from '../../components/ErrorPanel';
@@ -17,6 +18,8 @@ const ReleasesIndex: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [meta, setMeta] = useState<any>({});
   const [responseError, setResponseError] = useState<string>('');
+  const { secured } = useAppContext();
+
 
   function handlePageChange(pageNum: number) {
     setLoading(true);
@@ -33,7 +36,7 @@ const ReleasesIndex: React.FC = () => {
 
   useEffect(() => {
     api.get('/releases', {
-      params: { page: pageNum, category: null, delicate: false, letter: letter }})
+      params: { page: pageNum, category: null, delicate: secured, letter: letter }})
       .then((response) => {
         setReleases(response.data.releases);
         setMeta(response.data.meta);
@@ -44,7 +47,7 @@ const ReleasesIndex: React.FC = () => {
         setResponseError(error.message);
         console.log("error:", responseError);
       });
-  },[pageNum, letter])
+  },[pageNum, letter, secured])
 
   return (
     <DefaultLayout>

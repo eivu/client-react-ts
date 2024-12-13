@@ -7,6 +7,7 @@ import { PaginationMenu } from '../../layout/PaginationMenu';
 import { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { ErrorPanel } from '../../components/ErrorPanel';
+import  { useAppContext } from '../../store/AppContext';
 import api from '../../services/api.config';
 
 
@@ -19,6 +20,8 @@ const ArtistsIndex: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [meta, setMeta] = useState<any>({});
   const [responseError, setResponseError] = useState<string>('');
+  const { secured } = useAppContext();
+
 
   function handlePageChange(pageNum: number) {
     setLoading(true);
@@ -35,7 +38,7 @@ const ArtistsIndex: React.FC = () => {
 
   useEffect(() => {
     api.get('/artists', {
-      params: { page: pageNum, category: null, delicate: false, letter: letter }})
+      params: { page: pageNum, category: null, delicate: secured, letter: letter }})
       .then((response) => {
         setArtists(response.data.artists);
         setMeta(response.data.meta);
@@ -46,7 +49,7 @@ const ArtistsIndex: React.FC = () => {
         setResponseError(error.message);
         console.log("error:", responseError);
       });
-  },[pageNum, letter])
+  },[pageNum, letter, secured])
 
 
   return (

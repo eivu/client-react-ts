@@ -23,13 +23,13 @@ export const MetadatumEntry: React.FC<MetadataEntryProps> = ({metadatum}) => {
   const [files, setFiles] = useState<QueueItem[]>([]);
   const [meta, setMeta] = useState<any>({});
   const [responseError, setResponseError] = useState<String | undefined>(undefined);
-  const { dispatch, queue } = useAppContext();
+  const { dispatch, queue, secured } = useAppContext();
 
   function handleClick():void {
     if (!dataLoaded) {
       setLoading(true);
       api.get(`/metadata/${metadatum.id}/cloud_files`,
-        { params: { sortBy: 'name', sortDesc: false } }
+        { params: { sortBy: 'name', sortDesc: false, delicate: secured } }
       ).then((response) => {
         setFiles(response.data.cloudFiles);
         ACTIVE_DEBUGGING && console.log("data", response.data);

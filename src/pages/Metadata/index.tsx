@@ -3,6 +3,7 @@ import DefaultLayout, { ContentHeader, ContentContainer} from '../../layout/Defa
 import { AlphabetMenu } from '../../layout/AlphabetMenu';
 import { useState, useEffect, FC } from 'react';
 import api from '../../services/api.config';
+import  { useAppContext } from '../../store/AppContext';
 import { MiniLoader } from '../../components/Loader';
 import { PaginationMenu } from '../../layout/PaginationMenu';
 import { MetadatumEntry } from '../../components/MetadatumEntry';
@@ -16,6 +17,8 @@ const MetadataIndex: FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [meta, setMeta] = useState<any>({});
   const [responseError, setResponseError] = useState<string>('');
+  const { secured } = useAppContext();
+
   
   function handlePageChange(pageNum: number) {
     setLoading(true);
@@ -32,7 +35,7 @@ const MetadataIndex: FC = () => {
 
   useEffect(() => {
     api.get('/metadata', {
-      params: { page: pageNum, category: null, delicate: false, letter: letter }}
+      params: { page: pageNum, category: null, delicate: secured, letter: letter }}
     ).then((response) => {
       setMetadata(response.data.metadata);
       setMeta(response.data.meta);
@@ -43,7 +46,7 @@ const MetadataIndex: FC = () => {
       setResponseError(error.message);  
       console.log("error", responseError)
     })
-  },[pageNum, letter])
+  },[pageNum, letter, secured])
 
 
   return (
