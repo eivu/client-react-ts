@@ -10,7 +10,7 @@ import { timeAgo } from '../common/timeAgo';
 import AVButton from './AVButton';
 import AddToQueueButton from './AddToQueueButton';
 import { FileIcon } from './FileIcon';
-
+import { ROM_FORMATS } from './ArcadePlayer';
 
 import {
   ColumnDef,
@@ -51,6 +51,9 @@ export const FilesTable: FC<FilesTableProps> = ({ queueItems, loading, sorting, 
         cell: info => (
           <span>
             <div className="icon"><FileIcon contentType={info.row.original.contentType} /></div>
+            <span className="prefix-label">
+              {ROM_FORMATS[info.row.original.contentType]?.platform || ''}
+            </span>
             <Link to={`/files/${info.row.original.md5}`}>{info?.getValue()}</Link>
           </span>
         )
