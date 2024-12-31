@@ -114,12 +114,17 @@ export const ROM_FORMATS:RomFormatArray = {
     "emulator": "nostalgist",
     "platform": "GameBoy Color"
   },
+  "application/x-gamegear-rom": {
+    "core": null,
+    "emulator": null,
+    "platform": "GameGear"
+  }
 }
 
 export const ArcadePlayer = ({file}:ViewerProps):JSX.Element => {
     const launchNostalgist = async () => {
       await Nostalgist.launch({
-        // element: document.querySelector('#emulator-canvas'),
+        element: document.querySelector('.emulator-canvas'),
         core: ROM_FORMATS[file.contentType].core,
         rom: file.url,
       });
@@ -182,8 +187,6 @@ export const ArcadePlayer = ({file}:ViewerProps):JSX.Element => {
 // })
 
 
-  return (<>
-    <div id="emulator-canvas"></div>
-  </>)
+  return (<></>)
 };
 
