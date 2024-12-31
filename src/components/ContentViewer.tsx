@@ -7,6 +7,7 @@ import axios from 'axios';
 import { GoCloudOffline } from "react-icons/go";
 import { IoIosHourglass } from "react-icons/io";
 import { VideoPlayer } from './VideoPlayer';
+import { ArcadePlayer } from './ArcadePlayer';
 
 export type ViewerProps = {
   file: CloudFile;
@@ -36,20 +37,20 @@ export const ContentViewer:JSX.Element = ({file}:ViewerProps) => {
   return(
     <div id="content-viewer-wrapper">
       { loading ? <div className="loading"><IoIosHourglass className="float-left" size={96}/><div className="label">loading...</div></div> :
-          online ? 
-            ( 
-              file.contentType.startsWith('image') ?
-                <ImageViewer file={file} /> :
-                  file.contentType.startsWith('audio') ?
-                    <AudioViewer file={file} /> :
-                      file.contentType.startsWith('video') ?
-                        <VideoViewer file={file} /> :
-                          file.contentType.startsWith('application') ?
-                            <ArchiveViewer file={file} /> :
-                              file.contentType.startsWith('text') ?
-                                <TextViewer file={file} /> :
-                                  <div>Unknown file type</div>
-            ) 
+          online
+            ? ( 
+                file.contentType.startsWith('image')
+                  ? <ImageViewer file={file} />
+                  : file.contentType.startsWith('audio')
+                    ?  <AudioViewer file={file} />
+                    : file.contentType.startsWith('video')
+                      ? <VideoViewer file={file} />
+                      : file.contentType.startsWith('application')
+                        ? <ApplicationDataViewer file={file} />
+                        : file.contentType.startsWith('text')
+                          ? <TextViewer file={file} />
+                          : <div>Unknown file type</div>
+              ) 
             : <div className="offline">
                 <GoCloudOffline className="float-left" size={96}/>
                 <div className="label">offline</div>
@@ -82,8 +83,12 @@ export const VideoViewer:JSX.Element = ({file}:ViewerProps) => {
   )
 }
 
-export const ArchiveViewer:JSX.Element = ({file}:ViewerProps) => {
-  return(<div>archive here</div>)
+export const ApplicationDataViewer:JSX.Element = ({file}:ViewerProps) => {
+  console.log("app data", file.contentType);
+  return(file.contentType.endsWith('.rom') || file.contentType.endsWith('-rom')
+    ? <ArcadePlayer file={file} />
+    : <div>archive here</div>
+  )
 }
 
 export const TextViewer:JSX.Element = ({file}:ViewerProps) => {

@@ -1,0 +1,160 @@
+import { Nostalgist } from 'nostalgist';
+import { useEffect, useRef } from 'react';
+import { type ViewerProps } from './ContentViewer';
+
+export const ArcadePlayer = ({file}:ViewerProps):JSX.Element => {
+    const launchNostalgist = async () => {
+      await Nostalgist.launch({
+        // element: document.querySelector('#emulator-canvas'),
+        core: 'snes9x',
+        rom: 'https://eivu.s3.wasabisys.com/archive/DB/E1/F3/C8/F3/A0/B2/DB/52/B7/D5/94/17/89/11/17/Super_Mario_World__U_____.smc',
+      });
+    };
+    // l
+
+  const TYPES = {
+    "application/x-atari-2600-rom": {
+      "core": null,
+      "emulator": null
+    },
+    "application/x-atari-5200-rom": {
+      "core": null,
+      "emulator": null
+    },
+    "application/x-atari-7800-rom": {
+      "core": null,
+      "emulator": null
+    },
+    "application/x-colecovision-rom": {
+      "core": null,
+      "emulator": null
+    },
+    "application/x-nes-rom": {
+      "core": "genesis_plus_gx",
+      "emulator": "fceumm"
+    },
+    "application/x-genesis-rom": {
+      "core": "genesis_plus_gx",
+      "emulator": "nostalgist"
+    },
+    "application/x-genesis-32x-rom": {
+      "core": null,
+      "emulator": null
+    },
+    "application/x-atari-jaguar-rom": {
+      "core": null,
+      "emulator": null
+    },
+    "application/x-atari-lynx-rom": {
+      "core": null,
+      "emulator": null
+    },
+    "application/x-nes-rom": {
+      "core": null,
+      "emulator": null
+    },
+    "application/x-neo-geo-pocket-rom": {
+      "core": null,
+      "emulator": null
+    },
+    "application/x-neo-geo-pocket-color-rom": {
+      "core": null,
+      "emulator": null
+    },
+    "application/x-nintendo-3ds-rom": {
+      "core": null,
+      "emulator": null
+    },
+    "application/x-n64-rom": {
+      "core": null,
+      "emulator": null
+    },
+    "application/x-nintendo-ds-rom": {
+      "core": null,
+      "emulator": null
+    },
+    "application/vnd.nintendo.snes.rom": {
+      "core": "snes9x",
+      "emulator": "nostalgist"
+    },
+    "application/x-pc-engine-rom": {
+      "core": null,
+      "emulator": null
+    },
+    "application/x-virtual-boy-rom": {
+      "core": null,
+      "emulator": null
+    },
+    "application/x-gba-rom": {
+      "core": "mgba",
+      "emulator": "nostalgist"
+    },
+    "application/x-gameboy-rom": {
+      "core": "mgba",
+      "emulator": "nostalgist"
+    },
+    "application/x-gameboy-color-rom": {
+      "core": "mgba",
+      "emulator": "nostalgist"
+    },
+  }
+
+
+
+  useEffect(() => {
+    // const player = new Nostalgist(playerRef.current, {
+    //   src,
+    //   autoplay: true,
+    //   loop: true,
+    // });
+    launchNostalgist();
+  }, []);
+
+
+// const nostalgist = await Nostalgist.launch({
+//   element: document.querySelector('.emulator-canvas'),
+
+//   // Will load https://example.com/core/fbneo_libretro.js and https://example.com/core/fbneo_libretro.wasm as the launching core
+//   // Because of the custom `resolveCoreJs` and `resolveCoreWasm` options
+//   core: TYPES[file.contentType].engine,
+
+//   // Will load https://example.com/roms/mslug.zip as the ROM
+//   // Because of the custom `resolveRom` option
+//   // rom: [file.url],
+//   rom: file.url,
+
+//   // // Will load https://example.com/roms/mslug.zip as the ROM
+//   // // Because of the custom `resolveRom` option
+//   // bios: ['neogeo.zip'],
+
+//   // Custom configuration for RetroArch
+//   retroarchConfig: {
+//     rewind_enable: true,
+//     savestate_thumbnail_enable: true,
+//   },
+
+//   // // Specify where to load the core files
+//   // resolveCoreJs(core) {
+//   //   return `https://example.com/core/${core}_libretro.js`
+//   // },
+//   // resolveCoreWasm(core) {
+//   //   return `https://example.com/core/${core}_libretro.wasm`
+//   // },
+
+//   // // Specify where to load the ROM files
+//   // resolveRom(file) {
+//   //   return `https://example.com/roms/${file}`
+//   // },
+
+//   // // Specify where to load the BIOS files
+//   // resolveBios(bios) {
+//   //   return `https://example.com/system/${bios}`
+//   // },
+// })
+
+
+  return (<>
+    <div id="emulator-canvas"></div>
+  </>)
+};
+

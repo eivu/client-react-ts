@@ -11,7 +11,6 @@ import { TogglableMetadatumViewer } from '../../components/TogglableMetadatumVie
 import { ContentViewer } from '../../components/ContentViewer';
 import { ContentDeleteRestore } from '../../components/ContentDeleteRestore';
 import { ErrorPanel } from '../../components/ErrorPanel';
-import { Nostalgist } from 'nostalgist'
 
 
 const File: FC = () => {
@@ -26,13 +25,13 @@ const File: FC = () => {
   const [title, setTitle] = useState<string>('Loading...');
 
   useEffect(() => {
-    const launchNostalgist = async () => {
-      await Nostalgist.launch({
-        core: 'snes9x',
-        rom: 'https://eivu.s3.wasabisys.com/archive/DB/E1/F3/C8/F3/A0/B2/DB/52/B7/D5/94/17/89/11/17/Super_Mario_World__U_____.smc',
-      });
-    };
-    launchNostalgist();
+    // const launchNostalgist = async () => {
+    //   await Nostalgist.launch({
+    //     core: 'snes9x',
+    //     rom: 'https://eivu.s3.wasabisys.com/archive/DB/E1/F3/C8/F3/A0/B2/DB/52/B7/D5/94/17/89/11/17/Super_Mario_World__U_____.smc',
+    //   });
+    // };
+    // launchNostalgist();
     api.get(`/cloud_files/${fileId}`, {
       params: { category: null, delicate: false }}
     ).then((response) => {
