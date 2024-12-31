@@ -122,7 +122,6 @@ export const ROM_FORMATS:RomFormatArray = {
 }
 
 export const ArcadePlayer = ({file}:ViewerProps):JSX.Element => {
-
   const emulatorCanvas = useRef<HTMLCanvasElement>(null);
   const launchNostalgist = async () => {
     await Nostalgist.launch({
@@ -132,10 +131,7 @@ export const ArcadePlayer = ({file}:ViewerProps):JSX.Element => {
     });
   };
 
-
-
   useEffect(() => {
-
     launchNostalgist();
   }, []);
 
