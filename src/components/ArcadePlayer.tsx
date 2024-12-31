@@ -120,8 +120,8 @@ export const ArcadePlayer = ({file}:ViewerProps):JSX.Element => {
     const launchNostalgist = async () => {
       await Nostalgist.launch({
         // element: document.querySelector('#emulator-canvas'),
-        core: 'snes9x',
-        rom: 'https://eivu.s3.wasabisys.com/archive/DB/E1/F3/C8/F3/A0/B2/DB/52/B7/D5/94/17/89/11/17/Super_Mario_World__U_____.smc',
+        core: ROM_FORMATS[file.contentType].core,
+        rom: file.url,
       });
     };
     // l
