@@ -124,25 +124,23 @@ export const ROM_FORMATS:RomFormatArray = {
 export const ArcadePlayer = ({file}:ViewerProps):JSX.Element => {
 
   const emulatorCanvas = useRef<HTMLCanvasElement>(null);
-
+  const launchNostalgist = async () => {
+    await Nostalgist.launch({
+      element: emulatorCanvas.current,
+      core: ROM_FORMATS[file.contentType].core,
+      rom: file.url,
+    });
+  };
 
 
 
   useEffect(() => {
 
-    const launchNostalgist = async () => {
-      await Nostalgist.launch({
-        element: emulatorCanvas.current,
-        // element: document.querySelector('#emulator-canvas'),
-        core: ROM_FORMATS[file.contentType].core,
-        rom: file.url,
-      });
-    };
     launchNostalgist();
   }, []);
 
   return (<>
-    <canvas id="emulator-canvas" ref={emulatorCanvas}></canvas>
+    <canvas id="emulator-canvas" ref={emulatorCanvas} width="1000" height="500"></canvas>
   </>)
 };
 
