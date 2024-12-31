@@ -45,12 +45,9 @@ const File: FC = () => {
 
 
   useEffect(() =>{
-    console.log("after", platformPrefix)
-    console.log("via file", ROM_FORMATS[file?.contentType]?.platform )
     document.title =
       titlePrefix + 
       (platformPrefix ? `[${platformPrefix}]` : '') +
-      //  ROM_FORMATS[file?.contentType]?.platform +
       title ;
   },[title])
   
@@ -80,7 +77,6 @@ const File: FC = () => {
                 { file?.artworkUrl && <img src={file?.artworkUrl} alt={file?.name} className="file-coverart mr-4" /> }
                 <ContentDeleteRestore file={file} deleted={deleted} setDeleted={setDeleted}/>
                 <ContentViewer file={file} />
-
                 <table id="file-details-table" className="font-mono">
                   <tbody className="align-baseline">
                     <tr>

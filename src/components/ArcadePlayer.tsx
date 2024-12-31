@@ -122,71 +122,27 @@ export const ROM_FORMATS:RomFormatArray = {
 }
 
 export const ArcadePlayer = ({file}:ViewerProps):JSX.Element => {
-    const launchNostalgist = async () => {
-      await Nostalgist.launch({
-        element: document.querySelector('.emulator-canvas'),
-        core: ROM_FORMATS[file.contentType].core,
-        rom: file.url,
-      });
-    };
-    // l
 
+  const emulatorCanvas = useRef<HTMLCanvasElement>(null);
 
 
 
 
   useEffect(() => {
-    // const player = new Nostalgist(playerRef.current, {
-    //   src,
-    //   autoplay: true,
-    //   loop: true,
-    // });
+
+    const launchNostalgist = async () => {
+      await Nostalgist.launch({
+        element: emulatorCanvas.current,
+        // element: document.querySelector('#emulator-canvas'),
+        core: ROM_FORMATS[file.contentType].core,
+        rom: file.url,
+      });
+    };
     launchNostalgist();
   }, []);
 
-
-// const nostalgist = await Nostalgist.launch({
-//   element: document.querySelector('.emulator-canvas'),
-
-//   // Will load https://example.com/core/fbneo_libretro.js and https://example.com/core/fbneo_libretro.wasm as the launching core
-//   // Because of the custom `resolveCoreJs` and `resolveCoreWasm` options
-//   core: TYPES[file.contentType].engine,
-
-//   // Will load https://example.com/roms/mslug.zip as the ROM
-//   // Because of the custom `resolveRom` option
-//   // rom: [file.url],
-//   rom: file.url,
-
-//   // // Will load https://example.com/roms/mslug.zip as the ROM
-//   // // Because of the custom `resolveRom` option
-//   // bios: ['neogeo.zip'],
-
-//   // Custom configuration for RetroArch
-//   retroarchConfig: {
-//     rewind_enable: true,
-//     savestate_thumbnail_enable: true,
-//   },
-
-//   // // Specify where to load the core files
-//   // resolveCoreJs(core) {
-//   //   return `https://example.com/core/${core}_libretro.js`
-//   // },
-//   // resolveCoreWasm(core) {
-//   //   return `https://example.com/core/${core}_libretro.wasm`
-//   // },
-
-//   // // Specify where to load the ROM files
-//   // resolveRom(file) {
-//   //   return `https://example.com/roms/${file}`
-//   // },
-
-//   // // Specify where to load the BIOS files
-//   // resolveBios(bios) {
-//   //   return `https://example.com/system/${bios}`
-//   // },
-// })
-
-
-  return (<></>)
+  return (<>
+    <canvas id="emulator-canvas" ref={emulatorCanvas}></canvas>
+  </>)
 };
 
