@@ -363,7 +363,7 @@ input[type="search"]::-webkit-search-cancel-button {
 
 /* Eivu Styling */
 
-.file-icon {
+.file-icon, .prefix-label {
   color: silver;
 }
 
@@ -431,6 +431,10 @@ table#files-table tbody tr td.nameCol div.icon .archive {
 }
 
 table#files-table tbody tr td.nameCol div.icon .text {
+  margin-top: 6px;
+}
+
+table#files-table tbody tr td.nameCol div.icon .rom {
   margin-top: 6px;
 }
 
