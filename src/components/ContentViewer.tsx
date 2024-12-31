@@ -84,7 +84,6 @@ export const VideoViewer:JSX.Element = ({file}:ViewerProps) => {
 }
 
 export const ApplicationDataViewer:JSX.Element = ({file}:ViewerProps) => {
-  console.log("app data", file.contentType);
   return(file.contentType.endsWith('.rom') || file.contentType.endsWith('-rom')
     ? <ArcadePlayer file={file} />
     : <div>archive here</div>

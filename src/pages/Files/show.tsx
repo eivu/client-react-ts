@@ -11,6 +11,7 @@ import { TogglableMetadatumViewer } from '../../components/TogglableMetadatumVie
 import { ContentViewer } from '../../components/ContentViewer';
 import { ContentDeleteRestore } from '../../components/ContentDeleteRestore';
 import { ErrorPanel } from '../../components/ErrorPanel';
+import { ROM_FORMATS } from '../../components/ArcadePlayer';
 
 
 const File: FC = () => {
@@ -23,15 +24,9 @@ const File: FC = () => {
   const fileValueStyle = 'file-value-col';
   const titlePrefix:string = 'Eivu::Files::';
   const [title, setTitle] = useState<string>('Loading...');
+  const [platformPrefix, setPlatformPrefix] = useState<string>('');
 
   useEffect(() => {
-    // const launchNostalgist = async () => {
-    //   await Nostalgist.launch({
-    //     core: 'snes9x',
-    //     rom: 'https://eivu.s3.wasabisys.com/archive/DB/E1/F3/C8/F3/A0/B2/DB/52/B7/D5/94/17/89/11/17/Super_Mario_World__U_____.smc',
-    //   });
-    // };
-    // launchNostalgist();
     api.get(`/cloud_files/${fileId}`, {
       params: { category: null, delicate: false }}
     ).then((response) => {
@@ -39,6 +34,7 @@ const File: FC = () => {
       setLoading(false);
       setDeleted(response.data.cloudFile.deletable);
       setTitle(response.data.cloudFile.secured ? response.data.cloudFile.md5 : response.data.cloudFile.name);
+      setPlatformPrefix(ROM_FORMATS[response.data.cloudFile.contentType]?.platform || '');
     }).catch((error) => {
       setLoading(false);
       setTitle('Err0r');
@@ -49,7 +45,13 @@ const File: FC = () => {
 
 
   useEffect(() =>{
-    document.title = titlePrefix + title ;
+    console.log("after", platformPrefix)
+    console.log("via file", ROM_FORMATS[file?.contentType]?.platform )
+    document.title =
+      titlePrefix + 
+      (platformPrefix ? `[${platformPrefix}]` : '') +
+      //  ROM_FORMATS[file?.contentType]?.platform +
+      title ;
   },[title])
   
 
@@ -63,7 +65,11 @@ const File: FC = () => {
             deleted ?
               <Link to="/trash" className="breadcrumb">Trash</Link> :
                 <Link to="/files" className="breadcrumb">Files</Link> 
-          }::{responseError ? 'Err0r': file?.name }
+          }::{
+            platformPrefix ? `[${platformPrefix}]` : ''
+          }{
+            responseError ? 'Err0r': file?.name
+          }
         </ContentHeader>
       }
       <ContentContainer>
@@ -74,6 +80,7 @@ const File: FC = () => {
                 { file?.artworkUrl && <img src={file?.artworkUrl} alt={file?.name} className="file-coverart mr-4" /> }
                 <ContentDeleteRestore file={file} deleted={deleted} setDeleted={setDeleted}/>
                 <ContentViewer file={file} />
+
                 <table id="file-details-table" className="font-mono">
                   <tbody className="align-baseline">
                     <tr>
