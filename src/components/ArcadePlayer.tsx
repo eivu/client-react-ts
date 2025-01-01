@@ -1,5 +1,6 @@
 import { Nostalgist } from 'nostalgist';
-import { useEffect, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import { type ViewerProps } from './ContentViewer';
 
 
@@ -123,17 +124,31 @@ export const ROM_FORMATS:RomFormatArray = {
 
 export const ArcadePlayer = ({file}:ViewerProps):JSX.Element => {
   const emulatorCanvas = useRef<HTMLCanvasElement>(null);
+  const location = useLocation();
+  const [nostalgist, setNostalgist] = useState<Nostalgist | null>(null);
+  let nostalgistObj: Nostalgist;
 
-  useEffect(() => {
-     Nostalgist.launch({
+  const launchNostalgist = async () => {
+    nostalgistObj = await Nostalgist.launch({
       element: emulatorCanvas.current,
       core: ROM_FORMATS[file.contentType].core,
       rom: file.url,
-    })
+    });
+    setNostalgist(nostalgistObj);
+  };
+
+  useEffect(() => {
+    // console.log('nostalgistObj', nostalgistObj)
+    console.log('nostalgist', nostalgist)
+    launchNostalgist();
   }, []);
 
+  useEffect(() => {
+    nostalgist?.exit();
+  },[location]);
+
   return (<>
-    <canvas id="emulator-canvas" ref={emulatorCanvas} width="1000" height="500"></canvas>
+    <canvas id="canvas" ref={emulatorCanvas} width="1000" height="500"></canvas>
   </>)
 };
 
