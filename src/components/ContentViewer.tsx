@@ -35,12 +35,14 @@ export const ContentViewer:JSX.Element = ({file}:ViewerProps) => {
            });
 
     const timeoutId = setTimeout(() => {
-      api.post(`/cloud_files/${file.md5}/update_stats`)
-        .then((response) => {
-          ACTIVE_DEBUGGING && console.log(`${file.name} stats updated`, response);
-        }).catch((error) => {
-          console.log(`error occured while trying to update ${file.name} stats`, error);
-        })
+      // don't update stats for audio and video files
+      !file.contentType.startsWith('audio') && !file.contentType.startsWith('video') &&
+        api.post(`/cloud_files/${file.md5}/update_stats`)
+          .then((response) => {
+            ACTIVE_DEBUGGING && console.log(`${file.name} stats updated`, response);
+          }).catch((error) => {
+            console.log(`error occured while trying to update ${file.name} stats`, error);
+          })
     }, TRACKING_DURATION);
 
     // Cleanup function to clear the timeout on unmount
