@@ -8,6 +8,8 @@ import { GoCloudOffline } from "react-icons/go";
 import { IoIosHourglass } from "react-icons/io";
 import { VideoPlayer } from './VideoPlayer';
 import { ArcadePlayer } from './ArcadePlayer';
+import { ACTIVE_DEBUGGING, TRACKING_DURATION } from '../constants';
+import api from '../services/api.config';
 
 export type ViewerProps = {
   file: CloudFile;
@@ -18,19 +20,32 @@ export const ContentViewer:JSX.Element = ({file}:ViewerProps) => {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    file && axios.head(`${file.url}?rando=${Math.random()}`)
-    .then((response) => {
-      if (response.status === 200) {
-        setOnline(true);
-      } else {
-        setLoading(false);
-      }
-      setLoading(false);
-    }).catch(() => {
-      setOnline(false);
-      setLoading(false);
-    });
-  }, []);
+    file &&
+      axios.head(`${file.url}?rando=${Math.random()}`)
+           .then((response) => {
+             if (response.status === 200) {
+               setOnline(true);
+             } else {
+               setLoading(false);
+             }
+             setLoading(false);
+           }).catch(() => {
+             setOnline(false);
+             setLoading(false);
+           });
+
+    const timeoutId = setTimeout(() => {
+      api.post(`/cloud_files/${file.md5}/update_stats`)
+        .then((response) => {
+          ACTIVE_DEBUGGING && console.log(`${file.name} stats updated`, response);
+        }).catch((error) => {
+          console.log(`error occured while trying to update ${file.name} stats`, error);
+        })
+    }, TRACKING_DURATION);
+
+    // Cleanup function to clear the timeout on unmount
+    return () => clearTimeout(timeoutId);  
+  }, [file]);
 
 
 
