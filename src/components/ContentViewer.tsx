@@ -24,6 +24,7 @@ export const ContentViewer:JSX.Element = ({file}:ViewerProps) => {
       axios.head(`${file.url}?rando=${Math.random()}`)
            .then((response) => {
              if (response.status === 200) {
+              status = true;
                setOnline(true);
              } else {
                setLoading(false);
@@ -33,10 +34,14 @@ export const ContentViewer:JSX.Element = ({file}:ViewerProps) => {
              setOnline(false);
              setLoading(false);
            });
+  }, [file]);
 
+  useEffect(() => {
     const timeoutId = setTimeout(() => {
       // don't update stats for audio and video files
-      !file.contentType.startsWith('audio') && !file.contentType.startsWith('video') &&
+      online &&
+        !file.contentType.startsWith('audio')&&
+        !file.contentType.startsWith('video') &&
         api.post(`/cloud_files/${file.md5}/update_stats`)
           .then((response) => {
             ACTIVE_DEBUGGING && console.log(`${file.name} stats updated`, response);
@@ -47,7 +52,7 @@ export const ContentViewer:JSX.Element = ({file}:ViewerProps) => {
 
     // Cleanup function to clear the timeout on unmount
     return () => clearTimeout(timeoutId);  
-  }, [file]);
+  }, [online]);
 
 
 
