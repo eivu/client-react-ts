@@ -9,7 +9,7 @@ import type { QueueItem } from '../../types/queueItem';
 import { FilesTable } from '../../components/FilesTable';
 import { cleanseSearchParams } from '../../common/cleanseSearchParams';
 import { ErrorPanel } from '../../components/ErrorPanel';
-import { clearContentArea } from '../../common/clearContentArea.ts'
+import { tearDownContentArea } from '../../common/tearDownContentArea.ts'
 
 type FilesIndexProps = {
   valid_files: boolean;
@@ -45,7 +45,7 @@ const FilesIndex: FC<FilesIndexProps> = ({ valid_files }) => {
   }
 
   useEffect(() => {
-    clearContentArea()
+    tearDownContentArea()
   }, [])
   
 
