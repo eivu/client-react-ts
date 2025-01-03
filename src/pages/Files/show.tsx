@@ -11,6 +11,8 @@ import { TogglableMetadatumViewer } from '../../components/TogglableMetadatumVie
 import { ContentViewer } from '../../components/ContentViewer';
 import { ContentDeleteRestore } from '../../components/ContentDeleteRestore';
 import { ErrorPanel } from '../../components/ErrorPanel';
+import { ROM_FORMATS } from '../../components/ArcadePlayer';
+
 
 const File: FC = () => {
   const fileId = useLoaderData();
@@ -22,6 +24,7 @@ const File: FC = () => {
   const fileValueStyle = 'file-value-col';
   const titlePrefix:string = 'Eivu::Files::';
   const [title, setTitle] = useState<string>('Loading...');
+  const [platformPrefix, setPlatformPrefix] = useState<string>('');
 
   useEffect(() => {
     api.get(`/cloud_files/${fileId}`, {
@@ -31,6 +34,7 @@ const File: FC = () => {
       setLoading(false);
       setDeleted(response.data.cloudFile.deletable);
       setTitle(response.data.cloudFile.secured ? response.data.cloudFile.md5 : response.data.cloudFile.name);
+      setPlatformPrefix(ROM_FORMATS[response.data.cloudFile.contentType]?.platform || '');
     }).catch((error) => {
       setLoading(false);
       setTitle('Err0r');
@@ -41,10 +45,12 @@ const File: FC = () => {
 
 
   useEffect(() =>{
-    document.title = titlePrefix + title ;
+    document.title =
+      titlePrefix + 
+      (platformPrefix ? `[${platformPrefix}]` : '') +
+      title ;
   },[title])
   
-
 
   return (
     <DefaultLayout>
@@ -56,7 +62,11 @@ const File: FC = () => {
             deleted ?
               <Link to="/trash" className="breadcrumb">Trash</Link> :
                 <Link to="/files" className="breadcrumb">Files</Link> 
-          }::{responseError ? 'Err0r': file?.name }
+          }::{
+            platformPrefix ? `[${platformPrefix}]` : ''
+          }{
+            responseError ? 'Err0r': file?.name
+          }
         </ContentHeader>
       }
       <ContentContainer>

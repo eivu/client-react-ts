@@ -9,6 +9,7 @@ import type { QueueItem } from '../../types/queueItem';
 import { FilesTable } from '../../components/FilesTable';
 import { cleanseSearchParams } from '../../common/cleanseSearchParams';
 import { ErrorPanel } from '../../components/ErrorPanel';
+import { tearDownContentArea } from '../../common/tearDownContentArea.ts'
 
 type FilesIndexProps = {
   valid_files: boolean;
@@ -42,6 +43,11 @@ const FilesIndex: FC<FilesIndexProps> = ({ valid_files }) => {
       search_term: searchTerm,
     }
   }
+
+  useEffect(() => {
+    tearDownContentArea()
+  }, [])
+  
 
   useEffect(() => {
     setLoading(true);
