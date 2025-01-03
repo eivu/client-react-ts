@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/eivu/client-react-ts/compare/v1.6.0...v1.7.0) (2025-01-03)
+
+
+### Features
+
+* Adding support for playing roms ([c3f0f24](https://github.com/eivu/client-react-ts/commit/c3f0f247474391adb44553cd6dc3e3348616ba7a))
+
 # [1.6.0](https://github.com/eivu/client-react-ts/compare/v1.5.0...v1.6.0) (2024-12-13)
 
 
