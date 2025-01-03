@@ -152,11 +152,17 @@ launchNostalgist().then(value => {
     // console.log('nostalgistObj', nostalgistObj)
   }, []);
 
-  useEffect(() => {
-    // nostalgist?.exit();
-    console.log('nostalgist', nostalgist)
+  // useEffect(() => {
+  //   // nostalgist?.exit();
+  //   console.log('nostalgist', nostalgist)
+  //   return () => nostalgist?.exit({ removeCanvas: false })
+  //   // return () => {
+  //   //   alert('nostalgist')
+  //   // }
 
-  },[nostalgist]);
+
+    
+  // },[nostalgist]);
 
   return (<>
     <canvas id="canvas" ref={emulatorCanvas} width="1000" height="500"></canvas>
