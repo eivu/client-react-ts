@@ -154,6 +154,20 @@ launchNostalgist().then(value => {
 
 })
     // console.log('nostalgistObj', nostalgistObj)
+
+
+    const handleKeyUp = (event: KeyboardEvent) => {
+      console.log('Key pressed:', event.key);
+    };
+
+    document.body.addEventListener('keyup', handleKeyUp);
+
+    // Cleanup the listener on unmount
+    return () => {
+      document.body.removeEventListener('keyup', handleKeyUp);
+    };
+
+
   }, []);
 
   // useEffect(() => {
