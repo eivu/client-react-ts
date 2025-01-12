@@ -1,4 +1,5 @@
 import { Link, useLoaderData } from 'react-router-dom';
+import nl2br from 'react-newline-to-break';
 import DefaultLayout, { ContentHeader, ContentContainer } from '../../layout/DefaultLayout';
 import api from '../../services/api.config';
 import prettyBytes from 'pretty-bytes';
@@ -184,7 +185,7 @@ const File: FC = () => {
                             Description
                           </td>
                           <td className={fileValueStyle}>
-                            {file?.description}
+                            {nl2br(file.description)}
                           </td>
                         </tr>
                     }
