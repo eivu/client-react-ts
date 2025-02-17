@@ -126,61 +126,46 @@ export const ArcadePlayer = ({file}:ViewerProps):JSX.Element => {
   const emulatorCanvas = useRef<HTMLCanvasElement>(null);
   const location = useLocation();
   const [nostalgist, setNostalgist] = useState<Nostalgist | null>(null);
-  // let nostalgistObj: Nostalgist;
 
 
-
-
-
-  const launchNostalgist = async () => {
-    return await Nostalgist.launch({
-      element: emulatorCanvas.current,
-      core: ROM_FORMATS[file.contentType].core,
-      rom: file.url,
-    });
-    // console.log('nostalgistObj in fn', nostalgistObj)
-
-    // setNostalgist(nostalgistObj);
-    // return nostalgistObj;
-  };
 
   useEffect(() => {
-    // console.log('nostalgistObj', nostalgistObj)
-    // console.log('nostalgist', nostalgist)
-launchNostalgist().then(value => {
-  // console.log('value', value)
-  // nostalgistObj = value;
-      setNostalgist(value);
 
-})
-    // console.log('nostalgistObj', nostalgistObj)
+    const launchNostalgist = async () => {
+      const nostalgistObj =  await Nostalgist.launch({
+        element: emulatorCanvas.current,
+        core: ROM_FORMATS[file.contentType].core,
+        rom: file.url,
+      });
+      console.log('nostalgistObj in fn', nostalgistObj)
+      setNostalgist(nostalgistObj);
 
-
-    const handleKeyUp = (event: KeyboardEvent) => {
-      console.log('Key pressed:', event.key);
     };
-
-    document.body.addEventListener('keyup', handleKeyUp);
-
-    // Cleanup the listener on unmount
-    return () => {
-      document.body.removeEventListener('keyup', handleKeyUp);
-    };
-
-
+    launchNostalgist();
   }, []);
 
-  // useEffect(() => {
-  //   // nostalgist?.exit();
-  //   console.log('nostalgist', nostalgist)
-  //   return () => nostalgist?.exit({ removeCanvas: false })
-  //   // return () => {
-  //   //   alert('nostalgist')
-  //   // }
+  useEffect(() => {
+    console.log('nostalgist v2', nostalgist);
+
+    addEventListener('keyup', (event) => {
+      console.log('key', event.key);
+      if (event.key === 'Escape') {
+        nostalgist?.exit()
+      }
+    })
+
+    // if (nostalgist) {
+    //   nostalgist.mount(emulatorCanvas.current);
+    //   nostalgist.start();
+    // }
+
+    // return () => {
+    //   nostalgist?.exit({ removeCanvas: true });
+    // }
+  }, [nostalgist]);
 
 
-    
-  // },[nostalgist]);
+
 
   return (<>
     <canvas id="canvas" ref={emulatorCanvas} width="1000" height="500"></canvas>
