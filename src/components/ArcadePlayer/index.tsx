@@ -124,13 +124,9 @@ export const ROM_FORMATS:RomFormatArray = {
 
 export const ArcadePlayer = ({file}:ViewerProps):JSX.Element => {
   const emulatorCanvas = useRef<HTMLCanvasElement>(null);
-  const location = useLocation();
   const [nostalgist, setNostalgist] = useState<Nostalgist | null>(null);
 
-
-
   useEffect(() => {
-
     const launchNostalgist = async () => {
       const nostalgistObj =  await Nostalgist.launch({
         element: emulatorCanvas.current,
@@ -154,14 +150,15 @@ export const ArcadePlayer = ({file}:ViewerProps):JSX.Element => {
       }
     })
 
-    // if (nostalgist) {
-    //   nostalgist.mount(emulatorCanvas.current);
-    //   nostalgist.start();
-    // }
-
-    // return () => {
-    //   nostalgist?.exit({ removeCanvas: true });
-    // }
+    return () => {
+      try {
+        nostalgist?.exit();
+      } catch(e) {
+        console.error('error exiting nostalgist', e)
+      } finally {
+        // emulatorCanvas?.current?.remove();
+      }
+    }
   }, [nostalgist]);
 
 
