@@ -126,8 +126,10 @@ export const ArcadePlayer = ({file}:ViewerProps):JSX.Element => {
 
 
   const handleKeyUp = (event: KeyboardEvent) => {
-    if (event.key === 'p' || event.key === 'P')
+    console.log(event.key)
+    if (event.key === 'p' || event.key === 'P') {
       setReadyToPlay(true);
+    }
   };
 
   useEffect(() => {
@@ -136,12 +138,13 @@ export const ArcadePlayer = ({file}:ViewerProps):JSX.Element => {
   
 
   return (
-
+     readyToPlay
+      ?
         <>
           {ROM_FORMATS[file.contentType].emulator === "nostalgist" && (
             <NostalgistPlayer file={file} />
           )}
         </>
-
+      : <div>Click {`P`} to Play</div>
   )
 };
