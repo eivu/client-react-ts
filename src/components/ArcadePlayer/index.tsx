@@ -1,6 +1,5 @@
 import { NostalgistPlayer } from './NostalgistPlayer';
-import { useEffect, useState, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { type ViewerProps } from '../ContentViewer';
 
 
@@ -36,8 +35,8 @@ export const ROM_FORMATS:RomFormatArray = {
     "platform": "Colecovision"
   },
   "application/x-nes-rom": {
-    "core": "genesis_plus_gx",
-    "emulator": "fceumm",
+    "core": "fceumm",
+    "emulator": "nostalgist",
     "platform": "NES"
   },
   "application/x-genesis-rom": {
@@ -123,10 +122,26 @@ export const ROM_FORMATS:RomFormatArray = {
 }
 
 export const ArcadePlayer = ({file}:ViewerProps):JSX.Element => {
+  const [readyToPlay, setReadyToPlay] = useState<boolean>(false);
+
+
+  const handleKeyUp = (event: KeyboardEvent) => {
+    if (event.key === 'p' || event.key === 'P')
+      setReadyToPlay(true);
+  };
+
+  useEffect(() => {
+    document.body.addEventListener('keyup', handleKeyUp);
+  }, [])
+  
+
   return (
-    <>
-    {ROM_FORMATS[file.contentType].emulator === "nostalgist" && (
-      <NostalgistPlayer file={file} />
-    )}
-  </>)
+
+        <>
+          {ROM_FORMATS[file.contentType].emulator === "nostalgist" && (
+            <NostalgistPlayer file={file} />
+          )}
+        </>
+
+  )
 };
