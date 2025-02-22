@@ -1,6 +1,8 @@
 import { NostalgistPlayer } from './NostalgistPlayer';
 import { useEffect, useState } from 'react';
 import { type ViewerProps } from '../ContentViewer';
+import api from '../../services/api.config';
+import { ACTIVE_DEBUGGING } from '../../constants';
 
 
 type RomFormat = {
@@ -129,6 +131,12 @@ export const ArcadePlayer = ({file}:ViewerProps):JSX.Element => {
     console.log(event.key)
     if (event.key === 'p' || event.key === 'P') {
       setReadyToPlay(true);
+      api.post(`/cloud_files/${file.md5}/update_stats`)
+        .then((response) => {
+          ACTIVE_DEBUGGING && console.log(`${file.name} stats updated`, response);
+        }).catch((error) => {
+          console.log(`error occured while trying to update ${file.name} stats`, error);
+        })
     }
   };
 

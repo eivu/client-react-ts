@@ -8,20 +8,27 @@ import { ROM_FORMATS } from './index';
 export const NostalgistPlayer = ({file}:ViewerProps):JSX.Element => {
   const emulatorCanvas = useRef<HTMLCanvasElement>(null);
   const [nostalgist, setNostalgist] = useState<Nostalgist | null>(null);
+  const [savedState, setSavedState] = useState<Blob | null | undefined>(null);
 
-  useEffect(() => {
-    const launchNostalgist = async () => {
-      const nostalgistObj =  await Nostalgist.launch({
-        element: emulatorCanvas.current,
-        core: ROM_FORMATS[file.contentType].core,
-        rom: file.url,
-      });
-      console.log('nostalgistObj in fn', nostalgistObj)
-      setNostalgist(nostalgistObj);
+  const launchNostalgist = async () => {
+    const nostalgistObj =  await Nostalgist.launch({
+      element: emulatorCanvas.current,
+      core: ROM_FORMATS[file.contentType].core,
+      rom: file.url,
+    });
+    console.log('nostalgistObj in fn', nostalgistObj)
+    setNostalgist(nostalgistObj);
+  };
 
-    };
-    launchNostalgist();
-  }, []);
+
+  const saveNostalgistState = async () => {
+    const stateData = await nostalgist?.saveState();
+    setSavedState(stateData);
+    console.log('log state', stateData);
+  }
+
+
+  useEffect(() => { launchNostalgist() }, []);
 
   useEffect(() => {
     console.log('nostalgist v2', nostalgist);
@@ -30,6 +37,10 @@ export const NostalgistPlayer = ({file}:ViewerProps):JSX.Element => {
       console.log('key', event.key);
       if (event.key === 'Escape') {
         nostalgist?.exit()
+      }
+
+      if (event.key === 's') {
+        saveNostalgistState(); 
       }
     })
 
@@ -48,7 +59,7 @@ export const NostalgistPlayer = ({file}:ViewerProps):JSX.Element => {
 
 
   return (<>
-    <canvas id="canvas" ref={emulatorCanvas} width="1000" height="500"></canvas>
+    <canvas id="canvas" ref={emulatorCanvas} width="950" height="500"></canvas>
   </>)
 };
 

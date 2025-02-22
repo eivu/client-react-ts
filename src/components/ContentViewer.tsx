@@ -16,6 +16,7 @@ export type ViewerProps = {
 }
 
 export const ContentViewer:JSX.Element = ({file}:ViewerProps) => {
+  const romRegex = /^application\/.*rom$/;
   const [online, setOnline] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -40,8 +41,9 @@ export const ContentViewer:JSX.Element = ({file}:ViewerProps) => {
     const timeoutId = setTimeout(() => {
       // don't update stats for audio and video files
       online &&
-        !file.contentType.startsWith('audio')&&
+        !file.contentType.startsWith('audio') &&
         !file.contentType.startsWith('video') &&
+        !romRegex.test(file.contentType) &&
         api.post(`/cloud_files/${file.md5}/update_stats`)
           .then((response) => {
             ACTIVE_DEBUGGING && console.log(`${file.name} stats updated`, response);
