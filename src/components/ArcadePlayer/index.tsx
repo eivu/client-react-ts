@@ -48,17 +48,17 @@ export const ROM_FORMATS:RomFormatArray = {
   },
   "application/x-genesis-32x-rom": {
     "core": "picodrive",
-    "emulator": null,
+    "emulator": "ejs",
     "platform": "32x"
   },
   "application/x-atari-jaguar-rom": {
     "core": "virtualjaguar",
-    "emulator": null,
+    "emulator": "ejs",
     "platform": "Jaguar"
   },
   "application/x-atari-lynx-rom": {
     "core": "handy",
-    "emulator": null,
+    "emulator": "ejs",
     "platform": "Lynx"
   },
   "application/x-neo-geo-pocket-rom": {
@@ -78,12 +78,12 @@ export const ROM_FORMATS:RomFormatArray = {
   },
   "application/x-n64-rom": {
     "core": "mupen64plus_next",
-    "emulator": null,
+    "emulator": "ejs",
     "platform": "Nintendo64"
   },
   "application/x-nintendo-ds-rom": {
     "core": "melonds",
-    "emulator": null,
+    "emulator": "ejs",
     "platform": "Nintendo64"
   },
   "application/vnd.nintendo.snes.rom": {
@@ -118,7 +118,7 @@ export const ROM_FORMATS:RomFormatArray = {
   },
   "application/x-gamegear-rom": {
     "core": "genesis_plus_gx",
-    "emulator": null,
+    "emulator": "ejs",
     "platform": "GameGear"
   }
 }
