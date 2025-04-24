@@ -143,8 +143,7 @@ export const ArcadePlayer = ({file}:ViewerProps):JSX.Element => {
   useEffect(() => {
     document.body.addEventListener('keyup', handleKeyUp);
   }, [])
-  
-  console.log('file', file);
+
   return (
     readyToPlay
       ?

@@ -1,26 +1,31 @@
 <html>
-    <head>
-        <!--HTML file auto generated using EmulatorJS codehelper-->
-        <style>
-            body, html {
-                margin: 0;
-                padding: 0;
-            }
-        </style>
-    </head>
-    <body>
-        <div style='width:640px;height:480px;max-width:100%'>
-            <div id="game"></div>
-        </div>
-        <script>
-            EJS_player = "#game";
-            EJS_core = "nes";
-            EJS_color = "#0064ff";
-            EJS_gameName = "flappy bird";
-            EJS_startOnLoaded = true;
-            EJS_pathtodata = "https://cdn.emulatorjs.org/stable/data/";
-            EJS_gameUrl = "https://eivu-test.s3.wasabisys.com/archive/C6/34/FB/D6/CE/34/45/F8/14/00/D5/C3/8D/DA/04/54/flappy.nes";
-        </script>
-        <script src="https://cdn.emulatorjs.org/stable/data/loader.js"></script>
-    </body>
+   <head>
+      <!--HTML file auto generated using EmulatorJS codehelper-->
+      <style>
+        body, html {
+           margin: 0;
+           padding: 0;
+        }
+      </style>
+   </head>
+   <body>
+      <div style='width:640px;height:480px;max-width:100%'>
+        <div id="game"></div>
+      </div>
+      <script>
+        console.log("EmulatorJS v" + "0.0.1");
+        console.log("EmulatorJS is running in " + (window.location.hostname == "localhost" ? "local" : "production") + " mode");
+        const url = new URL(window.location);
+        const params = Object.fromEntries(new URLSearchParams(url.search)); 
+        console.log("EmulatorJS params: ", params);
+        EJS_player = "#game";
+        EJS_core = params.core;
+        EJS_color = "#0064ff";
+        EJS_gameName = "flappy bird";
+        EJS_startOnLoaded = true;
+        EJS_pathtodata = "https://cdn.emulatorjs.org/stable/data/";
+        EJS_gameUrl = params.rom;
+      </script>
+      <script src="https://cdn.emulatorjs.org/stable/data/loader.js"></script>
+   </body>
 </html>
