@@ -7,7 +7,7 @@ import { ACTIVE_DEBUGGING } from '../../constants';
 
 type RomFormat = {
   core: string | null,
-  emulator: string | null,
+  emulator: "ejs" | "nostalgist" | null,
   platform: string
 }
 
@@ -17,47 +17,47 @@ type RomFormatArray = {
 
 export const ROM_FORMATS:RomFormatArray = {
   "application/x-atari-2600-rom": {
-    "core": null,
-    "emulator": null,
-    "platform": "Atari2600"
+    "core": "stella2014",
+    "emulator": "ejs",
+    "platform": "Atari2600",
   },
   "application/x-atari-5200-rom": {
-    "core": null,
-    "emulator": null,
+    "core": "a5200",
+    "emulator": "ejs",
     "platform": "Atari5200"
   },
   "application/x-atari-7800-rom": {
-    "core": null,
-    "emulator": null,
+    "core": "prosystem",
+    "emulator": "ejs",
     "platform": "Atari7800"
   },
   "application/x-colecovision-rom": {
-    "core": null,
-    "emulator": null,
+    "core": "gearcoleco",
+    "emulator": "ejs",
     "platform": "Colecovision"
   },
   "application/x-nes-rom": {
     "core": "fceumm",
-    "emulator": "nostalgist",
+    "emulator": "ejs",
     "platform": "NES"
   },
   "application/x-genesis-rom": {
     "core": "genesis_plus_gx",
-    "emulator": "nostalgist",
+    "emulator": "ejs",
     "platform": "Genesis"
   },
   "application/x-genesis-32x-rom": {
-    "core": null,
+    "core": "picodrive",
     "emulator": null,
     "platform": "32x"
   },
   "application/x-atari-jaguar-rom": {
-    "core": null,
+    "core": "virtualjaguar",
     "emulator": null,
     "platform": "Jaguar"
   },
   "application/x-atari-lynx-rom": {
-    "core": null,
+    "core": "handy",
     "emulator": null,
     "platform": "Lynx"
   },
@@ -77,18 +77,18 @@ export const ROM_FORMATS:RomFormatArray = {
     "platform": "Ninento 3DS"
   },
   "application/x-n64-rom": {
-    "core": null,
+    "core": "mupen64plus_next",
     "emulator": null,
     "platform": "Nintendo64"
   },
   "application/x-nintendo-ds-rom": {
-    "core": null,
+    "core": "melonds",
     "emulator": null,
     "platform": "Nintendo64"
   },
   "application/vnd.nintendo.snes.rom": {
     "core": "snes9x",
-    "emulator": "nostalgist",
+    "emulator": "ejs",
     "platform": "SNES"
   },
   "application/x-pc-engine-rom": {
@@ -103,21 +103,21 @@ export const ROM_FORMATS:RomFormatArray = {
   },
   "application/x-gba-rom": {
     "core": "mgba",
-    "emulator": "nostalgist",
+    "emulator": "ejs",
     "platform": "GameBoyAdvance"
   },
   "application/x-gameboy-rom": {
     "core": "mgba",
-    "emulator": "nostalgist",
+    "emulator": "ejs",
     "platform": "GameBoy"
   },
   "application/x-gameboy-color-rom": {
     "core": "mgba",
-    "emulator": "nostalgist",
+    "emulator": "ejs",
     "platform": "GameBoy Color"
   },
   "application/x-gamegear-rom": {
-    "core": null,
+    "core": "genesis_plus_gx",
     "emulator": null,
     "platform": "GameGear"
   }
@@ -144,15 +144,19 @@ export const ArcadePlayer = ({file}:ViewerProps):JSX.Element => {
     document.body.addEventListener('keyup', handleKeyUp);
   }, [])
   
-
+  console.log('file', file);
   return (
-     readyToPlay
+    readyToPlay
       ?
-        <>
-          {ROM_FORMATS[file.contentType].emulator === "nostalgist" && (
+        ROM_FORMATS[file.contentType].emulator === "nostalgist"
+          ?
             <NostalgistPlayer file={file} />
-          )}
-        </>
+          :
+            ROM_FORMATS[file.contentType].emulator === "ejs"
+              ?
+                <iframe src={`/emulatorjs.html?rom=${file.url}&core=${ROM_FORMATS[file.contentType].core}`} ></iframe>
+              :
+                <div>Unknown engine</div>
       : <div>Click {`P`} to Play</div>
   )
 };

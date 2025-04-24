@@ -70,11 +70,6 @@ const File: FC = () => {
         </ContentHeader>
       }
       <ContentContainer>
-
-      <h1>xxxxx</h1>
-      <iframe src="/emulatorjs.html" ></iframe>
-
-
         { loading ? <MiniLoader /> : 
         
             responseError ? <ErrorPanel errorMessage={responseError} /> :
