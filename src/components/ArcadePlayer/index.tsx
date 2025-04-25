@@ -125,8 +125,6 @@ export const ROM_FORMATS:RomFormatArray = {
 
 export const ArcadePlayer = ({file}:ViewerProps):JSX.Element => {
   const [readyToPlay, setReadyToPlay] = useState<boolean>(false);
-
-
   const handleKeyUp = (event: KeyboardEvent) => {
     console.log(event.key)
     if (event.key === 'p' || event.key === 'P') {
@@ -156,6 +154,6 @@ export const ArcadePlayer = ({file}:ViewerProps):JSX.Element => {
                 <iframe src={`/emulatorjs.html?rom=${file.url}&core=${ROM_FORMATS[file.contentType].core}`} ></iframe>
               :
                 <div>Unknown engine</div>
-      : <div>Click {`P`} to Play</div>
+      : <div>Click P to Play</div>
   )
 };
