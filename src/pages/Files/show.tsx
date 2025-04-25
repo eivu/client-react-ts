@@ -76,8 +76,8 @@ const File: FC = () => {
             responseError ? <ErrorPanel errorMessage={responseError} /> :
               <div id="file-details">
                 { file?.artworkUrl && <img src={file?.artworkUrl} alt={file?.name} className="file-coverart mr-4" /> }
-                <ContentDeleteRestore file={file} deleted={deleted} setDeleted={setDeleted}/>
-                <ContentViewer file={file} />
+                { file && <ContentDeleteRestore file={file} deleted={deleted} setDeleted={setDeleted}/> }
+                { file && <ContentViewer file={file} /> }
                 <table id="file-details-table" className="font-mono">
                   <tbody className="align-baseline">
                     <tr>
@@ -89,7 +89,7 @@ const File: FC = () => {
                       </td>
                     </tr>
                     {
-                      file?.artists?.length > 0 &&
+                      (file?.artists ?? []).length > 0 &&
                         <tr>
                           <td className={fileKeyStyle}>
                             Artist(s)
@@ -100,7 +100,7 @@ const File: FC = () => {
                         </tr>
                     }
                     {
-                      file?.releases.length > 0 &&
+                      (file?.releases || []).length > 0 &&
                         <tr>
                           <td className={fileKeyStyle}>
                             Release(s)
@@ -200,14 +200,16 @@ const File: FC = () => {
                           </td>
                         </tr>
                     }
-                    <tr>
-                      <td className={fileKeyStyle}>
-                        Source
-                      </td>
-                      <td className={fileValueStyle}>
-                        <Link to={file?.url}>Link</Link>
-                      </td>
-                    </tr>
+                    {file?.url &&
+                      <tr>
+                        <td className={fileKeyStyle}>
+                          Source
+                        </td>
+                        <td className={fileValueStyle}>
+                          <Link to={file.url}>Link</Link>
+                        </td>
+                      </tr>
+                    }
                     {
                       file?.dateAquiredAt &&
                         <tr>
@@ -215,7 +217,7 @@ const File: FC = () => {
                             Num Plays
                           </td>
                           <td className={fileValueStyle}>
-                            {timeAgo(file?.date_aquiredAt)}
+                            {timeAgo(file?.dateAquiredAt)}
                           </td>
                         </tr>
                     }

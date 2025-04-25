@@ -15,7 +15,8 @@ export type ViewerProps = {
   file: CloudFile;
 }
 
-export const ContentViewer:JSX.Element = ({file}:ViewerProps) => {
+export const ContentViewer: React.FC<ViewerProps> = ({file}) =>  {
+  const romRegex = /^application\/.*rom$/;
   const [online, setOnline] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -40,8 +41,9 @@ export const ContentViewer:JSX.Element = ({file}:ViewerProps) => {
     const timeoutId = setTimeout(() => {
       // don't update stats for audio and video files
       online &&
-        !file.contentType.startsWith('audio')&&
+        !file.contentType.startsWith('audio') &&
         !file.contentType.startsWith('video') &&
+        !romRegex.test(file.contentType) &&
         api.post(`/cloud_files/${file.md5}/update_stats`)
           .then((response) => {
             ACTIVE_DEBUGGING && console.log(`${file.name} stats updated`, response);
@@ -82,13 +84,13 @@ export const ContentViewer:JSX.Element = ({file}:ViewerProps) => {
   )
 }
 
-export const ImageViewer:JSX.Element = ({file}:ViewerProps) => {
+export const ImageViewer: React.FC<ViewerProps> = ({file}) =>  {
   return(
     <img src={file.url} alt={file.name} />
   )
 }
 
-export const AudioViewer:JSX.Element = ({file}:ViewerProps) => {
+export const AudioViewer: React.FC<ViewerProps> = ({file}) =>  {
   return(
     <div>
       <AVButton item={objectToQueueItem(file)} size={96} />
@@ -97,7 +99,7 @@ export const AudioViewer:JSX.Element = ({file}:ViewerProps) => {
   )
 }
 
-export const VideoViewer:JSX.Element = ({file}:ViewerProps) => {
+export const VideoViewer: React.FC<ViewerProps> = ({file}) =>  {
     // const player = useRef<MediaPlayerInstance>(null);
 
   return(
@@ -105,14 +107,14 @@ export const VideoViewer:JSX.Element = ({file}:ViewerProps) => {
   )
 }
 
-export const ApplicationDataViewer:JSX.Element = ({file}:ViewerProps) => {
+export const ApplicationDataViewer: React.FC<ViewerProps> = ({file}) =>  {
   return(file.contentType.endsWith('.rom') || file.contentType.endsWith('-rom')
     ? <ArcadePlayer file={file} />
     : <div>archive here</div>
   )
 }
 
-export const TextViewer:JSX.Element = ({file}:ViewerProps) => {
+export const TextViewer: React.FC<ViewerProps> = ({file}) => {
   const [text, setText] = useState<string>('code text here');
   useEffect(() => {
     axios.get(file.url)
