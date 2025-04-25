@@ -664,7 +664,6 @@ table#file-details-table tbody tr td {
     padding-left: 10px;
     margin-top: 4px;
   }
-
 }
 
 header#top-nav {
@@ -689,7 +688,6 @@ header#top-nav {
   @apply border-transparent;
 }
 
-
 .tab-category .caret-down {
   float: right;
 }
@@ -706,8 +704,30 @@ header#top-nav {
   margin-top: -2px;
 }
 
+.group\/roms .tab-category {
+  position: relative;
+}
 
+.group\/roms .tab-category:hover {
+  @apply text-primary;
+}
 
+.group\/roms > div:last-child {
+  min-width: 120px;
+  border-radius: 4px;
+  margin-top: -2px;
+}
+
+.group\/roms > div:last-child .tab-category {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border-bottom: none;
+}
+
+.group\/roms > div:last-child .tab-category:hover {
+  background-color: rgb(60 80 224);
+  color: white;
+}
 
 .tab-label {
   @apply border-b-2 py-4 text-sm font-medium md:text-base border-transparent;
