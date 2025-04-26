@@ -151,7 +151,7 @@ export const ArcadePlayer = ({file}:ViewerProps):JSX.Element => {
           :
             ROM_FORMATS[file.contentType].emulator === "ejs"
               ?
-                <iframe src={`/emulatorjs.html?rom=${file.url}&core=${ROM_FORMATS[file.contentType].core}`} ></iframe>
+                <iframe id="emulatorjs" src={`/emulatorjs.html?rom=${file.url}&core=${ROM_FORMATS[file.contentType].core}`}></iframe>
               :
                 <div>Unknown engine</div>
       : <div>Click P to Play</div>
