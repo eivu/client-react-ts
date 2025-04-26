@@ -39,7 +39,6 @@ const CateogryTabs: React.FC = () => {
                   <TabCategoryLink category={'rom_n64'} label={'N64'} />
                   <TabCategoryLink category={'rom_nes'} label={'NES'} />
                   <TabCategoryLink category={'rom_neogeo_pocket'} label={'NeoGeo Pocket'} />
-                  <TabCategoryLink category={'rom_neogeo_pocket_color'} label={'NeoGeo Pocket Color'} />
                   <TabCategoryLink category={'rom_nintendo_ds'} label={'Nintendo DS'} />
                   <TabCategoryLink category={'rom_nintendo_3ds'} label={'Nintendo 3DS'} />
                   <TabCategoryLink category={'rom_sega_master_system'} label={'Sega Master System'} />
