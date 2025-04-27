@@ -41,5 +41,5 @@ export const EmulatorJsPlayer: React.FC<ViewerProps> = ({file}) =>  {
   useEffect(() => {
     console.log("EmulatorJsPlayer", file);
   }, []);
-  return <iframe id="emulatorjs" src={`/emulatorjs.html?name=${file.name}&rom=${file.url}&mapping=${ES_CONTROLLER_MAPPINGS["Google Stadia"]}&core=${ROM_FORMATS[file.contentType].core}`}></iframe>;
+  return <iframe id="emulatorjs" src={`/emulatorjs.html?name=${file.name}&rom=${file.url}&mapping=${JSON.stringify(ES_CONTROLLER_MAPPINGS["Google Stadia"])}&core=${ROM_FORMATS[file.contentType].core}`}></iframe>;
 };
