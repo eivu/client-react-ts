@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import DefaultLayout, { ContentHeader, ContentContainer} from '../../layout/DefaultLayout';
-import { AlphabetMenu } from '../../layout/AlphabetMenu';
+import DefaultLayout, { ContentHeader, ContentContainer} from '@src/layout/DefaultLayout';
+import { AlphabetMenu } from '@src/layout/AlphabetMenu';
 import { useState, useEffect, FC } from 'react';
-import api from '../../services/api.config';
-import  { useAppContext } from '../../store/AppContext';
-import { MiniLoader } from '../../components/Loader';
-import { PaginationMenu } from '../../layout/PaginationMenu';
-import { ErrorPanel } from '../../components/ErrorPanel';
+import api from '@src/services/api.config';
+import  { useAppContext } from '@src/store/AppContext';
+import { MiniLoader } from '@src/components/Loader';
+import { PaginationMenu } from '@src/layout/PaginationMenu';
+import { ErrorPanel } from '@src/components/ErrorPanel';
 
 
 const ReleasesIndex: React.FC = () => {

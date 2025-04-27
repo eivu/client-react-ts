@@ -1,12 +1,13 @@
+import React from 'react';
 import { useEffect, useRef, useState } from 'react';
-import { logout, getCurrentUser } from '../../services/auth.service';
+import { logout, getCurrentUser } from '@src/services/auth.service';
 import { Link, useNavigate } from 'react-router-dom';
 import { MdHistory } from "react-icons/md";
 import { BsSafe2 } from "react-icons/bs";
 import { CiLogout } from "react-icons/ci";
 import { IoSettingsOutline } from "react-icons/io5";
 import { FaUserAstronaut } from "react-icons/fa";
-import { useAppContext } from '../../store/AppContext';
+import { useAppContext } from '@src/store/AppContext';
 
 
 

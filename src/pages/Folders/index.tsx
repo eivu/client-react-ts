@@ -1,6 +1,6 @@
 import React from 'react';
-// import DefaultLayout from '../../layouts/DefaultLayout';
-import DefaultLayout from '../../layout/DefaultLayout';
+// import DefaultLayout from '../@src/layouts/DefaultLayout';
+import DefaultLayout from '@src/layout/DefaultLayout';
 
 const FoldersIndex: React.FC = () => {
   return (

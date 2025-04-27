@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import UserOne from '../../images/user/user-01.png';
-import UserTwo from '../../images/user/user-02.png';
-import UserThree from '../../images/user/user-03.png';
-import UserFour from '../../images/user/user-04.png';
+import UserOne from '@src/images/user/user-01.png';
+import UserTwo from '@src/images/user/user-02.png';
+import UserThree from '@src/images/user/user-03.png';
+import UserFour from '@src/images/user/user-04.png';
 
 const DropdownMessage = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -166,7 +166,7 @@ const DropdownMessage = () => {
                 <h6 className="text-sm font-medium text-black dark:text-white">
                   Cody Fisher
                 </h6>
-                <p className="text-sm">I’m waiting for you response!</p>
+                <p className="text-sm">I'm waiting for you response!</p>
                 <p className="text-xs">5days ago</p>
               </div>
             </Link>

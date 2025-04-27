@@ -1,16 +1,16 @@
 import React from 'react';
-import DefaultLayout from '../../layout/DefaultLayout';
+import DefaultLayout from '@src/layout/DefaultLayout';
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
-import  { useAppContext } from '../../store/AppContext';
-import getPaginationItems from '../../common/getPaginationItems';
+import  { useAppContext } from '@src/store/AppContext';
+import getPaginationItems from '@src/common/getPaginationItems';
 import axios from 'axios';
 import prettyBytes from 'pretty-bytes';
-import { timeAgo } from '../../common/timeAgo';
+import { timeAgo } from '@src/common/timeAgo';
 import { useMemo, useState, useEffect, FC } from 'react';
-import AddToQueueButton from '../../components/AddToQueueButton';
-import AVButton from '../../components/AVButton';
-import type { QueueItem } from '../../types/queueItem';
-import { MiniLoader } from '../../components/Loader';
+import AddToQueueButton from '@src/components/AddToQueueButton';
+import AVButton from '@src/components/AVButton';
+import type { QueueItem } from '@src/types/queueItem';
+import { MiniLoader } from '@src/components/Loader';
 
 import {
   ColumnDef,

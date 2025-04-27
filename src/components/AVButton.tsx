@@ -1,9 +1,10 @@
+import { FC } from 'react';
 import AudioPlayButton from "./AudioPlayButton";
 import AudioPauseButton from "./AudioPauseButton";
-import { useAppContext } from '../store/AppContext';
+import { useAppContext } from '@src/store/AppContext';
 import { useMediaState } from '@vidstack/react';
 import VideoPlayModal from './VideoPlayModal';
-import { QueueItem } from "../types/queueItem";
+import { QueueItem } from "@src/types/queueItem";
 import { Link } from 'react-router-dom';
 
 export type AVButtonProps = {

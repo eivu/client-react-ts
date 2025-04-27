@@ -1,4 +1,4 @@
-import getPaginationItems from "../common/getPaginationItems";
+import getPaginationItems from "@src/common/getPaginationItems";
 
 
 export type PaginationMenuProps = {

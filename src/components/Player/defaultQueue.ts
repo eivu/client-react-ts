@@ -1,4 +1,4 @@
-import type { QueueItem } from '../../types/queueItem';
+import type { QueueItem } from '@src/types/queueItem';
 
 export const defaultQueue: QueueItem[] = [
   {

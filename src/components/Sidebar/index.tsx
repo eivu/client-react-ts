@@ -1,6 +1,8 @@
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, FC } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { getCurrentUser, authStatus } from '../../services/auth.service';
+import { useAppContext } from '@src/store/AppContext';
+import api from '@src/services/api.config';
+import { getCurrentUser, authStatus } from '@src/services/auth.service';
 
 const LoggedInItems: FC = () => {
   const location = useLocation();

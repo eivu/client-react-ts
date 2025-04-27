@@ -1,7 +1,8 @@
+import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import DropdownUser from './DropdownUser';
-import TabsCategory from '../TabsCategory';
-import { getCurrentUser } from '../../services/auth.service';
+import TabsCategory from '@src/components/TabsCategory';
+import { getCurrentUser } from '@src/services/auth.service';
 
 const Header = (props: {
   sidebarOpen: string | boolean | undefined;

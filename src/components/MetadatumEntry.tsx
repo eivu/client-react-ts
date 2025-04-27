@@ -1,16 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import { useAppContext } from '../store/AppContext';
-import api from '../services/api.config';
+import { useAppContext } from '@src/store/AppContext';
+import api from '@src/services/api.config';
 import { CiSquarePlus, CiSquareMinus, CiSquareInfo } from "react-icons/ci";
-import { Metadatum } from '../types/metadatum';
+import { Metadatum } from '@src/types/metadatum';
 import AVButton from './AVButton';
 import AddToQueueButton from './AddToQueueButton';
-import { objectToQueueItem } from '../common/objectToQueueItem';
-import { ACTIVE_DEBUGGING } from '../constants';
+import { objectToQueueItem } from '@src/common/objectToQueueItem';
+import { ACTIVE_DEBUGGING } from '@src/constants';
 import { FileIcon } from './FileIcon';
-import { CloudFile } from '../types/cloudFile';
+import { CloudFile } from '@src/types/cloudFile';
 
 export type MetadataEntryProps = {
   metadatum: Metadatum;

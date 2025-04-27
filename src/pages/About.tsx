@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import DefaultLayout, { ContentHeader, ContentContainer} from '../layout/DefaultLayout';
+import DefaultLayout, { ContentHeader, ContentContainer} from '@src/layout/DefaultLayout';
 import { Link } from 'react-router-dom';
 import { CiCircleQuestion } from "react-icons/ci";
 

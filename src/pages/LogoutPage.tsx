@@ -1,7 +1,7 @@
 import { FC, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import DefaultLayout, { ContentHeader, ContentContainer } from '../layout/DefaultLayout';
-import { logout } from '../services/auth.service';
+import DefaultLayout, { ContentHeader, ContentContainer } from '@src/layout/DefaultLayout';
+import { logout } from '@src/services/auth.service';
 
 export const LogoutPage: FC = () => {
   const navigate = useNavigate();

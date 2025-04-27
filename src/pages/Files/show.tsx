@@ -1,18 +1,18 @@
 import { Link, useLoaderData } from 'react-router-dom';
 import nl2br from 'react-newline-to-break';
-import DefaultLayout, { ContentHeader, ContentContainer } from '../../layout/DefaultLayout';
-import api from '../../services/api.config';
+import DefaultLayout, { ContentHeader, ContentContainer } from '@src/layout/DefaultLayout';
+import api from '@src/services/api.config';
 import prettyBytes from 'pretty-bytes';
-import { timeAgo } from '../../common/timeAgo';
+import { timeAgo } from '@src/common/timeAgo';
 import { useState, useEffect, FC } from 'react';
-import type { CloudFile } from '../../types/cloudFile';
-import { MiniLoader } from '../../components/Loader';
-import convertSecondsToTimeHhMmSs from '../../common/convertSecondsToTimeHhMmSs';
-import { TogglableMetadatumViewer } from '../../components/TogglableMetadatumViewer';
-import { ContentViewer } from '../../components/ContentViewer';
-import { ContentDeleteRestore } from '../../components/ContentDeleteRestore';
-import { ErrorPanel } from '../../components/ErrorPanel';
-import { ROM_FORMATS } from '../../components/ArcadePlayer';
+import type { CloudFile } from '@src/types/cloudFile';
+import { MiniLoader } from '@src/components/Loader';
+import convertSecondsToTimeHhMmSs from '@src/common/convertSecondsToTimeHhMmSs';
+import { TogglableMetadatumViewer } from '@src/components/TogglableMetadatumViewer';
+import { ContentViewer } from '@src/components/ContentViewer';
+import { ContentDeleteRestore } from '@src/components/ContentDeleteRestore';
+import { ErrorPanel } from '@src/components/ErrorPanel';
+import { ROM_FORMATS } from '@src/components/ArcadePlayer';
 
 
 const File: FC = () => {

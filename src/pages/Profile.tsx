@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import DefaultLayout, { ContentHeader, ContentContainer } from '../layout/DefaultLayout';
+import DefaultLayout, { ContentHeader, ContentContainer } from '@src/layout/DefaultLayout';
 
 
 export const Profile: React.FC = () => {

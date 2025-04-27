@@ -1,9 +1,9 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect, FC, FormEvent } from 'react';
 import { MdOutlineMailOutline, MdLockOutline } from "react-icons/md";
-import { AlertError } from '../components/AlertError';
-import DefaultLayout, { ContentHeader, ContentContainer } from '../layout/DefaultLayout';
-import { login, getCurrentUser } from '../services/auth.service';
+import { AlertError } from '@src/components/AlertError';
+import DefaultLayout, { ContentHeader, ContentContainer } from '@src/layout/DefaultLayout';
+import { login, getCurrentUser } from '@src/services/auth.service';
 
 export const Login: FC = () => {
   const navigate = useNavigate();

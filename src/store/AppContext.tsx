@@ -1,9 +1,9 @@
 import { createContext, useContext, useReducer, ReactNode } from 'react';
 import { type MediaPlayerInstance, } from '@vidstack/react';
-import { defaultQueue } from '../components/Player/defaultQueue';
-import { getSecured, setSecured, getSecureAccessExpiresAt } from '../services/auth.service';
-import type { QueueItem } from '../types/queueItem';
-import type { Category } from '../types/Category';
+import { defaultQueue } from '@src/components/Player/defaultQueue';
+import { getSecured, setSecured, getSecureAccessExpiresAt } from '@src/services/auth.service';
+import type { QueueItem } from '@src/types/queueItem';
+import type { Category } from '@src/types/Category';
 
 
 type State = {

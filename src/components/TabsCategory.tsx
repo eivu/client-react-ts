@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { TabCategoryLink, TabSecureAccessToggle } from './TabCategoryObjects';
-import { authStatus } from '../services/auth.service';
+import { authStatus } from '@src/services/auth.service';
 
 const CateogryTabs: React.FC = () => {
   return (

@@ -1,8 +1,8 @@
 import React from 'react';
-import DefaultLayout, { ContentHeader, ContentContainer} from '../layout/DefaultLayout';
-import { useAppContext } from '../store/AppContext';
+import DefaultLayout, { ContentHeader, ContentContainer} from '@src/layout/DefaultLayout';
+import { useAppContext } from '@src/store/AppContext';
 import { useMediaState } from '@vidstack/react';
-import convertSecondsToTimeHhMmSs from '../common/convertSecondsToTimeHhMmSs';
+import convertSecondsToTimeHhMmSs from '@src/common/convertSecondsToTimeHhMmSs';
 import { Link } from 'react-router-dom';
 
 const Queue: React.FC = () => {

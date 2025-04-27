@@ -1,26 +1,23 @@
-import { useState } from 'react';
-import { VideoLayout } from './Player/layouts/video-layout';
+import React, { useState, useEffect, useRef } from 'react';
 import { defaultLayoutIcons } from '@vidstack/react/player/layouts/default';
-import { QueueItem } from "../types/queueItem";
-import { ACTIVE_DEBUGGING, TRACKING_DURATION } from '../constants';
-
-import api from '../services/api.config';
 import {
   MediaPlayer,
   MediaProvider,
   Poster,
-  // Track,
   type MediaCanPlayDetail,
   type MediaCanPlayEvent,
   type MediaPlayerInstance,
 } from '@vidstack/react';
-
+import { VideoLayout } from './Player/layouts/video-layout';
+import { QueueItem } from '@src/types/queueItem';
+import { ACTIVE_DEBUGGING, TRACKING_DURATION } from '@src/constants';
+import { useAppContext } from '@src/store/AppContext';
+import api from '@src/services/api.config';
 
 export type VideoPlayerProps = {
   item: QueueItem;
   player: MediaPlayerInstance;
 }
-
 
 export const VideoPlayer:ReactElement = ({item, player}:VideoPlayerProps) => {
   // const [trackTimer, setTrackTimer] = useState<number>(0);

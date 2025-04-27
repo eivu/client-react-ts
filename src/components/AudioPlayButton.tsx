@@ -1,7 +1,7 @@
 import { PiPlayCircleLight, PiPlayCircleFill } from "react-icons/pi";
 import { useState } from 'react';
-import { currentQueueItemMd5, useAppContext } from '../store/AppContext';
-import { QueueItem } from "../types/queueItem";
+import { currentQueueItemMd5, useAppContext } from '@src/store/AppContext';
+import { QueueItem } from "@src/types/queueItem";
 
 export type AudioPlayButtonProps = {
   item: QueueItem;

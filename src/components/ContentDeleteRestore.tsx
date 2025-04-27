@@ -1,7 +1,8 @@
-import api from '../services/api.config';
+import React from 'react';
+import api from '@src/services/api.config';
 import { FC } from 'react';
 import { Link, redirect } from 'react-router-dom';
-import { CloudFile } from '../types/cloudFile';
+import { CloudFile } from '@src/types/cloudFile';
 
 
 type ContentDeleteRestoreProps = {

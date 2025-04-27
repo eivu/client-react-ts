@@ -1,8 +1,9 @@
+import React from 'react';
 import { NostalgistPlayer } from './NostalgistPlayer';
 import { useEffect, useState } from 'react';
-import { type ViewerProps } from '../ContentViewer';
-import api from '../../services/api.config';
-import { ACTIVE_DEBUGGING } from '../../constants';
+import { type ViewerProps } from '@src/ContentViewer';
+import api from '@src/services/api.config';
+import { ACTIVE_DEBUGGING } from '@src/constants';
 
 
 type RomFormat = {

@@ -1,7 +1,7 @@
 import React, { useState, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
-import Header from '../components/Header/index';
-import Sidebar from '../components/Sidebar/index';
+import Header from '@src/components/Header/index';
+import Sidebar from '@src/components/Sidebar/index';
 
 
 

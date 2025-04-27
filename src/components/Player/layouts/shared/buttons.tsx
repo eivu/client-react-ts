@@ -30,7 +30,7 @@ import {
   VolumeLowIcon,
 } from '@vidstack/react/icons';
 
-import { useAppContext } from '../../../../store/AppContext';
+import { useAppContext } from '@src/store/AppContext';
 
 export interface MediaButtonProps {
   tooltipPlacement: TooltipPlacement;
