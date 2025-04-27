@@ -206,7 +206,7 @@ const File: FC = () => {
                           Source
                         </td>
                         <td className={fileValueStyle}>
-                          <Link to={file.url}>Link</Link>
+                          <Link to={file.url}>Download</Link>
                         </td>
                       </tr>
                     }
