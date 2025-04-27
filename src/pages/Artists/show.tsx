@@ -2,7 +2,6 @@ import { Link, useLoaderData } from 'react-router-dom';
 import DefaultLayout, { ContentHeader, ContentContainer } from '@src/layout/DefaultLayout';
 import api from '@src/services/api.config';
 import  { useAppContext } from '@src/store/AppContext';
-// import axios from 'axios';
 import { useState, useEffect, FC } from 'react';
 import type { Artist } from '@src/types/artist';
 import type { Release } from '@src/types/release';
