@@ -8,7 +8,7 @@ import { ACTIVE_DEBUGGING } from '@src/constants';
 
 
 type RomFormat = {
-  core: string | null,
+  core: RomCore | null,
   emulator: "ejs" | "nostalgist" | null,
   platform: string
 }
@@ -16,6 +16,8 @@ type RomFormat = {
 type RomFormatArray = {
   [key: string]: RomFormat
 }
+
+export type RomCore = "stella2014" | "a5200" | "prosystem" | "gearcoleco" | "fceumm" | "genesis_plus_gx" | "picodrive" | "virtualjaguar" | "handy" | "mupen64plus_next" | "melonds" | "snes9x" | "mgba" | null;
 
 export const ROM_FORMATS:RomFormatArray = {
   "application/x-atari-2600-rom": {
