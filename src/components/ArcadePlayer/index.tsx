@@ -1,7 +1,7 @@
 import React from 'react';
 import { NostalgistPlayer } from './NostalgistPlayer';
 import { useEffect, useState } from 'react';
-import { type ViewerProps } from '@src/ContentViewer';
+import { type ViewerProps } from '@src/components/ContentViewer';
 import api from '@src/services/api.config';
 import { ACTIVE_DEBUGGING } from '@src/constants';
 
@@ -20,17 +20,17 @@ export const ROM_FORMATS:RomFormatArray = {
   "application/x-atari-2600-rom": {
     "core": "stella2014",
     "emulator": "ejs",
-    "platform": "Atari2600",
+    "platform": "Atari 2600",
   },
   "application/x-atari-5200-rom": {
     "core": "a5200",
     "emulator": "ejs",
-    "platform": "Atari5200"
+    "platform": "Atari 5200"
   },
   "application/x-atari-7800-rom": {
     "core": "prosystem",
     "emulator": "ejs",
-    "platform": "Atari7800"
+    "platform": "Atari 7800"
   },
   "application/x-colecovision-rom": {
     "core": "gearcoleco",
@@ -80,12 +80,12 @@ export const ROM_FORMATS:RomFormatArray = {
   "application/x-n64-rom": {
     "core": "mupen64plus_next",
     "emulator": "ejs",
-    "platform": "Nintendo64"
+    "platform": "Nintendo 64"
   },
   "application/x-nintendo-ds-rom": {
     "core": "melonds",
     "emulator": "ejs",
-    "platform": "Nintendo64"
+    "platform": "Nintendo DS"
   },
   "application/vnd.nintendo.snes.rom": {
     "core": "snes9x",
