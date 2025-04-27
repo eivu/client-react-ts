@@ -127,20 +127,28 @@ export const ROM_FORMATS:RomFormatArray = {
   }
 }
 
+export const updateStats = (file:ViewerProps):void => {
+  api.post(`/cloud_files/${file.md5}/update_stats`)
+    .then((response) => {
+      ACTIVE_DEBUGGING && console.log(`${file.name} stats updated`, response);
+    }).catch((error) => {
+      console.log(`error occured while trying to update ${file.name} stats`, error);
+    })
+}
+
 export const ArcadePlayer = ({file}:ViewerProps):JSX.Element => {
   const [readyToPlay, setReadyToPlay] = useState<boolean>(false);
   const handleKeyUp = (event: KeyboardEvent) => {
-    console.log(event.key)
     if (event.key === 'p' || event.key === 'P') {
       setReadyToPlay(true);
-      api.post(`/cloud_files/${file.md5}/update_stats`)
-        .then((response) => {
-          ACTIVE_DEBUGGING && console.log(`${file.name} stats updated`, response);
-        }).catch((error) => {
-          console.log(`error occured while trying to update ${file.name} stats`, error);
-        })
+      updateStats(file);
     }
   };
+  
+  const handleClick = ():void => {
+    setReadyToPlay(true);
+    updateStats(file);
+  }
 
   useEffect(() => {
     document.body.addEventListener('keyup', handleKeyUp);
@@ -158,6 +166,6 @@ export const ArcadePlayer = ({file}:ViewerProps):JSX.Element => {
                 <EmulatorJsPlayer file={file} />
               :
                 <div>Unknown engine</div>
-      : <div id="p-to-play">Click P to Play</div>
+      : <div id="p-to-play" onClick={handleClick}>Press P to Play</div>
   )
 };
