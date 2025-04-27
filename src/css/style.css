@@ -954,3 +954,7 @@ iframe#emulatorjs {
   height: 466px;
   width: 600px
 }
+
+#p-to-play {
+  line-height: 100px;
+}

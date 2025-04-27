@@ -156,6 +156,6 @@ export const ArcadePlayer = ({file}:ViewerProps):JSX.Element => {
                 <EmulatorJsPlayer file={file} />
               :
                 <div>Unknown engine</div>
-      : <div>Click P to Play</div>
+      : <div id="p-to-play">Click P to Play</div>
   )
 };
