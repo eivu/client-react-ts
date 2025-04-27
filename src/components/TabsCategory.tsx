@@ -24,7 +24,7 @@ const CateogryTabs: React.FC = () => {
               <TabCategoryLink category={'comics'} label={'Comics'} />
               <div className="group/roms relative">
                 <TabCategoryLink category={'roms'} label={'Roms'} />
-                <div className="invisible absolute z-50 flex bg-opacity-90 bg-white flex-col shadow-xl group-hover/roms:visible left-full top-0">
+                <div id="roms-menu" className="invisible absolute z-50 flex bg-opacity-90 bg-white flex-col shadow-xl group-hover/roms:visible left-full top-0 h-[100px] overflow-y-auto">
                   <TabCategoryLink category={'rom_atari_2600'} label={'Atari 2600'} />
                   <TabCategoryLink category={'rom_atari_5200'} label={'Atari 5200'} />
                   <TabCategoryLink category={'rom_atari_7800'} label={'Atari 7800'} />
