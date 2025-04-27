@@ -1,6 +1,6 @@
 import { Nostalgist } from 'nostalgist';
 import { useEffect, useState, useRef } from 'react';
-import { type ViewerProps } from '@src/ContentViewer';
+import { type ViewerProps } from '@src/components/ContentViewer';
 import { ROM_FORMATS } from './index';
 
 
