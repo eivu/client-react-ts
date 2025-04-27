@@ -3,6 +3,7 @@ import { NostalgistPlayer } from './NostalgistPlayer';
 import { useEffect, useState } from 'react';
 import { type ViewerProps } from '@src/components/ContentViewer';
 import api from '@src/services/api.config';
+import { EmulatorJsPlayer } from './EmulatorJsPlayer';
 import { ACTIVE_DEBUGGING } from '@src/constants';
 
 
@@ -152,7 +153,7 @@ export const ArcadePlayer = ({file}:ViewerProps):JSX.Element => {
           :
             ROM_FORMATS[file.contentType].emulator === "ejs"
               ?
-                <iframe id="emulatorjs" src={`/emulatorjs.html?rom=${file.url}&core=${ROM_FORMATS[file.contentType].core}`}></iframe>
+                <EmulatorJsPlayer file={file} />
               :
                 <div>Unknown engine</div>
       : <div>Click P to Play</div>
