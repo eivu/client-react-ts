@@ -21,6 +21,7 @@ import { Settings } from './pages/Settings';
 import { Profile } from './pages/Profile';
 import { LogoutPage } from './pages/LogoutPage';
 import { RevokePage } from './pages/RevokePage';
+import { OfflinePlayer } from './pages/OfflinePlayer';
 
 
 export const AppRoutes:React.FC = () => {
@@ -189,6 +190,14 @@ export const AppRoutes:React.FC = () => {
               <Profile />
             </>,
           path: "/profile"
+        },
+        {
+          element: 
+            <>
+              <PageTitle title="EIVU::Offline Player" />
+              <OfflinePlayer />
+            </>,
+          path: "/offline"
         },
         {
           element: 
