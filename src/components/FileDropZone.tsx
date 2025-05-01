@@ -2,7 +2,7 @@ import { CloudFile } from '@src/types/cloudFile';
 import React, {useCallback, useState} from 'react'
 import { useEffect } from 'react';
 import {useDropzone} from 'react-dropzone'
-
+import { ContentViewer } from '@src/components/ContentViewer';
 
 const FileDropZone = () => {
   const [file, setFile] = useState<CloudFile | null>(null);
@@ -33,6 +33,7 @@ const FileDropZone = () => {
       rating: null,
       numPlays: 0,
     }
+    setFile(attr as CloudFile);
     console.log(attr);
 
 
@@ -59,6 +60,12 @@ const FileDropZone = () => {
   const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
 
 
+
+  if (file)
+    return (
+        <ContentViewer file={file} />
+    );
+  else 
   return (
     <div {...getRootProps()} className="dropzone rounded-md !border-dashed !border-bodydark1 bg-gray hover:!border-primary dark:!border-strokedark dark:bg-graydark dark:hover:!border-primary">
       <input {...getInputProps()} />
