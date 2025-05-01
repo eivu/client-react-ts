@@ -1,9 +1,11 @@
-import React, {useCallback} from 'react'
+import { CloudFile } from '@src/types/cloudFile';
+import React, {useCallback, useState} from 'react'
 import { useEffect } from 'react';
 import {useDropzone} from 'react-dropzone'
 
 
 const FileDropZone = () => {
+  const [file, setFile] = useState<CloudFile | null>(null);
   // useEffect(() => {
 
   //   let myDropzone = new Dropzone('#demo-upload', { url: '/file/post' });
@@ -13,9 +15,46 @@ const FileDropZone = () => {
   //   };
   // }, []);
 
-  const onDrop = useCallback(acceptedFiles => {
+  const onDrop = useCallback(selectedFile => {
     // Do something with the files
-    console.log(acceptedFiles);
+    console.log(selectedFile[0]);
+
+    const attr = {
+      name: selectedFile[0].name,
+      url: URL.createObjectURL(selectedFile[0]),
+      contentType: selectedFile[0].type,
+      filesize: selectedFile[0].size,
+      md5: 'offline',
+      uploadedAt: new Date().toISOString(),
+      lastViewedAt: null,
+      nsfw: false,
+      secured: false,
+      duration: 0,
+      rating: null,
+      numPlays: 0,
+    }
+    console.log(attr);
+
+
+
+    // {
+    //     "filesize": 477,
+    //     "rating": null,
+    //     "numPlays": 0,
+    //     "uploadedAt": "2024-01-01T21:06:42.122Z",
+    //     "lastViewedAt": null,
+    //     "nsfw": false,
+    //     "secured": false,
+    //     "duration": 0,
+    //     "name": "{Whispers of Silence}",
+    //     "md5": "D258C1A40E785406564616AFD8045351",
+    //     "url": "/silence.mp3",
+    //     "contentType": "audio/mpeg"
+    // },
+
+
+
+
   }, [])
   const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
 
