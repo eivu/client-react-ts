@@ -2,36 +2,37 @@
   <head>
     <!--HTML file auto generated using EmulatorJS codehelper-->
     <style>
-      body, html {
+      body,
+      html {
         margin: 0;
         padding: 0;
       }
     </style>
   </head>
   <body>
-    <div style='width:640px;height:480px;max-width:100%'>
-    <div id="game"></div>
+    <div style="width: 640px; height: 480px; max-width: 100%">
+      <div id="game"></div>
     </div>
     <script>
       const url = new URL(window.location);
       const gameInfo = Object.fromEntries(new URLSearchParams(url.search));
-      const controllerMapping = JSON.parse(gameInfo.mapping)
-      console.log("EmulatorJS params: ", gameInfo);
-      console.log("Controller mapping: ", controllerMapping);
-      EJS_player = "#game";
+      const controllerMapping = JSON.parse(gameInfo.mapping);
+      console.log('EmulatorJS params: ', gameInfo);
+      console.log('Controller mapping: ', controllerMapping);
+      EJS_player = '#game';
       EJS_defaultControls = {
         0: controllerMapping,
         1: {},
         2: {},
-        3: {}
+        3: {},
       };
       EJS_core = gameInfo.core;
-      EJS_color = "#0064ff";
+      EJS_color = '#0064ff';
       EJS_gameName = gameInfo.name;
       EJS_startOnLoaded = true;
-      EJS_pathtodata = "https://cdn.emulatorjs.org/stable/data/";
+      EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
       EJS_gameUrl = gameInfo.rom;
     </script>
-    <script src="https://cdn.emulatorjs.org/stable/data/loader.js"></script>
+    <script src="emulatorjs/loader.js"></script>
   </body>
 </html>
