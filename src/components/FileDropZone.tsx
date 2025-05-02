@@ -90,11 +90,10 @@ const parseContentType = (path: string): string => {
   return MIME_FORMATS[ext] || "unknown";
 }
 
-const FileDropZone = () => {
+const FileDropZone: React.FC = () => {
   const [file, setFile] = useState<CloudFile | null>(null);
-
   const onDrop = useCallback(selectedFile => {
-    const attr = {
+    setFile({
       name: selectedFile[0].name,
       url: URL.createObjectURL(selectedFile[0]),
       contentType: parseContentType(selectedFile[0].path),
@@ -107,12 +106,9 @@ const FileDropZone = () => {
       duration: 0,
       rating: null,
       numPlays: 0,
-    }
-    setFile(attr as CloudFile);
+    } as CloudFile);
   }, [])
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
-
-
 
   if (file)
     return (
@@ -122,11 +118,6 @@ const FileDropZone = () => {
     return (
       <div {...getRootProps()} className="dropzone rounded-md !border-dashed !border-bodydark1 bg-gray hover:!border-primary dark:!border-strokedark dark:bg-graydark dark:hover:!border-primary">
         <input {...getInputProps()} />
-        {/* <form
-        className="dropzone rounded-md !border-dashed !border-bodydark1 bg-gray hover:!border-primary dark:!border-strokedark dark:bg-graydark dark:hover:!border-primary"
-        id="demo-upload"
-        action="/upload"
-      > */}
         <div className="dz-message">
           <div className="mb-2.5 flex justify-center">
             <div className="shadow-10 flex h-15 w-15 items-center justify-center rounded-full bg-white text-black dark:bg-black dark:text-white">
@@ -157,7 +148,6 @@ const FileDropZone = () => {
             </div>
           </div>
           <span className="font-medium text-black dark:text-white">
-            Drop files here to upload
             {
               isDragActive ?
                 <p>Drop the files here ...</p> :
@@ -165,7 +155,6 @@ const FileDropZone = () => {
             }
           </span>
         </div>
-        {/* </form> */}
       </div>
     );
 };
