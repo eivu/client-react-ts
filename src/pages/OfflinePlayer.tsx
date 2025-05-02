@@ -12,7 +12,6 @@ export const OfflinePlayer: React.FC = () => {
       </ContentHeader>
 
       <ContentContainer>
-        {/* <iframe src="/ejs.html" style={{ width: '100%', height: '100vh', border: 'none' }}></iframe> */}
         <FileDropZone />
       </ContentContainer>
     </DefaultLayout>
