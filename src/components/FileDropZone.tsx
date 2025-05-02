@@ -1,11 +1,100 @@
 import { CloudFile } from '@src/types/cloudFile';
-import React, {useCallback, useState} from 'react'
+import React, { useCallback, useState } from 'react'
 import { useEffect } from 'react';
-import {useDropzone} from 'react-dropzone'
+import { useDropzone } from 'react-dropzone'
 import { ContentViewer } from '@src/components/ContentViewer';
+
+
+export const MIME_FORMATS = {
+  "doc": "application/msword",
+  "pdf": "application/pdf",
+  "rtf": "application/rtf",
+  "wma": "application/vnd.ms-asf",
+  "wmv": "application/vnd.ms-asf",
+  "sfc": "application/vnd.nintendo.snes.rom",
+  "smc": "application/vnd.nintendo.snes.rom",
+  "cbr": "application/vnd.rar",
+  "rar": "application/vnd.rar",
+  "itdb": "application/vnd.sqlite3",
+  "jag": "application/x-atari-jaguar-rom",
+  "lnx": "application/x-atari-lynx-rom",
+  "cue": "application/x-cue",
+  "exe": "application/x-dosexec",
+  // "sms": "application/x-executable",
+  // "gbc": "application/x-font-tex-tfm",
+  // "gb": "application/x-gameboy-color-rom",
+  "gbc": "application/x-gameboy-color-rom",
+  "gb": "application/x-gameboy-rom",
+  "gg": "application/x-gamegear-rom",
+  "gba": "application/x-gba-rom",
+  "32x": "application/x-genesis-32x-rom",
+  "gen": "application/x-genesis-rom",
+  // "mp3": "application/xhtml+xml",
+  "mkv": "application/x-matroska",
+  "plist": "application/xml",
+  "tmp": "application/xml",
+  "xml": "application/xml",
+  "url": "application/x-mswinurl",
+  "n64": "application/x-n64-rom",
+  "v64": "application/x-n64-rom",
+  "z64": "application/x-n64-rom",
+  "nes": "application/x-nes-rom",
+  "nds": "application/x-nintendo-ds-rom",
+  "db": "application/x-ole-storage",
+  "part": "application/x-partial-download",
+  "pce": "application/x-pc-engine-rom",
+  "sms": "application/x-sms-rom",
+  "cbz": "application/zip",
+  "ipa": "application/zip",
+  "zip": "application/zip",
+  "flac": "audio/flac",
+  "m4a": "audio/mp4",
+  "mp3": "audio/mpeg",
+  // "mp3": "audio/vnd.wave",
+  "wav": "audio/x-wav",
+  "fig": "font/ttf",
+  // "smc": "font/ttf",
+  "smc_2": "font/ttf",
+  "bmp": "image/bmp",
+  // "png": "image/bmp",""
+  "gif": "image/gif",
+  "jpeg": "image/jpeg",
+  "jpg": "image/jpeg",
+  // "png": "image/jpeg",
+  "png": "image/png",
+  // "nds": "image/x-3ds",
+  // "jag": "image/x-tga",
+  // "fig": "image/x-xfig",
+  "htm": "text/html",
+  "html": "text/html",
+  "htt": "text/html",
+  "txt": "text/plain",
+  "log": "text/x-log",
+  "nfo": "text/x-nfo",
+  "sc": "text/x-scala",
+  // "cue": "text/x-vb",
+  "3gp": "video/3gpp",
+  // "m4a": "video/mp4",
+  "m4v": "video/mp4",
+  "mp4": "video/mp4",
+  "mpg": "video/mpeg",
+  "ogg": "video/ogg",
+  "mov": "video/quicktime",
+  "webm": "video/webm",
+  "flv": "video/x-flv",
+  "avi": "video/x-msvideo",
+}
+
+const parseContentType = (path: string): string => {
+  const ext = path.split('.').pop();
+  console.log('ext', ext);
+  return MIME_FORMATS[ext] || "unknown";
+}
 
 const FileDropZone = () => {
   const [file, setFile] = useState<CloudFile | null>(null);
+
+
   // useEffect(() => {
 
   //   let myDropzone = new Dropzone('#demo-upload', { url: '/file/post' });
@@ -16,13 +105,13 @@ const FileDropZone = () => {
   // }, []);
 
   const onDrop = useCallback(selectedFile => {
-    // Do something with the files
     console.log(selectedFile[0]);
+
 
     const attr = {
       name: selectedFile[0].name,
       url: URL.createObjectURL(selectedFile[0]),
-      contentType: selectedFile[0].type,
+      contentType: parseContentType(selectedFile[0].path),
       filesize: selectedFile[0].size,
       md5: 'offline',
       uploadedAt: new Date().toISOString(),
@@ -57,19 +146,19 @@ const FileDropZone = () => {
 
 
   }, [])
-  const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
 
 
 
   if (file)
     return (
-        <ContentViewer file={file} />
+      <ContentViewer file={file} />
     );
-  else 
-  return (
-    <div {...getRootProps()} className="dropzone rounded-md !border-dashed !border-bodydark1 bg-gray hover:!border-primary dark:!border-strokedark dark:bg-graydark dark:hover:!border-primary">
-      <input {...getInputProps()} />
-      {/* <form
+  else
+    return (
+      <div {...getRootProps()} className="dropzone rounded-md !border-dashed !border-bodydark1 bg-gray hover:!border-primary dark:!border-strokedark dark:bg-graydark dark:hover:!border-primary">
+        <input {...getInputProps()} />
+        {/* <form
         className="dropzone rounded-md !border-dashed !border-bodydark1 bg-gray hover:!border-primary dark:!border-strokedark dark:bg-graydark dark:hover:!border-primary"
         id="demo-upload"
         action="/upload"
@@ -106,15 +195,15 @@ const FileDropZone = () => {
           <span className="font-medium text-black dark:text-white">
             Drop files here to upload
             {
-        isDragActive ?
-          <p>Drop the files here ...</p> :
-          <p>Drag 'n' drop some files here, or click to select files</p>
-      }
+              isDragActive ?
+                <p>Drop the files here ...</p> :
+                <p>Drag 'n' drop some files here, or click to select files</p>
+            }
           </span>
         </div>
-      {/* </form> */}
-    </div>
-  );
+        {/* </form> */}
+      </div>
+    );
 };
 
 export default FileDropZone;
