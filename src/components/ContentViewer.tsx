@@ -22,7 +22,13 @@ export const ContentViewer: React.FC<ViewerProps> = ({file}) =>  {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    file &&
+    if (!file) {
+      setLoading(false);
+      setOnline(false);
+    } else if (file.url.startsWith('blob:')) {
+       setOnline(true);
+       setLoading(false);
+    } else {
       axios.head(`${file.url}?rando=${Math.random()}`)
            .then((response) => {
              if (response.status === 200) {
@@ -35,7 +41,7 @@ export const ContentViewer: React.FC<ViewerProps> = ({file}) =>  {
            }).catch(() => {
              setOnline(false);
              setLoading(false);
-           });
+           });}
   }, [file]);
 
   useEffect(() => {
