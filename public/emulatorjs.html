@@ -18,8 +18,9 @@
       const gameInfo = Object.fromEntries(new URLSearchParams(url.search));
       const controllerMapping = JSON.parse(gameInfo.mapping);
       console.log('EmulatorJS params: ', gameInfo);
-      console.log('Controller mapping: ', controllerMapping);
+      // console.log('Controller mapping: ', controllerMapping);
       EJS_player = '#game';
+      EJS_gameID = gameInfo.md5;
       EJS_defaultControls = {
         0: controllerMapping,
         1: {},
