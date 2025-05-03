@@ -1,16 +1,15 @@
 import { Link, useLoaderData } from 'react-router-dom';
-import DefaultLayout, { ContentHeader, ContentContainer } from '../../layout/DefaultLayout';
-import api from '../../services/api.config';
-import  { useAppContext } from '../../store/AppContext';
-// import axios from 'axios';
+import DefaultLayout, { ContentHeader, ContentContainer } from '@src/layout/DefaultLayout';
+import api from '@src/services/api.config';
+import  { useAppContext } from '@src/store/AppContext';
 import { useState, useEffect, FC } from 'react';
-import type { Artist } from '../../types/artist';
-import type { Release } from '../../types/release';
-import { MiniLoader } from '../../components/Loader';
-import { ReleaseTable } from '../../components/ReleaseTable';
-import { PaginationMenu } from '../../layout/PaginationMenu';
-import { ErrorPanel } from '../../components/ErrorPanel';
-import { ReleaseControls } from '../../components/ReleaseControls';
+import type { Artist } from '@src/types/artist';
+import type { Release } from '@src/types/release';
+import { MiniLoader } from '@src/components/Loader';
+import { ReleaseTable } from '@src/components/ReleaseTable';
+import { PaginationMenu } from '@src/layout/PaginationMenu';
+import { ErrorPanel } from '@src/components/ErrorPanel';
+import { ReleaseControls } from '@src/components/ReleaseControls';
 
 
 const ArtistPage: FC = () => {

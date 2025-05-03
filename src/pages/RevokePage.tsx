@@ -1,8 +1,8 @@
 import { FC, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import DefaultLayout, { ContentHeader, ContentContainer } from '../layout/DefaultLayout';
-import { useAppContext } from '../store/AppContext';
-import { revokeAccess } from '../services/auth.service';
+import DefaultLayout, { ContentHeader, ContentContainer } from '@src/layout/DefaultLayout';
+import { useAppContext } from '@src/store/AppContext';
+import { revokeAccess } from '@src/services/auth.service';
 
 export const RevokePage: FC = () => {
   const navigate = useNavigate();

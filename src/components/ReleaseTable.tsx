@@ -1,19 +1,18 @@
-
 import React from 'react';
-// import { timeAgo } from '../../common/timeAgo';
+// import { timeAgo } from '../@src/common/timeAgo';
 // import { useMediaState } from '@vidstack/react';
 // import { useMemo, useState, useEffect, FC } from 'react';
 import { CiStar as Star } from "react-icons/ci";
 import { LuGauge as Gauge } from "react-icons/lu";
-import { Release } from '../types/release';
+import { Release } from '@src/types/release';
 import { Link } from 'react-router-dom';
 import prettyBytes from 'pretty-bytes';
-import convertSecondsToTimeHhMmSs from '../common/convertSecondsToTimeHhMmSs';
-import { Track } from '../types/track';
+import convertSecondsToTimeHhMmSs from '@src/common/convertSecondsToTimeHhMmSs';
+import { Track } from '@src/types/track';
 import { MiniLoader } from './Loader';
 import AddToQueueButton from './AddToQueueButton';
 import AVButton from './AVButton';
-import { objectToQueueItem } from '../common/objectToQueueItem';
+import { objectToQueueItem } from '@src/common/objectToQueueItem';
 
 
 

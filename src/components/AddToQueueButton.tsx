@@ -1,6 +1,6 @@
 import { CgPlayListAdd } from "react-icons/cg";
-import { useAppContext } from '../store/AppContext';
-import { QueueItem } from "../types/queueItem";
+import { useAppContext } from '@src/store/AppContext';
+import { QueueItem } from "@src/types/queueItem";
 
 export type AddToQueueButtonProps = {
   item: QueueItem;

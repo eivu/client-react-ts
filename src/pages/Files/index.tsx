@@ -1,15 +1,15 @@
 import { useSearchParams } from 'react-router-dom';
-import { AlphabetMenu } from '../../layout/AlphabetMenu';
-import DefaultLayout, { ContentContainer, ContentHeader} from '../../layout/DefaultLayout';
-import { PaginationMenu } from '../../layout/PaginationMenu';
-import  { useAppContext } from '../../store/AppContext';
-import api from '../../services/api.config';
+import { AlphabetMenu } from '@src/layout/AlphabetMenu';
+import DefaultLayout, { ContentContainer, ContentHeader} from '@src/layout/DefaultLayout';
+import { PaginationMenu } from '@src/layout/PaginationMenu';
+import  { useAppContext } from '@src/store/AppContext';
+import api from '@src/services/api.config';
 import { useState, useEffect, FC } from 'react';
-import type { QueueItem } from '../../types/queueItem';
-import { FilesTable } from '../../components/FilesTable';
-import { cleanseSearchParams } from '../../common/cleanseSearchParams';
-import { ErrorPanel } from '../../components/ErrorPanel';
-import { tearDownContentArea } from '../../common/tearDownContentArea.ts'
+import type { QueueItem } from '@src/types/queueItem';
+import { FilesTable } from '@src/components/FilesTable';
+import { cleanseSearchParams } from '@src/common/cleanseSearchParams';
+import { ErrorPanel } from '@src/components/ErrorPanel';
+import { tearDownContentArea } from '@src/common/tearDownContentArea.ts'
 
 type FilesIndexProps = {
   valid_files: boolean;

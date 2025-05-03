@@ -1,16 +1,18 @@
 import './player.css';
 import { ReactElement, useEffect, useState, useRef } from 'react';
-import { useAppContext } from '../../store/AppContext';
-import { ACTIVE_DEBUGGING, INTRO_TRACK_MD5, TRACKING_DURATION } from '../../constants';
+import { useAppContext } from '@src/store/AppContext';
+import { ACTIVE_DEBUGGING, INTRO_TRACK_MD5, TRACKING_DURATION } from '@src/constants';
 import {
   MediaPlayer,
   MediaProvider,
   // Track,
   type MediaPlayerInstance,
+  type MediaCanPlayDetail,
+  type MediaCanPlayEvent,
 } from '@vidstack/react';
 
 import * as Buttons from './layouts/shared/buttons';
-import api from '../../services/api.config';
+import api from '@src/services/api.config';
 
 import {
   DefaultAudioLayout,
@@ -18,7 +20,12 @@ import {
 } from '@vidstack/react/player/layouts/default';
 
 // import { textTracks } from './tracks';
-import { type QueueItem } from '../../types/queueItem';
+import { type QueueItem } from '@src/types/queueItem';
+
+type PlayerSrc = {
+  src: string;
+  type: string;
+};
 
 export function Player():ReactElement {
   const [currentTrack, setCurrentTrack] = useState<QueueItem | undefined>(undefined);

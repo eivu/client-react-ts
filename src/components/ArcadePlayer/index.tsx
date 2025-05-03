@@ -1,12 +1,14 @@
+import React from 'react';
 import { NostalgistPlayer } from './NostalgistPlayer';
 import { useEffect, useState } from 'react';
-import { type ViewerProps } from '../ContentViewer';
-import api from '../../services/api.config';
-import { ACTIVE_DEBUGGING } from '../../constants';
+import { type ViewerProps } from '@src/components/ContentViewer';
+import api from '@src/services/api.config';
+import { EmulatorJsPlayer } from './EmulatorJsPlayer';
+import { ACTIVE_DEBUGGING } from '@src/constants';
 
 
 type RomFormat = {
-  core: string | null,
+  core: RomCore | null,
   emulator: "ejs" | "nostalgist" | null,
   platform: string
 }
@@ -15,21 +17,23 @@ type RomFormatArray = {
   [key: string]: RomFormat
 }
 
+export type RomCore = "stella2014" | "a5200" | "prosystem" | "gearcoleco" | "fceumm" | "genesis_plus_gx" | "picodrive" | "virtualjaguar" | "handy" | "mupen64plus_next" | "melonds" | "snes9x" | "mgba" | null;
+
 export const ROM_FORMATS:RomFormatArray = {
   "application/x-atari-2600-rom": {
     "core": "stella2014",
     "emulator": "ejs",
-    "platform": "Atari2600",
+    "platform": "Atari 2600",
   },
   "application/x-atari-5200-rom": {
     "core": "a5200",
     "emulator": "ejs",
-    "platform": "Atari5200"
+    "platform": "Atari 5200"
   },
   "application/x-atari-7800-rom": {
     "core": "prosystem",
     "emulator": "ejs",
-    "platform": "Atari7800"
+    "platform": "Atari 7800"
   },
   "application/x-colecovision-rom": {
     "core": "gearcoleco",
@@ -79,12 +83,12 @@ export const ROM_FORMATS:RomFormatArray = {
   "application/x-n64-rom": {
     "core": "mupen64plus_next",
     "emulator": "ejs",
-    "platform": "Nintendo64"
+    "platform": "Nintendo 64"
   },
   "application/x-nintendo-ds-rom": {
     "core": "melonds",
     "emulator": "ejs",
-    "platform": "Nintendo64"
+    "platform": "Nintendo DS"
   },
   "application/vnd.nintendo.snes.rom": {
     "core": "snes9x",
@@ -123,20 +127,28 @@ export const ROM_FORMATS:RomFormatArray = {
   }
 }
 
+export const updateStats = (file:ViewerProps):void => {
+  api.post(`/cloud_files/${file.md5}/update_stats`)
+    .then((response) => {
+      ACTIVE_DEBUGGING && console.log(`${file.name} stats updated`, response);
+    }).catch((error) => {
+      console.log(`error occured while trying to update ${file.name} stats`, error);
+    })
+}
+
 export const ArcadePlayer = ({file}:ViewerProps):JSX.Element => {
   const [readyToPlay, setReadyToPlay] = useState<boolean>(false);
   const handleKeyUp = (event: KeyboardEvent) => {
-    console.log(event.key)
     if (event.key === 'p' || event.key === 'P') {
       setReadyToPlay(true);
-      api.post(`/cloud_files/${file.md5}/update_stats`)
-        .then((response) => {
-          ACTIVE_DEBUGGING && console.log(`${file.name} stats updated`, response);
-        }).catch((error) => {
-          console.log(`error occured while trying to update ${file.name} stats`, error);
-        })
+      updateStats(file);
     }
   };
+  
+  const handleClick = ():void => {
+    setReadyToPlay(true);
+    updateStats(file);
+  }
 
   useEffect(() => {
     document.body.addEventListener('keyup', handleKeyUp);
@@ -151,9 +163,9 @@ export const ArcadePlayer = ({file}:ViewerProps):JSX.Element => {
           :
             ROM_FORMATS[file.contentType].emulator === "ejs"
               ?
-                <iframe src={`/emulatorjs.html?rom=${file.url}&core=${ROM_FORMATS[file.contentType].core}`} ></iframe>
+                <EmulatorJsPlayer file={file} />
               :
                 <div>Unknown engine</div>
-      : <div>Click P to Play</div>
+      : <div id="p-to-play" onClick={handleClick}>Press P to Play</div>
   )
 };

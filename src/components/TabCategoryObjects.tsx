@@ -1,9 +1,9 @@
-import {FC} from 'react';
-import { useAppContext } from '../store/AppContext';
+import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
-import { Category } from '../types/Category';
+import { useAppContext } from '@src/store/AppContext';
+import { Category } from '@src/types/Category';
 import { PiCaretDownBold as CaretDown } from "react-icons/pi";
-import { authStatus} from '../services/auth.service';
+import { authStatus } from '@src/services/auth.service';
 
 type TabCategoryLinkProps = {
   category: Category;

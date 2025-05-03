@@ -1,8 +1,8 @@
 import { FC } from 'react';
-import type { Release } from '../types/release';
-import { QueueItem } from "../types/queueItem";
-import { objectToQueueItem } from "../common/objectToQueueItem";
-import { useAppContext } from '../store/AppContext';
+import type { Release } from '@src/types/release';
+import { QueueItem } from "@src/types/queueItem";
+import { objectToQueueItem } from "@src/common/objectToQueueItem";
+import { useAppContext } from '@src/store/AppContext';
 
 
 

@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
-import DefaultLayout, { ContentHeader, ContentContainer } from '../../layout/DefaultLayout';
-import  { useAppContext } from '../../store/AppContext';
-import { useState, useEffect} from 'react';
-import type { Release } from '../../types/release';
-import { MiniLoader } from '../../components/Loader';
-import api from '../../services/api.config';
-import { ReleaseTable } from '../../components/ReleaseTable';
-import { ErrorPanel } from '../../components/ErrorPanel';
-import { ReleaseControls } from '../../components/ReleaseControls';
+import DefaultLayout, { ContentHeader, ContentContainer } from '@src/layout/DefaultLayout';
+import  { useAppContext } from '@src/store/AppContext';
+import { useState, useEffect, FC } from 'react';
+import type { Release } from '@src/types/release';
+import { MiniLoader } from '@src/components/Loader';
+import api from '@src/services/api.config';
+import { ReleaseTable } from '@src/components/ReleaseTable';
+import { ErrorPanel } from '@src/components/ErrorPanel';
+import { ReleaseControls } from '@src/components/ReleaseControls';
 
 
 const ReleasePage: React.FC = () => {

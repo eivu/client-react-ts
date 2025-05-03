@@ -1,6 +1,7 @@
+import React from 'react';
 import { JSX, useEffect, useState } from 'react';
-import { CloudFile } from '../types/cloudFile';
-import { objectToQueueItem } from '../common/objectToQueueItem';
+import { CloudFile } from '@src/types/cloudFile';
+import { objectToQueueItem } from '@src/common/objectToQueueItem';
 import AVButton from './AVButton';
 import AddToQueueButton from './AddToQueueButton';
 import axios from 'axios';
@@ -8,8 +9,8 @@ import { GoCloudOffline } from "react-icons/go";
 import { IoIosHourglass } from "react-icons/io";
 import { VideoPlayer } from './VideoPlayer';
 import { ArcadePlayer } from './ArcadePlayer';
-import { ACTIVE_DEBUGGING, TRACKING_DURATION } from '../constants';
-import api from '../services/api.config';
+import { ACTIVE_DEBUGGING, TRACKING_DURATION } from '@src/constants';
+import api from '@src/services/api.config';
 
 export type ViewerProps = {
   file: CloudFile;
@@ -21,7 +22,13 @@ export const ContentViewer: React.FC<ViewerProps> = ({file}) =>  {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    file &&
+    if (!file) {
+      setLoading(false);
+      setOnline(false);
+    } else if (file.url.startsWith('blob:')) {
+       setOnline(true);
+       setLoading(false);
+    } else {
       axios.head(`${file.url}?rando=${Math.random()}`)
            .then((response) => {
              if (response.status === 200) {
@@ -34,7 +41,7 @@ export const ContentViewer: React.FC<ViewerProps> = ({file}) =>  {
            }).catch(() => {
              setOnline(false);
              setLoading(false);
-           });
+           });}
   }, [file]);
 
   useEffect(() => {

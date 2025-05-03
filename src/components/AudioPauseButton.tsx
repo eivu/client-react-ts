@@ -1,6 +1,7 @@
+import { FC } from 'react';
 import { useState } from 'react';
 import { RiPauseCircleLine, RiPauseCircleFill } from "react-icons/ri";
-import { useAppContext } from '../store/AppContext';
+import { useAppContext } from '@src/store/AppContext';
 
 export type AudioPauseButtonProps = {
   size?: number;

@@ -1,6 +1,6 @@
-import { CloudFile } from '../types/cloudFile';
-import { QueueItem } from '../types/queueItem';
-import { Track } from '../types/track';
+import { CloudFile } from '@src/types/cloudFile';
+import { QueueItem } from '@src/types/queueItem';
+import { Track } from '@src/types/track';
 
 export function objectToQueueItem(obj: CloudFile | Track): QueueItem {
   return {

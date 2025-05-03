@@ -1,7 +1,7 @@
 import api from './api.config';
 import { jwtDecode } from "jwt-decode";
-import { User } from '../types/user';
-import { ACTIVE_DEBUGGING } from '../constants';
+import { User } from '@src/types/user';
+import { ACTIVE_DEBUGGING } from '@src/constants';
 
 
 export type AuthStatusType = 'logged-in' | 'logged-out';

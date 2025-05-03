@@ -1,10 +1,10 @@
 import { FC, useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AlertError } from '../components/AlertError';
-import { ACTIVE_DEBUGGING } from '../constants';
-import { submit2Fa, getSecureAccessExpiresAt } from '../services/auth.service';
-import { useAppContext } from '../store/AppContext';
-import DefaultLayout, { ContentHeader, ContentContainer } from '../layout/DefaultLayout';
+import { AlertError } from '@src/components/AlertError';
+import { ACTIVE_DEBUGGING } from '@src/constants';
+import { submit2Fa, getSecureAccessExpiresAt } from '@src/services/auth.service';
+import { useAppContext } from '@src/store/AppContext';
+import DefaultLayout, { ContentHeader, ContentContainer } from '@src/layout/DefaultLayout';
 
 
 export const AuthPage: FC = () => {

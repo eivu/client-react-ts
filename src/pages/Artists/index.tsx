@@ -1,14 +1,14 @@
 import React from 'react';
-import DefaultLayout from '../../layout/DefaultLayout';
-import { ContentContainer, ContentHeader } from '../../layout/DefaultLayout';
-import { AlphabetMenu } from '../../layout/AlphabetMenu';
-import { MiniLoader } from '../../components/Loader';
-import { PaginationMenu } from '../../layout/PaginationMenu';
+import DefaultLayout from '@src/layout/DefaultLayout';
+import { ContentContainer, ContentHeader } from '@src/layout/DefaultLayout';
+import { AlphabetMenu } from '@src/layout/AlphabetMenu';
+import { MiniLoader } from '@src/components/Loader';
+import { PaginationMenu } from '@src/layout/PaginationMenu';
 import { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { ErrorPanel } from '../../components/ErrorPanel';
-import  { useAppContext } from '../../store/AppContext';
-import api from '../../services/api.config';
+import { ErrorPanel } from '@src/components/ErrorPanel';
+import  { useAppContext } from '@src/store/AppContext';
+import api from '@src/services/api.config';
 
 
 

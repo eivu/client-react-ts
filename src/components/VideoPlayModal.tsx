@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { PiPlayCircleLight, PiPlayCircleFill } from "react-icons/pi";
-import { useAppContext } from "../store/AppContext";
-import { VideoPlayer } from './VideoPlayer';
 import { TfiClose } from "react-icons/tfi";
-
-
+import { useAppContext } from '@src/store/AppContext';
+import { QueueItem } from '@src/types/queueItem';
+import { VideoPlayer } from './VideoPlayer';
 
 const VideoPlayModal: React.FC = ({item}) => {
   const { player:audioPlayer } = useAppContext();
