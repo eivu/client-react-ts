@@ -8,7 +8,7 @@ import { MiniLoader } from '@src/components/Loader';
 import api from '@src/services/api.config';
 import { PlaylistTable } from '@src/components/PlaylistTable';
 import { ErrorPanel } from '@src/components/ErrorPanel';
-// import { PlaylistControls } from '@src/components/PlaylistControls';
+import { CollectionControls } from '@src/components/CollectionControls';
 
 
 const PlaylistPage: React.FC = () => {
@@ -51,7 +51,7 @@ const PlaylistPage: React.FC = () => {
             <span><Link to="/playlists" className="breadcrumb">Playlist</Link>::{
               responseError ? 'Err0r' : playlist?.name
             }</span>
-            {/* {playlist && <PlaylistControls playlist={playlist} />} */}
+            {playlist && <CollectionControls collection={playlist} />}
           </ContentHeader>
         )
       }
