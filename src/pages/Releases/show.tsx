@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 import DefaultLayout, { ContentHeader, ContentContainer } from '@src/layout/DefaultLayout';
-import  { useAppContext } from '@src/store/AppContext';
+import { useAppContext } from '@src/store/AppContext';
 import { useState, useEffect, FC } from 'react';
 import type { Release } from '@src/types/release';
 import { MiniLoader } from '@src/components/Loader';
 import api from '@src/services/api.config';
 import { ReleaseTable } from '@src/components/ReleaseTable';
 import { ErrorPanel } from '@src/components/ErrorPanel';
-import { ReleaseControls } from '@src/components/ReleaseControls';
+import { CollectionControls } from '@src/components/CollectionControls';
 
 
 const ReleasePage: React.FC = () => {
@@ -22,15 +22,16 @@ const ReleasePage: React.FC = () => {
 
   useEffect(() => {
     setTitle(responseError ? 'Err0r' :
-              release?.secured ?
-                `Release ${release?.id}` : release?.name);
-    document.title = titlePrefix + title ;
+      release?.secured ?
+        `Release ${release?.id}` : release?.name);
+    document.title = titlePrefix + title;
   }, [release])
 
   useEffect(() => {
     setLoading(true);
     api.get(`/releases/${releaseId}`, {
-      params: { category: activeCategory, delicate: false }}
+      params: { category: activeCategory, delicate: false }
+    }
     ).then((response) => {
       console.log(response.data)
       setRelease(response.data.release);
@@ -40,7 +41,7 @@ const ReleasePage: React.FC = () => {
       setResponseError(error.message);
       console.log(responseError)
     })
-  },[activeCategory])
+  }, [activeCategory])
 
   return (
     <DefaultLayout>
@@ -55,27 +56,28 @@ const ReleasePage: React.FC = () => {
         !loading && (
           <ContentHeader>::
             <span><Link to="/releases" className="breadcrumb">Release</Link>::{
-              responseError ? 'Err0r': release?.name
+              responseError ? 'Err0r' : release?.name
             }</span>
             {
               release?.artists?.length > 0 &&
-                <div>
-                  {/* BY */}
-                  { release.artists.map((artist) => {
-                    return (
-                      <Link to={`/artists/${artist.id}`} className="pr-2" key={`artist-link-${artist.id}`}>{artist.name}</Link>
-                    )})
-                   }
-                </div>
+              <div>
+                {/* BY */}
+                {release.artists.map((artist) => {
+                  return (
+                    <Link to={`/artists/${artist.id}`} className="pr-2" key={`artist-link-${artist.id}`}>{artist.name}</Link>
+                  )
+                })
+                }
+              </div>
             }
-            { release && <ReleaseControls release={release} /> }
+            {release && <CollectionControls release={release} />}
           </ContentHeader>
         )
       }
       <ContentContainer>
-        { 
+        {
           loading ? <MiniLoader /> :
-            responseError ? <ErrorPanel errorMessage={responseError} /> : <ReleaseTable release={release} /> 
+            responseError ? <ErrorPanel errorMessage={responseError} /> : <ReleaseTable release={release} />
         }
       </ContentContainer>
     </DefaultLayout>

@@ -6,7 +6,7 @@ import { useAppContext } from '@src/store/AppContext';
 
 
 
-export const ReleaseControls: JSX.Element = ({release}:{release: Release}) => {
+export const CollectionControls: FC<{release: Release}> = ({release}) => {
   const tracks:QueueItem[] = release.tracks.map((track) => { return objectToQueueItem(track)})
   const { dispatch, player } = useAppContext();
 
