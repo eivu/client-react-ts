@@ -10,6 +10,7 @@ import ReleasePage from './pages/Releases/show';
 import ArtistPage from './pages/Artists/show';
 import ReleasesIndex from './pages/Releases';
 import PlaylistsIndex from './pages/Playlists';
+import PlaylistPage from './pages/Playlists/show';
 import FoldersIndex from './pages/Folders';
 import MetadataIndex from './pages/Metadata';
 import MetadatumPage from './pages/Metadata/show';
@@ -133,17 +134,17 @@ export const AppRoutes: React.FC = () => {
             </>,
           path: "/playlists"
         },
-        // {
-        //   element:
-        //     <>
-        //       <PageTitle title="EIVU::Playlists" />
-        //       <PlaylistPage />
-        //     </>,
-        //   path: "/playlists/:playlistId",
-        //   loader: ({ params }) => {
-        //     return params.playlistId;
-        //   },
-        // },
+        {
+          element:
+            <>
+              <PageTitle title="EIVU::Playlists" />
+              <PlaylistPage />
+            </>,
+          path: "/playlists/:playlistId",
+          loader: ({ params }) => {
+            return params.playlistId;
+          },
+        },
         {
           element:
             <>
