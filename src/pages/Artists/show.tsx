@@ -92,7 +92,7 @@ const ArtistPage: FC = () => {
                             {release.name}
                             {release.year && (` (${release.year})`)}
                           </Link>
-                          {release && <CollectionControls release={release} />}
+                          {release && <CollectionControls collection={release} />}
                         </div>
                         <div className="clear-both"></div>
                         <ReleaseTable release={release} />

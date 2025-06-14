@@ -70,7 +70,7 @@ const ReleasePage: React.FC = () => {
                 }
               </div>
             }
-            {release && <CollectionControls release={release} />}
+            {release && <CollectionControls collection={release} />}
           </ContentHeader>
         )
       }
