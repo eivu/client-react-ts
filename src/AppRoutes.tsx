@@ -9,6 +9,8 @@ import PageTitle from './components/PageTitle';
 import ReleasePage from './pages/Releases/show';
 import ArtistPage from './pages/Artists/show';
 import ReleasesIndex from './pages/Releases';
+import PlaylistsIndex from './pages/Playlists';
+import PlaylistPage from './pages/Playlists/show';
 import FoldersIndex from './pages/Folders';
 import MetadataIndex from './pages/Metadata';
 import MetadatumPage from './pages/Metadata/show';
@@ -24,7 +26,7 @@ import { RevokePage } from './pages/RevokePage';
 import { OfflinePlayer } from './pages/OfflinePlayer';
 
 
-export const AppRoutes:React.FC = () => {
+export const AppRoutes: React.FC = () => {
 
   const ProtectedRoutes = () => {
     if (!isLoggedIn) return <Navigate to="/login" />;
@@ -33,15 +35,15 @@ export const AppRoutes:React.FC = () => {
 
   const router = createBrowserRouter([
     {
-      element: 
+      element:
         <>
           <PageTitle title="EIVU" />
-          { isLoggedIn() ? <Navigate to="/files" /> : <Home /> }
+          {isLoggedIn() ? <Navigate to="/files" /> : <Home />}
         </>,
       path: "/",
     },
     {
-      element: 
+      element:
         <>
           <PageTitle title="EIVU::Home" />
           <Home />
@@ -49,7 +51,7 @@ export const AppRoutes:React.FC = () => {
       path: "/home",
     },
     {
-      element: 
+      element:
         <>
           <PageTitle title="EIVU::About" />
           <About />
@@ -57,7 +59,7 @@ export const AppRoutes:React.FC = () => {
       path: "/about",
     },
     {
-      element: 
+      element:
         <>
           <PageTitle title="EIVU::Login" />
           <Login />
@@ -68,10 +70,10 @@ export const AppRoutes:React.FC = () => {
       element: <ProtectedRoutes />,
       children: [
         {
-          element: 
+          element:
             <>
               <PageTitle title="EIVU::Files" />
-              <FilesIndex valid_files={true}/>
+              <FilesIndex valid_files={true} />
             </>,
           path: "/files"
         },
@@ -83,7 +85,7 @@ export const AppRoutes:React.FC = () => {
           },
         },
         {
-          element: 
+          element:
             <>
               <PageTitle title="EIVU::Queue" />
               <Queue />
@@ -91,7 +93,7 @@ export const AppRoutes:React.FC = () => {
           path: "/queue"
         },
         {
-          element: 
+          element:
             <>
               <PageTitle title="EIVU::Artists" />
               <ArtistsIndex />
@@ -106,7 +108,7 @@ export const AppRoutes:React.FC = () => {
           },
         },
         {
-          element: 
+          element:
             <>
               <PageTitle title="EIVU::Releases" />
               <ReleasesIndex />
@@ -114,7 +116,7 @@ export const AppRoutes:React.FC = () => {
           path: "/releases"
         },
         {
-          element: 
+          element:
             <>
               <PageTitle title="EIVU::Releases" />
               <ReleasePage />
@@ -125,7 +127,26 @@ export const AppRoutes:React.FC = () => {
           },
         },
         {
-          element: 
+          element:
+            <>
+              <PageTitle title="EIVU::Playlists" />
+              <PlaylistsIndex />
+            </>,
+          path: "/playlists"
+        },
+        {
+          element:
+            <>
+              <PageTitle title="EIVU::Playlists" />
+              <PlaylistPage />
+            </>,
+          path: "/playlists/:playlistId",
+          loader: ({ params }) => {
+            return params.playlistId;
+          },
+        },
+        {
+          element:
             <>
               <PageTitle title="EIVU::Folders" />
               <FoldersIndex />
@@ -133,7 +154,7 @@ export const AppRoutes:React.FC = () => {
           path: "/folders"
         },
         {
-          element: 
+          element:
             <>
               <PageTitle title="EIVU::Metadata" />
               <MetadataIndex />
@@ -141,7 +162,7 @@ export const AppRoutes:React.FC = () => {
           path: "/metadata"
         },
         {
-          element: 
+          element:
             <>
               <PageTitle title="EIVU::Metadatum" />
               <MetadatumPage />
@@ -152,7 +173,7 @@ export const AppRoutes:React.FC = () => {
           },
         },
         {
-          element: 
+          element:
             <>
               <PageTitle title="EIVU::Trash" />
               <FilesIndex valid_files={false} />
@@ -160,7 +181,7 @@ export const AppRoutes:React.FC = () => {
           path: "/trash"
         },
         {
-          element: 
+          element:
             <>
               <PageTitle title="EIVU::Auth" />
               <AuthPage />
@@ -168,7 +189,7 @@ export const AppRoutes:React.FC = () => {
           path: "/auth"
         },
         {
-          element: 
+          element:
             <>
               <PageTitle title="EIVU::History" />
               <History />
@@ -176,7 +197,7 @@ export const AppRoutes:React.FC = () => {
           path: "/history"
         },
         {
-          element: 
+          element:
             <>
               <PageTitle title="EIVU::Settings" />
               <Settings />
@@ -184,7 +205,7 @@ export const AppRoutes:React.FC = () => {
           path: "/settings"
         },
         {
-          element: 
+          element:
             <>
               <PageTitle title="EIVU::Profile" />
               <Profile />
@@ -192,7 +213,7 @@ export const AppRoutes:React.FC = () => {
           path: "/profile"
         },
         {
-          element: 
+          element:
             <>
               <PageTitle title="EIVU::Offline Player" />
               <OfflinePlayer />
@@ -200,7 +221,7 @@ export const AppRoutes:React.FC = () => {
           path: "/offline"
         },
         {
-          element: 
+          element:
             <>
               <PageTitle title="EIVU::Logging out..." />
               <LogoutPage />
@@ -208,7 +229,7 @@ export const AppRoutes:React.FC = () => {
           path: "/logout"
         },
         {
-          element: 
+          element:
             <>
               <PageTitle title="EIVU::Losing Access..." />
               <RevokePage />

@@ -1,8 +1,11 @@
 import { CloudFile } from '@src/types/cloudFile';
 import { QueueItem } from '@src/types/queueItem';
+import { PlaylistItem } from '@src/types/playlistItem';
 import { Track } from '@src/types/track';
 
-export function objectToQueueItem(obj: CloudFile | Track): QueueItem {
+export function objectToQueueItem(
+  obj: CloudFile | Track | PlaylistItem
+): QueueItem {
   return {
     filesize: obj.filesize,
     rating: obj.rating,
@@ -15,6 +18,6 @@ export function objectToQueueItem(obj: CloudFile | Track): QueueItem {
     md5: obj.md5,
     contentType: obj.contentType,
     secured: obj.secured,
-    nsfw: obj.nsfw
+    nsfw: obj.nsfw,
   };
 }
