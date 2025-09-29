@@ -100,7 +100,12 @@ export function Player(): ReactElement {
 
   function onVolumeChange(detail: { volume: number }, _nativeEvent: MediaVolumeChangeEvent): void {
     setVolumeLevel(detail.volume);
-    localStorage.setItem('volumeLevel', detail.volume.toString());
+    try {
+      localStorage.setItem('volumeLevel', detail.volume.toString());
+    } catch (e) {
+      // Optionally log the error for debugging
+      ACTIVE_DEBUGGING && console.warn('Failed to save volume level to localStorage:', e);
+    }
   }
 
   function resetTimer(): boolean {
