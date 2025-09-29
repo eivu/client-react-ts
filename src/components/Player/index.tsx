@@ -30,7 +30,13 @@ type PlayerSrc = {
 export function Player(): ReactElement {
   const [currentTrack, setCurrentTrack] = useState<QueueItem | undefined>(undefined);
   const [unmarkedTrack, setUnmarkedTrack] = useState<boolean>(true);
-  const [volumeLevel, setVolumeLevel] = useState<number>(Number(localStorage.getItem('volumeLevel')) || 0.75);
+  const [volumeLevel, setVolumeLevel] = useState<number>(() => {
+    try {
+      return Number(localStorage.getItem('volumeLevel')) || 0.75
+    } catch (e) {
+      return 0.75;
+    }
+  });
   const [trackTimer, setTrackTimer] = useState<number>(0);
   const { dispatch, queueIndex, queue } = useAppContext();
   let player = useRef<MediaPlayerInstance>(null);
