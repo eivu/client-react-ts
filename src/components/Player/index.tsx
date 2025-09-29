@@ -27,9 +27,16 @@ type PlayerSrc = {
   type: string;
 };
 
-export function Player():ReactElement {
+export function Player(): ReactElement {
   const [currentTrack, setCurrentTrack] = useState<QueueItem | undefined>(undefined);
   const [unmarkedTrack, setUnmarkedTrack] = useState<boolean>(true);
+  const [volumeLevel, setVolumeLevel] = useState<number>(() => {
+    try {
+      return Number(localStorage.getItem('volumeLevel')) || 0.75
+    } catch (e) {
+      return 0.75;
+    }
+  });
   const [trackTimer, setTrackTimer] = useState<number>(0);
   const { dispatch, queueIndex, queue } = useAppContext();
   let player = useRef<MediaPlayerInstance>(null);
@@ -38,7 +45,7 @@ export function Player():ReactElement {
   // initialize player
   useEffect(() => {
     // assign ref to player context.
-    dispatch({type: 'setPlayer', player: player});
+    dispatch({ type: 'setPlayer', player: player });
   }, []);
 
   useEffect(() => {
@@ -47,30 +54,30 @@ export function Player():ReactElement {
   }, [queueIndex]);
 
 
-  function nextQueueItem():QueueItem | undefined {
+  function nextQueueItem(): QueueItem | undefined {
     return queue[queueIndex + 1];
   }
 
-  function currentQueueItem():QueueItem {
+  function currentQueueItem(): QueueItem {
     return queue[queueIndex];
   }
 
-  function currentPlayerSrc():PlayerSrc {
-    return {src: currentQueueItem().url, type: currentQueueItem().contentType }; 
+  function currentPlayerSrc(): PlayerSrc {
+    return { src: currentQueueItem().url, type: currentQueueItem().contentType };
   }
 
-  function setTimer():void {
-    ACTIVE_DEBUGGING && currentTrack?.md5!= INTRO_TRACK_MD5 && console.log('audio player tracking', currentTrack?.name);
+  function setTimer(): void {
+    ACTIVE_DEBUGGING && currentTrack?.md5 != INTRO_TRACK_MD5 && console.log('audio player tracking', currentTrack?.name);
     // only set timer if track is not marked as played.
-    unmarkedTrack && currentTrack?.md5!= INTRO_TRACK_MD5 && setTrackTimer(setTimeout(updateServerStats, TRACKING_DURATION));
+    unmarkedTrack && currentTrack?.md5 != INTRO_TRACK_MD5 && setTrackTimer(setTimeout(updateServerStats, TRACKING_DURATION));
   }
 
-  function onSeeked():void {
+  function onSeeked(): void {
     clearTimeout(trackTimer);
     setTimer();
   }
 
-  function updateServerStats():void {
+  function updateServerStats(): void {
     if (unmarkedTrack) {
       ACTIVE_DEBUGGING && console.log('audio player updateServerStats: currentQueueItem', currentQueueItem().name);
 
@@ -89,15 +96,25 @@ export function Player():ReactElement {
   }
 
   // We can listen for the `can-play` event to be notified when the player is ready.
-  function onCanPlay(detail: MediaCanPlayDetail, nativeEvent: MediaCanPlayEvent):void {
+  function onCanPlay(detail: MediaCanPlayDetail, nativeEvent: MediaCanPlayEvent): void {
     player && player!.current.play();
   }
 
-  function onEnded():void {
-    resetTimer() && nextQueueItem() && dispatch({type: 'incrementQueueIndex'});
+  function onEnded(): void {
+    resetTimer() && nextQueueItem() && dispatch({ type: 'incrementQueueIndex' });
   }
 
-  function resetTimer():boolean {
+  function onVolumeChange(detail: { volume: number }, _nativeEvent: MediaVolumeChangeEvent): void {
+    setVolumeLevel(detail.volume);
+    try {
+      localStorage.setItem('volumeLevel', detail.volume.toString());
+    } catch (e) {
+      // Optionally log the error for debugging
+      ACTIVE_DEBUGGING && console.warn('Failed to save volume level to localStorage:', e);
+    }
+  }
+
+  function resetTimer(): boolean {
     clearTimeout(trackTimer)
     setUnmarkedTrack(true);
     return true;
@@ -107,12 +124,13 @@ export function Player():ReactElement {
     <MediaPlayer
       className="player"
       title={currentQueueItem().name}
+      volume={volumeLevel}
       src={currentPlayerSrc}
       onCanPlay={onCanPlay}
       onPlay={setTimer}
       onSeeked={onSeeked}
       onEnded={onEnded}
-      crossOrigin
+      onVolumeChange={onVolumeChange}
       playsInline
       ref={player}
     >
@@ -123,13 +141,13 @@ export function Player():ReactElement {
       </MediaProvider>
 
       {/* Layouts */}
-      <DefaultAudioLayout icons={defaultLayoutIcons} 
-        slots={{ 
+      <DefaultAudioLayout icons={defaultLayoutIcons}
+        slots={{
           beforeSeekBackwardButton: <Buttons.Prev tooltipPlacement="top" />,
           afterSeekForwardButton: <Buttons.Next tooltipPlacement="top" />
         }}
       />
-    
+
     </MediaPlayer>
   );
 }
